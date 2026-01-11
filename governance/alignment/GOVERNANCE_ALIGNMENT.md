@@ -45,6 +45,11 @@
 - governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md (layered down 2026-01-11)
 - governance/alignment/PR_GATE_REQUIREMENTS_CANON.md (via canonical governance)
 - governance/templates/PREHANDOVER_PROOF_TEMPLATE.md (EXECUTION_BOOTSTRAP_PROTOCOL, layered down 2026-01-11)
+- governance/onboarding/EXECUTION_BOOTSTRAP_PROTOCOL_ONBOARDING.md (protocol training, 2026-01-11)
+- governance/templates/pr-checklists/BUILDER_PR_CHECKLIST.md (v2.0.0, Category 0+8)
+- governance/templates/pr-checklists/FM_ORCHESTRATION_PR_CHECKLIST.md (v2.0.0, Category 0+4)
+- governance/templates/EXECUTION_BOOTSTRAP_PROTOCOL_QUARTERLY_MONITORING_REPORT.template.md
+- governance/incidents/protocol-violations/README.md (incident tracking)
 
 **Agent Contracts**:
 - .github/agents/governance-liaison.md (primary enforcement authority)
@@ -59,13 +64,25 @@
 
 ## Realignment History
 
-### 2026-01-11: Execution Bootstrap Protocol Layer-Down
+### 2026-01-11: Execution Bootstrap Protocol Full Rollout (2026 Compliance)
 - EXECUTION_BOOTSTRAP_PROTOCOL implemented (maturion-foreman-governance PR #924)
-- Template created: governance/templates/PREHANDOVER_PROOF_TEMPLATE.md
-- All agent contracts updated to mandate PREHANDOVER_PROOF
-- Prevents "claimed complete without verification" pattern (BL-026 follow-up)
-- Enforcement: MANDATORY for governance PRs, REQUIRED for all agent handovers
-- Template provides standardized validation evidence format
+- **Phase 1: Initial Layer-Down (Complete)**
+  - Template created: governance/templates/PREHANDOVER_PROOF_TEMPLATE.md
+  - All agent contracts updated to mandate PREHANDOVER_PROOF
+  - Visibility event: governance/events/2026-01-11_EXECUTION_BOOTSTRAP_PROTOCOL_LAYER_DOWN_VISIBILITY.md
+- **Phase 2: Full Governance Rollout (2026-01-11)**
+  - Onboarding: governance/onboarding/EXECUTION_BOOTSTRAP_PROTOCOL_ONBOARDING.md
+  - Incident tracking: governance/incidents/protocol-violations/ (with README and template)
+  - PR checklists: governance/templates/pr-checklists/BUILDER_PR_CHECKLIST.md (v2.0.0)
+  - PR checklists: governance/templates/pr-checklists/FM_ORCHESTRATION_PR_CHECKLIST.md (v2.0.0)
+  - Monitoring: governance/templates/EXECUTION_BOOTSTRAP_PROTOCOL_QUARTERLY_MONITORING_REPORT.template.md
+  - Category 0 (MANDATORY): 7-step verification protocol in all checklists
+  - Category 4 (FM): FM-specific orchestration requirements
+  - Category 8 (Builders): Builder-specific validation requirements
+- **Purpose**: Prevent "claimed complete without verification" pattern (BL-026 follow-up)
+- **Enforcement**: MANDATORY for governance PRs, REQUIRED for all agent handovers
+- **Compliance Deadline**: 2026-02-11 (full organizational compliance)
+- **First Monitoring Report Due**: 2026-04-14 (Q1 2026)
 
 ### 2026-01-11: Deprecation Detection Gate Layer-Down
 - BL-024 and BL-026 implemented (Constitutional Sandbox, Deprecation Detection)
