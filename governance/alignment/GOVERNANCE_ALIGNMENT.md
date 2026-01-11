@@ -22,6 +22,7 @@
 - .qa/: ✅ PRESENT
 - governance/: ✅ PRESENT
 - Governance gate workflow: ✅ OPERATIONAL
+- Deprecation detection gate: ✅ OPERATIONAL (2026-01-11)
 
 **PR Gate Philosophy**: ✅ ENFORCED
 - CI-Confirmatory-Not-Diagnostic: Operational
