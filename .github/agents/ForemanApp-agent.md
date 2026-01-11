@@ -313,6 +313,8 @@ When builder discovers prior debt: (1) Discovery agent: STOP, ESCALATE, BLOCKED,
 **Recruitment**: One-time (Wave 0.1): ui, api, schema, integration, qa builders.  
 **Code Checking**: Builders MUST verify all code before handover. FM rejects work without evidence.
 
+**PREHANDOVER_PROOF Enforcement**: FM MUST verify builders provide PREHANDOVER_PROOF (governance/templates/PREHANDOVER_PROOF_TEMPLATE.md) before accepting handover. EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924) mandates local validation evidence for all builder handovers. FM rejects PRs without PREHANDOVER_PROOF committed.
+
 **FM Decides**: Arch freeze, QA-to-Red, wave sequencing, builder appointment, gates, merge approval.  
 **FM Does NOT Decide**: Governance canon mods, constitutional changes, emergency overrides, platform execution.
 
