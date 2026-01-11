@@ -14,19 +14,21 @@
 
 ## 1. Purpose & Scope
 
-This gap analysis was conducted in response to Issue #1: "Governance Alignment & Gap Analysis: Establish Maturion Governance Layer for R_Roster". The analysis surveys R_Roster against canonical governance requirements defined in `APGI-cmy/maturion-foreman-governance` and identifies all gaps, missing artifacts, and required remediation.
+This gap analysis was conducted in response to Issue #1: "Governance Alignment & Gap Analysis: Establish Maturion Governance Layer for R_Roster". The analysis surveys R_Roster against canonical governance requirements defined in `APGI-cmy/maturion-foreman-governance` (now restructured with generic canon in `governance/canon/**` and repo-specific mappings in `apps/R_Roster/mappings/**`) and identifies all gaps, missing artifacts, and required remediation.
 
 ### 1.1 Canonical Governance Sources
 
-This analysis references the following canonical governance documents:
+This analysis references the following canonical governance documents (located in `governance/canon/**` in the maturion-foreman-governance repository):
 
 - **BUILD_PHILOSOPHY.md** (supreme authority)
-- **GOVERNANCE_LAYERDOWN_CONTRACT.md** (authoritative layerdown specification)
+- **GOVERNANCE_LAYERDOWN_CONTRACT.md** (authoritative layerdown specification) - See `governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md` for current guidance
 - **REPOSITORY_INITIALIZATION_AND_GOVERNANCE_SEEDING_PROTOCOL.md** (initialization requirements)
 - **INITIALIZATION_COMPLETENESS_GATE.md** (validation gate)
 - **GOVERNANCE_ARTIFACT_INVENTORY.md** (artifact catalog)
 - **AGENT_ROLE_GATE_APPLICABILITY.md** (gate requirements)
 - **SYSTEM_COMMISSIONING_AND_PROGRESSIVE_ACTIVATION_PROTOCOL.md** (commissioning protocol)
+
+**Note**: R_Roster-specific implementation mappings are maintained in `apps/R_Roster/mappings/**` in the governance repository.
 
 ### 1.2 Analysis Methodology
 
@@ -121,13 +123,13 @@ R_Roster/
 
 **Gap**: governance/ directory and all subdirectories MISSING
 
-**Canonical Requirement** (GOVERNANCE_LAYERDOWN_CONTRACT Section 4.1):
+**Canonical Requirement** (See `governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md` and historical GOVERNANCE_LAYERDOWN_CONTRACT Section 4.1):
 
 ```
 governance/
 ├── schemas/              # ❌ MISSING
 ├── policies/             # ❌ MISSING
-└── GOVERNANCE_VERSION.md # ❌ MISSING
+└── GOVERNANCE_VERSION.md # ✅ CREATED (2026-01-11 FPC realignment)
 ```
 
 **Impact**:
@@ -156,7 +158,7 @@ governance/
 
 **Gap**: .architecture/ directory MISSING
 
-**Canonical Requirement** (GOVERNANCE_LAYERDOWN_CONTRACT Section 4.1):
+**Canonical Requirement** (See `governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md` and historical GOVERNANCE_LAYERDOWN_CONTRACT Section 4.1):
 
 ```
 .architecture/
@@ -190,7 +192,7 @@ governance/
 
 **Gap**: .qa/ directory MISSING
 
-**Canonical Requirement** (GOVERNANCE_LAYERDOWN_CONTRACT Section 4.1):
+**Canonical Requirement** (See `governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md` and historical GOVERNANCE_LAYERDOWN_CONTRACT Section 4.1):
 
 ```
 .qa/
@@ -224,7 +226,7 @@ governance/
 
 **Gap**: .github/workflows/ directory MISSING
 
-**Canonical Requirement** (GOVERNANCE_LAYERDOWN_CONTRACT Section 5.2):
+**Canonical Requirement** (See `governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md` and `apps/R_Roster/mappings/GOVERNANCE_GATE_MAPPING.md` for repo-specific gate definitions, and historical GOVERNANCE_LAYERDOWN_CONTRACT Section 5.2):
 
 ```
 .github/workflows/
@@ -262,11 +264,12 @@ governance/
 
 **Gap**: Critical root files MISSING
 
-**Canonical Requirement** (GOVERNANCE_LAYERDOWN_CONTRACT Section 4.2):
+**Canonical Requirement** (See `governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md` and historical GOVERNANCE_LAYERDOWN_CONTRACT Section 4.2):
 
 - ❌ `.gitignore` - MISSING (prevent committing secrets, artifacts)
 - ❌ `.env.example` - MISSING (environment variable template)
 - ⚠️  `README.md` - EXISTS but INCOMPLETE (missing governance references)
+- ✅ `governance/GOVERNANCE_VERSION.md` - CREATED (2026-01-11 FPC realignment)
 
 **Impact**:
 - Risk of committing secrets (.env files)
@@ -542,7 +545,7 @@ To assess layering parity, R_Roster was compared against:
 
 **Gap**: Zero PR gate enforcement
 
-**Canonical Requirement** (GOVERNANCE_GATE_CANON):
+**Canonical Requirement** (See `governance/canon/` for gate definitions and `apps/R_Roster/mappings/GOVERNANCE_GATE_MAPPING.md` for this repo's implementation):
 All application repositories MUST have:
 - Governance Compliance Gate
 - Initialization Completeness Gate

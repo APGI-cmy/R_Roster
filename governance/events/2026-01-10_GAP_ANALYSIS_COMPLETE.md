@@ -102,11 +102,14 @@ This visibility event notifies stakeholders of critical governance gaps discover
 3. **governance/events/2026-01-10_GAP_ANALYSIS_COMPLETE.md** - This visibility event
 
 ### Canonical References
-- **GOVERNANCE_LAYERDOWN_CONTRACT.md** - Authoritative layerdown specification
+- **FPC_REPOSITORY_LAYERDOWN_GUIDE.md** - Current FPC guidance (`governance/canon/`)
+- **GOVERNANCE_LAYERDOWN_CONTRACT.md** - Historical layerdown specification (`governance/canon/`)
 - **REPOSITORY_INITIALIZATION_AND_GOVERNANCE_SEEDING_PROTOCOL.md** - Initialization requirements
 - **INITIALIZATION_COMPLETENESS_GATE.md** - Validation gate
 - **BUILD_PHILOSOPHY.md** - Supreme authority document
 - **GOVERNANCE_ARTIFACT_INVENTORY.md** - Artifact catalog
+
+**Note**: Repo-specific mappings for R_Roster maintained in `apps/R_Roster/mappings/**`
 
 ---
 
@@ -195,4 +198,5 @@ A: ❌ NO - Initialization requires human authorization per REPOSITORY_INITIALIZ
 
 **Contact**: Governance Liaison Agent  
 **Reference**: Issue #1 - Governance Alignment & Gap Analysis  
-**Authority**: GOVERNANCE_LAYERDOWN_CONTRACT.md, REPOSITORY_INITIALIZATION_AND_GOVERNANCE_SEEDING_PROTOCOL.md
+**Authority**: `governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md`, GOVERNANCE_LAYERDOWN_CONTRACT.md, REPOSITORY_INITIALIZATION_AND_GOVERNANCE_SEEDING_PROTOCOL.md  
+**Governance Repo**: https://github.com/APGI-cmy/maturion-foreman-governance
