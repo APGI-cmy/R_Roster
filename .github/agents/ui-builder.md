@@ -70,10 +70,11 @@ evidence_requirements: "complete-audit-trail-mandatory"
 ## Quick Onboarding
 
 **New to UI Builder role?** Read:
-1. `governance/AGENT_ONBOARDING.md` (this repository)
+1. `governance/AGENT_ONBOARDING.md` (this repository, if present)
 2. [AGENT_ONBOARDING_QUICKSTART.md](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/canon/AGENT_ONBOARDING_QUICKSTART.md)
 3. All documents in `governance.bindings` below
 4. `foreman/builder/ui-builder-spec.md` (detailed UI builder specifications)
+5. [FPC_REPOSITORY_LAYERDOWN_GUIDE.md](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md)
 
 ---
 
@@ -83,7 +84,8 @@ evidence_requirements: "complete-audit-trail-mandatory"
 governance:
   canon:
     repository: APGI-cmy/maturion-foreman-governance
-    path: /governance/canon
+    generic_canon_path: /governance/canon
+    repo_specific_path: /apps/R_Roster/mappings
     reference: main
   
   bindings:

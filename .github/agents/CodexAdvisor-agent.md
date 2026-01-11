@@ -30,8 +30,9 @@ temperature: 1.0
 
 governance:
   canonical_source: maturion-foreman-governance
-  canon_repository: MaturionISMS/maturion-foreman-governance
-  canon_path: /governance/canon
+  canon_repository: APGI-cmy/maturion-foreman-governance
+  generic_canon_path: /governance/canon
+  repo_specific_path: /apps/R_Roster/mappings
   canon_binding: exactly-one-canonical-source
   supremacy: governance-is-supreme-and-immutable
   escalation_target: Foreman

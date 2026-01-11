@@ -62,9 +62,10 @@ status: active
 ## Quick Onboarding
 
 **New to FM role?** Read:
-1. `governance/AGENT_ONBOARDING.md` (this repository)
+1. `governance/AGENT_ONBOARDING.md` (this repository, if present)
 2. [AGENT_ONBOARDING_QUICKSTART.md](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/canon/AGENT_ONBOARDING_QUICKSTART.md)
 3. All documents in `governance.bindings` below
+4. [FPC_REPOSITORY_LAYERDOWN_GUIDE.md](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md)
 
 ---
 
@@ -74,8 +75,10 @@ status: active
 governance:
   canon:
     repository: APGI-cmy/maturion-foreman-governance
-    path: /governance/canon
+    generic_canon_path: /governance/canon
+    repo_specific_path: /apps/R_Roster/mappings
     reference: main
+    note: "Generic canon contains universal rules; repo mappings contain R_Roster-specific implementations"
   
   bindings:
     # Tier-0 Constitutional Documents (ALL 14 MANDATORY)

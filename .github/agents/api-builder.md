@@ -60,13 +60,23 @@ evidence_requirements: "complete-audit-trail-mandatory"
 
 ## Quick Onboarding
 
+**New to FM role?** Read:
+1. `governance/AGENT_ONBOARDING.md` (this repository, if present)
+2. [AGENT_ONBOARDING_QUICKSTART.md](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/canon/AGENT_ONBOARDING_QUICKSTART.md)
+3. All documents in `governance.bindings` below
+4. [FPC_REPOSITORY_LAYERDOWN_GUIDE.md](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md)
+
 Read: (1) governance/AGENT_ONBOARDING.md, (2) AGENT_ONBOARDING_QUICKSTART.md (governance repo), (3) governance.bindings below, (4) foreman/builder/api-builder-spec.md
 
 ## Governance Bindings
 
 ```yaml
 governance:
-  canon: {repository: APGI-cmy/maturion-foreman-governance, path: /governance/canon, reference: main}
+  canon: 
+    repository: APGI-cmy/maturion-foreman-governance
+    generic_canon_path: /governance/canon
+    repo_specific_path: /apps/R_Roster/mappings
+    reference: main
   bindings:
     - {id: build-philosophy, path: BUILD_PHILOSOPHY.md, role: supreme-building-authority}
     - {id: builder-appointment, path: governance/ROLE_APPOINTMENT_PROTOCOL.md, role: constitutional-appointment}

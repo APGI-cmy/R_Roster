@@ -650,7 +650,7 @@ At completion of ANY work unit, builder MUST evaluate:
 ```markdown
 ## Mandatory Process Improvement Reflection
 
-**Authority**: Up-rippled from governance canon (maturion-foreman-governance)  
+**Authority**: Up-rippled from governance canon (maturion-foreman-governance/governance/canon and apps/R_Roster/mappings)  
 **Status**: MANDATORY at completion
 
 At work completion, builder MUST provide comprehensive process improvement reflection in completion report addressing ALL of the following:

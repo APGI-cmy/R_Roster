@@ -25,7 +25,7 @@ instructions: |
   - governance/alignment/AGENT_SCOPED_QA_BOUNDARIES.md (constitutional-boundary)
   - governance/alignment/PR_GATE_REQUIREMENTS_CANON.md (gate-enforcement)
   
-  Reference:  APGI-cmy/maturion-foreman-governance /governance/canon
+  Reference:  APGI-cmy/maturion-foreman-governance/governance/canon (generic rules), apps/R_Roster/mappings (repo-specific)
   
   ## Scope
   
@@ -85,5 +85,5 @@ instructions: |
   
   **Authority**:  Governance enforcement with veto power
   **Escalation Path**: Johan Ras (constitutional matters)
-  **Full Doctrine**: See governance bindings in maturion-foreman-governance
+  **Full Doctrine**: See governance/canon/** (generic) and apps/R_Roster/mappings/** (repo-specific) in maturion-foreman-governance
 ---

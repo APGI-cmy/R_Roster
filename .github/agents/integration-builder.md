@@ -66,7 +66,11 @@ Read: (1) governance/AGENT_ONBOARDING.md, (2) AGENT_ONBOARDING_QUICKSTART.md (go
 
 ```yaml
 governance:
-  canon: {repository: APGI-cmy/maturion-foreman-governance, path: /governance/canon, reference: main}
+  canon: 
+    repository: APGI-cmy/maturion-foreman-governance
+    generic_canon_path: /governance/canon
+    repo_specific_path: /apps/R_Roster/mappings
+    reference: main
   bindings:
     - {id: build-philosophy, path: BUILD_PHILOSOPHY.md, role: supreme-building-authority}
     - {id: builder-appointment, path: governance/ROLE_APPOINTMENT_PROTOCOL.md, role: constitutional-appointment}
