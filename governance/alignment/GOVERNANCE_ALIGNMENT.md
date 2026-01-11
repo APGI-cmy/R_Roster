@@ -22,6 +22,7 @@
 - .qa/: ✅ PRESENT
 - governance/: ✅ PRESENT
 - Governance gate workflow: ✅ OPERATIONAL
+- Deprecation detection gate: ✅ OPERATIONAL (2026-01-11)
 
 **PR Gate Philosophy**: ✅ ENFORCED
 - CI-Confirmatory-Not-Diagnostic: Operational
@@ -40,6 +41,7 @@
 **Constitutional References**:
 - governance/AGENT_CONSTITUTION.md (via canonical governance)
 - governance/policies/zero-test-debt-constitutional-rule.md (via canonical governance)
+- governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md (layered down 2026-01-11)
 - governance/alignment/PR_GATE_REQUIREMENTS_CANON.md (via canonical governance)
 
 **Agent Contracts**:
@@ -54,6 +56,17 @@
 **Next Check**: On governance canon updates
 
 ## Realignment History
+
+### 2026-01-11: Deprecation Detection Gate Layer-Down
+- BL-024 and BL-026 implemented (Constitutional Sandbox, Deprecation Detection)
+- Policy document: governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md
+- Learning document: governance/learnings/BL-026-deprecation-detection.md
+- Pre-commit hooks configured (.pre-commit-config.yaml)
+- CI workflow operational (.github/workflows/deprecation-gate.yml)
+- Whitelist initialized (.deprecation-whitelist.json)
+- Builder contracts updated (all builders)
+- Initial audit completed (clean baseline, zero code)
+- Gate mandatory before feature work per constitutional mandate
 
 ### 2026-01-11: FPC Layer-Down Complete
 - Governance structure established
