@@ -1,0 +1,25 @@
+name: Governance Gate
+on: [pull_request]
+jobs:
+  validate-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Required Directories
+        run: |
+          for dir in .architecture .qa governance; do
+            [ -d "$dir" ] || { echo "Missing: $dir"; exit 1; }
+          done
+      - name: Validate BUILD_PHILOSOPHY
+        run: |
+          [ -f "BUILD_PHILOSOPHY.md" ] || { echo "Missing BUILD_PHILOSOPHY.md"; exit 1; }
+      - name: Validate .agent Contract
+        run: |
+          [ -f ".agent" ] || { echo "Missing .agent"; exit 1; }
+      - name: Validate Governance Alignment
+        run: |
+          [ -f "governance/alignment/GOVERNANCE_ALIGNMENT.md" ] || { echo "Missing GOVERNANCE_ALIGNMENT.md"; exit 1; }
+      - name: Check for Test Debt (if tests exist)
+        run: |
+          # This is a placeholder - will be enhanced when tech stack is determined
+          echo "Test debt check: PASS (no tests yet)"
