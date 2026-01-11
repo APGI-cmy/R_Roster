@@ -1,0 +1,119 @@
+# Repository Agent Contract: R_Roster
+
+## Repository Identity
+
+**Name**: R_Roster  
+**Purpose**: Personal teacher absenteeism management and roster scheduling application  
+**Owner**: APGI-cmy  
+**Type**: Application Repository  
+**Status**: Initialization Phase
+
+## Governance Binding
+
+This repository operates under **Maturion canonical governance**.
+
+**Governance Source**: `APGI-cmy/maturion-foreman-governance`  
+**Governance Version**: 7dc8110ce2477e1eb441eb905c56951090df36ed  
+**Layer-Down Date**: 2026-01-11  
+**Layer-Down Method**: FPC (First Point of Contact) Repository Layer-Down Guide
+
+## Constitutional Bindings
+
+All agents operating in this repository MUST adhere to:
+
+1. **BUILD_PHILOSOPHY.md** (Supreme Authority)
+   - 100% GREEN requirement
+   - Zero Test Debt mandate
+   - Architecture → Red QA → Build to Green workflow
+
+2. **Governance Supremacy Rule (GSR)**
+   - Governance rules have supreme authority
+   - No agent may override constitutional requirements
+
+3. **Quality Integrity Contract (QIC)**
+   - QA must be comprehensive and accurate
+   - Test debt triggers immediate action
+
+4. **Constitutional Sandbox Pattern**
+   - Agent judgment encouraged within boundaries
+   - Constitutional rules are non-negotiable
+   - Procedural guidance is flexible
+
+## Agent Roster
+
+Agents authorized to operate in this repository:
+
+### Foreman (FM)
+- **Role**: Orchestrator, Architecture Designer
+- **Contract**: `.github/agents/ForemanApp-agent.md`
+- **Authority**: Architecture, QA Design, Build Coordination
+
+### Builders
+- **UI Builder**: `.github/agents/ui-builder.md`
+- **API Builder**: `.github/agents/api-builder.md`
+- **Schema Builder**: `.github/agents/schema-builder.md`
+- **Integration Builder**: `.github/agents/integration-builder.md`
+- **QA Builder**: `.github/agents/qa-builder.md`
+- **Authority**: Implementation to specifications only ("Build to Green")
+
+### Governance Liaison
+- **Contract**: `.github/agents/governance-liaison.md`
+- **Role**: Governance alignment, cross-repo synchronization, canon enforcement
+- **Authority**: Governance enforcement with veto power, escalation to Johan
+
+### Codex Advisor
+- **Contract**: `.github/agents/CodexAdvisor-agent.md`
+- **Role**: Domain expertise, architectural guidance
+- **Authority**: Advisory (recommendations, not implementation)
+
+## Repository Constraints
+
+### What Agents MAY Do
+- ✅ Create/update application code within their domain
+- ✅ Create/update tests and QA artifacts
+- ✅ Create/update documentation
+- ✅ Propose architecture changes (FM only)
+- ✅ Create evidence and reports
+- ✅ Exercise judgment within constitutional boundaries
+
+### What Agents MUST NOT Do
+- ❌ Violate Zero Test Debt mandate
+- ❌ Accept less than 100% GREEN
+- ❌ Skip BUILD_PHILOSOPHY execution sequence
+- ❌ Modify governance canon (must escalate to governance repo)
+- ❌ Bypass PR gates or branch protection
+- ❌ Commit secrets or sensitive data
+
+## Escalation Paths
+
+### Technical Issues
+**To**: Foreman (FM)  
+**For**: Architecture questions, QA design, build coordination
+
+### Governance Issues
+**To**: Governance Liaison  
+**For**: Governance alignment, canon interpretation, compliance
+
+### Constitutional Issues
+**To**: Johan Ras (via Governance Liaison)  
+**For**: Constitutional changes, governance conflicts, overrides
+
+## Evidence Requirements
+
+All agents must maintain evidence trails:
+- Architecture decisions → `.architecture/`
+- QA reports → `.qa/`
+- Build evidence → `.qa/builder/`
+- Governance evidence → `governance/evidence/`
+
+## Commissioning Status
+
+**Phase**: Initialization  
+**Commissioning Evidence**: `governance/evidence/commissioning/COMMISSIONING_READINESS.md`  
+**Production Ready**: No (initialization in progress)
+
+---
+
+**Created**: 2026-01-11  
+**Authority**: Governance Liaison Agent  
+**Schema**: See `governance/canon/.agent.schema.md` in maturion-foreman-governance
