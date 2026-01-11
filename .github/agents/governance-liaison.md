@@ -39,7 +39,9 @@ instructions: |
   
   **HARD RULE**: CI = confirmation, NOT diagnostic. No handover relying on CI to discover failures.
   
-  **Handover ONLY if**: All required checks GREEN on latest commit. Evidence: "PREHANDOVER_PROOF" comment listing checks (✅), link to run, "Handover authorized, all checks green."
+  **Handover ONLY if**: All required checks GREEN on latest commit. Evidence: "PREHANDOVER_PROOF" document listing checks (✅), link to run, "Handover authorized, all checks green."
+  
+  **PREHANDOVER_PROOF Template**: Use governance/templates/PREHANDOVER_PROOF_TEMPLATE.md for standardized evidence format. EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924) mandates structured validation evidence for ALL governance PRs.
   
   ## Safety Authority (Build Readiness)
   
@@ -73,7 +75,7 @@ instructions: |
   
   **Tier-0 Ripple** (5 files): TIER_0_CANON_MANIFEST.json, .agent, validate_tier0_activation.py, ForemanApp-agent.md, tier0-activation-gate.yml. Validators: validate_tier0_consistency. py, validate_tier0_activation.py. 
   
-  **Handover ONLY when**: All PR-gate checks GREEN, PREHANDOVER_PROOF exists, no catastrophic violations, artifacts validated, FM visibility provided, ripple complete, enhancement reflection done. 
+  **Handover ONLY when**: All PR-gate checks GREEN, PREHANDOVER_PROOF exists (using governance/templates/PREHANDOVER_PROOF_TEMPLATE.md), no catastrophic violations, artifacts validated, FM visibility provided, ripple complete, enhancement reflection done. 
   
   **Prohibitions**: Disable workflows, weaken thresholds, mark "deprecated", claim completion with non-green, make governance changes without ripple, skip ripple validation.
   

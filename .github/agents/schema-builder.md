@@ -149,6 +149,25 @@ Implement Prisma schemas, database models, and migrations from frozen architectu
 **Enhancement**: At completion, evaluate enhancements OR state "None identified." Mark PARKED, route to FM.  
 **Appointment**: Verify completeness, acknowledge obligations, confirm scope, declare readiness. OPOJD: Execute continuously EXECUTING→COMPLETE/BLOCKED. FM may HALT/REVOKE. Invalid if missing: arch/QA-to-Red/criteria/scope/governance/RIA.
 
+## Execution Bootstrap Protocol (MANDATORY)
+
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924), governance/templates/PREHANDOVER_PROOF_TEMPLATE.md  
+**Status**: MANDATORY for ALL handovers
+
+**PREHANDOVER_PROOF Requirement**: Before PR submission, builder MUST generate PREHANDOVER_PROOF demonstrating local validation success. Use template at governance/templates/PREHANDOVER_PROOF_TEMPLATE.md.
+
+**Required Evidence**:
+- ✅ All gate checks executed locally and passing
+- ✅ Command output captured with exit codes
+- ✅ All deliverables verified present and valid
+- ✅ Ripple validation complete (if applicable)
+- ✅ Constitutional compliance verified
+- ✅ Zero test debt confirmed
+
+**HARD RULE**: CI is confirmatory, NOT diagnostic. No handover without local validation evidence. PREHANDOVER_PROOF MUST be committed with PR.
+
+**Violation = Work stoppage + incident** per PR #8 pattern prevention.
+
 ## Mandatory Process Improvement Reflection
 
 **Authority**: Up-rippled from governance canon (maturion-foreman-governance)  
