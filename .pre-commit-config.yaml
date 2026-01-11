@@ -1,0 +1,62 @@
+# Pre-commit Configuration for R_Roster
+# See https://pre-commit.com for more information
+
+repos:
+  # Python: Ruff for linting and deprecation detection
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.15
+    hooks:
+      - id: ruff
+        name: ruff (Python linting with deprecation detection)
+        args:
+          - --fix
+          - --select=F,E,W,UP,B,A,C4,DTZ,PIE,RET,SIM,ARG,PTH
+          - --ignore=E501
+        exclude: ^(\.git|\.venv|venv|node_modules|dist|build)/
+
+  # JavaScript/TypeScript: ESLint (when JS/TS files are added)
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.56.0
+    hooks:
+      - id: eslint
+        name: eslint (JavaScript/TypeScript deprecation detection)
+        files: \.(js|jsx|ts|tsx)$
+        types: [file]
+        additional_dependencies:
+          - eslint@8.56.0
+          - eslint-plugin-deprecation@2.0.0
+          - typescript@5.3.3
+        exclude: ^(\.git|node_modules|dist|build)/
+
+  # General: Trailing whitespace and EOF fixes
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        exclude: ^(\.git)/
+      - id: end-of-file-fixer
+        name: Fix end of files
+        exclude: ^(\.git|\.svg)/
+      - id: check-yaml
+        name: Check YAML syntax
+        exclude: ^(\.git)/
+      - id: check-json
+        name: Check JSON syntax
+        exclude: ^(\.git)/
+      - id: check-added-large-files
+        name: Check for large files
+        args: ['--maxkb=1000']
+
+# Global configuration
+default_language_version:
+  python: python3.11
+  node: 18.19.0
+
+fail_fast: false
+minimum_pre_commit_version: '3.0.0'
+
+# Deprecation whitelist support
+# To bypass deprecation checks for justified exceptions,
+# add entries to .deprecation-whitelist.json
+# See governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md

@@ -1,0 +1,198 @@
+name: Deprecation Detection Gate
+
+on:
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - '**/*.py'
+      - '**/*.js'
+      - '**/*.ts'
+      - '**/*.jsx'
+      - '**/*.tsx'
+      - 'requirements*.txt'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'pyproject.toml'
+      - 'poetry.lock'
+      - '.deprecation-whitelist.json'
+      - '.pre-commit-config.yaml'
+  push:
+    branches: [main, develop]
+    paths:
+      - '**/*.py'
+      - '**/*.js'
+      - '**/*.ts'
+      - '**/*.jsx'
+      - '**/*.tsx'
+      - 'requirements*.txt'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'pyproject.toml'
+      - 'poetry.lock'
+      - '.deprecation-whitelist.json'
+      - '.pre-commit-config.yaml'
+  workflow_dispatch:
+
+jobs:
+  deprecation-detection:
+    name: Deprecation Detection Gate
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff pre-commit
+          # Install project dependencies if they exist
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+
+      - name: Install Node dependencies (if applicable)
+        run: |
+          if [ -f package.json ]; then
+            npm ci || npm install
+          fi
+
+      - name: Check for Python files
+        id: check_python
+        run: |
+          if find . -name "*.py" -not -path "./.git/*" -not -path "./venv/*" -not -path "./.venv/*" | grep -q .; then
+            echo "has_python=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_python=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for JS/TS files
+        id: check_js
+        run: |
+          if find . -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" | grep -v node_modules | grep -q .; then
+            echo "has_js=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_js=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Ruff (Python deprecation detection)
+        if: steps.check_python.outputs.has_python == 'true'
+        run: |
+          echo "Running Python deprecation detection with Ruff..."
+          ruff check . --select F,E,W,UP,B,A,C4,DTZ,PIE,RET,SIM,ARG,PTH --ignore E501 --output-format=github
+        continue-on-error: false
+
+      - name: Run ESLint (JavaScript/TypeScript deprecation detection)
+        if: steps.check_js.outputs.has_js == 'true'
+        run: |
+          echo "Running JavaScript/TypeScript deprecation detection with ESLint..."
+          if [ -f .eslintrc.json ] || [ -f .eslintrc.js ]; then
+            npx eslint . --ext .js,.jsx,.ts,.tsx
+          else
+            echo "No ESLint config found. Skipping JS/TS deprecation check."
+            echo "Create .eslintrc.json with eslint-plugin-deprecation to enable."
+          fi
+        continue-on-error: false
+
+      - name: Validate deprecation whitelist
+        run: |
+          echo "Validating .deprecation-whitelist.json..."
+          if [ -f .deprecation-whitelist.json ]; then
+            python -c "import json; json.load(open('.deprecation-whitelist.json'))"
+            echo "✅ Whitelist is valid JSON"
+            
+            # Check for expired exceptions
+            python << 'EOF'
+          import json
+          from datetime import datetime, timedelta
+          
+          with open('.deprecation-whitelist.json', 'r') as f:
+              whitelist = json.load(f)
+          
+          exceptions = whitelist.get('exceptions', [])
+          today = datetime.now().date()
+          expired = []
+          
+          for exc in exceptions:
+              if exc.get('status') == 'active':
+                  review_date = datetime.strptime(exc['review_date'], '%Y-%m-%d').date()
+                  if review_date < today:
+                      expired.append(exc)
+          
+          if expired:
+              print(f"⚠️  WARNING: {len(expired)} exception(s) require quarterly review:")
+              for exc in expired:
+                  print(f"  - {exc['file']}:{exc['line']} (review due: {exc['review_date']})")
+              print("\nSee governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md for review process.")
+          else:
+              print("✅ No expired exceptions")
+          EOF
+          else
+            echo "⚠️  No whitelist file found (expected for new repository)"
+          fi
+
+      - name: Check for deprecated dependencies (Python)
+        if: steps.check_python.outputs.has_python == 'true'
+        run: |
+          echo "Checking Python dependencies for deprecation notices..."
+          if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
+            pip install pip-audit || true
+            if command -v pip-audit &> /dev/null; then
+              pip-audit --desc || echo "⚠️  Some dependencies may have issues. Review above output."
+            else
+              echo "pip-audit not available. Skipping dependency audit."
+            fi
+          else
+            echo "No Python dependencies to audit."
+          fi
+        continue-on-error: true
+
+      - name: Check for deprecated dependencies (npm)
+        if: steps.check_js.outputs.has_js == 'true'
+        run: |
+          echo "Checking npm dependencies for deprecation notices..."
+          if [ -f package.json ]; then
+            npm audit --audit-level=moderate || echo "⚠️  Some dependencies may have issues. Review above output."
+          else
+            echo "No npm dependencies to audit."
+          fi
+        continue-on-error: true
+
+      - name: Report summary
+        if: always()
+        run: |
+          echo "================================================"
+          echo "Deprecation Detection Gate Summary"
+          echo "================================================"
+          echo "Python files: ${{ steps.check_python.outputs.has_python }}"
+          echo "JS/TS files: ${{ steps.check_js.outputs.has_js }}"
+          echo ""
+          echo "Status: Gate checks completed"
+          echo ""
+          echo "For exception approval process, see:"
+          echo "governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md"
+          echo "================================================"
+
+      - name: Gate result
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "failure" ]; then
+            echo "❌ Deprecation detection gate FAILED"
+            echo "Review errors above and either:"
+            echo "1. Fix deprecated API usage, OR"
+            echo "2. Request exception approval (see policy document)"
+            exit 1
+          else
+            echo "✅ Deprecation detection gate PASSED"
+          fi

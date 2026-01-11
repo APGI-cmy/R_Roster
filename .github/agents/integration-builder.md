@@ -123,6 +123,26 @@ Implement module integrations, external service connections, and data flows from
 **Config Changes**: Get FM approval for pytest.ini, plugins, patterns, filters.  
 **Violation = Work stoppage + incident**
 
+## Deprecation Detection Gate (BL-024, BL-026)
+
+**Authority**: governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md (Constitutional)  
+**Status**: MANDATORY (layer-down post-2026-01-11)
+
+**Pre-Commit**: Run deprecation checks locally before every commit. Install pre-commit hooks: `pre-commit install`  
+**Zero Violations**: No deprecated APIs allowed without documented exception approval from Johan Ras  
+**CI Enforcement**: Deprecation gate runs in CI. PR blocked on failure. CI is confirmatory, not diagnostic.  
+**Exception Process**: Justified exceptions require: FM approval, inline code comment, whitelist entry, quarterly review  
+**Tools**: Python (ruff), JavaScript/TypeScript (eslint-plugin-deprecation), dependency audits (pip-audit, npm audit)
+
+**Obligations**:
+- Review governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md before starting work
+- Verify local deprecation checks pass before PR submission
+- Update deprecated APIs proactively during refactoring
+- Document any necessary exceptions with full justification before PR
+- NEVER bypass or disable deprecation checks
+
+**Violation = Constitutional breach + work stoppage**
+
 ## Gate-First Handover | Enhancement Capture | Appointment Protocol
 
 **Complete When**: Scope matches arch, 100% QA green, gates satisfied, evidence ready, zero debt/warnings, build succeeds, integration tests pass, connectors validated, data flows tested, reports submitted  

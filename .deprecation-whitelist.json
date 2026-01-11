@@ -1,0 +1,49 @@
+{
+  "exceptions": [],
+  "$schema": {
+    "description": "Deprecation whitelist for R_Roster - approved exceptions to deprecation gate",
+    "type": "array",
+    "items": {
+      "type": "object",
+      "required": ["file", "line", "pattern", "justification", "approved_by", "approval_date", "review_date", "status"],
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "Path to file containing deprecated usage"
+        },
+        "line": {
+          "type": "number",
+          "description": "Line number of deprecated usage"
+        },
+        "pattern": {
+          "type": "string",
+          "description": "Deprecated API or pattern being used"
+        },
+        "justification": {
+          "type": "string",
+          "description": "Detailed justification for exception"
+        },
+        "approved_by": {
+          "type": "string",
+          "description": "Name of approver (Foreman or Johan Ras)"
+        },
+        "approval_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date of approval (YYYY-MM-DD)"
+        },
+        "review_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date for quarterly review (YYYY-MM-DD)"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "expired", "resolved"],
+          "description": "Current status of exception"
+        }
+      }
+    }
+  },
+  "_readme": "This file tracks approved exceptions to the deprecation detection gate. See governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md for the exception process."
+}
