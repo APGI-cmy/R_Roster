@@ -3,7 +3,7 @@
 **Repository**: R_Roster  
 **Governance Source**: APGI-cmy/maturion-foreman-governance  
 **Alignment Status**: ALIGNED  
-**Last Verified**: 2026-01-11
+**Last Verified**: 2026-01-12
 
 ---
 
@@ -63,6 +63,57 @@
 **Next Check**: On governance canon updates
 
 ## Realignment History
+
+### 2026-01-12: .agent File Governance Layer-Down
+
+**Effective Date**: 2026-01-12  
+**Layer-Down Date**: 2026-01-12  
+**Status**: COMPLETE
+
+**Documents Layered Down**:
+1. ✅ AGENT_FILE_SCHEMA.md → governance/schemas/
+2. ✅ AGENT_FILE_BINDING_REQUIREMENTS.md → governance/canon/
+3. ✅ AGENT_FILE_VALIDATION.md → governance/runbooks/
+4. ✅ AGENT_FILE_MAINTENANCE.md → governance/runbooks/
+
+**Validation Status**:
+- ✅ Level 1 (Syntax): PASS
+- ✅ Level 2 (Schema): PASS
+- ✅ Level 3 (Semantic): PASS
+- ✅ Level 4 (Alignment): PASS
+
+**Validation Evidence**: governance/evidence/initialization/AGENT_FILE_VALIDATION_RESULTS.md
+
+**Repository Details**:
+- **Type**: Application Repository (Teacher absenteeism management)
+- **Agent Roster**: 7 agents (1 Governance Liaison, 1 Foreman, 5 Builders)
+- **Mandatory Bindings**: Tier-0 (3) + Application-Specific (3) = 6 total
+
+**Bindings Implemented**:
+
+*Tier-0 Bindings (ALL repos)*:
+- governance-purpose-scope → GOVERNANCE_PURPOSE_AND_SCOPE.md
+- agent-recruitment → AGENT_RECRUITMENT.md
+- governance-ripple-model → GOVERNANCE_RIPPLE_MODEL.md
+
+*Application-Specific Bindings (FM + Builders)*:
+- fm-authority-model → FOREMAN_AUTHORITY_AND_SUPERVISION_MODEL.md
+- builder-bindings → BUILDER_CONTRACT_BINDING_CHECKLIST.md
+- execution-bootstrap-protocol → EXECUTION_BOOTSTRAP_PROTOCOL.md
+
+**Result**: R_Roster `.agent` file is fully compliant with AGENT_FILE_SCHEMA.md v1.0.0 and AGENT_FILE_BINDING_REQUIREMENTS.md v1.0.0.
+
+**Key Changes**:
+- Converted `.agent` file from Markdown to YAML front matter format
+- Added all required schema fields (governance, scope, capabilities, constraints, enforcement)
+- Implemented mandatory bindings per repository type (Application with FM + Builders)
+- Validated all 4 levels per AGENT_FILE_VALIDATION.md
+- All agent contracts verified to exist
+
+**Authority**: Governance Liaison  
+**Canonical Source**: maturion-foreman-governance PR #934
+
+---
 
 ### 2026-01-11: Execution Bootstrap Protocol Full Rollout (2026 Compliance)
 - EXECUTION_BOOTSTRAP_PROTOCOL implemented (maturion-foreman-governance PR #924)
