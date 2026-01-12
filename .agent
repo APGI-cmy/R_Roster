@@ -80,7 +80,6 @@ scope:
     - "*.sh"
     - "*.md"
     - "governance/**"
-    - ".github/workflows/**"
     - ".architecture/**"
     - ".qa/**"
 
