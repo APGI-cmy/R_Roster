@@ -70,6 +70,8 @@
 **Layer-Down Date**: 2026-01-12  
 **Status**: COMPLETE
 
+*Note: Effective and layer-down dates are identical as governance took effect immediately upon completion of layer-down and validation.*
+
 **Documents Layered Down**:
 1. ✅ AGENT_FILE_SCHEMA.md → governance/schemas/
 2. ✅ AGENT_FILE_BINDING_REQUIREMENTS.md → governance/canon/
