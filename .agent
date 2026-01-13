@@ -73,6 +73,30 @@ governance:
       path: governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md
       role: execution-discipline
 
+    # Tier-0 Constitutional Rules (T0-015: BL-026 Automated Deprecation Detection)
+    - id: bl-026-deprecation-detection
+      path: governance/learnings/BL-026-deprecation-detection.md
+      role: deprecation-prevention
+      tier: 0
+      status: constitutional
+
+    - id: automated-deprecation-gate
+      path: governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md
+      role: deprecation-enforcement
+      tier: 0
+      status: mandatory
+
+  test_execution:
+    protocol: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md
+    principle: CI-Confirmatory-Not-Diagnostic
+    status: mandatory
+    requirements:
+      - local_validation_before_pr
+      - prehandover_proof_required
+      - zero_ci_diagnostic_reliance
+      - all_tests_local_execution
+    enforcement: constitutional
+
 scope:
   repository: APGI-cmy/R_Roster
 

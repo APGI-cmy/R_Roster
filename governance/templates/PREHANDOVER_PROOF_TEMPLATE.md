@@ -28,6 +28,67 @@
 
 ---
 
+### Test Execution Validation (MANDATORY)
+
+**Authority**: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md  
+**Principle**: CI-Confirmatory-Not-Diagnostic
+
+**Status**: [✅ PASSED | ❌ FAILED]  
+**Local Execution**: [REQUIRED - Tests MUST be run locally before PR]
+
+**Test Suite Execution**:
+```bash
+# Example: Unit tests
+$ npm test
+# Expected: 100% pass rate, EXIT 0
+
+# EXAMPLE OUTPUT (replace with your actual output):
+# PASS  tests/api/users.test.ts
+#   User API Tests
+#     ✓ should create user (45ms)
+#     ✓ should fetch user by ID (23ms)
+#     ✓ should update user (34ms)
+#
+# Test Suites: 1 passed, 1 total
+# Tests:       3 passed, 3 total
+# Snapshots:   0 total
+# Time:        2.456s
+# Ran all test suites.
+
+[PASTE YOUR ACTUAL OUTPUT HERE - showing all tests passed, exit code 0]
+```
+
+**Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]  
+**Pass Rate**: [X/Y tests passed - MUST be 100%]  
+**Timestamp**: [ISO_8601_TIMESTAMP]
+
+**Linting/Code Quality**:
+```bash
+$ npm run lint
+# OR
+$ ruff check .
+# Expected: Zero errors, zero warnings, EXIT 0
+
+# EXAMPLE OUTPUT (replace with your actual output):
+# ✔ 0 problems (0 errors, 0 warnings)
+
+[PASTE YOUR ACTUAL OUTPUT HERE - showing zero errors/warnings, exit code 0]
+```
+
+**Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]
+
+**Deprecation Detection** (if applicable):
+```bash
+$ pre-commit run --all-files
+# Expected: Zero violations, EXIT 0
+
+[PASTE ACTUAL OUTPUT HERE]
+```
+
+**Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]
+
+---
+
 ### Task-Specific Gate Validation
 
 **Status**: [✅ PASSED | ❌ FAILED]  
