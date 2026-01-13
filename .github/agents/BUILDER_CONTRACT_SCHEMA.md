@@ -684,7 +684,72 @@ At work completion, builder MUST provide comprehensive process improvement refle
 
 ---
 
-### 7. Ripple Boundary Acknowledgment (## Ripple Boundary Acknowledgment — MANDATORY)
+### 7. Execution Bootstrap Protocol (## Execution Bootstrap Protocol — MANDATORY)
+
+**Content**: Required PREHANDOVER_PROOF v2.0.0 compliance before all handovers
+
+**Required Elements**:
+- Reference to EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+
+- Reference to governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0
+- Section 0: Four mandatory governance artifacts requirement
+- Section 9: CST validation attestation requirement
+- Section 11: FAQ reference
+- Hard rule: CI is confirmatory, not diagnostic
+
+**Purpose**: Enforce local validation evidence before PR submission per constitutional bootstrap protocol
+
+**Example**:
+```markdown
+## Execution Bootstrap Protocol (MANDATORY)
+
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+ (maturion-foreman-governance PR #924), governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0  
+**Status**: MANDATORY for ALL handovers
+
+**PREHANDOVER_PROOF Requirement**: Before PR submission, builder MUST generate PREHANDOVER_PROOF demonstrating local validation success. Use template at governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0 (718 lines, 437% increase from v1.0.0).
+
+### PREHANDOVER_PROOF v2.0.0 Requirements (MANDATORY)
+
+**Section 0: Four Mandatory Governance Artifacts**
+
+Builder MUST complete ALL four governance artifacts before handover:
+
+1. **Governance Scan** (Artifact 1) - Pre-work governance compliance scan
+2. **Risk Assessment** (Artifact 2) - Comprehensive impact analysis and risk mitigation
+3. **Change Record** (Artifact 3) - Detailed change log with rationale and traceability
+4. **Completion Summary** (Artifact 4) - Final delivery summary with metrics and evidence
+
+**Artifact Guidance**: Use embedded format (in PREHANDOVER_PROOF) for concise artifacts (<100 lines each). Use separate files in `.agent-admin/` for extensive artifacts.
+
+**Section 9: CST Validation Attestation (MANDATORY)**
+
+Builder MUST determine CST applicability and complete appropriate path:
+- **Path A (CST Required)**: Execute CST locally, 100% pass rate required
+- **Path B (CST Not Required)**: Justify exemption with detailed reasoning
+- **Path C (CST Uncertain)**: Escalate to ForemanApp/CodexAdvisor, await guidance
+
+**Section 11: FAQ Reference**
+
+Comprehensive FAQ available in template (lines 645-702) covering governance artifacts, CST validation, and handover questions.
+
+**Required Evidence (Enhanced)**:
+- ✅ All gate checks executed locally and passing
+- ✅ Command output captured with exit codes
+- ✅ **Section 0: All four governance artifacts complete**
+- ✅ **Section 9: CST validation attestation complete**
+- ✅ All deliverables verified present and valid
+- ✅ Constitutional compliance verified
+- ✅ Zero test debt confirmed
+
+**HARD RULE**: CI is confirmatory, NOT diagnostic. No handover without local validation evidence. PREHANDOVER_PROOF v2.0.0 MUST be committed with PR.
+
+**Violation = Work stoppage + incident** per PR #8 pattern prevention.
+```
+
+**Validation**: Must reference v2.0.0 template, include Section 0 and Section 9 requirements, and state hard rule about CI being confirmatory
+
+---
+
+### 8. Ripple Boundary Acknowledgment (## Ripple Boundary Acknowledgment — MANDATORY)
 
 **Content**: Explicit acknowledgment of ripple awareness vs. ripple authority boundary
 
@@ -729,7 +794,7 @@ This builder acknowledges the **Builder Ripple Intelligence Boundary**.
 
 ## Standard Sections (REQUIRED)
 
-### 8. Purpose (## Purpose)
+### 9. Purpose (## Purpose)
 
 **Content**: Brief description of why this builder exists and its role in the ecosystem
 
@@ -741,7 +806,7 @@ The UI Builder is responsible for implementing all user interface components,
 layouts, and interactive wizards in the Foreman Office App.
 ```
 
-### 9. Responsibilities (## Responsibilities)
+### 10. Responsibilities (## Responsibilities)
 
 **Content**: Detailed list of what this builder is responsible for
 
@@ -757,7 +822,7 @@ layouts, and interactive wizards in the Foreman Office App.
 - Ensure accessibility compliance (WCAG 2.1 AA)
 ```
 
-### 9. Capabilities (## Capabilities)
+### 11. Capabilities (## Capabilities)
 
 **Content**: Technical skills and domains this builder can work in
 
@@ -771,7 +836,7 @@ layouts, and interactive wizards in the Foreman Office App.
 - **Component Architecture**: Reusable components, composition patterns
 ```
 
-### 10. Forbidden Actions (## Forbidden Actions)
+### 12. Forbidden Actions (## Forbidden Actions)
 
 **Content**: Explicit list of what this builder MUST NOT do
 
@@ -785,7 +850,7 @@ layouts, and interactive wizards in the Foreman Office App.
 ❌ **Governance Changes**: No modification of governance artifacts
 ```
 
-### 11. Permissions (## Permissions)
+### 13. Permissions (## Permissions)
 
 **Content**: Detailed explanation of file system access rights
 
@@ -803,7 +868,7 @@ layouts, and interactive wizards in the Foreman Office App.
 - `apps/*/components/**` — UI component libraries
 ```
 
-### 12. Recruitment Information (## Recruitment Information)
+### 14. Recruitment Information (## Recruitment Information)
 
 **Content**: Metadata about when and how builder was recruited
 
@@ -818,7 +883,7 @@ layouts, and interactive wizards in the Foreman Office App.
 **Maturion Doctrine Version**: 1.0.0
 ```
 
-### 13. Gate Binding (## Gate Binding) [OPTIONAL during recruitment]
+### 15. Gate Binding (## Gate Binding) [OPTIONAL during recruitment]
 
 **Content**: Information about QA gates and PR requirements
 
@@ -1118,21 +1183,25 @@ A valid builder contract MUST:
 16. ✅ Have section: `## Zero Test & Test Debt Rules — MANDATORY`
 17. ✅ Have section: `## Gate-First Handover Protocol — MANDATORY`
 18. ✅ Have section: `## Mandatory Enhancement Capture — MANDATORY`
-19. ✅ Have section: `## Ripple Boundary Acknowledgment — MANDATORY`
-20. ✅ Have section: `## Purpose`
-21. ✅ Have section: `## Responsibilities`
-22. ✅ Have section: `## Capabilities`
-23. ✅ Have section: `## Forbidden Actions`
-24. ✅ Have section: `## Permissions`
-25. ✅ Have section: `## Recruitment Information`
+19. ✅ Have section: `## Mandatory Process Improvement Reflection — MANDATORY`
+20. ✅ Have section: `## Execution Bootstrap Protocol — MANDATORY`
+21. ✅ Have section: `## Ripple Boundary Acknowledgment — MANDATORY`
+22. ✅ Have section: `## Purpose`
+23. ✅ Have section: `## Responsibilities`
+24. ✅ Have section: `## Capabilities`
+25. ✅ Have section: `## Forbidden Actions`
+26. ✅ Have section: `## Permissions`
+27. ✅ Have section: `## Recruitment Information`
 
 **Content Quality**:
-26. ✅ Align with `foreman/builder-manifest.json` responsibilities/forbidden
-27. ✅ Align with `foreman/builder/builder-capability-map.json` capabilities
-28. ✅ Align with `foreman/builder/builder-permission-policy.json` permissions
-29. ✅ Have no placeholder text ("TBD", "TODO", etc.)
-30. ✅ Maturion doctrine sections contain required elements (see schema above)
-31. ✅ Ripple Boundary section references canonical specification
+28. ✅ Align with `foreman/builder-manifest.json` responsibilities/forbidden
+29. ✅ Align with `foreman/builder/builder-capability-map.json` capabilities
+30. ✅ Align with `foreman/builder/builder-permission-policy.json` permissions
+31. ✅ Have no placeholder text ("TBD", "TODO", etc.)
+32. ✅ Maturion doctrine sections contain required elements (see schema above)
+33. ✅ Execution Bootstrap Protocol references v2.0.0 template and includes Section 0, 9, 11 requirements
+34. ✅ Mandatory Process Improvement Reflection includes all 5 questions and FM enforcement
+35. ✅ Ripple Boundary section references canonical specification
 
 ### 🔴 Validation Failure = Non-Compliant Builder
 
