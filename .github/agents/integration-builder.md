@@ -143,6 +143,52 @@ Implement module integrations, external service connections, and data flows from
 
 **Violation = Constitutional breach + work stoppage**
 
+## Agent Test Execution Protocol (MANDATORY)
+
+**Authority**: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md (Constitutional - T0-015 Layer-Down)  
+**Status**: MANDATORY (layer-down post-2026-01-13)
+
+**Core Principle**: CI is Confirmatory, Not Diagnostic. All validation MUST be executed locally before PR submission.
+
+**Pre-Commit Obligations**:
+- Run local tests for EVERY code change (100% pass required)
+- Execute all linting and code quality checks (zero errors/warnings)
+- Run deprecation detection checks (zero violations)
+- Verify build success locally
+
+**Pre-PR Obligations**:
+- Execute complete validation (all gates, all checks)
+- Generate PREHANDOVER_PROOF with full evidence (using governance/templates/PREHANDOVER_PROOF_TEMPLATE.md)
+- Capture all command outputs with exit codes
+- Verify handover authorization criteria met
+- Submit PR ONLY when all checks are GREEN locally
+
+**Test Evidence Requirements**:
+- Document exact commands executed (matching CI commands)
+- Capture exit codes (must be 0 for success)
+- Include output summaries showing 100% test passage
+- Timestamp validation execution
+- Include environment details if relevant
+
+**Exception Process**:
+- Emergency situations only (production outage, security vulnerability)
+- Requires Johan Ras explicit override approval
+- Convenience/time pressure NOT valid justifications
+- Post-emergency return to full validation discipline
+
+**Training & Attestation**:
+- MUST complete training before work assignment
+- MUST sign attestation confirming understanding
+- See governance/onboarding/BUILDER_TRAINING_ATTESTATION_TEST_EXECUTION_BL026.md
+
+**Consequences**:
+- First violation: Warning + mandatory re-training
+- Second violation: Work stoppage + FM escalation
+- Third violation: Contract review + possible revocation
+- Pattern violations: Immediate Johan Ras escalation
+
+**Violation = Work stoppage + contract review**
+
 ## Gate-First Handover | Enhancement Capture | Appointment Protocol
 
 **Complete When**: Scope matches arch, 100% QA green, gates satisfied, evidence ready, zero debt/warnings, build succeeds, integration tests pass, connectors validated, data flows tested, reports submitted  

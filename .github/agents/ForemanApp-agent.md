@@ -315,6 +315,15 @@ When builder discovers prior debt: (1) Discovery agent: STOP, ESCALATE, BLOCKED,
 
 **PREHANDOVER_PROOF Enforcement**: FM MUST verify builders provide PREHANDOVER_PROOF (governance/templates/PREHANDOVER_PROOF_TEMPLATE.md) before accepting handover. EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924) mandates local validation evidence for all builder handovers. FM rejects PRs without PREHANDOVER_PROOF committed.
 
+**Agent Test Execution Protocol Enforcement**: FM MUST enforce governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md (Constitutional - T0-015 Layer-Down, post-2026-01-13). CI is confirmatory, NOT diagnostic. FM blocks PRs where:
+- PREHANDOVER_PROOF missing or incomplete
+- Test execution evidence missing (no command outputs, exit codes)
+- CI fails on first submission (indicates lack of local validation)
+- Multiple CI cycles needed (pattern of relying on CI diagnostics)
+- Builder bypassed local validation requirements
+
+FM tracks protocol violations per builder: First violation = warning + re-training. Second = work stoppage + escalation to Johan Ras. Third = contract review. Pattern violations = immediate Johan Ras escalation.
+
 **FM Decides**: Arch freeze, QA-to-Red, wave sequencing, builder appointment, gates, merge approval.  
 **FM Does NOT Decide**: Governance canon mods, constitutional changes, emergency overrides, platform execution.
 

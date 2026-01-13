@@ -28,6 +28,53 @@
 
 ---
 
+### Test Execution Validation (MANDATORY)
+
+**Authority**: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md  
+**Principle**: CI-Confirmatory-Not-Diagnostic
+
+**Status**: [✅ PASSED | ❌ FAILED]  
+**Local Execution**: [REQUIRED - Tests MUST be run locally before PR]
+
+**Test Suite Execution**:
+```bash
+# Example: Unit tests
+$ npm test
+# OR
+$ pytest
+# Expected: 100% pass rate, EXIT 0
+
+[PASTE ACTUAL OUTPUT HERE]
+```
+
+**Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]  
+**Pass Rate**: [X/Y tests passed - MUST be 100%]  
+**Timestamp**: [ISO_8601_TIMESTAMP]
+
+**Linting/Code Quality**:
+```bash
+$ npm run lint
+# OR
+$ ruff check .
+# Expected: Zero errors, zero warnings, EXIT 0
+
+[PASTE ACTUAL OUTPUT HERE]
+```
+
+**Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]
+
+**Deprecation Detection** (if applicable):
+```bash
+$ pre-commit run --all-files
+# Expected: Zero violations, EXIT 0
+
+[PASTE ACTUAL OUTPUT HERE]
+```
+
+**Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]
+
+---
+
 ### Task-Specific Gate Validation
 
 **Status**: [✅ PASSED | ❌ FAILED]  
