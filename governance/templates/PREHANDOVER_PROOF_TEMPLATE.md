@@ -40,11 +40,22 @@
 ```bash
 # Example: Unit tests
 $ npm test
-# OR
-$ pytest
 # Expected: 100% pass rate, EXIT 0
 
-[PASTE ACTUAL OUTPUT HERE]
+# EXAMPLE OUTPUT (replace with your actual output):
+# PASS  tests/api/users.test.ts
+#   User API Tests
+#     ✓ should create user (45ms)
+#     ✓ should fetch user by ID (23ms)
+#     ✓ should update user (34ms)
+#
+# Test Suites: 1 passed, 1 total
+# Tests:       3 passed, 3 total
+# Snapshots:   0 total
+# Time:        2.456s
+# Ran all test suites.
+
+[PASTE YOUR ACTUAL OUTPUT HERE - showing all tests passed, exit code 0]
 ```
 
 **Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]  
@@ -58,7 +69,10 @@ $ npm run lint
 $ ruff check .
 # Expected: Zero errors, zero warnings, EXIT 0
 
-[PASTE ACTUAL OUTPUT HERE]
+# EXAMPLE OUTPUT (replace with your actual output):
+# ✔ 0 problems (0 errors, 0 warnings)
+
+[PASTE YOUR ACTUAL OUTPUT HERE - showing zero errors/warnings, exit code 0]
 ```
 
 **Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]

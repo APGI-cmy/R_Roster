@@ -203,7 +203,17 @@ In rare emergency situations (production outage, security vulnerability):
 3. **Wait for Approval**: Do not proceed without explicit override
 4. **Post-Emergency Remediation**: Return to full validation discipline immediately after emergency
 
-**Note**: Convenience, time pressure, or "it's a small change" are NOT valid emergency justifications.
+### ⚠️ CRITICAL: What Does NOT Qualify as Emergency
+
+**The following are NOT valid emergency justifications**:
+- ❌ Convenience or developer preference
+- ❌ Time pressure or tight deadlines
+- ❌ "It's a small change" or "quick fix"
+- ❌ CI is faster than local environment
+- ❌ Forgot to run tests locally
+- ❌ Want to see if CI catches anything
+
+**ONLY production outages or security vulnerabilities qualify for emergency override.**
 
 ---
 
