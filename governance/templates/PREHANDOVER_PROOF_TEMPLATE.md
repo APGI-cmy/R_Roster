@@ -583,6 +583,13 @@ All validations: **EXIT [CODE]** ([success/failure])
 - Document exit code, timestamp, pass rate
 - List all integration points validated
 
+**If Local CST Execution Not Possible**:
+- ESCALATE immediately to ForemanApp or CodexAdvisor
+- Document environment constraints preventing local CST
+- DO NOT proceed with handover until resolution
+- This violates CI-Confirmatory-Not-Diagnostic principle
+- Environment must be fixed to support local CST before work continues
+
 ### Validation Requirements
 
 - **All gate checks MUST be GREEN** before handover authorization
@@ -633,6 +640,12 @@ If **BLOCKED** status persists after attempted remediation:
 
 **Q: Can I skip governance artifacts for small changes?**  
 A: No. All four artifacts are MANDATORY per template v2.0.0. For small changes, artifacts may be brief (embedded), but must still be present.
+
+**Examples of brief artifacts for small changes**:
+- Documentation fix: Governance Scan (10-20 lines listing applicable docs), Risk Assessment (5-10 lines noting low impact), Change Record (15-25 lines with file and reason), Completion Summary (20-30 lines with metrics)
+- Single file update: Each artifact 20-50 lines embedded in PREHANDOVER_PROOF
+- Configuration change: Similar to above, focus on what changed and why
+- Total embedded artifacts for small changes: typically 100-200 lines combined
 
 **Q: Should I embed artifacts or use separate files?**  
 A: Use embedded for concise artifacts (< 100 lines each). Use separate files in `.agent-admin/` for extensive artifacts. Always provide clear references.

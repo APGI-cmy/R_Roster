@@ -176,8 +176,15 @@
 
 ### Active Artifacts
 - Keep last 5 per artifact type per agent
-- Rotate on a per-type basis (don't delete across types)
-- Retain if referenced in open PRs
+- Rotate on a per-type basis: When creating 6th artifact of a type, delete oldest of that type only (not other artifact types)
+- Retain if referenced in open PRs (do NOT delete until PR merged/closed)
+- Retain if referenced in merged PRs from last 30 days
+
+**Practical Example of Rotation**:
+- Agent has 5 governance scans, 3 risk assessments
+- Creates new governance scan → Delete oldest governance scan (now 5 scans total)
+- Risk assessments remain at 3 (rotation per-type, not global)
+- If oldest scan referenced in open PR → Keep it, now have 6 scans temporarily
 
 ### Archive Strategy
 - Move old artifacts to `archive/` subdirectory (if needed)
