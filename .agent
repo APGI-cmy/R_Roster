@@ -73,6 +73,13 @@ governance:
       path: governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md
       role: execution-discipline
 
+    # Agent Contract Management (Constitutional)
+    - id: agent-contract-management
+      path: governance/canon/AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md
+      role: contract-modification-authority
+      tier: 0
+      status: constitutional
+
     # Tier-0 Constitutional Rules (T0-015: BL-026 Automated Deprecation Detection)
     - id: bl-026-deprecation-detection
       path: governance/learnings/BL-026-deprecation-detection.md
