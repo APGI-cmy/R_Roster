@@ -1,5 +1,11 @@
 # PREHANDOVER PROOF
 
+**Purpose**: Standard template for documenting execution verification before PR handover.  
+**Version**: 2.0.0  
+**Authority**: `governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md`
+
+---
+
 **Repository**: [REPO_NAME]  
 **Branch**: [BRANCH_NAME]  
 **Commit**: [COMMIT_SHA]  
@@ -697,7 +703,16 @@ A: ESCALATE to Governance Liaison. Governance gaps may require protocol updates 
 
 ---
 
-**Template Version**: 2.0.0  
-**Template Date**: 2026-01-13  
-**Template Authority**: EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+, COMBINED_TESTING_PATTERN v1.0.0, AGENT_CONTRACT_MANAGEMENT_PROTOCOL (Tier-0)  
-**Template Purpose**: Prevent "claimed complete without verification" pattern (BL-026 follow-up) + Full governance artifact attestation + CST validation support
+**Status**: Active Template  
+**Version**: 2.0.0  
+**Last Updated**: 2026-01-13  
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL.md v2.0.0+, COMBINED_TESTING_PATTERN.md v1.0.0  
+**Owner**: Governance Administrator
+
+---
+
+## Changelog
+
+**Changelog**:
+- **v2.0.0** (2026-01-13): Added Embedded Governance Artifacts section and CST Validation Attestation section per Subwave 3.3 learnings
+- **v1.0.0** (2026-01-11): Initial template creation with core PREHANDOVER_PROOF sections
