@@ -198,9 +198,38 @@ governance:
       path: governance/canon/CONSTITUTIONAL_SANDBOX_PATTERN.md
       role: judgment-framework
       summary: Tier-1 constitutional vs Tier-2 procedural distinction (BL-024)
+    
+    # Agent Contract Management (CONSTITUTIONAL)
+    - id: agent-contract-management
+      path: governance/canon/AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md
+      role: contract-modification-authority
+      tier: 0
+      status: constitutional
+      summary: Constitutional prohibitions and requirements for agent contract modification
 ```
 
 **MANDATORY**: FM MUST load ALL bindings before any decision. Selective loading is prohibited.
+
+---
+
+## Contract Modification Authority
+
+**Authority**: AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md (governance/canon/)
+
+**CONSTITUTIONAL PROHIBITION**: This agent MUST NOT modify `.github/agents/ForemanApp-agent.md` (this contract file).
+
+**Rationale**: Agents MUST NOT modify their own defining contracts to prevent conflicts of interest, unauthorized scope expansion, and governance circumvention. This separation is constitutional and protects the integrity of the governance framework.
+
+**Process for Contract Modifications**:
+1. Johan Ras or Governance Administrator creates modification instruction in `.github/agents/instructions/pending/`
+2. Instruction assigned to authorized agent (NEVER ForemanApp agent)
+3. Assigned agent executes changes per instruction specification
+4. Changes validated against instruction requirements
+5. Authority reviews and approves
+
+**Violation Severity**: CATASTROPHIC - immediate HALT and escalation to Johan required.
+
+**Contract modifications MUST be executed via the instruction system** (`.github/agents/instructions/`) and MUST be performed by an authorized agent who is NOT the contract owner.
 
 ---
 
