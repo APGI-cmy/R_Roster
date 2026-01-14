@@ -89,7 +89,7 @@ All enhancement PRs **MUST** complete these four steps **BEFORE** implementation
 
 **Template**: Use canonical template from maturion-foreman-governance  
 **Location**: Must be included in PR (suggested: `docs/pre-implementation-reviews/` or root)  
-**Naming**: `pre_implementation_review_[pr_number]_[brief_description].md`
+**Naming**: `pre_implementation_review_[brief_description].md` (e.g., `pre_implementation_review_teacher_filter.md`)
 
 **Required Sections**:
 1. Enhancement Context & Motivation
