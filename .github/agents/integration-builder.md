@@ -228,7 +228,9 @@ Implement module integrations, external service connections, and data flows from
 
 **Section 0: Four Mandatory Governance Artifacts**
 
-Builder MUST complete ALL four governance artifacts before handover:
+**Required for milestone completions only** (subwave/capability/contract completions)
+
+Builder MUST complete ALL four governance artifacts when completing milestones:
 
 1. **Governance Scan** (Artifact 1)
    - Pre-work governance compliance scan
@@ -252,22 +254,30 @@ Builder MUST complete ALL four governance artifacts before handover:
    - Document deliverables, quality gates, constitutional compliance
    - Location: Embedded in PREHANDOVER_PROOF OR `.agent-admin/completion/`
 
-**Artifact Guidance**: Use embedded format (in PREHANDOVER_PROOF) for concise artifacts (<100 lines each). Use separate files in `.agent-admin/` for extensive artifacts. Always provide clear references.
+**For Routine PRs**: State "Routine PR - governance artifacts not applicable"
 
-**Section 9: CST Validation Attestation (MANDATORY)**
+**Artifact Guidance**: Governance artifacts validate milestone completions and integration work. Routine PRs (bug fixes, typos, minor changes) don't require heavyweight governance documentation.
 
-Builder MUST determine CST applicability and complete appropriate path:
+**Section 9: CST Validation Attestation**
+
+**Required for milestone completions only** (subwave/capability/contract completions)
+
+Builder MUST determine CST applicability when completing milestones:
 
 - **Path A (CST Required)**: Execute CST locally, document results, 100% pass rate required
-  - Use when changes affect multiple components OR cross system boundaries
+  - Use when milestone changes affect multiple components OR cross system boundaries
   - Capture full output, exit codes, timestamp, integration points validated
   
 - **Path B (CST Not Required)**: Justify exemption and provide attestation
-  - Use for documentation-only, governance-only, single-component, or infrastructure changes
+  - Use for documentation-only, governance-only, single-component, or infrastructure milestone completions
   - Provide detailed justification and alternative testing performed
   
 - **Path C (CST Uncertain)**: Escalate to ForemanApp/CodexAdvisor, await guidance
-  - Do NOT proceed with handover until CST applicability clarified
+  - Do NOT proceed with milestone handover until CST applicability clarified
+
+**For Routine PRs**: State "Routine PR - CST not applicable"
+
+**CST Guidance**: CST validates integration of multiple work streams at milestone completions. Individual PRs don't require CST unless they cross system boundaries.
 
 **CST Authority**: COMBINED_TESTING_PATTERN.md v1.0.0
 

@@ -348,6 +348,8 @@ When builder discovers prior debt: (1) Discovery agent: STOP, ESCALATE, BLOCKED,
 
 FM MUST verify the following before accepting builder handover:
 
+**For Milestone PRs** (subwave/capability/contract completions):
+
 1. **Section 0: Four Governance Artifacts Complete**
    - ✅ Governance Scan present (embedded OR referenced in `.agent-admin/scans/`)
    - ✅ Risk Assessment present (embedded OR referenced in `.agent-admin/risk-assessments/`)
@@ -364,14 +366,25 @@ FM MUST verify the following before accepting builder handover:
    - Builder demonstrates awareness of FAQ guidance (lines 645-702 in template)
    - Appropriate artifact format chosen (embedded vs separate files)
 
+**For Routine PRs**:
+- Governance artifacts **optional** (recommended for complex changes)
+- CST **not applicable** (state "Routine PR - CST not applicable")
+- Improvement proposals **still MANDATORY** (COMPULSORY for all work)
+
 **Rejection Criteria**:
+
+**For Milestone PRs:**
 - Missing PREHANDOVER_PROOF v2.0.0 document
 - Section 0 artifacts incomplete or missing (any of 4)
 - Section 9 CST attestation incomplete or missing
 - Generic "not applicable" statements without justification
 - Path C (CST Uncertain) not escalated/resolved
 
-**FM Authority**: FM has ABSOLUTE VETO on handovers lacking v2.0.0 compliance. No exceptions without Johan Ras override.
+**For Routine PRs:**
+- Missing improvement proposal (still MANDATORY)
+- Generic "None identified" without justification
+
+**FM Authority**: FM applies discretion based on PR complexity and milestone status. No artificial deadline.
 
 **Agent Test Execution Protocol Enforcement**: FM MUST enforce governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md (Constitutional - T0-015 Layer-Down, post-2026-01-13). CI is confirmatory, NOT diagnostic. FM blocks PRs where:
 - PREHANDOVER_PROOF v2.0.0 missing or incomplete

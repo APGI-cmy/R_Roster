@@ -709,23 +709,33 @@ At work completion, builder MUST provide comprehensive process improvement refle
 
 ### PREHANDOVER_PROOF v2.0.0 Requirements (MANDATORY)
 
-**Section 0: Four Mandatory Governance Artifacts**
+**Section 0: Four Mandatory Governance Artifacts (Milestone-Only)**
 
-Builder MUST complete ALL four governance artifacts before handover:
+**Required for milestone completions only** (subwave/capability/contract completions)
+
+Builder MUST complete ALL four governance artifacts when completing milestones:
 
 1. **Governance Scan** (Artifact 1) - Pre-work governance compliance scan
 2. **Risk Assessment** (Artifact 2) - Comprehensive impact analysis and risk mitigation
 3. **Change Record** (Artifact 3) - Detailed change log with rationale and traceability
 4. **Completion Summary** (Artifact 4) - Final delivery summary with metrics and evidence
 
-**Artifact Guidance**: Use embedded format (in PREHANDOVER_PROOF) for concise artifacts (<100 lines each). Use separate files in `.agent-admin/` for extensive artifacts.
+**For Routine PRs**: State "Routine PR - governance artifacts not applicable"
 
-**Section 9: CST Validation Attestation (MANDATORY)**
+**Artifact Guidance**: Governance artifacts validate milestone completions and integration work. Routine PRs (bug fixes, typos, minor changes) don't require heavyweight governance documentation.
 
-Builder MUST determine CST applicability and complete appropriate path:
+**Section 9: CST Validation Attestation (Milestone-Only)**
+
+**Required for milestone completions only**
+
+Builder MUST determine CST applicability when completing milestones:
 - **Path A (CST Required)**: Execute CST locally, 100% pass rate required
 - **Path B (CST Not Required)**: Justify exemption with detailed reasoning
 - **Path C (CST Uncertain)**: Escalate to ForemanApp/CodexAdvisor, await guidance
+
+**For Routine PRs**: State "Routine PR - CST not applicable"
+
+**CST Guidance**: CST validates integration of multiple work streams at milestone completions. Individual PRs don't require CST unless they cross system boundaries.
 
 **Section 11: FAQ Reference**
 
@@ -734,8 +744,8 @@ Comprehensive FAQ available in template (lines 645-702) covering governance arti
 **Required Evidence (Enhanced)**:
 - ✅ All gate checks executed locally and passing
 - ✅ Command output captured with exit codes
-- ✅ **Section 0: All four governance artifacts complete**
-- ✅ **Section 9: CST validation attestation complete**
+- ✅ **Section 0: All four governance artifacts complete** (milestone-only)
+- ✅ **Section 9: CST validation attestation complete** (milestone-only)
 - ✅ All deliverables verified present and valid
 - ✅ Constitutional compliance verified
 - ✅ Zero test debt confirmed

@@ -290,9 +290,10 @@ When reviewing PRs or providing advisory guidance, CodexAdvisor should:
 **v2.0.0 Specific Advisory Guidance**:
 
 When advising on PREHANDOVER_PROOF, CodexAdvisor should mention:
-1. **Section 0 Requirements**: "The v2.0.0 template requires four mandatory governance artifacts: Governance Scan, Risk Assessment, Change Record, and Completion Summary."
-2. **Section 9 Requirements**: "CST validation attestation is required - determine applicability via Path A (Required), Path B (Not Required), or Path C (Uncertain)."
+1. **Section 0 Requirements**: "The v2.0.0 template requires four mandatory governance artifacts FOR MILESTONE COMPLETIONS: Governance Scan, Risk Assessment, Change Record, and Completion Summary. Routine PRs can state 'not applicable.'"
+2. **Section 9 Requirements**: "CST validation attestation is required FOR MILESTONE COMPLETIONS - determine applicability via Path A (Required), Path B (Not Required), or Path C (Uncertain). Routine PRs can state 'not applicable.'"
 3. **Section 11 Reference**: "Comprehensive FAQ available in template lines 645-702 for guidance on artifacts and CST validation."
+4. **Improvement Proposals**: "Improvement proposals remain MANDATORY for ALL work (milestone and routine)."
 
 **Advisory Pattern**:
 ```

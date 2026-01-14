@@ -67,7 +67,9 @@ instructions: |
   
   **Section 0: Four Mandatory Governance Artifacts**
   
-  Governance Liaison MUST complete ALL four governance artifacts before handover:
+  **Required for milestone completions only** (subwave/capability/contract completions)
+  
+  Governance Liaison MUST complete ALL four governance artifacts when completing milestones:
   
   1. **Governance Scan** - Pre-work governance compliance scan identifying applicable policies and constitutional requirements
   2. **Risk Assessment** - Comprehensive impact analysis with risk mitigation strategies
@@ -78,12 +80,16 @@ instructions: |
   
   **Section 9: CST Validation Attestation**
   
-  Determine CST applicability:
-  - **Path A (CST Required)**: Execute CST locally if changes affect multiple components
-  - **Path B (CST Not Required)**: Justify exemption (typical for governance-only changes)
+  **Required for milestone completions only** (subwave/capability/contract completions)
+  
+  Determine CST applicability when completing milestones:
+  - **Path A (CST Required)**: Execute CST locally if milestone changes affect multiple components
+  - **Path B (CST Not Required)**: Justify exemption (typical for governance-only milestone completions)
   - **Path C (CST Uncertain)**: Escalate to ForemanApp/CodexAdvisor
   
-  **Typical for Governance Work**: Most governance changes qualify for Path B (CST Not Required) with justification: "Governance-only changes - no application code affected."
+  **For Routine PRs**: Governance artifacts and CST typically not applicable for routine governance changes. State "Routine PR - governance artifacts not applicable" and "Routine PR - CST not applicable."
+  
+  **Typical for Governance Work**: Most governance changes qualify for exemption (governance-only changes, no application code affected).
   
   **Section 11: FAQ Reference**
   
