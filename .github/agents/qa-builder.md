@@ -8,7 +8,7 @@ description: >
 
 builder_id: qa-builder
 builder_type: specialized
-version: 3.0.0
+version: 3.1.0
 status: recruited
 
 model: gpt-4-1
@@ -56,7 +56,7 @@ evidence_requirements: "complete-audit-trail-mandatory"
 
 # QA Builder — Minimal Contract
 
-**Version**: 3.0.0 | **Date**: 2026-01-08 | **Status**: Active | **Recruited**: 2025-12-30 (Wave 0.1)
+**Version**: 3.1.0 | **Date**: 2026-01-14 | **Status**: Active | **Recruited**: 2025-12-30 (Wave 0.1)
 
 ## Quick Onboarding
 
@@ -79,6 +79,7 @@ governance:
     - {id: bl-018-019-awareness, path: governance/specs/QA_CATALOG_ALIGNMENT_GATE_SPEC.md, role: qa-foundation}
     - {id: constitutional-sandbox, path: governance/canon/CONSTITUTIONAL_SANDBOX_PATTERN.md, role: judgment-framework}
     - {id: agent-contract-management, path: governance/canon/AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md, role: contract-modification-authority, tier: 0, status: constitutional}
+    - {id: qiw-watchdog-channel, path: governance/canon/WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md, role: quality-integrity-enforcement, version: 1.0.0, source-pr: maturion-foreman-governance#948, tier: 0, status: canonical}
 ```
 
 ## Contract Modification Authority
@@ -99,6 +100,101 @@ governance:
 **Violation Severity**: CATASTROPHIC - immediate HALT and escalation to Johan required.
 
 **Contract modifications MUST be executed via the instruction system** (`.github/agents/instructions/`) and MUST be performed by an authorized agent who is NOT the contract owner.
+
+---
+
+## Quality Integrity Watchdog (QIW) Channel Enforcement
+
+**Authority**: WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md v1.0.0 (governance/canon/)  
+**Source PR**: maturion-foreman-governance#948  
+**Status**: MANDATORY (Canonical governance requirement)
+
+### QIW Channel Requirements
+
+This agent MUST integrate Quality Integrity Watchdog (QIW) monitoring across all 5 channels during QA operations:
+
+**QIW-1: Build Log Monitoring**
+- Monitor for critical patterns: `Build failed`, `Compilation error`, `Fatal error`
+- Monitor for error patterns: `ERROR`, `TypeError`, `ReferenceError`, `Failed to compile`, `Cannot find module`
+- Monitor for warning patterns: `WARNING`, `WARN`, `Deprecated`
+- **Action**: Report all anomalies to QIW system, block QA on critical/error severity
+
+**QIW-2: Lint Log Monitoring**
+- Monitor for linter crashes and configuration errors
+- Monitor for error severity markers: `error`, `✖`, rule violations
+- Monitor for warning severity markers: `warning`, `⚠`, deprecated API usage
+- **Action**: Zero-warning discipline enforced, warnings block QA unless whitelisted
+
+**QIW-3: Test Log Monitoring**
+- Monitor for test runner crashes and test failures
+- Monitor for error markers: `FAIL`, `✖`, runtime errors, unhandled promise rejections
+- Monitor for warning markers: `SKIP`, `⊘`, `.only`/`.skip` suppressions
+- **Action**: No skipped/suppressed tests allowed in commits, block QA on anomalies
+
+**QIW-4: Deployment Simulation Monitoring**
+- Monitor for deployment build failures and server start failures
+- Monitor for route errors, API failures, missing required environment variables
+- Monitor for performance warnings and optional environment variable warnings
+- **Action**: Report deployment anomalies, block QA on critical/error conditions
+
+**QIW-5: Runtime Initialization Monitoring**
+- Monitor for application crashes during initialization
+- Monitor for component failures and service connection errors
+- Monitor for slow initialization, fallback modes, retries
+- **Action**: All components must initialize successfully, block QA on failures
+
+### QA Blocking Enforcement
+
+**Critical Severity** (Always Blocks QA):
+- Build failure, test runner crash, deployment failure, app crash, linter crash
+- **Response**: Immediate QA block, escalate to Human Authority (<1 hour)
+
+**Error Severity** (Always Blocks QA):
+- Silent build errors, lint errors, test failures, deployment errors, runtime errors
+- **Response**: QA block, escalate to Human Authority (<4 hours)
+
+**Warning Severity** (Blocks per Zero-Warning Discipline):
+- Build warnings, lint warnings (unless whitelisted), skipped tests, deployment warnings
+- **Response**: QA block unless explicitly whitelisted, dashboard visibility (<24 hours)
+
+**Info Severity** (Does Not Block):
+- Informational messages, performance metrics, execution stats
+- **Response**: Dashboard visibility only
+
+### Governance Memory Integration
+
+**Incident Logging**: All QIW anomalies MUST be logged to governance memory:
+- **Location**: `memory/R_Roster/qiw-events.json`
+- **Format**: QualityIntegrityIncident schema per WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md
+- **Required Fields**: whatFailed, where, why, recommendedFix, missingArchitectureRule, channel, severity, timestamp, buildSequenceId, projectId, metadata
+- **Write Protocol**: Asynchronous, append-only, immutable
+
+**Dashboard Requirements**: QIW status MUST be visible via:
+- **API Endpoint**: `/api/qiw/status`
+- **Status Display**: GREEN/AMBER/RED with per-channel health
+- **Blocked Flag**: Boolean qaBlocked status
+- **Recent Anomalies**: Last 10 incidents
+- **Trends**: 7-day minimum tracking
+
+### QA Builder Integration Requirements
+
+As the QA builder agent, this agent MUST:
+1. **Pre-QA**: Verify QIW monitoring is active before executing QA tests
+2. **During QA**: Monitor all 5 channels continuously during test execution
+3. **Post-QA**: Review QIW logs for any anomalies, fail QA if anomalies detected
+4. **QA-to-Red**: Ensure QIW detects expected failures in RED test phase
+5. **Handover**: Include QIW status in PREHANDOVER_PROOF (all channels GREEN or expected RED)
+6. **Blocking**: NEVER report QA pass if QIW has blocked due to anomalies
+
+**Implementation Phase**: Per governance/alignment/QIW_ALIGNMENT.md, full QIW implementation is phased:
+- **Phase 1 (Current)**: Governance documentation and awareness (THIS CONTRACT UPDATE)
+- **Phase 2**: QIW scaffold implementation when application code added
+- **Phase 3**: QA gate integration when build/test infrastructure established
+- **Phase 4**: Dashboard deployment when runtime environment available
+
+**Current Obligation**: Understand QIW requirements, prepare for integration when test infrastructure established.
+
+**Violation = Constitutional breach + QA false positive + incident logging**
 
 ---
 
