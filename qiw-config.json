@@ -1,0 +1,275 @@
+{
+  "$schema": "https://raw.githubusercontent.com/APGI-cmy/maturion-foreman-governance/main/governance/schemas/qiw-config-schema.json",
+  "version": "1.0.0",
+  "projectId": "R_Roster",
+  "effectiveDate": "2026-01-14",
+  "canonicalAuthority": "WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md v1.0.0",
+  
+  "channels": {
+    "build": {
+      "enabled": true,
+      "logsPath": "logs/build.log",
+      "description": "QIW-1: Build Log Monitoring - Parse build output for failures and silent warnings",
+      "detectionPatterns": {
+        "critical": [
+          "\\bBuild failed\\b",
+          "\\bCompilation error\\b",
+          "\\bFatal error\\b"
+        ],
+        "error": [
+          "\\bERROR\\b",
+          "\\bERR\\b",
+          "\\bTypeError\\b",
+          "\\bReferenceError\\b",
+          "\\bFailed to compile\\b",
+          "\\bCannot find module\\b",
+          "\\bUnresolved dependencies\\b"
+        ],
+        "warning": [
+          "\\bWARNING\\b",
+          "\\bWARN\\b",
+          "\\bDeprecated\\b",
+          "\\bModule not found\\b"
+        ]
+      },
+      "exclusions": []
+    },
+    
+    "lint": {
+      "enabled": true,
+      "logsPath": "logs/lint.log",
+      "description": "QIW-2: Lint Log Monitoring - Detect warnings, errors, anti-patterns, deprecated code",
+      "detectionPatterns": {
+        "critical": [
+          "\\bLinter crashed\\b",
+          "\\bConfiguration error\\b",
+          "\\bFailed to load\\b"
+        ],
+        "error": [
+          "\\berror\\b.*✖",
+          "\\berror\\b",
+          "✖",
+          "Security rule violation"
+        ],
+        "warning": [
+          "\\bwarning\\b",
+          "⚠",
+          "\\bDeprecated API\\b",
+          "\\bAnti-pattern\\b"
+        ]
+      },
+      "zeroWarningDiscipline": true,
+      "whitelist": {
+        "enabled": true,
+        "path": ".qiw-lint-whitelist.json",
+        "description": "Governance-approved warning exceptions"
+      },
+      "exclusions": []
+    },
+    
+    "test": {
+      "enabled": true,
+      "logsPath": "logs/test.log",
+      "description": "QIW-3: Test Log Monitoring - Detect runtime errors, skipped tests, suppressed failures",
+      "detectionPatterns": {
+        "critical": [
+          "\\bTest runner crashed\\b",
+          "\\bAll tests failed\\b",
+          "\\bCannot run tests\\b"
+        ],
+        "error": [
+          "\\bFAIL\\b",
+          "✖",
+          "\\bError:\\b",
+          "\\bUnhandledPromiseRejectionWarning\\b",
+          "\\bSegmentation fault\\b",
+          "\\bAssertion failed\\b"
+        ],
+        "warning": [
+          "\\bSKIP\\b",
+          "⊘",
+          "\\.only\\b",
+          "\\.skip\\b",
+          "\\bTODO\\b.*test",
+          "\\bCoverage below threshold\\b"
+        ]
+      },
+      "testIntegrityRules": {
+        "noSkippedTests": true,
+        "noSuppressedTests": true,
+        "noFocusedTests": true,
+        "detectUnexpectedPasses": true
+      },
+      "exclusions": []
+    },
+    
+    "deploymentSimulation": {
+      "enabled": true,
+      "logsPath": "logs/deployment.log",
+      "description": "QIW-4: Deployment Simulation Monitoring - Watch build and start in preview/production",
+      "detectionPatterns": {
+        "critical": [
+          "\\bDeployment build failure\\b",
+          "\\bServer start failure\\b",
+          "\\bPort binding error\\b",
+          "\\bMissing required environment variable\\b"
+        ],
+        "error": [
+          "\\bBuild error\\b",
+          "\\bFailed to start\\b",
+          "\\bRoute compilation error\\b",
+          "\\bAPI endpoint failure\\b",
+          "\\bDatabase connection error\\b"
+        ],
+        "warning": [
+          "\\bEnvironment variable warning\\b",
+          "\\bPerformance warning\\b",
+          "\\bDeprecation warning\\b",
+          "\\bPort conflict\\b"
+        ]
+      },
+      "environments": {
+        "preview": {
+          "enabled": true,
+          "buildCommand": "npm run build",
+          "startCommand": "npm run start"
+        },
+        "production": {
+          "enabled": true,
+          "buildCommand": "npm run build",
+          "startCommand": "npm run start"
+        }
+      },
+      "parityValidation": true,
+      "note": "Desktop-only app may not require deployment simulation - TBD based on app architecture",
+      "exclusions": []
+    },
+    
+    "runtimeInitialization": {
+      "enabled": true,
+      "logsPath": "logs/runtime-init.log",
+      "description": "QIW-5: Runtime Initialization Monitoring - Verify initialization logs for errors",
+      "detectionPatterns": {
+        "critical": [
+          "\\bApplication crash\\b",
+          "\\bFatal initialization error\\b",
+          "\\bCannot initialize\\b"
+        ],
+        "error": [
+          "\\bInitialization error\\b",
+          "\\bFailed to connect\\b",
+          "\\bMemory system failure\\b",
+          "\\bGovernance hook failure\\b",
+          "\\bEngine initialization error\\b",
+          "\\bUnhandled exception during startup\\b"
+        ],
+        "warning": [
+          "\\bSlow initialization\\b",
+          "\\bRetry attempt\\b",
+          "\\bFallback mode activated\\b",
+          "\\bConfiguration warning\\b"
+        ]
+      },
+      "components": [
+        "Application",
+        "Database",
+        "Memory System",
+        "Governance Hooks",
+        "UI Engine"
+      ],
+      "exclusions": []
+    }
+  },
+  
+  "blocking": {
+    "blockOnCritical": true,
+    "blockOnError": true,
+    "blockOnWarning": true,
+    "description": "QA blocking enforcement per zero-warning discipline",
+    "note": "blockOnCritical and blockOnError are MANDATORY per canonical requirements"
+  },
+  
+  "memoryIntegration": {
+    "enabled": true,
+    "scope": "project",
+    "location": "memory/R_Roster/qiw-events.json",
+    "writeProtocol": "asynchronous",
+    "format": "append-only",
+    "incidentSchema": "governance/schemas/QIW_INCIDENT_SCHEMA.md",
+    "recordingRules": {
+      "recordCritical": true,
+      "recordError": true,
+      "recordWarning": false,
+      "recordInfo": false
+    },
+    "description": "All critical and error anomalies recorded to governance memory"
+  },
+  
+  "dashboard": {
+    "enabled": true,
+    "apiEndpoint": "/api/qiw/status",
+    "refreshInterval": 60,
+    "description": "Dashboard API for real-time QIW status visibility",
+    "features": {
+      "realtimeStatus": true,
+      "perChannelStatus": true,
+      "qaBlockedStatus": true,
+      "recentAnomalies": {
+        "enabled": true,
+        "count": 10
+      },
+      "trends": {
+        "enabled": true,
+        "days": 7
+      }
+    }
+  },
+  
+  "escalation": {
+    "critical": {
+      "destination": "human-authority",
+      "type": "immediate",
+      "responseTime": "1 hour",
+      "contacts": ["Johan Ras"]
+    },
+    "error": {
+      "destination": "human-authority",
+      "type": "priority",
+      "responseTime": "4 hours",
+      "contacts": ["Johan Ras", "Foreman Agent"]
+    },
+    "warning": {
+      "destination": "dashboard",
+      "type": "notification",
+      "responseTime": "24 hours",
+      "contacts": []
+    },
+    "info": {
+      "destination": "dashboard",
+      "type": "informational",
+      "responseTime": "none",
+      "contacts": []
+    }
+  },
+  
+  "customPatterns": {
+    "enabled": true,
+    "description": "Project-specific detection patterns (additive only, cannot weaken canonical)",
+    "patterns": []
+  },
+  
+  "metadata": {
+    "createdBy": "governance-liaison",
+    "createdDate": "2026-01-14",
+    "lastModified": "2026-01-14",
+    "version": "1.0.0",
+    "notes": [
+      "Initial QIW configuration per canonical WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md v1.0.0",
+      "All 5 channels enabled with detection patterns per canonical requirements",
+      "Zero-warning discipline enforced across all channels",
+      "Memory integration configured for project-specific scope",
+      "Dashboard API endpoint defined per canonical specification",
+      "Configuration ready for implementation when application code developed"
+    ]
+  }
+}
