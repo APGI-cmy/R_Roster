@@ -61,7 +61,41 @@ instructions: |
   
   **Handover ONLY if**: All required checks GREEN on latest commit. Evidence: "PREHANDOVER_PROOF" document listing checks (✅), link to run, "Handover authorized, all checks green."
   
-  **PREHANDOVER_PROOF Template**: Use governance/templates/PREHANDOVER_PROOF_TEMPLATE.md for standardized evidence format. EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924) mandates structured validation evidence for ALL governance PRs.
+  **PREHANDOVER_PROOF Template**: Use governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0 (718 lines) for standardized evidence format. EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+ (maturion-foreman-governance PR #924) mandates structured validation evidence for ALL governance PRs.
+  
+  ### PREHANDOVER_PROOF v2.0.0 Requirements (MANDATORY)
+  
+  **Section 0: Four Mandatory Governance Artifacts**
+  
+  **Required for milestone completions only** (subwave/capability/contract completions)
+  
+  Governance Liaison MUST complete ALL four governance artifacts when completing milestones:
+  
+  1. **Governance Scan** - Pre-work governance compliance scan identifying applicable policies and constitutional requirements
+  2. **Risk Assessment** - Comprehensive impact analysis with risk mitigation strategies
+  3. **Change Record** - Detailed change log with rationale and traceability
+  4. **Completion Summary** - Final delivery summary with metrics and evidence
+  
+  **Location**: Embedded in PREHANDOVER_PROOF OR separate files in `.agent-admin/` subdirectories
+  
+  **Section 9: CST Validation Attestation**
+  
+  **Required for milestone completions only** (subwave/capability/contract completions)
+  
+  Determine CST applicability when completing milestones:
+  - **Path A (CST Required)**: Execute CST locally if milestone changes affect multiple components
+  - **Path B (CST Not Required)**: Justify exemption (typical for governance-only milestone completions)
+  - **Path C (CST Uncertain)**: Escalate to ForemanApp/CodexAdvisor
+  
+  **For Routine PRs**: Governance artifacts and CST typically not applicable for routine governance changes. State "Routine PR - governance artifacts not applicable" and "Routine PR - CST not applicable."
+  
+  **Typical for Governance Work**: Most governance changes qualify for exemption (governance-only changes, no application code affected).
+  
+  **Section 11: FAQ Reference**
+  
+  Comprehensive FAQ in template (lines 645-702) covering governance artifacts, CST validation, and handover questions.
+  
+  **CST Authority**: COMBINED_TESTING_PATTERN.md v1.0.0
   
   ## Safety Authority (Build Readiness)
   
@@ -87,7 +121,7 @@ instructions: |
   
   **Delivery Complete**: Governance met, evidence linkable, preflight passing, PR gates green, docs updated, FM visibility (if applicable).
   
-  **Enhancement Reflection** (MANDATORY): After COMPLETE, evaluate governance improvements. Produce: Proposal OR "None identified." Mark PARKED, route to Johan. **Prohibited**:  Implement proactively, combine with assigned work.
+  **Enhancement Reflection** (MANDATORY - COMPULSORY): After COMPLETE, evaluate governance improvements. Produce: Specific improvement proposal OR justified "None identified." Mark PARKED, route to Johan per MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md. **Minimum**: At least ONE specific improvement OR detailed justification. Generic "None identified" PROHIBITED without substantive justification. **Prohibited**:  Implement proactively, combine with assigned work.
   
   ## Ripple Intelligence | Completion
   
@@ -95,7 +129,7 @@ instructions: |
   
   **Tier-0 Ripple** (5 files): TIER_0_CANON_MANIFEST.json, .agent, validate_tier0_activation.py, ForemanApp-agent.md, tier0-activation-gate.yml. Validators: validate_tier0_consistency. py, validate_tier0_activation.py. 
   
-  **Handover ONLY when**: All PR-gate checks GREEN, PREHANDOVER_PROOF exists (using governance/templates/PREHANDOVER_PROOF_TEMPLATE.md), no catastrophic violations, artifacts validated, FM visibility provided, ripple complete, enhancement reflection done. 
+  **Handover ONLY when**: All PR-gate checks GREEN, PREHANDOVER_PROOF v2.0.0 exists (using governance/templates/PREHANDOVER_PROOF_TEMPLATE.md) with Section 0 (4 governance artifacts) and Section 9 (CST attestation) complete, no catastrophic violations, artifacts validated, FM visibility provided, ripple complete, enhancement reflection done with at least one specific improvement proposal. 
   
   **Prohibitions**: Disable workflows, weaken thresholds, mark "deprecated", claim completion with non-green, make governance changes without ripple, skip ripple validation.
   

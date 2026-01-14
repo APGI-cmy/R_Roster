@@ -342,10 +342,54 @@ When builder discovers prior debt: (1) Discovery agent: STOP, ESCALATE, BLOCKED,
 **Recruitment**: One-time (Wave 0.1): ui, api, schema, integration, qa builders.  
 **Code Checking**: Builders MUST verify all code before handover. FM rejects work without evidence.
 
-**PREHANDOVER_PROOF Enforcement**: FM MUST verify builders provide PREHANDOVER_PROOF (governance/templates/PREHANDOVER_PROOF_TEMPLATE.md) before accepting handover. EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924) mandates local validation evidence for all builder handovers. FM rejects PRs without PREHANDOVER_PROOF committed.
+**PREHANDOVER_PROOF Enforcement**: FM MUST verify builders provide PREHANDOVER_PROOF v2.0.0 (governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0 - 718 lines) before accepting handover. EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+ (maturion-foreman-governance PR #924) mandates local validation evidence for all builder handovers. FM rejects PRs without PREHANDOVER_PROOF committed.
+
+**PREHANDOVER_PROOF v2.0.0 Verification Requirements**:
+
+FM MUST verify the following before accepting builder handover:
+
+**For Milestone PRs** (subwave/capability/contract completions):
+
+1. **Section 0: Four Governance Artifacts Complete**
+   - ✅ Governance Scan present (embedded OR referenced in `.agent-admin/scans/`)
+   - ✅ Risk Assessment present (embedded OR referenced in `.agent-admin/risk-assessments/`)
+   - ✅ Change Record present (embedded OR referenced in `.agent-admin/changes/`)
+   - ✅ Completion Summary present (embedded OR referenced in `.agent-admin/completion/`)
+
+2. **Section 9: CST Validation Attestation Complete**
+   - ✅ CST applicability determined (Path A, B, or C)
+   - ✅ If Path A (Required): CST executed with 100% pass rate, full output captured
+   - ✅ If Path B (Not Required): Exemption justified and attested with detailed reasoning
+   - ✅ If Path C (Uncertain): Escalated and resolved before handover
+   
+3. **Section 11: FAQ Compliance**
+   - Builder demonstrates awareness of FAQ guidance (lines 645-702 in template)
+   - Appropriate artifact format chosen (embedded vs separate files)
+
+**For Routine PRs**:
+- Governance artifacts **optional** (recommended for complex changes)
+- CST **not applicable** (state "Routine PR - CST not applicable")
+- Improvement proposals **still MANDATORY** (COMPULSORY for all work)
+
+**Rejection Criteria**:
+
+**For Milestone PRs:**
+- Missing PREHANDOVER_PROOF v2.0.0 document
+- Section 0 artifacts incomplete or missing (any of 4)
+- Section 9 CST attestation incomplete or missing
+- Generic "not applicable" statements without justification
+- Path C (CST Uncertain) not escalated/resolved
+
+**For Routine PRs:**
+- Missing improvement proposal (still MANDATORY)
+- Generic "None identified" without justification
+
+**FM Authority**: FM applies discretion based on PR complexity and milestone status. No artificial deadline.
 
 **Agent Test Execution Protocol Enforcement**: FM MUST enforce governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md (Constitutional - T0-015 Layer-Down, post-2026-01-13). CI is confirmatory, NOT diagnostic. FM blocks PRs where:
-- PREHANDOVER_PROOF missing or incomplete
+- PREHANDOVER_PROOF v2.0.0 missing or incomplete
+- Section 0 (4 governance artifacts) incomplete
+- Section 9 (CST attestation) incomplete or unjustified
 - Test execution evidence missing (no command outputs, exit codes)
 - CI fails on first submission (indicates lack of local validation)
 - Multiple CI cycles needed (pattern of relying on CI diagnostics)
@@ -378,7 +422,7 @@ FM tracks protocol violations per builder: First violation = warning + re-traini
 
 ## Enhancement Reflection & Ripple Intelligence
 
-**Enhancement Capture** (MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md): After job COMPLETE, FM MUST consider improvements, record as PARKED, route to Johan.
+**Enhancement Capture** (MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md): After job COMPLETE, FM MUST verify builder provided at least ONE specific improvement proposal OR justified "no improvements" statement. FM MUST record improvement proposals as PARKED and route to Johan Ras. FM MUST NOT accept generic "None identified" without substantive justification. FM MUST NOT mark submission COMPLETE without improvement proposal verification. This is COMPULSORY - builders cannot finalize without improvement proposal completion.
 
 **Ripple Intelligence** (FM_RIPPLE_INTELLIGENCE_SPEC.md): FM receives/acknowledges ripple signals, ensures coherence, ESCALATES when affecting canon.
 

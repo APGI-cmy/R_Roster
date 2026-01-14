@@ -339,27 +339,93 @@ This builder operates under **Maturion Build Philosophy**, not generic developme
 
 ## Execution Bootstrap Protocol (MANDATORY)
 
-**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924), governance/templates/PREHANDOVER_PROOF_TEMPLATE.md  
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+ (maturion-foreman-governance PR #924), governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0  
 **Status**: MANDATORY for ALL handovers
 
-**PREHANDOVER_PROOF Requirement**: Before PR submission, builder MUST generate PREHANDOVER_PROOF demonstrating local validation success. Use template at governance/templates/PREHANDOVER_PROOF_TEMPLATE.md.
+**PREHANDOVER_PROOF Requirement**: Before PR submission, builder MUST generate PREHANDOVER_PROOF demonstrating local validation success. Use template at governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0 (718 lines, 437% increase from v1.0.0).
 
-**Required Evidence**:
+### PREHANDOVER_PROOF v2.0.0 Requirements (MANDATORY)
+
+**Section 0: Four Mandatory Governance Artifacts**
+
+**Required for milestone completions only** (subwave/capability/contract completions)
+
+Builder MUST complete ALL four governance artifacts when completing milestones:
+
+1. **Governance Scan** (Artifact 1)
+   - Pre-work governance compliance scan
+   - Identify applicable policies, bindings, constitutional requirements
+   - Review canonical governance (maturion-foreman-governance) and local governance
+   - Location: Embedded in PREHANDOVER_PROOF OR `.agent-admin/scans/`
+
+2. **Risk Assessment** (Artifact 2)
+   - Comprehensive impact analysis and risk mitigation strategy
+   - Document repository context, agent context, ripple effects
+   - Location: Embedded in PREHANDOVER_PROOF OR `.agent-admin/risk-assessments/`
+
+3. **Change Record** (Artifact 3)
+   - Detailed change log with rationale and traceability
+   - Document files modified/created/deleted with reasons
+   - Include design decisions and alternatives considered
+   - Location: Embedded in PREHANDOVER_PROOF OR `.agent-admin/changes/`
+
+4. **Completion Summary** (Artifact 4)
+   - Final delivery summary with metrics and evidence
+   - Document deliverables, quality gates, constitutional compliance
+   - Location: Embedded in PREHANDOVER_PROOF OR `.agent-admin/completion/`
+
+**For Routine PRs**: State "Routine PR - governance artifacts not applicable"
+
+**Artifact Guidance**: Governance artifacts validate milestone completions and integration work. Routine PRs (bug fixes, typos, minor changes) don't require heavyweight governance documentation.
+
+**Section 9: CST Validation Attestation**
+
+**Required for milestone completions only** (subwave/capability/contract completions)
+
+Builder MUST determine CST applicability when completing milestones:
+
+- **Path A (CST Required)**: Execute CST locally, document results, 100% pass rate required
+  - Use when milestone changes affect multiple components OR cross system boundaries
+  - Capture full output, exit codes, timestamp, integration points validated
+  
+- **Path B (CST Not Required)**: Justify exemption and provide attestation
+  - Use for documentation-only, governance-only, single-component, or infrastructure milestone completions
+  - Provide detailed justification and alternative testing performed
+  
+- **Path C (CST Uncertain)**: Escalate to ForemanApp/CodexAdvisor, await guidance
+  - Do NOT proceed with milestone handover until CST applicability clarified
+
+**For Routine PRs**: State "Routine PR - CST not applicable"
+
+**CST Guidance**: CST validates integration of multiple work streams at milestone completions. Individual PRs don't require CST unless they cross system boundaries.
+
+**CST Authority**: COMBINED_TESTING_PATTERN.md v1.0.0
+
+**Section 11: FAQ Reference**
+
+Comprehensive FAQ available in template (lines 645-702) covering:
+- Governance artifacts (can I skip? embed vs separate files?)
+- CST validation (what is CST? when required? what if fails?)
+- General handover questions (warnings? CI failures? updates?)
+
+**Required Evidence (Enhanced)**:
 - ✅ All gate checks executed locally and passing
 - ✅ Command output captured with exit codes
+- ✅ **Section 0: All four governance artifacts complete** (Governance Scan, Risk Assessment, Change Record, Completion Summary)
+- ✅ **Section 9: CST validation attestation complete** (Path A, B, or C)
 - ✅ All deliverables verified present and valid
 - ✅ Ripple validation complete (if applicable)
 - ✅ Constitutional compliance verified
 - ✅ Zero test debt confirmed
 
-**HARD RULE**: CI is confirmatory, NOT diagnostic. No handover without local validation evidence. PREHANDOVER_PROOF MUST be committed with PR.
+**HARD RULE**: CI is confirmatory, NOT diagnostic. No handover without local validation evidence. PREHANDOVER_PROOF v2.0.0 MUST be committed with PR.
 
 **Violation = Work stoppage + incident** per PR #8 pattern prevention.
 
 ## Mandatory Process Improvement Reflection
 
-**Authority**: Up-rippled from governance canon (maturion-foreman-governance)  
-**Status**: MANDATORY at completion
+**Authority**: Up-rippled from governance canon (maturion-foreman-governance), MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md  
+**Status**: MANDATORY at completion (COMPULSORY - cannot finalize without)
 
 At work completion, builder MUST provide comprehensive process improvement reflection in completion report addressing ALL of the following:
 
@@ -383,9 +449,15 @@ At work completion, builder MUST provide comprehensive process improvement refle
    - Propose concrete governance/process changes for canonization
    - OR justify why no improvements are warranted
 
-**Prohibited**: Stating "None identified" without answering ALL questions above with justification.
+**Minimum Requirement**: Builder MUST propose at least ONE specific improvement OR provide detailed justification why no improvements are warranted. Generic statements like "None identified" are PROHIBITED without substantive justification.
 
-**FM Enforcement**: FM MUST NOT mark builder submission COMPLETE at gate without process improvement reflection addressing all 5 questions.
+**FM Parking Station**: After builder provides improvement proposals, FM MUST record as PARKED and route to Johan Ras for governance consideration per MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md.
+
+**FM Enforcement**: 
+- FM MUST NOT mark builder submission COMPLETE at gate without process improvement reflection addressing all 5 questions
+- FM MUST verify at least one specific improvement proposal OR justified "no improvements" statement
+- FM MUST NOT accept generic "None identified" statements without justification
+- Builder cannot finalize work without improvement proposal completion
 
 ---
 
