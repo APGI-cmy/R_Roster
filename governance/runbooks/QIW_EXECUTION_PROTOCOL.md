@@ -71,7 +71,10 @@ QIW MAY execute at:
 **Check Prerequisites**:
 ```bash
 # Verify configuration exists
-test -f qiw-config.json || echo "ERROR: qiw-config.json not found"
+if ! test -f qiw-config.json; then
+  echo "ERROR: qiw-config.json not found" >&2
+  exit 1
+fi
 
 # Verify memory directory exists
 test -d memory/R_Roster || mkdir -p memory/R_Roster

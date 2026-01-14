@@ -20,33 +20,48 @@ This document defines the incident schema for Quality Integrity Watchdog (QIW) e
 ### TypeScript Definition
 
 ```typescript
+/**
+ * Quality Integrity Incident
+ * Represents a quality anomaly detected by QIW channels
+ */
 interface QualityIntegrityIncident {
-  // Core incident data
-  whatFailed: string;                  // Description of what failed
-  where: string;                       // File/line or component location
-  why: string;                         // Root cause analysis
-  recommendedFix: string;              // Actionable fix suggestion
-  missingArchitectureRule: string;     // Governance gap identified (empty if none)
+  /** Description of what failed */
+  whatFailed: string;
+  /** File/line or component location */
+  where: string;
+  /** Root cause analysis */
+  why: string;
+  /** Actionable fix suggestion */
+  recommendedFix: string;
+  /** Governance gap identified (empty if none) */
+  missingArchitectureRule: string;
   
-  // Classification
-  channel: QIWChannel;                 // Which QIW channel detected this
-  severity: Severity;                  // Critical | Error | Warning | Info
+  /** Which QIW channel detected this */
+  channel: QIWChannel;
+  /** Critical | Error | Warning | Info */
+  severity: Severity;
   
-  // Temporal and context
-  timestamp: string;                   // ISO8601 format
-  buildSequenceId: string;             // PR/build identifier
-  projectId: string;                   // Always "R_Roster" for this repo
+  /** ISO8601 format */
+  timestamp: string;
+  /** PR/build identifier */
+  buildSequenceId: string;
+  /** Always "R_Roster" for this repo */
+  projectId: string;
   
-  // Additional metadata
+  /** Additional metadata */
   metadata: {
-    commitSha: string;                 // Git commit SHA
-    branch: string;                    // Git branch name
-    environment: string;               // local | ci | preview | production
-    anomalyContext: string[];          // Surrounding log lines for context
+    /** Git commit SHA */
+    commitSha: string;
+    /** Git branch name */
+    branch: string;
+    /** local | ci | preview | production */
+    environment: string;
+    /** Surrounding log lines for context */
+    anomalyContext: string[];
   };
 }
 
-// Enumerated types
+/** Enumerated types */
 type QIWChannel = 
   | "build" 
   | "lint" 

@@ -141,7 +141,7 @@
         }
       },
       "parityValidation": true,
-      "note": "Desktop-only app may not require deployment simulation - TBD based on app architecture",
+      "note": "Desktop-only app may not require deployment simulation. SKIP if: (1) no server component, (2) no network deployment, (3) single-user local execution. INCLUDE if: desktop app has auto-update, cloud sync, or remote API dependencies.",
       "exclusions": []
     },
     
