@@ -1,9 +1,9 @@
 # Builder PR Release Checklist
 
-**Version**: 2.0.0  
-**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924)  
+**Version**: 2.1.0  
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924), PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_PROTOCOL (maturion-foreman-governance PR #952)  
 **Status**: MANDATORY for all builder PRs  
-**Last Updated**: 2026-01-11
+**Last Updated**: 2026-01-14
 
 ---
 
@@ -104,6 +104,34 @@
   - [ ] Lint results: ✅ CLEAN
   - [ ] Exit code: 0
   - [ ] No new warnings introduced
+
+### Pre-Implementation Behavior Review (Enhancements Only)
+
+**Authority**: PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md  
+**Applies To**: Enhancement/optimization PRs only (not bug fixes, governance, or documentation)
+
+- [ ] **PR Classification Confirmed**
+  - [ ] Classification: [Enhancement / Bug Fix / Governance / Other]
+  - [ ] If Enhancement: Pre-implementation review REQUIRED
+  - [ ] If uncertain: Escalated to FM for classification
+
+- [ ] **Pre-Implementation Review Complete** (Enhancement PRs only)
+  - [ ] Review report file present in PR
+  - [ ] File naming: `pre_implementation_review_[description].md`
+  - [ ] Step 1: Baseline Behavior Captured (with evidence)
+  - [ ] Step 2: Design Alternatives Analyzed (minimum 2 alternatives)
+  - [ ] Step 3: Risk Assessment Complete (with mitigations)
+  - [ ] Step 4: Success Criteria Defined (measurable)
+  - [ ] All sections complete (no placeholders or TODOs)
+  - [ ] Report referenced in PR description
+
+- [ ] **Exemption Handling** (if review not included)
+  - [ ] Exemption requested from FM (builders cannot self-exempt)
+  - [ ] Exemption justification documented
+  - [ ] FM exemption approval granted in PR comments
+  - [ ] Exemption rationale: [explain]
+
+**Note**: See governance/onboarding/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ONBOARDING.md for guidance
 
 ### Code Quality
 
@@ -209,11 +237,13 @@
 I certify that:
 - ✅ All Category 0 (Execution Bootstrap Protocol) requirements met
 - ✅ All Category 8 (Builder-Specific) requirements met
+- ✅ **Pre-Implementation Review completed** (if enhancement PR) or exemption granted by FM
 - ✅ PREHANDOVER_PROOF demonstrates local validation success
 - ✅ This PR is ready for FM review and acceptance
 - ✅ No known blocking issues remain
 
 **PREHANDOVER_PROOF Location**: `[filename]`  
+**Pre-Implementation Review** (Enhancement PRs only): `[filename or "N/A - not enhancement" or "Exemption granted by FM"]`  
 **Handover Status**: ✅ **AUTHORIZED**
 
 ---
@@ -227,11 +257,18 @@ I certify that:
 - [ ] Gate validation results documented with exit codes
 - [ ] Handover status is AUTHORIZED
 - [ ] Builder certification statement present
+- [ ] **Pre-Implementation Review verified** (Enhancement PRs only):
+  - [ ] PR classification correct (enhancement vs bug fix)
+  - [ ] Review report present OR valid exemption granted
+  - [ ] All 4 review steps complete with adequate detail
+  - [ ] Evidence provided (baseline, alternatives, risks, success criteria)
+  - [ ] No placeholders or incomplete sections
+  - [ ] Review report filename follows convention
 
 **FM Decision**:
-- [ ] ✅ **ACCEPT** - All requirements met, merge approved
-- [ ] 🔄 **REQUEST CHANGES** - Issues identified, builder must address
-- [ ] ❌ **REJECT** - Missing PREHANDOVER_PROOF or critical violations
+- [ ] ✅ **ACCEPT** - All requirements met (including pre-implementation review if enhancement)
+- [ ] 🔄 **REQUEST CHANGES** - Issues identified, builder must address (may include incomplete review)
+- [ ] ❌ **REJECT** - Missing PREHANDOVER_PROOF, missing pre-implementation review (enhancement), or critical violations
 
 ---
 
@@ -253,11 +290,18 @@ I certify that:
 
 **Governance Documents**:
 - governance/onboarding/EXECUTION_BOOTSTRAP_PROTOCOL_ONBOARDING.md
+- governance/onboarding/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ONBOARDING.md
+- governance/canon/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md
 - governance/templates/PREHANDOVER_PROOF_TEMPLATE.md
 - BUILD_PHILOSOPHY.md
 - .github/agents/[your-builder].md
 
+**External References**:
+- [Pre-Implementation Behavior Review Protocol (Canonical)](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/canon/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_PROTOCOL.md)
+- [Review Report Template (Canonical)](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/templates/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_REPORT.template.md)
+
 **Version History**:
+- v2.1.0 (2026-01-14): Added Pre-Implementation Behavior Review requirement for enhancements
 - v2.0.0 (2026-01-11): Added Category 0 (Execution Bootstrap Protocol), restructured
 - v1.0.0: Initial builder checklist
 

@@ -1,0 +1,298 @@
+name: Pre-Implementation Review Gate
+
+on:
+  pull_request:
+    branches: [main, develop]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  workflow_dispatch:
+
+jobs:
+  check-pre-implementation-review:
+    name: Pre-Implementation Review Validation
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Determine PR Classification
+        id: classify
+        run: |
+          # Check PR labels for classification hints
+          LABELS="${{ toJson(github.event.pull_request.labels.*.name) }}"
+          
+          # Default classification based on labels
+          IS_ENHANCEMENT=false
+          IS_BUG_FIX=false
+          IS_GOVERNANCE=false
+          IS_DOCS_ONLY=false
+          NEEDS_REVIEW=false
+          HAS_EXEMPTION=false
+          
+          # Check for enhancement-related labels
+          if echo "$LABELS" | grep -qi "enhancement\|feature\|optimization"; then
+            IS_ENHANCEMENT=true
+            NEEDS_REVIEW=true
+          fi
+          
+          # Check for bug fix labels
+          if echo "$LABELS" | grep -qi "bug\|fix\|hotfix"; then
+            IS_BUG_FIX=true
+          fi
+          
+          # Check for governance labels
+          if echo "$LABELS" | grep -qi "governance\|policy\|documentation"; then
+            IS_GOVERNANCE=true
+          fi
+          
+          # Check for exemption label
+          if echo "$LABELS" | grep -qi "pre-impl-review-exempt"; then
+            HAS_EXEMPTION=true
+            NEEDS_REVIEW=false
+          fi
+          
+          # Analyze PR title and description for keywords
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_BODY="${{ github.event.pull_request.body }}"
+          
+          # Enhancement keywords in title/description
+          if echo "$PR_TITLE $PR_BODY" | grep -qi "add\|new feature\|enhance\|improve\|optimize\|refactor.*behavior"; then
+            if [ "$IS_BUG_FIX" != "true" ] && [ "$IS_GOVERNANCE" != "true" ]; then
+              IS_ENHANCEMENT=true
+              NEEDS_REVIEW=true
+            fi
+          fi
+          
+          # Bug fix keywords override enhancement
+          if echo "$PR_TITLE $PR_BODY" | grep -qi "fix bug\|bugfix\|hotfix\|fix.*error\|fix.*issue"; then
+            IS_BUG_FIX=true
+            NEEDS_REVIEW=false
+          fi
+          
+          # Governance/docs keywords
+          if echo "$PR_TITLE $PR_BODY" | grep -qi "governance\|policy\|documentation only\|readme\|docs:"; then
+            IS_GOVERNANCE=true
+            NEEDS_REVIEW=false
+          fi
+          
+          # Check if only governance files changed
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          GOVERNANCE_ONLY=true
+          while IFS= read -r file; do
+            if [[ ! "$file" =~ ^(governance/|\.github/agents/|README\.md|.*\.md$) ]]; then
+              GOVERNANCE_ONLY=false
+              break
+            fi
+          done <<< "$CHANGED_FILES"
+          
+          if [ "$GOVERNANCE_ONLY" = "true" ]; then
+            IS_GOVERNANCE=true
+            NEEDS_REVIEW=false
+          fi
+          
+          # Set outputs
+          echo "is_enhancement=$IS_ENHANCEMENT" >> $GITHUB_OUTPUT
+          echo "is_bug_fix=$IS_BUG_FIX" >> $GITHUB_OUTPUT
+          echo "is_governance=$IS_GOVERNANCE" >> $GITHUB_OUTPUT
+          echo "needs_review=$NEEDS_REVIEW" >> $GITHUB_OUTPUT
+          echo "has_exemption=$HAS_EXEMPTION" >> $GITHUB_OUTPUT
+          
+          # Log classification
+          echo "==================================="
+          echo "PR Classification Results"
+          echo "==================================="
+          echo "Enhancement: $IS_ENHANCEMENT"
+          echo "Bug Fix: $IS_BUG_FIX"
+          echo "Governance: $IS_GOVERNANCE"
+          echo "Needs Pre-Implementation Review: $NEEDS_REVIEW"
+          echo "Has Exemption: $HAS_EXEMPTION"
+          echo "==================================="
+
+      - name: Check for Review Report
+        id: check_report
+        if: steps.classify.outputs.needs_review == 'true'
+        run: |
+          echo "Enhancement PR detected - checking for pre-implementation review report..."
+          
+          # Look for review report files
+          REVIEW_FILES=$(find . -type f -name "pre_implementation_review*.md" -o -name "pre-implementation-review*.md" | grep -v node_modules || true)
+          
+          HAS_REVIEW=false
+          REVIEW_FILE=""
+          
+          if [ -n "$REVIEW_FILES" ]; then
+            HAS_REVIEW=true
+            REVIEW_FILE=$(echo "$REVIEW_FILES" | head -n1)
+            echo "Found review report: $REVIEW_FILE"
+          fi
+          
+          echo "has_review=$HAS_REVIEW" >> $GITHUB_OUTPUT
+          echo "review_file=$REVIEW_FILE" >> $GITHUB_OUTPUT
+
+      - name: Validate Review Completeness
+        id: validate_review
+        if: steps.classify.outputs.needs_review == 'true' && steps.check_report.outputs.has_review == 'true'
+        run: |
+          REVIEW_FILE="${{ steps.check_report.outputs.review_file }}"
+          
+          echo "Validating review report completeness: $REVIEW_FILE"
+          
+          # Check for required sections
+          MISSING_SECTIONS=""
+          
+          if ! grep -qi "baseline.*behavior\|step 1" "$REVIEW_FILE"; then
+            MISSING_SECTIONS="$MISSING_SECTIONS\n- Step 1: Baseline Behavior Capture"
+          fi
+          
+          if ! grep -qi "design.*alternative\|step 2\|alternative.*analysis" "$REVIEW_FILE"; then
+            MISSING_SECTIONS="$MISSING_SECTIONS\n- Step 2: Design Alternatives Analysis"
+          fi
+          
+          if ! grep -qi "risk.*assessment\|step 3\|risk.*matrix" "$REVIEW_FILE"; then
+            MISSING_SECTIONS="$MISSING_SECTIONS\n- Step 3: Risk Assessment"
+          fi
+          
+          if ! grep -qi "success.*criteria\|step 4\|acceptance.*criteria" "$REVIEW_FILE"; then
+            MISSING_SECTIONS="$MISSING_SECTIONS\n- Step 4: Success Criteria"
+          fi
+          
+          IS_COMPLETE=true
+          if [ -n "$MISSING_SECTIONS" ]; then
+            IS_COMPLETE=false
+          fi
+          
+          # Check for placeholder content
+          if grep -qi "TODO\|PLACEHOLDER\|\[TBD\]\|\[TO BE COMPLETED\]" "$REVIEW_FILE"; then
+            IS_COMPLETE=false
+            MISSING_SECTIONS="$MISSING_SECTIONS\n- Contains TODO/placeholder content"
+          fi
+          
+          echo "is_complete=$IS_COMPLETE" >> $GITHUB_OUTPUT
+          echo "missing_sections<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$MISSING_SECTIONS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Report Results
+        if: always()
+        run: |
+          echo "================================================"
+          echo "Pre-Implementation Review Gate Results"
+          echo "================================================"
+          echo ""
+          
+          NEEDS_REVIEW="${{ steps.classify.outputs.needs_review }}"
+          HAS_EXEMPTION="${{ steps.classify.outputs.has_exemption }}"
+          HAS_REVIEW="${{ steps.check_report.outputs.has_review }}"
+          IS_COMPLETE="${{ steps.validate_review.outputs.is_complete }}"
+          
+          if [ "$NEEDS_REVIEW" = "true" ]; then
+            echo "✅ PR classified as ENHANCEMENT - Pre-implementation review REQUIRED"
+            echo ""
+            
+            if [ "$HAS_EXEMPTION" = "true" ]; then
+              echo "✅ EXEMPTION GRANTED (label: pre-impl-review-exempt)"
+              echo "   Review not required for this PR"
+              echo ""
+              echo "Note: Exemption must be documented by FM in PR comments"
+            elif [ "$HAS_REVIEW" = "true" ]; then
+              echo "✅ Review report found: ${{ steps.check_report.outputs.review_file }}"
+              echo ""
+              
+              if [ "$IS_COMPLETE" = "true" ]; then
+                echo "✅ Review report appears complete"
+                echo "   All required sections present"
+              else
+                echo "⚠️  Review report may be incomplete"
+                echo "   Missing or incomplete sections:"
+                echo "${{ steps.validate_review.outputs.missing_sections }}"
+                echo ""
+                echo "   FM must verify review completeness manually"
+              fi
+            else
+              echo "❌ NO REVIEW REPORT FOUND"
+              echo ""
+              echo "Enhancement PRs require pre-implementation review report."
+              echo ""
+              echo "Expected file: pre_implementation_review_[description].md"
+              echo "See: governance/onboarding/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ONBOARDING.md"
+            fi
+          else
+            echo "✅ PR does NOT require pre-implementation review"
+            echo ""
+            
+            if [ "${{ steps.classify.outputs.is_bug_fix }}" = "true" ]; then
+              echo "   Reason: Classified as BUG FIX"
+            elif [ "${{ steps.classify.outputs.is_governance }}" = "true" ]; then
+              echo "   Reason: Classified as GOVERNANCE/DOCUMENTATION"
+            else
+              echo "   Reason: Not classified as enhancement"
+            fi
+          fi
+          
+          echo ""
+          echo "================================================"
+          echo ""
+          echo "Classification uncertain? Ask ForemanApp or Governance Liaison"
+          echo "Need exemption? Request from ForemanApp with justification"
+          echo ""
+          echo "References:"
+          echo "- governance/canon/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md"
+          echo "- governance/onboarding/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ONBOARDING.md"
+          echo "================================================"
+
+      - name: Gate Decision
+        if: always()
+        run: |
+          NEEDS_REVIEW="${{ steps.classify.outputs.needs_review }}"
+          HAS_EXEMPTION="${{ steps.classify.outputs.has_exemption }}"
+          HAS_REVIEW="${{ steps.check_report.outputs.has_review }}"
+          
+          # During grace period (until 2026-02-14), use warning instead of failure
+          GRACE_PERIOD_END="2026-02-14"
+          CURRENT_DATE=$(date +%Y-%m-%d)
+          
+          if [ "$CURRENT_DATE" \< "$GRACE_PERIOD_END" ]; then
+            GRACE_PERIOD=true
+            echo "ℹ️  Currently in GRACE PERIOD (educational mode until $GRACE_PERIOD_END)"
+          else
+            GRACE_PERIOD=false
+            echo "⚠️  Grace period ended - FULL ENFORCEMENT active"
+          fi
+          
+          if [ "$NEEDS_REVIEW" = "true" ] && [ "$HAS_EXEMPTION" != "true" ]; then
+            if [ "$HAS_REVIEW" != "true" ]; then
+              if [ "$GRACE_PERIOD" = "true" ]; then
+                echo ""
+                echo "⚠️  WARNING (Grace Period): Enhancement PR missing pre-implementation review"
+                echo "   After grace period, this will BLOCK merge"
+                echo "   Please add review report before $GRACE_PERIOD_END"
+                echo ""
+                echo "✅ GATE PASSED (grace period - educational warning only)"
+                exit 0
+              else
+                echo ""
+                echo "❌ GATE FAILED: Enhancement PR missing pre-implementation review"
+                echo ""
+                echo "Pre-implementation review is MANDATORY for enhancement PRs."
+                echo "Add review report OR request exemption from FM."
+                echo ""
+                exit 1
+              fi
+            else
+              echo ""
+              echo "✅ GATE PASSED: Review report present"
+              echo "   (FM must verify completeness and quality)"
+              exit 0
+            fi
+          else
+            echo ""
+            echo "✅ GATE PASSED: Review not required for this PR type"
+            exit 0
+          fi

@@ -1,9 +1,9 @@
 # FM Orchestration PR Release Checklist
 
-**Version**: 2.0.0  
-**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924)  
+**Version**: 2.1.0  
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924), PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_PROTOCOL (maturion-foreman-governance PR #952)  
 **Status**: MANDATORY for all FM orchestration PRs  
-**Last Updated**: 2026-01-11
+**Last Updated**: 2026-01-14
 
 ---
 
@@ -99,6 +99,12 @@
   - [ ] Verified: Each builder captured gate results
   - [ ] Verified: Each builder provided execution evidence
   - [ ] Verified: No builders relied on CI-as-diagnostic
+  - [ ] **Verified: Pre-Implementation Review complete** (for enhancement PRs):
+    - [ ] Enhancement PRs classified correctly (vs bug fixes)
+    - [ ] Review report present OR valid exemption granted by FM
+    - [ ] All 4 review steps complete with adequate detail
+    - [ ] Evidence provided in review reports
+    - [ ] No incomplete or placeholder sections in reviews
 
 - [ ] **Integration validation**
   - [ ] All builder work integrated
@@ -131,8 +137,10 @@
 - [ ] **Rejection authority used properly**
   - [ ] Rejected any PRs missing PREHANDOVER_PROOF
   - [ ] Rejected any PRs with incomplete validation
+  - [ ] **Rejected enhancement PRs missing pre-implementation review** (unless exemption granted)
   - [ ] Rejection reasons documented
   - [ ] Builders given clear guidance
+  - [ ] Exemptions granted only for valid reasons (documented)
 
 - [ ] **Escalation when needed**
   - [ ] Escalated governance questions to Governance Liaison
@@ -308,16 +316,23 @@ bash governance-gate-local-validation.sh
 
 **Governance Documents**:
 - governance/onboarding/EXECUTION_BOOTSTRAP_PROTOCOL_ONBOARDING.md
+- governance/onboarding/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ONBOARDING.md
+- governance/canon/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md
 - governance/templates/PREHANDOVER_PROOF_TEMPLATE.md
 - BUILD_PHILOSOPHY.md
 - .github/agents/ForemanApp-agent.md
 - governance/contracts/FM_EXECUTION_MANDATE.md
 - governance/contracts/FM_OPERATIONAL_GUIDANCE.md
 
+**External References**:
+- [Pre-Implementation Behavior Review Protocol (Canonical)](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/canon/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_PROTOCOL.md)
+- [Review Report Template (Canonical)](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/templates/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_REPORT.template.md)
+
 **Related Checklists**:
 - governance/templates/pr-checklists/BUILDER_PR_CHECKLIST.md (for builders)
 
 **Version History**:
+- v2.1.0 (2026-01-14): Added Pre-Implementation Behavior Review verification for FM
 - v2.0.0 (2026-01-11): Added Category 0 (Execution Bootstrap Protocol), Category 4 (FM-Specific)
 - v1.0.0: Initial FM orchestration checklist
 
