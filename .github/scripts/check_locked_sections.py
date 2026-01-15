@@ -73,7 +73,7 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    targets = [path for path in expand_paths(args.paths) if path.exists()]
+    targets = [path for path in expand_paths(args.paths) if path.is_file()]
     if not targets:
         print("No files found to validate.", file=sys.stderr)
         return 1

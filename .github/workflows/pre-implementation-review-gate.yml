@@ -105,21 +105,6 @@ jobs:
             NEEDS_REVIEW=false
           fi
           
-          # Check if only governance files changed
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
-          GOVERNANCE_ONLY=true
-          while IFS= read -r file; do
-            if [[ ! "$file" =~ ^(governance/|\.github/agents/|docs/) ]]; then
-              GOVERNANCE_ONLY=false
-              break
-            fi
-          done <<< "$CHANGED_FILES"
-          
-          if [ "$GOVERNANCE_ONLY" = "true" ]; then
-            IS_GOVERNANCE=true
-            NEEDS_REVIEW=false
-          fi
-          
           # Set outputs
           echo "is_enhancement=$IS_ENHANCEMENT" >> $GITHUB_OUTPUT
           echo "is_bug_fix=$IS_BUG_FIX" >> $GITHUB_OUTPUT

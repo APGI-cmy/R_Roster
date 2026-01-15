@@ -17,7 +17,7 @@ if [ ! -f "$SCOPE_FILE" ]; then
     echo ""
     echo "## Files"
     if [ -n "$DIFF_OUTPUT" ]; then
-      echo "$DIFF_OUTPUT"
+      printf '%s\n' "$DIFF_OUTPUT"
     else
       echo "(no changes detected)"
     fi

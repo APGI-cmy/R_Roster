@@ -55,4 +55,5 @@ jobs:
           echo "$OUTPUT"
           echo ""
           echo "Fix command: yamllint --fix .github/agents/*.md"
+          echo "If your yamllint installation does not support --fix, resolve the warnings manually."
           exit 0
