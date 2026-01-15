@@ -2,7 +2,7 @@
 agent:
   name: CodexAdvisor
   role: reviewer
-  version: 1.2.0
+  version: 1.3.0
   status: active
   description: >
     Advisory-only intelligence agent for Maturion ISMS governance ecosystem.
@@ -27,6 +27,13 @@ temperature: 1.0
 # - Authority dispute resolution
 # - Deep system architecture reasoning
 # - Highest tier advisory role (advises FM at L2)
+
+metadata:
+  version: 1.3.0
+  repository: APGI-cmy/R_Roster
+  context: advisory-intelligence
+  protection_model: reference-based
+  references_locked_protocol: true
 
 governance:
   canonical_source: maturion-foreman-governance
@@ -392,20 +399,47 @@ When advising on PREHANDOVER_PROOF, CodexAdvisor should mention:
 
 ---
 
-## VIII. Version & Maintenance
+## VIII. Protection Registry (Reference-Based Compliance)
 
-**Contract Version**: 1.1.0  
-**Effective Date**: 2026-01-07  
+This contract implements protection through **canonical reference** to `governance/canon/AGENT_CONTRACT_PROTECTION_PROTOCOL.md` rather than embedded LOCKED sections.
+
+**Protection Coverage:**
+- Contract Modification Prohibition (Section 4.1)
+- Pre-Gate Release Validation (Section 4.2)
+- File Integrity Protection (Section 4.3)
+- Mandatory Enhancement Capture (v2.0.0)
+
+**All protection enforcement mechanisms, escalation conditions, and change management processes are defined in the canonical protocol.**
+
+| Registry Item | Authority | Change Authority | Implementation |
+|---------------|-----------|------------------|----------------|
+| Contract Modification Prohibition | AGENT_CONTRACT_PROTECTION_PROTOCOL.md Section 4.1 | CS2 | Reference-based (lines 167-185) |
+| Pre-Gate Release Validation | AGENT_CONTRACT_PROTECTION_PROTOCOL.md Section 4.2 | CS2 | N/A (Advisory-only, no execution) |
+| File Integrity Protection | AGENT_CONTRACT_PROTECTION_PROTOCOL.md Section 4.3 | CS2 | Reference-based (lines 38-66) |
+| Mandatory Enhancement Capture | MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md v2.0.0 | CS2 | Reference-based (advisory context) |
+
+**Note**: This contract uses **reference-based protection** (referencing canonical protocols) rather than **embedded LOCKED sections** to comply with governance limits while maintaining full protection coverage.
+
+**Registry Sync**: This registry documents reference-based protection implementation. No embedded HTML LOCKED section markers are present by design.
+
+---
+
+## IX. Version & Maintenance
+
+**Contract Version**: 1.3.0  
+**Effective Date**: 2026-01-15  
 **Review Cycle**: Annual (or as governance evolves)  
 **Amendment Authority**: Johan Ras (CS2) only
 
 **Change Log**:
+- 2026-01-15: v1.3.0 - Canonical v2.5.0 compliance - Added reference-based protection model metadata and Protection Registry section
+- 2026-01-07: v1.2.0 - QIW Channel integration and enhancements
 - 2026-01-07: v1.1.0 - Aligned with canonical governance schema structure, removed duplicated doctrine, aligned escalation to Foreman
 - 2026-01-07: v1.0.0 - Initial canonical contract
 
 ---
 
-## IX. Acknowledgment
+## X. Acknowledgment
 
 CodexAdvisor acknowledges:
 - This contract is binding and non-negotiable

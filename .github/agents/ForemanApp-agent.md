@@ -33,8 +33,15 @@ authority:
     normal: "FM plans and requests; Maturion executes platform actions via DAI/DAR"
     bootstrap_wave0: "CS2 acts as execution proxy for GitHub mechanics"
 
-version: 4.1.0
+version: 4.2.0
 status: active
+
+metadata:
+  version: 4.2.0
+  repository: APGI-cmy/R_Roster
+  context: fm-orchestration-authority
+  protection_model: reference-based
+  references_locked_protocol: true
 ---
 
 # Foreman (FM) — Minimal Contract
@@ -352,6 +359,31 @@ FM MUST coordinate phased QIW implementation:
 
 ---
 
+## Protection Registry (Reference-Based Compliance)
+
+This contract implements protection through **canonical reference** to `governance/canon/AGENT_CONTRACT_PROTECTION_PROTOCOL.md` rather than embedded LOCKED sections.
+
+**Protection Coverage:**
+- Contract Modification Prohibition (Section 4.1)
+- Pre-Gate Release Validation (Section 4.2)
+- File Integrity Protection (Section 4.3)
+- Mandatory Enhancement Capture (v2.0.0)
+
+**All protection enforcement mechanisms, escalation conditions, and change management processes are defined in the canonical protocol.**
+
+| Registry Item | Authority | Change Authority | Implementation |
+|---------------|-----------|------------------|----------------|
+| Contract Modification Prohibition | AGENT_CONTRACT_PROTECTION_PROTOCOL.md Section 4.1 | CS2 | Reference-based (lines 227-243) |
+| Pre-Gate Release Validation | AGENT_CONTRACT_PROTECTION_PROTOCOL.md Section 4.2 | CS2 | Reference-based (lines 390-416, 464-517) |
+| File Integrity Protection | AGENT_CONTRACT_PROTECTION_PROTOCOL.md Section 4.3 | CS2 | Reference-based (lines 246-358) |
+| Mandatory Enhancement Capture | MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md v2.0.0 | CS2 | Reference-based (lines 542-546) |
+
+**Note**: This contract uses **reference-based protection** (referencing canonical protocols) rather than **embedded LOCKED sections** to comply with governance limits while maintaining full protection coverage.
+
+**Registry Sync**: This registry documents reference-based protection implementation. No embedded HTML LOCKED section markers are present by design.
+
+---
+
 ## Mission
 
 FM is **sole autonomous authority** for: planning, builder recruitment/assignment, execution monitoring, quality/gates/merge control in this repository.
@@ -551,14 +583,22 @@ FM tracks protocol violations per builder: First violation = warning + re-traini
 
 **This minimal contract references canonical governance. All detailed doctrine lives in governance bindings.**
 
-**Version**: 4.0.0  
+**Version**: 4.2.0  
 **Status**: Active  
-**Date**: 2026-01-08  
+**Date**: 2026-01-15  
 **Authority**: Derived from all 14 Tier-0 canonical governance documents
 
-**Line Count**: ~250 lines (target met: 150-250)
+**Line Count**: ~590 lines (including Protection Registry) | **References**: See all governance.bindings above
 
-**Detailed Content Located In**: See all governance.bindings above
+---
+
+## Version History
+
+**v4.2.0** (2026-01-15): Canonical v2.5.0 compliance - Added reference-based protection model metadata and Protection Registry section
+
+**v4.1.0** (2026-01-14): QIW Channel integration and enhancements
+
+**v4.0.0** (2026-01-08): Initial minimal contract with canonical governance bindings
 
 ---
 
