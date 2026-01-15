@@ -41,7 +41,7 @@ governance:
   canon_binding: exactly-one-canonical-source
   supremacy: governance-is-supreme-and-immutable
   escalation_target: Foreman
-  
+
   bindings:
     - id: agent-contract-management
       path: governance/canon/AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md
@@ -49,7 +49,7 @@ governance:
       tier: 0
       status: constitutional
       summary: Constitutional prohibitions and requirements for agent contract modification
-    
+
     - id: qiw-watchdog-channel
       path: governance/canon/WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md
       role: quality-integrity-advisory

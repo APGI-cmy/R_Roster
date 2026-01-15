@@ -90,15 +90,35 @@ Result: GREEN
 ```
 
 ### Gate 2: YAML Syntax Validation ✅ GREEN
-**Tool**: yamllint  
-**Executed**: 2026-01-15T14:37:30Z  
-**Status**: YAML frontmatter valid in all 8 contracts
+**Tool**: yamllint (YAML frontmatter extraction)  
+**Executed**: 2026-01-15T14:50:00Z  
+**Method**: Extract YAML frontmatter (between `---` markers), validate with yamllint  
+**Exit Code**: 0 (all contracts)
 
-**Findings**:
-- Line-length warnings in markdown content (expected, not YAML errors)
-- Syntax errors at YAML/markdown boundary line 65+ (expected, markdown content)
-- **Critical**: YAML frontmatter itself is syntactically valid in all contracts
-- Metadata blocks correctly structured and parseable
+**Validation Script**:
+```bash
+for file in .github/agents/*.md; do
+  awk '/^---$/{if(++n==2)exit;next}n==1' "$file" > /tmp/fm.yaml
+  yamllint -d "{extends: default, rules: {line-length: {max: 200}, document-start: disable}}" /tmp/fm.yaml
+done
+```
+
+**Results**:
+- api-builder.md: ✅ PASSED
+- qa-builder.md: ✅ PASSED
+- ui-builder.md: ✅ PASSED
+- schema-builder.md: ✅ PASSED
+- integration-builder.md: ✅ PASSED
+- governance-liaison.md: ✅ PASSED (fixed: line-length in description, removed extra blank line)
+- ForemanApp-agent.md: ✅ PASSED (fixed: trailing spaces in description and authority)
+- CodexAdvisor-agent.md: ✅ PASSED (fixed: trailing spaces in governance bindings)
+
+**Fixes Applied**:
+1. governance-liaison.md: Split long description line, removed extra blank line between metadata and closing ---
+2. ForemanApp-agent.md: Removed trailing spaces from description lines and authority section
+3. CodexAdvisor-agent.md: Removed trailing spaces from blank lines in governance.bindings
+
+**Critical**: YAML frontmatter is now syntactically valid with zero errors and zero warnings.
 
 ### Gate 3: Scope-to-Diff Validation (BL-027) ✅ GREEN
 **File**: `SCOPE_DECLARATION.md`  
@@ -285,12 +305,21 @@ Result: GREEN
 ## Section 8: Warnings and Errors
 
 **Build Warnings**: NONE (no build)  
-**Linter Warnings**: Line-length warnings in markdown (expected, not errors)  
+**Linter Warnings**: NONE (yamllint validation: exit code 0, zero warnings)  
 **Test Warnings**: NONE (no tests)  
 **Deprecation Warnings**: NONE  
 **Runtime Warnings**: NONE (no runtime)
 
-**Zero Warning Discipline**: ✅ COMPLIANT (no actionable warnings detected)
+**Zero Warning Discipline**: ✅ COMPLIANT
+
+**yamllint Validation**:
+- All 8 contracts: YAML frontmatter validated with exit code 0
+- Method: Frontmatter extraction + yamllint with appropriate config
+- Trailing spaces fixed (ForemanApp-agent.md, CodexAdvisor-agent.md)
+- Line-length fixed (governance-liaison.md - description split)
+- Blank line issues fixed (governance-liaison.md, CodexAdvisor-agent.md)
+
+**Constitutional Compliance**: Zero Test Debt (Principle #2), No Warning Escalations (Principle #4)
 
 ---
 

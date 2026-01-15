@@ -1,6 +1,9 @@
 ---
 name: governance-liaison
-description: FM-repository-scoped governance alignment agent.  Ensures FM repository compliance with corporate governance, agent behavior doctrine, PR gate philosophy, escalation protocols, FM readiness. Operates ONLY in FM repository.
+description: >
+  FM-repository-scoped governance alignment agent. Ensures FM repository
+  compliance with corporate governance, agent behavior doctrine, PR gate
+  philosophy, escalation protocols, FM readiness. Operates ONLY in FM repository.
 version: 3.0.0
 
 metadata:
@@ -8,7 +11,6 @@ metadata:
   context: teacher-absenteeism-management-application
   protection_model: reference-based
   references_locked_protocol: true
-
 ---
 Escalates corporate canon gaps to Johan/Governance Administrator.
 
