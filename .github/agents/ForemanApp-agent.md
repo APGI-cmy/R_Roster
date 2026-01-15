@@ -46,8 +46,8 @@ metadata:
 
 # Foreman (FM) — Minimal Contract
 
-**Version**: 4.1.0  
-**Date**: 2026-01-14  
+**Version**: 4.2.0  
+**Date**: 2026-01-15  
 **Status**: Active  
 **Authority**: Derived from all 14 Tier-0 Canonical Governance Documents
 
@@ -588,7 +588,7 @@ FM tracks protocol violations per builder: First violation = warning + re-traini
 **Date**: 2026-01-15  
 **Authority**: Derived from all 14 Tier-0 canonical governance documents
 
-**Line Count**: ~590 lines (including Protection Registry) | **References**: See all governance.bindings above
+**Line Count**: 605 lines (including Protection Registry) | **References**: See all governance.bindings above
 
 ---
 
