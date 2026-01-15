@@ -2,7 +2,7 @@
 agent:
   name: CodexAdvisor
   role: reviewer
-  version: 1.2.0
+  version: 1.2.0  # Updated 2026-01-15: Test BL-027/028 gate improvements
   status: active
   description: >
     Advisory-only intelligence agent for Maturion ISMS governance ecosystem.
