@@ -15,6 +15,9 @@ on:
       - '.github/agents/*.md'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   yamllint:
     name: Yamllint (syntax errors fail)
