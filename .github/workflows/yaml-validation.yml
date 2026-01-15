@@ -38,7 +38,13 @@ jobs:
 
       - name: Run yamllint
         run: |
-          OUTPUT=$(yamllint -f parsable . 2>&1 || true)
+          TARGETS=$(git ls-files '*.yml' '*.yaml' '.github/agents/*.md')
+          if [ -z "$TARGETS" ]; then
+            echo "No YAML files found to validate."
+            exit 0
+          fi
+
+          OUTPUT=$(yamllint -f parsable $TARGETS 2>&1 || true)
 
           if [ -z "$OUTPUT" ]; then
             echo "✅ YAML validation passed."
@@ -54,6 +60,7 @@ jobs:
           echo "⚠️ YAML style warnings (non-blocking):"
           echo "$OUTPUT"
           echo ""
-          echo "Fix command: yamllint --fix .github/agents/*.md"
+          echo "Fix command (agent frontmatter): yamllint --fix .github/agents/*.md"
+          echo "For other YAML files, run: yamllint --fix <path>"
           echo "If your yamllint installation does not support --fix, resolve the warnings manually."
           exit 0

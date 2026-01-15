@@ -99,7 +99,7 @@ jobs:
             NEEDS_REVIEW=false
           fi
           
-          # Governance/docs keywords
+          # Governance/docs keywords (for mixed-scope PRs)
           if echo "$PR_TITLE $PR_BODY" | grep -qi "governance\|policy\|documentation only\|readme\|docs:"; then
             IS_GOVERNANCE=true
             NEEDS_REVIEW=false

@@ -4,7 +4,8 @@
 set -euo pipefail
 
 SCOPE_FILE="SCOPE_DECLARATION.md"
-DIFF_COMMAND="git diff --name-status origin/main"
+BASE_REF="${SCOPE_BASE_REF:-origin/main}"
+DIFF_COMMAND="git diff --name-status $BASE_REF"
 DIFF_OUTPUT="$($DIFF_COMMAND)"
 
 if [ ! -f "$SCOPE_FILE" ]; then
