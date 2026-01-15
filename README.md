@@ -30,6 +30,8 @@ A mandatory 4-step review process that ensures:
 - Governance/documentation updates
 - Infrastructure/tooling changes (without app behavior impact)
 
+**Gate exemption**: PRs limited to `governance/`, `.github/agents/`, or `docs/` are exempt from the pre-implementation review gate.
+
 #### How to Complete Review
 
 1. **Read the onboarding guide**: `governance/onboarding/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ONBOARDING.md`
