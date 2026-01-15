@@ -8,8 +8,14 @@ description: >
 
 builder_id: ui-builder
 builder_type: specialized
-version: 3.1.0
+version: 3.2.0
 status: recruited
+
+metadata:
+  repository: APGI-cmy/R_Roster
+  context: teacher-absenteeism-management-application
+  protection_model: reference-based
+  references_locked_protocol: true
 
 # Model Tier Specification
 model: gpt-4-1
@@ -60,8 +66,8 @@ evidence_requirements: "complete-audit-trail-mandatory"
 
 # UI Builder — Minimal Contract
 
-**Version**: 3.1.0  
-**Date**: 2026-01-14  
+**Version**: 3.2.0  
+**Date**: 2026-01-15  
 **Status**: Active  
 **Recruited**: 2025-12-30 (Wave 0.1)
 
@@ -180,6 +186,34 @@ governance:
 **Violation Severity**: CATASTROPHIC - immediate HALT and escalation to Johan required.
 
 **Contract modifications MUST be executed via the instruction system** (`.github/agents/instructions/`) and MUST be performed by an authorized agent who is NOT the contract owner.
+
+---
+
+## Protection Registry (Reference-Based Compliance)
+
+This contract implements protection through **canonical reference** to `governance/canon/AGENT_CONTRACT_PROTECTION_PROTOCOL.md` rather than embedded LOCKED sections.
+
+**Protection Coverage:**
+- Contract Modification Prohibition (Section 4.1)
+- Pre-Gate Release Validation (Section 4.2)
+- File Integrity Protection (Section 4.3)
+- Mandatory Enhancement Capture (v2.0.0)
+
+**All protection enforcement mechanisms, escalation conditions, and change management processes are defined in the canonical protocol.**
+
+| Registry Item | Authority | Change Authority | Implementation |
+|---------------|-----------|------------------|----------------|
+| Contract Modification Prohibition | AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md (governance/canon/) | CS2 | Reference-based (Contract Modification Authority section) |
+| Zero Test Debt | ZERO_TEST_DEBT_CONSTITUTIONAL_RULE.md (governance/canon/) | CS2 | Reference-based (One-Time Build section) |
+| Build Philosophy | BUILD_PHILOSOPHY.md | CS2 | Reference-based (Maturion Builder Mindset section) |
+| QIW Channel Enforcement | WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md v1.0.0 (governance/canon/) | CS2 | Reference-based (QIW section) |
+| Pre-Gate Local Validation | AGENT_TEST_EXECUTION_PROTOCOL.md (governance/runbooks/) | CS2 | Reference-based (Agent Test Execution Protocol section) |
+| Deprecation Detection | AUTOMATED_DEPRECATION_DETECTION_GATE.md (governance/policies/) | CS2 | Reference-based (Deprecation Detection Gate section) |
+| Mandatory Enhancement Capture | MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md | CS2 | Reference-based (Mandatory Process Improvement Reflection section) |
+
+**Note**: This contract uses **reference-based protection** (referencing canonical protocols) rather than **embedded LOCKED sections** to comply with governance limits while maintaining full protection coverage.
+
+**Registry Sync**: This registry documents reference-based protection implementation. No embedded HTML LOCKED section markers are present by design.
 
 ---
 
@@ -593,15 +627,32 @@ At work completion, builder MUST provide comprehensive process improvement refle
 
 **This minimal contract references canonical governance.**
 
-**Version**: 3.0.0  
+**Version**: 3.2.0  
 **Status**: Active  
-**Date**: 2026-01-08  
+**Date**: 2026-01-15  
 **Recruited By**: Maturion Foreman (FM)
-**Contract Version**: 3.0.0  
+**Contract Version**: 3.2.0  
 **Maturion Doctrine Version**: 1.0.0  
 **Canonical Reference**: foreman/builder/ui-builder-spec.md
 
-**Line Count**: ~300 lines (excluding YAML frontmatter)
+---
+
+## Version History
+
+**v3.2.0** (2026-01-15): Canonical v2.5.0 upgrade
+- Added reference-based protection model to metadata (protection_model: reference-based, references_locked_protocol: true)
+- Added Protection Registry section documenting all protected elements
+- Added repository and context metadata (APGI-cmy/R_Roster, teacher-absenteeism-management-application)
+- Enhanced governance compliance documentation
+- **Authority**: agent-contract-administrator.md v2.5.1, Issue "Upgrade All Agent Contracts to Canonical v2.5.0"
+
+**v3.1.0** (2026-01-14): Previous version
+
+**v3.0.0** (2026-01-08): Previous version
+
+---
+
+**Line Count**: ~330 lines (excluding YAML frontmatter)
 
 **Detailed Content**: See all governance.bindings above and foreman/builder/ui-builder-spec.md
 
