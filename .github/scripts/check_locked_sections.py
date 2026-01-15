@@ -17,7 +17,7 @@ import re
 
 
 LOCKED_PATTERN = re.compile(r"<!--\s*LOCKED", re.IGNORECASE)
-REGISTRY_PATTERN = re.compile(r"Protection Registry", re.IGNORECASE)
+REGISTRY_PATTERN = re.compile(r"\bProtection Registry\b", re.IGNORECASE)
 MODEL_PATTERN = re.compile(r"^\s*protection_model:\s*([a-zA-Z-]+)\s*$", re.MULTILINE)
 
 

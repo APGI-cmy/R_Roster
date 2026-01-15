@@ -29,7 +29,7 @@ if [ ! -f "$SCOPE_FILE" ]; then
 fi
 
 EXPECTED="$(echo "$DIFF_OUTPUT" | sed '/^$/d')"
-ACTUAL="$(grep -E '^[A-Z][0-9]*\t' "$SCOPE_FILE" || true)"
+ACTUAL="$(grep -E '^[A-Z][0-9]*\t' "$SCOPE_FILE" || true)" # allow R100/C100 status codes
 
 if [ -z "$EXPECTED" ]; then
   if [ -n "$ACTUAL" ]; then

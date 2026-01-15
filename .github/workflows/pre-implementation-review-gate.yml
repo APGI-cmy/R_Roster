@@ -20,6 +20,7 @@ jobs:
       - name: Check governance-only scope
         id: scope
         run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
           CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
           GOVERNANCE_ONLY=true
           while IFS= read -r file; do
