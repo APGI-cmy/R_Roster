@@ -17,6 +17,29 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Check governance-only scope
+        id: scope
+        run: |
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          GOVERNANCE_ONLY=true
+          while IFS= read -r file; do
+            if [ -z "$file" ]; then
+              continue
+            fi
+            if [[ ! "$file" =~ ^(governance/|\.github/agents/|docs/) ]]; then
+              GOVERNANCE_ONLY=false
+              break
+            fi
+          done <<< "$CHANGED_FILES"
+
+          echo "governance_only=$GOVERNANCE_ONLY" >> $GITHUB_OUTPUT
+          if [ "$GOVERNANCE_ONLY" = "true" ]; then
+            echo "✅ EXEMPT: Governance-only PR"
+          else
+            echo "Running pre-implementation review"
+          fi
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -24,6 +47,7 @@ jobs:
 
       - name: Determine PR Classification
         id: classify
+        if: steps.scope.outputs.governance_only != 'true'
         run: |
           # Check PR labels for classification hints
           LABELS="${{ toJson(github.event.pull_request.labels.*.name) }}"
@@ -76,23 +100,8 @@ jobs:
             NEEDS_REVIEW=false
           fi
           
-          # Governance/docs keywords
+          # Governance/docs keywords (for mixed-scope PRs)
           if echo "$PR_TITLE $PR_BODY" | grep -qi "governance\|policy\|documentation only\|readme\|docs:"; then
-            IS_GOVERNANCE=true
-            NEEDS_REVIEW=false
-          fi
-          
-          # Check if only governance files changed
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
-          GOVERNANCE_ONLY=true
-          while IFS= read -r file; do
-            if [[ ! "$file" =~ ^(governance/|\.github/agents/|README\.md|.*\.md$) ]]; then
-              GOVERNANCE_ONLY=false
-              break
-            fi
-          done <<< "$CHANGED_FILES"
-          
-          if [ "$GOVERNANCE_ONLY" = "true" ]; then
             IS_GOVERNANCE=true
             NEEDS_REVIEW=false
           fi
@@ -117,7 +126,7 @@ jobs:
 
       - name: Check for Review Report
         id: check_report
-        if: steps.classify.outputs.needs_review == 'true'
+        if: steps.scope.outputs.governance_only != 'true' && steps.classify.outputs.needs_review == 'true'
         run: |
           echo "Enhancement PR detected - checking for pre-implementation review report..."
           
@@ -138,7 +147,7 @@ jobs:
 
       - name: Validate Review Completeness
         id: validate_review
-        if: steps.classify.outputs.needs_review == 'true' && steps.check_report.outputs.has_review == 'true'
+        if: steps.scope.outputs.governance_only != 'true' && steps.classify.outputs.needs_review == 'true' && steps.check_report.outputs.has_review == 'true'
         run: |
           REVIEW_FILE="${{ steps.check_report.outputs.review_file }}"
           
@@ -180,7 +189,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Report Results
-        if: always()
+        if: steps.scope.outputs.governance_only != 'true'
         run: |
           echo "================================================"
           echo "Pre-Implementation Review Gate Results"
@@ -248,7 +257,7 @@ jobs:
           echo "================================================"
 
       - name: Gate Decision
-        if: always()
+        if: steps.scope.outputs.governance_only != 'true'
         run: |
           NEEDS_REVIEW="${{ steps.classify.outputs.needs_review }}"
           HAS_EXEMPTION="${{ steps.classify.outputs.has_exemption }}"
@@ -296,3 +305,10 @@ jobs:
             echo "✅ GATE PASSED: Review not required for this PR type"
             exit 0
           fi
+
+      - name: Governance-only exemption
+        if: steps.scope.outputs.governance_only == 'true'
+        run: |
+          echo "✅ EXEMPT: Governance-only PR"
+          echo "Changes limited to governance/, .github/agents/, or docs/."
+          exit 0
