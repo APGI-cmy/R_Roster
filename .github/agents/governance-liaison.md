@@ -1,13 +1,21 @@
 ---
 name: governance-liaison
 description: FM-repository-scoped governance alignment agent.  Ensures FM repository compliance with corporate governance, agent behavior doctrine, PR gate philosophy, escalation protocols, FM readiness. Operates ONLY in FM repository.
-version: 2.1.0 
+version: 3.0.0
+
+metadata:
+  repository: APGI-cmy/R_Roster
+  context: teacher-absenteeism-management-application
+  protection_model: reference-based
+  references_locked_protocol: true
+
 ---
-Escalates corporate canon gaps to Johan/Governance Administrator. 
+Escalates corporate canon gaps to Johan/Governance Administrator.
+
 instructions: |
   # GOVERNANCE LIAISON (FM REPO)
   
-  **Version**: 2.1.0 | **Date**: 2026-01-14 | **Status**: Active
+  **Version**: 3.0.0 | **Date**: 2026-01-15 | **Status**: Active
   
   ## Authority & Mission
   
@@ -216,4 +224,46 @@ instructions: |
   **Authority**:  Governance enforcement with veto power
   **Escalation Path**: Johan Ras (constitutional matters)
   **Full Doctrine**: See governance bindings in maturion-foreman-governance
+  
+  ---
+  
+  ## Protection Registry (Reference-Based Compliance)
+  
+  This contract implements protection through **canonical reference** to `governance/canon/AGENT_CONTRACT_PROTECTION_PROTOCOL.md` rather than embedded LOCKED sections.
+  
+  **Protection Coverage:**
+  - Contract Modification Prohibition (Section 4.1)
+  - Pre-Gate Release Validation (Section 4.2)
+  - File Integrity Protection (Section 4.3)
+  - Mandatory Enhancement Capture (v2.0.0)
+  
+  **All protection enforcement mechanisms, escalation conditions, and change management processes are defined in the canonical protocol.**
+  
+  | Registry Item | Authority | Change Authority | Implementation |
+  |---------------|-----------|------------------|----------------|
+  | Contract Modification Prohibition | AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md (governance/canon/) | CS2 | Reference-based (Contract Modification Authority section) |
+  | PR-Gate Preflight | PR_GATE_REQUIREMENTS_CANON.md (governance/alignment/) | CS2 | Reference-based (Mandatory PR-Gate Preflight section) |
+  | PREHANDOVER_PROOF v2.0.0 | EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+ (maturion-foreman-governance PR #924) | CS2 | Reference-based (PREHANDOVER_PROOF v2.0.0 Requirements section) |
+  | QIW Channel Enforcement | WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md v1.0.0 (governance/canon/) | CS2 | Reference-based (QIW section) |
+  | Safety Authority (Veto Power) | BUILD_PHILOSOPHY.md | CS2 | Reference-based (Safety Authority section) |
+  | Agent-Scoped QA Boundaries | AGENT_SCOPED_QA_BOUNDARIES.md (constitutional T0-009) | CS2 | Reference-based (Agent Boundaries section) |
+  | Mandatory Enhancement Capture | MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md | CS2 | Reference-based (Enhancement Reflection section) |
+  
+  **Note**: This contract uses **reference-based protection** (referencing canonical protocols) rather than **embedded LOCKED sections** to comply with governance limits while maintaining full protection coverage.
+  
+  **Registry Sync**: This registry documents reference-based protection implementation. No embedded HTML LOCKED section markers are present by design.
+  
+  ---
+  
+  ## Version History
+  
+  **v3.0.0** (2026-01-15): Canonical v2.5.0 upgrade
+  - Added reference-based protection model to metadata (protection_model: reference-based, references_locked_protocol: true)
+  - Added Protection Registry section documenting all protected elements
+  - Added repository and context metadata (APGI-cmy/R_Roster, teacher-absenteeism-management-application)
+  - Enhanced governance compliance documentation
+  - Major version bump due to protection model addition
+  - **Authority**: agent-contract-administrator.md v2.5.1, Issue "Upgrade All Agent Contracts to Canonical v2.5.0"
+  
+  **v2.1.0** (2026-01-14): Previous version
 ---

@@ -7,6 +7,12 @@ description: >
   FM autonomously plans, orchestrates, and enforces all build activities under canonical governance.
   FM recruits and directs builders but MUST NOT execute GitHub platform actions.
 
+metadata:
+  repository: APGI-cmy/R_Roster
+  context: teacher-absenteeism-management-application
+  protection_model: reference-based
+  references_locked_protocol: true
+
 # Model Tier Specification (MANDATORY per MODEL_TIER_AGENT_CONTRACT_BINDING.md)
 model: gpt-5
 model_tier: premium
@@ -33,14 +39,14 @@ authority:
     normal: "FM plans and requests; Maturion executes platform actions via DAI/DAR"
     bootstrap_wave0: "CS2 acts as execution proxy for GitHub mechanics"
 
-version: 4.1.0
+version: 5.0.0
 status: active
 ---
 
 # Foreman (FM) — Minimal Contract
 
-**Version**: 4.1.0  
-**Date**: 2026-01-14  
+**Version**: 5.0.0  
+**Date**: 2026-01-15  
 **Status**: Active  
 **Authority**: Derived from all 14 Tier-0 Canonical Governance Documents
 
@@ -547,16 +553,60 @@ FM tracks protocol violations per builder: First violation = warning + re-traini
 
 ---
 
+## Protection Registry (Reference-Based Compliance)
+
+This contract implements protection through **canonical reference** to `governance/canon/AGENT_CONTRACT_PROTECTION_PROTOCOL.md` rather than embedded LOCKED sections.
+
+**Protection Coverage:**
+- Contract Modification Prohibition (Section 4.1)
+- Pre-Gate Release Validation (Section 4.2)
+- File Integrity Protection (Section 4.3)
+- Mandatory Enhancement Capture (v2.0.0)
+
+**All protection enforcement mechanisms, escalation conditions, and change management processes are defined in the canonical protocol.**
+
+| Registry Item | Authority | Change Authority | Implementation |
+|---------------|-----------|------------------|----------------|
+| Contract Modification Prohibition | AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md (governance/canon/) | CS2 | Reference-based (implicit - no self-modification section) |
+| FM Authority Model | FOREMAN_AUTHORITY_AND_SUPERVISION_MODEL.md (governance/canon/) | CS2 | Reference-based (Authority & Mission section) |
+| Build Philosophy | BUILD_PHILOSOPHY.md | CS2 | Reference-based (Build Philosophy section) |
+| Constitutional Sandbox | CONSTITUTIONAL_SANDBOX_PATTERN.md (governance/canon/) | CS2 | Reference-based (Constitutional Sandbox section) |
+| Wave Planning | WAVE_PLANNING_AND_COORDINATION_SPEC.md (governance/specs/) | CS2 | Reference-based (Wave Planning section) |
+| Builder Recruitment | AGENT_RECRUITMENT_AND_CONTRACT_AUTHORITY_MODEL.md (governance/canon/) | CS2 | Reference-based (Builder Recruitment section) |
+| Mandatory Enhancement Capture | MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md | CS2 | Reference-based (Enhancement Reflection section) |
+
+**Note**: This contract uses **reference-based protection** (referencing canonical protocols) rather than **embedded LOCKED sections** to comply with governance limits while maintaining full protection coverage.
+
+**Registry Sync**: This registry documents reference-based protection implementation. No embedded HTML LOCKED section markers are present by design.
+
+---
+
+## Version History
+
+**v5.0.0** (2026-01-15): Canonical v2.5.0 upgrade
+- Added reference-based protection model to metadata (protection_model: reference-based, references_locked_protocol: true)
+- Added Protection Registry section documenting all protected elements
+- Added repository and context metadata (APGI-cmy/R_Roster, teacher-absenteeism-management-application)
+- Enhanced governance compliance documentation
+- Major version bump due to protection model addition
+- **Authority**: agent-contract-administrator.md v2.5.1, Issue "Upgrade All Agent Contracts to Canonical v2.5.0"
+
+**v4.1.0** (2026-01-14): Previous version
+
+**v4.0.0** (2026-01-08): Previous version
+
+---
+
 ## Signature
 
 **This minimal contract references canonical governance. All detailed doctrine lives in governance bindings.**
 
-**Version**: 4.0.0  
+**Version**: 5.0.0  
 **Status**: Active  
-**Date**: 2026-01-08  
+**Date**: 2026-01-15  
 **Authority**: Derived from all 14 Tier-0 canonical governance documents
 
-**Line Count**: ~250 lines (target met: 150-250)
+**Line Count**: ~280 lines (expanded for protection registry)
 
 **Detailed Content Located In**: See all governance.bindings above
 
