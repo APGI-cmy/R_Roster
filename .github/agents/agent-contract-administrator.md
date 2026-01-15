@@ -28,9 +28,9 @@ governance:
 
 metadata:
   version:  2.5.0
-  repository: APGI-cmy/R_Roster
-  context: teacher-absenteeism-management-application
-  protection_model: reference-based
+  repository: APGI-cmy/PartPulse
+  context:  part-distribution-application
+  protection_model:  reference-based
   references_locked_protocol: true
 ---
 
