@@ -171,6 +171,10 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
         DIFF=$((GIT_FILE_COUNT - DOC_FILE_COUNT))
         DIFF=${DIFF#-}  # absolute value
         TOLERANCE=$((GIT_FILE_COUNT / 5))  # 20% tolerance
+        # Minimum tolerance of 1 file for small PRs
+        if [ "$TOLERANCE" -lt 1 ]; then
+            TOLERANCE=1
+        fi
         
         if [ "$DIFF" -le "$TOLERANCE" ]; then
             echo "✅ Scope comparison: REASONABLE MATCH"

@@ -196,6 +196,7 @@ Evidence validation script must check:
    - Files listed in SCOPE_DECLARATION match git diff
    - No files changed but not documented
    - No files documented but not changed
+   - Tolerance: 20% variance allowed (minimum 1 file) to account for generated files or minor discrepancies
 
 ---
 

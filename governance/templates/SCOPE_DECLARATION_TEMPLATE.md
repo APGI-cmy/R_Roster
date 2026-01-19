@@ -19,11 +19,11 @@ This document provides explicit scope declaration and attestation for evidence-b
 
 ### Governance Files
 
-*List all governance policy, canon, alignment, and template files changed*
+*List all governance policy, canon, and template files changed*
 
 - `governance/policies/[FILE].md` - [Brief description of change and purpose]
-- `governance/canon/[FILE].md` - [Brief description of change and purpose]
-- `governance/alignment/[FILE].md` - [Brief description of change and purpose]
+- `governance/onboarding/[FILE].md` - [Brief description of change and purpose]
+- `governance/templates/[FILE].md` - [Brief description of change and purpose]
 
 ### Agent Contracts
 
