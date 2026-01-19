@@ -66,23 +66,52 @@ Before submitting any PR:
 
 2. ✅ For enhancements: Complete pre-implementation review
 
-3. ✅ Execute local validation (governance gate, tests, lints)
+3. ✅ Execute local validation:
+   - **Script-based** (for code): Run governance gate, tests, lints
+   - **Evidence-based** (for governance): Create SCOPE_DECLARATION.md + PREHANDOVER_PROOF
 
 4. ✅ Create PREHANDOVER_PROOF using template: `governance/templates/PREHANDOVER_PROOF_TEMPLATE.md`
 
 5. ✅ Include all evidence in PR
+
+### CI Gate Validation Methods (BL-027/028)
+
+R_Roster supports two validation methods:
+
+#### Script-Based Validation (Traditional)
+**Use for**: Application code, tests, executable scripts
+
+**How it works**:
+- Execute validation scripts locally
+- All scripts must pass (exit code 0)
+- CI confirms local execution results
+
+#### Evidence-Based Validation (BL-027/028)
+**Use for**: Governance policies, agent contracts, documentation
+
+**How it works**:
+- Document validation in PREHANDOVER_PROOF
+- Create SCOPE_DECLARATION.md with attestation
+- CI validates documents instead of running scripts
+
+**When to use**: When changes cannot be validated by automated scripts (governance updates, policy changes, documentation)
+
+**Learn more**: `governance/onboarding/EVIDENCE_BASED_VALIDATION_ONBOARDING.md`
 
 ### References
 
 **Governance Documentation**:
 - Pre-Implementation Review Enforcement: `governance/canon/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md`
 - Pre-Implementation Review Onboarding: `governance/onboarding/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ONBOARDING.md`
+- Evidence-Based Validation: `governance/onboarding/EVIDENCE_BASED_VALIDATION_ONBOARDING.md`
+- Evidence-Based Policy: `governance/policies/EVIDENCE_BASED_CI_GATE_VALIDATION.md`
 - Builder PR Checklist: `governance/templates/pr-checklists/BUILDER_PR_CHECKLIST.md`
 - Execution Bootstrap Protocol: `governance/onboarding/EXECUTION_BOOTSTRAP_PROTOCOL_ONBOARDING.md`
 
 **Canonical Sources** (maturion-foreman-governance):
 - [Pre-Implementation Behavior Review Protocol](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/canon/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_PROTOCOL.md)
 - [Review Report Template](https://github.com/APGI-cmy/maturion-foreman-governance/blob/main/governance/templates/PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_REPORT.template.md)
+- [BL-027/028 Pattern](https://github.com/APGI-cmy/maturion-foreman-governance/pull/981)
 
 ### Grace Period (Onboarding)
 

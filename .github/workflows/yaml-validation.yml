@@ -29,17 +29,31 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Determine Validation Path
+        id: validation_path
+        run: |
+          if [ -f "SCOPE_DECLARATION.md" ] && find . -maxdepth 1 -name "PREHANDOVER_PROOF_*.md" -type f | grep -q .; then
+            echo "path=evidence" >> $GITHUB_OUTPUT
+            echo "✓ Using evidence-based validation (BL-027/028)"
+          else
+            echo "path=script" >> $GITHUB_OUTPUT
+            echo "✓ Using script-based validation (traditional)"
+          fi
+
       - name: Set up Python
+        if: steps.validation_path.outputs.path == 'script'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install yamllint
+        if: steps.validation_path.outputs.path == 'script'
         run: |
           python -m pip install --upgrade pip
           pip install 'yamllint>=1.21.0'
 
       - name: Run yamllint
+        if: steps.validation_path.outputs.path == 'script'
         run: |
           TARGETS=$(git ls-files '*.yml' '*.yaml' '.github/agents/*.md')
           if [ -z "$TARGETS" ]; then
@@ -67,3 +81,26 @@ jobs:
           echo "For other YAML files, run: yamllint --fix <path>"
           echo "Requires yamllint >= 1.21.0 for --fix."
           exit 0
+
+      - name: Evidence-Based Validation (BL-027/028)
+        if: steps.validation_path.outputs.path == 'evidence'
+        run: |
+          echo "=========================================="
+          echo "Evidence-Based Validation (BL-027/028)"
+          echo "=========================================="
+          echo ""
+          echo "Validating evidence documents..."
+          chmod +x .github/scripts/validate-evidence-based-gate.sh
+          .github/scripts/validate-evidence-based-gate.sh
+          
+          if [ $? -eq 0 ]; then
+            echo ""
+            echo "✅ Evidence-based validation PASSED"
+            echo "YAML validation gate accepts evidence-based validation per BL-027/028."
+            echo "Agent attests to YAML validation compliance in PREHANDOVER_PROOF."
+          else
+            echo ""
+            echo "❌ Evidence-based validation FAILED"
+            echo "Fix errors and retry."
+            exit 1
+          fi

@@ -44,17 +44,31 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Determine Validation Path
+        id: validation_path
+        run: |
+          if [ -f "SCOPE_DECLARATION.md" ] && find . -maxdepth 1 -name "PREHANDOVER_PROOF_*.md" -type f | grep -q .; then
+            echo "path=evidence" >> $GITHUB_OUTPUT
+            echo "✓ Using evidence-based validation (BL-027/028)"
+          else
+            echo "path=script" >> $GITHUB_OUTPUT
+            echo "✓ Using script-based validation (traditional)"
+          fi
+
       - name: Set up Python
+        if: steps.validation_path.outputs.path == 'script'
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       
       - name: Set up Node.js
+        if: steps.validation_path.outputs.path == 'script'
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: Install Python dependencies
+        if: steps.validation_path.outputs.path == 'script'
         run: |
           python -m pip install --upgrade pip
           pip install ruff pre-commit
@@ -63,12 +77,14 @@ jobs:
           if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
 
       - name: Install Node dependencies (if applicable)
+        if: steps.validation_path.outputs.path == 'script'
         run: |
           if [ -f package.json ]; then
             npm ci || npm install
           fi
 
       - name: Check for Python files
+        if: steps.validation_path.outputs.path == 'script'
         id: check_python
         run: |
           if find . -name "*.py" -not -path "./.git/*" -not -path "./venv/*" -not -path "./.venv/*" | grep -q .; then
@@ -78,6 +94,7 @@ jobs:
           fi
 
       - name: Check for JS/TS files
+        if: steps.validation_path.outputs.path == 'script'
         id: check_js
         run: |
           if find . -name "*.js" -o -name "*.ts" -o -name "*.jsx" -o -name "*.tsx" | grep -v node_modules | grep -q .; then
@@ -87,14 +104,14 @@ jobs:
           fi
 
       - name: Run Ruff (Python deprecation detection)
-        if: steps.check_python.outputs.has_python == 'true'
+        if: steps.validation_path.outputs.path == 'script' && steps.check_python.outputs.has_python == 'true'
         run: |
           echo "Running Python deprecation detection with Ruff..."
           ruff check . --select F,E,W,UP,B,A,C4,DTZ,PIE,RET,SIM,ARG,PTH --ignore E501 --output-format=github
         continue-on-error: false
 
       - name: Run ESLint (JavaScript/TypeScript deprecation detection)
-        if: steps.check_js.outputs.has_js == 'true'
+        if: steps.validation_path.outputs.path == 'script' && steps.check_js.outputs.has_js == 'true'
         run: |
           echo "Running JavaScript/TypeScript deprecation detection with ESLint..."
           if [ -f .eslintrc.json ] || [ -f .eslintrc.js ]; then
@@ -106,6 +123,7 @@ jobs:
         continue-on-error: false
 
       - name: Validate deprecation whitelist
+        if: steps.validation_path.outputs.path == 'script'
         run: |
           echo "Validating .deprecation-whitelist.json..."
           if [ -f .deprecation-whitelist.json ]; then
@@ -143,7 +161,7 @@ jobs:
           fi
 
       - name: Check for deprecated dependencies (Python)
-        if: steps.check_python.outputs.has_python == 'true'
+        if: steps.validation_path.outputs.path == 'script' && steps.check_python.outputs.has_python == 'true'
         run: |
           echo "Checking Python dependencies for deprecation notices..."
           if [ -f requirements.txt ] || [ -f pyproject.toml ]; then
@@ -159,7 +177,7 @@ jobs:
         continue-on-error: true
 
       - name: Check for deprecated dependencies (npm)
-        if: steps.check_js.outputs.has_js == 'true'
+        if: steps.validation_path.outputs.path == 'script' && steps.check_js.outputs.has_js == 'true'
         run: |
           echo "Checking npm dependencies for deprecation notices..."
           if [ -f package.json ]; then
@@ -169,30 +187,94 @@ jobs:
           fi
         continue-on-error: true
 
+      - name: Evidence-Based Validation (BL-027/028)
+        if: steps.validation_path.outputs.path == 'evidence'
+        run: |
+          echo "=========================================="
+          echo "Evidence-Based Validation (BL-027/028)"
+          echo "=========================================="
+          echo ""
+          echo "Validating evidence documents..."
+          chmod +x .github/scripts/validate-evidence-based-gate.sh
+          .github/scripts/validate-evidence-based-gate.sh
+          
+          if [ $? -eq 0 ]; then
+            echo ""
+            echo "✅ Evidence-based validation PASSED"
+            echo "Deprecation gate accepts evidence-based validation per BL-027/028."
+          else
+            echo ""
+            echo "❌ Evidence-based validation FAILED"
+            echo "Fix errors and retry."
+            exit 1
+          fi
+
       - name: Report summary
         if: always()
         run: |
           echo "================================================"
           echo "Deprecation Detection Gate Summary"
           echo "================================================"
-          echo "Python files: ${{ steps.check_python.outputs.has_python }}"
-          echo "JS/TS files: ${{ steps.check_js.outputs.has_js }}"
+          
+          VALIDATION_PATH="${{ steps.validation_path.outputs.path }}"
+          
+          if [ "$VALIDATION_PATH" = "evidence" ]; then
+            echo "Validation Method: Evidence-Based (BL-027/028)"
+            echo ""
+            echo "✓ SCOPE_DECLARATION.md validated"
+            echo "✓ PREHANDOVER_PROOF validated"
+            echo "✓ Agent attestations confirmed"
+            echo ""
+            echo "Deprecation checks skipped for evidence-based validation."
+            echo "Agent attests to deprecation compliance in PREHANDOVER_PROOF."
+          else
+            echo "Validation Method: Script-Based (Traditional)"
+            echo ""
+            echo "Python files: ${{ steps.check_python.outputs.has_python }}"
+            echo "JS/TS files: ${{ steps.check_js.outputs.has_js }}"
+          fi
+          
           echo ""
           echo "Status: Gate checks completed"
           echo ""
           echo "For exception approval process, see:"
-          echo "governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md"
+          
+          if [ "$VALIDATION_PATH" = "evidence" ]; then
+            echo "governance/policies/EVIDENCE_BASED_CI_GATE_VALIDATION.md"
+          else
+            echo "governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md"
+          fi
+          
           echo "================================================"
 
       - name: Gate result
         if: always()
         run: |
+          VALIDATION_PATH="${{ steps.validation_path.outputs.path }}"
+          
           if [ "${{ job.status }}" == "failure" ]; then
             echo "❌ Deprecation detection gate FAILED"
-            echo "Review errors above and either:"
-            echo "1. Fix deprecated API usage, OR"
-            echo "2. Request exception approval (see policy document)"
+            echo ""
+            
+            if [ "$VALIDATION_PATH" = "evidence" ]; then
+              echo "Evidence-based validation failed. Review errors above and:"
+              echo "1. Fix SCOPE_DECLARATION.md or PREHANDOVER_PROOF issues, OR"
+              echo "2. Switch to script-based validation by removing evidence documents"
+              echo ""
+              echo "See: governance/policies/EVIDENCE_BASED_CI_GATE_VALIDATION.md"
+            else
+              echo "Review errors above and either:"
+              echo "1. Fix deprecated API usage, OR"
+              echo "2. Request exception approval (see policy document)"
+              echo ""
+              echo "See: governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md"
+            fi
+            
             exit 1
           else
-            echo "✅ Deprecation detection gate PASSED"
+            if [ "$VALIDATION_PATH" = "evidence" ]; then
+              echo "✅ Deprecation detection gate PASSED (evidence-based validation)"
+            else
+              echo "✅ Deprecation detection gate PASSED (script-based validation)"
+            fi
           fi

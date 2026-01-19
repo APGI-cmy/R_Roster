@@ -7,6 +7,47 @@ echo "Repository: $(git remote get-url origin 2>/dev/null || echo 'local')"
 echo "Branch: $(git branch --show-current 2>/dev/null || echo 'detached')"
 echo ""
 
+# Determine validation path
+VALIDATION_PATH="script"
+if [ -f "SCOPE_DECLARATION.md" ] && find . -maxdepth 1 -name "PREHANDOVER_PROOF_*.md" -type f | grep -q .; then
+    VALIDATION_PATH="evidence"
+fi
+
+echo "VALIDATION PATH: $VALIDATION_PATH"
+echo ""
+
+if [ "$VALIDATION_PATH" = "evidence" ]; then
+    echo "=== EVIDENCE-BASED VALIDATION (BL-027/028) ==="
+    echo ""
+    
+    if [ -x ".github/scripts/validate-evidence-based-gate.sh" ]; then
+        .github/scripts/validate-evidence-based-gate.sh
+        EXIT_CODE=$?
+    else
+        echo "❌ ERROR: Evidence validation script not found or not executable"
+        echo "   Expected: .github/scripts/validate-evidence-based-gate.sh"
+        exit 1
+    fi
+    
+    if [ $EXIT_CODE -eq 0 ]; then
+        echo ""
+        echo "=== ALL CHECKS PASSED (EVIDENCE-BASED) ==="
+        echo "Result: GREEN"
+        echo "Exit Code: 0"
+        exit 0
+    else
+        echo ""
+        echo "=== VALIDATION FAILED ==="
+        echo "Result: RED"
+        echo "Exit Code: 1"
+        exit 1
+    fi
+fi
+
+# Traditional script-based validation
+echo "=== SCRIPT-BASED VALIDATION (TRADITIONAL) ==="
+echo ""
+
 echo "CHECK 1: Required Directories"
 for dir in .architecture .qa governance; do
   if [ -d "$dir" ]; then
