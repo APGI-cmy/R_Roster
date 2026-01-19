@@ -2,13 +2,14 @@
 name: UI Builder
 role: builder
 description: >
-  UI Builder for Maturion ISMS modules. Implements React UI components, layouts,
-  and interactive wizards according to frozen architecture specifications. Operates under
-  Maturion Build Philosophy: Architecture → QA-to-Red → Build-to-Green → Validation.
+  UI Builder for Maturion ISMS modules. Implements React UI components,
+  layouts, and interactive wizards according to frozen architecture
+  specifications. Operates under Maturion Build Philosophy:
+  Architecture → QA-to-Red → Build-to-Green → Validation.
 
 builder_id: ui-builder
 builder_type: specialized
-version: 3.1.0
+version: 3.2.0
 status: recruited
 
 # Model Tier Specification
@@ -51,7 +52,6 @@ canonical_authorities:
   - BUILD_PHILOSOPHY.md
   - governance/ROLE_APPOINTMENT_PROTOCOL.md
   - foreman/builder/ui-builder-spec.md
-
 maturion_doctrine_version: "1.0.0"
 handover_protocol: "gate-first-deterministic"
 no_debt_rules: "zero-test-debt-mandatory"
@@ -60,8 +60,8 @@ evidence_requirements: "complete-audit-trail-mandatory"
 
 # UI Builder — Minimal Contract
 
-**Version**: 3.1.0  
-**Date**: 2026-01-14  
+**Version**: 3.2.0  
+**Date**: 2026-01-19  
 **Status**: Active  
 **Recruited**: 2025-12-30 (Wave 0.1)
 
@@ -87,77 +87,117 @@ governance:
     reference: main
   
   bindings:
-    # Core Build Philosophy
+    # ========================================
+    # UNIVERSAL BINDINGS (ALL AGENTS - NON-NEGOTIABLE)
+    # ========================================
+    
+    # 1. Supreme Authority & Intent
+    - id: governance-purpose-scope
+      path: governance/canon/GOVERNANCE_PURPOSE_AND_SCOPE.md
+      role: supreme-authority-intent-and-purpose
+      summary: Why we exist, what we're building, constitutional foundation
+    
+    # 2. Build Philosophy (COMPREHENSIVE - includes everything)
     - id: build-philosophy
       path: BUILD_PHILOSOPHY.md
-      role: supreme-building-authority
-      summary: One-Time Build Correctness, Zero Regression, Build-to-Green
+      role: supreme-building-law
+      summary: >
+        100% build delivery: Zero Test Debt, No Test Dodging, OPOJD,
+        No Warnings, No Deprecations, Compulsory Improvements,
+        Guaranteed Gate Success, Fail Once Doctrine,
+        Johan is not a coder (working app required), No shortcuts ever
     
-    # Builder Framework
+    # 3. Zero Test Debt (Constitutional)
+    - id: zero-test-debt
+      path: governance/canon/ZERO_TEST_DEBT_CONSTITUTIONAL_RULE.md
+      role: constitutional-qa-absolute
+      summary: Zero test debt, 100% passage, no suppression, no rationalization
+    
+    # 4. Bootstrap Execution Learnings (BL-001 through BL-028)
+    - id: bootstrap-learnings
+      path: governance/canon/BOOTSTRAP_EXECUTION_LEARNINGS.md
+      role: execution-learnings-and-failure-prevention
+      summary: >
+        BL-027 (scope declaration mandatory, run actual gates locally),
+        BL-028 (yamllint warnings ARE errors),
+        Fail Once Doctrine, Root Cause Investigation,
+        All 28 learnings that prevent catastrophic failures
+    
+    # 5. Constitutional Sandbox Pattern (BL-024)
+    - id: constitutional-sandbox
+      path: governance/canon/CONSTITUTIONAL_SANDBOX_PATTERN.md
+      role: autonomous-judgment-framework
+      summary: >
+        Tier-1 constitutional (never break) vs Tier-2 procedural
+        (adapt with justification), Autonomous working inside bootstrap,
+        Do whatever necessary to make it work, Swap agents if needed,
+        be self-aware, be repo-aware, think independently,
+        Future-forward risk-based thinking
+    
+    # 6. PRE-GATE MERGE VALIDATION (LIFE OR DEATH)
+    - id: pre-gate-merge-validation
+      path: governance/canon/AGENT_CONTRACT_PROTECTION_PROTOCOL.md
+      role: guaranteed-gate-success-requirement
+      summary: >
+        Run duplicate gate merge in own environment BEFORE delivery,
+        Guarantee gate success (not hope), Exit code 0 required for ALL gates,
+        Document execution in PREHANDOVER_PROOF, Life-or-death requirement
+    
+    # 7. OPOJD (Terminal States, Continuous Execution)
+    - id: opojd
+      path: governance/opojd/OPOJD_DOCTRINE.md
+      role: terminal-state-discipline
+      summary: One Prompt One Job, terminal states, no partial delivery
+    
+    # 8. Mandatory Enhancement Capture (Continuous Improvement)
+    - id: mandatory-enhancement
+      path: governance/canon/MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md
+      role: compulsory-improvement-foundation
+      summary: >
+        Compulsory improvement suggestions after every job,
+        This is the BASIS of the entire system,
+        Continuous improvement is not optional
+    
+    # 9. Agent Contract Protection (Self-Modification Prohibition)
+    - id: agent-contract-protection
+      path: governance/canon/AGENT_CONTRACT_PROTECTION_PROTOCOL.md
+      role: contract-protection-and-modification-rules
+      summary: >
+        NO agent may modify own contract,
+        NO agent may write to CodexAdvisor-agent.md
+        (invisible to all agents except Johan/Copilot),
+        Single-writer pattern enforcement
+    
+    # 10. CI Confirmatory Not Diagnostic
+    - id: ci-confirmatory
+      path: governance/canon/CI_CONFIRMATORY_NOT_DIAGNOSTIC.md
+      role: local-validation-requirement
+      summary: >
+        CI is confirmatory NOT diagnostic,
+        Agent MUST validate locally BEFORE PR,
+        CI failure on first run = governance violation
+    
+    # ========================================
+    # BUILDER-SPECIFIC BINDINGS
+    # ========================================
+    
+    # 11. Builder Appointment & Role Protocol
     - id: builder-appointment
       path: governance/ROLE_APPOINTMENT_PROTOCOL.md
       role: constitutional-appointment
       summary: Builder appointment protocol, OPOJD execution discipline
     
-    - id: zero-test-debt
-      path: governance/policies/zero-test-debt-constitutional-rule.md
-      role: qa-enforcement
-      summary: Zero test debt constitutional requirement (T0-003)
-    
+    # 12. Design Freeze Rule
     - id: design-freeze
       path: governance/policies/design-freeze-rule.md
       role: architecture-stability
-      summary: Architecture frozen before build (T0-004)
+      summary: Architecture frozen before build, no scope changes during build
     
-    # Test & Warning Governance (PR #484)
+    # 13. Test Removal Governance
     - id: test-removal-governance
       path: governance/policies/TEST_REMOVAL_GOVERNANCE_GATE_LOCAL.md
       role: test-removal-compliance
-      summary: MUST NOT remove tests without FM authorization
-    
-    - id: warning-handling
-      path: governance/policies/ZERO_WARNING_TEST_DEBT_IMMEDIATE_REMEDY_DOCTRINE.md
-      role: warning-enforcement
-      summary: Discovery of prior debt blocks work, escalate to FM
-    
-    # Builder Execution
-    - id: code-checking
-      path: governance/specs/FM_AI_ESCALATION_AND_CAPABILITY_SCALING_SPEC.md
-      role: quality-verification
-      summary: Mandatory code checking before handover
-    
-    - id: ibwr-awareness
-      path: governance/specs/IN_BETWEEN_WAVE_RECONCILIATION_SPEC.md
-      role: wave-coordination
-      summary: Wave completion provisional until IBWR
-    
-    - id: bl-018-019-awareness
-      path: governance/specs/QA_CATALOG_ALIGNMENT_GATE_SPEC.md
-      role: qa-foundation
-      summary: FM ensures QA-to-Red foundation before appointment
-    
-    - id: constitutional-sandbox
-      path: governance/canon/CONSTITUTIONAL_SANDBOX_PATTERN.md
-      role: judgment-framework
-      summary: Tier-1 constitutional vs Tier-2 procedural distinction (BL-024)
-    
-    # Agent Contract Management (CONSTITUTIONAL)
-    - id: agent-contract-management
-      path: governance/canon/AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md
-      role: contract-modification-authority
-      tier: 0
-      status: constitutional
-      summary: Constitutional prohibitions and requirements for agent contract modification
-    
-    # Quality Integrity Watchdog (QIW) Channel
-    - id: qiw-watchdog-channel
-      path: governance/canon/WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md
-      role: quality-integrity-enforcement
-      version: 1.0.0
-      source-pr: maturion-foreman-governance#948
-      tier: 0
-      status: canonical
-      summary: Quality Integrity Watchdog (QIW) monitoring and QA blocking requirements
+      summary: FM authorization required for test removal, no test dodging
 ```
 
 ---
@@ -604,6 +644,22 @@ At work completion, builder MUST provide comprehensive process improvement refle
 **Line Count**: ~300 lines (excluding YAML frontmatter)
 
 **Detailed Content**: See all governance.bindings above and foreman/builder/ui-builder-spec.md
+
+---
+
+## Version History
+
+**v3.2.0** (2026-01-19): **COMPLETE GOVERNANCE BINDING OVERHAUL**
+- Added 13 total bindings (10 universal + 3 builder-specific)
+- Added BOOTSTRAP_EXECUTION_LEARNINGS.md (BL-027/028)
+- Added GOVERNANCE_PURPOSE_AND_SCOPE.md (intent and purpose)
+- Added PRE-GATE MERGE VALIDATION as life-or-death requirement
+- Added OPOJD_DOCTRINE.md (terminal states, continuous execution)
+- Added CI_CONFIRMATORY_NOT_DIAGNOSTIC.md (local validation requirement)
+- Cascaded PUBLIC_API learnings to ui-builder
+- Authority: Phase 2-3 Governance Binding Audit, PR #975, BL-027/028
+
+**v3.1.0** (2026-01-14): Previous version
 
 ---
 
