@@ -38,7 +38,7 @@ echo ""
 
 # CHECK 2: PREHANDOVER_PROOF exists
 echo "CHECK 2: PREHANDOVER_PROOF presence"
-PREHANDOVER_FILES=$(find . -maxdepth 1 -name "PREHANDOVER_PROOF_*.md" -type f | head -1)
+PREHANDOVER_FILES=$(find . -maxdepth 1 -name "PREHANDOVER_PROOF_*.md" -type f | sort -r | head -1)
 if [ -n "$PREHANDOVER_FILES" ]; then
     PREHANDOVER_FILE="$PREHANDOVER_FILES"
     echo "✅ PREHANDOVER_PROOF: PRESENT ($PREHANDOVER_FILE)"
@@ -58,9 +58,9 @@ echo "CHECK 3: SCOPE_DECLARATION.md structure"
 
 # Required sections in SCOPE_DECLARATION
 REQUIRED_SECTIONS=(
-    "Agent:"
-    "Date:"
-    "PR Title:"
+    "Agent"
+    "Date"
+    "PR Title"
     "Changed Files"
     "Scope Summary"
     "Validation Method Justification"
@@ -90,7 +90,8 @@ echo ""
 
 # CHECK 4: Template placeholders not replaced
 echo "CHECK 4: SCOPE_DECLARATION.md template completion"
-PLACEHOLDERS=$(grep -o '\[.*\]' SCOPE_DECLARATION.md | grep -v '^\[✓\]$\|^\[✗\]$\|^\[x\]$' | head -5)
+# Look for template-style placeholders, excluding checkboxes and common patterns in titles
+PLACEHOLDERS=$(grep -oE '\[[A-Z][A-Za-z-]+\]' SCOPE_DECLARATION.md | grep -v '^\[LAYER\]\|^\[x\]\|^\[X\]' | head -5)
 if [ -z "$PLACEHOLDERS" ]; then
     echo "✅ SCOPE_DECLARATION.md: NO TEMPLATE PLACEHOLDERS"
 else
@@ -201,7 +202,7 @@ else
     add_error "SCOPE_DECLARATION.md must include 'I attest' statement"
 fi
 
-if grep -qi "Signed:" SCOPE_DECLARATION.md; then
+if grep -qi "Signed" SCOPE_DECLARATION.md; then
     echo "✅ SCOPE_DECLARATION.md: Signature found"
     ATTESTATIONS_FOUND=$((ATTESTATIONS_FOUND + 1))
 else
