@@ -77,7 +77,7 @@ Fill out ALL sections:
 Use the template at `governance/templates/PREHANDOVER_PROOF_TEMPLATE.md`:
 
 ```bash
-cp governance/templates/PREHANDOVER_PROOF_TEMPLATE.md PREHANDOVER_PROOF_$(date -u +"%Y-%m-%dT%H:%M:%SZ").md
+cp governance/templates/PREHANDOVER_PROOF_TEMPLATE.md PREHANDOVER_PROOF_$(date -u +"%Y-%m-%dT%H-%M-%SZ").md
 ```
 
 Fill out ALL sections:
