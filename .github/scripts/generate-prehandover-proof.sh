@@ -4,7 +4,7 @@
 
 set -e
 
-TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+TIMESTAMP=$(date -u +"%Y-%m-%dT%H-%M-%SZ")
 OUTPUT_FILE="PREHANDOVER_PROOF_${TIMESTAMP}.md"
 
 echo "=== PREHANDOVER_PROOF GENERATOR ==="

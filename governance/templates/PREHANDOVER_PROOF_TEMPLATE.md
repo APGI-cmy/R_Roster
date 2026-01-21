@@ -500,7 +500,7 @@ All validations: **EXIT [CODE]** ([success/failure])
 
 ### How to Use This Template
 
-1. **Copy this template** to the repository root with timestamp: `PREHANDOVER_PROOF_YYYY-MM-DDTHH:MM:SSZ.md`
+1. **Copy this template** to the repository root with timestamp: `PREHANDOVER_PROOF_YYYY-MM-DDTHH-MM-SSZ.md` (uses hyphens for Windows compatibility)
 2. **Replace ALL bracketed placeholders** with actual values
 3. **Complete ALL four governance artifacts** (Governance Scan, Risk Assessment, Change Record, Completion Summary)
    - Choose embedded OR separate file for each artifact
