@@ -102,7 +102,7 @@ bash governance-gate-local-validation.sh
 1. **Copy the template** to repository root with timestamp:
    ```bash
    cp governance/templates/PREHANDOVER_PROOF_TEMPLATE.md \
-      PREHANDOVER_PROOF_$(date -u +"%Y-%m-%dT%H:%M:%SZ").md
+      PREHANDOVER_PROOF_$(date -u +"%Y-%m-%dT%H-%M-%SZ").md
    ```
 
 2. **Replace ALL bracketed placeholders** with actual values:
@@ -186,7 +186,7 @@ bash governance-gate-local-validation.sh
 
 # 4. Generate PREHANDOVER_PROOF
 cp governance/templates/PREHANDOVER_PROOF_TEMPLATE.md \
-   PREHANDOVER_PROOF_$(date -u +"%Y-%m-%dT%H:%M:%SZ").md
+   PREHANDOVER_PROOF_$(date -u +"%Y-%m-%dT%H-%M-%SZ").md
 
 # 5. Fill in all sections with actual results
 # 6. Commit and submit PR
@@ -222,7 +222,7 @@ bash governance-gate-local-validation.sh
 
 # 5. Generate PREHANDOVER_PROOF with ripple section
 cp governance/templates/PREHANDOVER_PROOF_TEMPLATE.md \
-   PREHANDOVER_PROOF_$(date -u +"%Y-%m-%dT%H:%M:%SZ").md
+   PREHANDOVER_PROOF_$(date -u +"%Y-%m-%dT%H-%M-%SZ").md
 
 # 6. Create FM visibility event (if needed)
 
