@@ -351,6 +351,59 @@ Before claiming Exit Code 0 or marking PR ready for review, the agent MUST execu
    - List all gates that will run on this PR
    - Common gates: Builder gates, governance gates, QA gates
 
+**2.5. Verify Gate Script Alignment** (NEW - MANDATORY):
+
+**Authority**: Issue #993, CI_CONFIRMATORY_NOT_DIAGNOSTIC.md
+
+For EACH gate identified in Step 2, the agent MUST: 
+
+a.  **Read the gate workflow YAML file**:
+   - Open `.github/workflows/[gate-name].yml`
+   - Parse the workflow to identify validation path
+
+b. **Identify validation requirements**: 
+   - **Evidence-based path**: Which script does it call?  (e.g., `.github/scripts/validate-evidence-based-gate.sh`)
+   - **Script-based path**: Which commands does it run? Which tools/validators?  
+
+c. **Verify script/tool existence**:
+   - Check if all required scripts exist at expected paths
+   - Check if scripts have execute permissions (`chmod +x`)
+   - Check if all required tools/validators are available
+
+d. **Compare validation logic**:
+   - What does the gate workflow actually validate? 
+   - Does my local validation match what the gate checks?
+   - Are there additional checks in the gate that I haven't run?
+
+e. **HALT if mismatch detected**: 
+   
+   **If agent's local validation is incomplete**:
+   - Identify missing validation steps
+   - Execute missing steps locally
+   - Re-run all gates
+   - Only proceed when alignment verified
+   
+   **If gate workflow is incorrect** (script missing, broken logic, etc. ):
+   - **HALT immediately** - do NOT proceed
+   - Document the mismatch with evidence: 
+     - Which gate has the problem
+     - What the gate expects vs what exists
+     - Exact error or missing component
+   - **Escalate to CS2** with full context: 
+     - "Gate [name] expects script [path] but script does not exist"
+     - "Gate [name] checks [X] but validation [Y] available"
+     - "Cannot proceed - gate infrastructure broken"
+   - **NO handover permitted** until CS2 fixes gate
+
+**Examples of gate/agent drift**:
+- ❌ Gate calls `.github/scripts/validate-evidence-based-gate.sh` but script doesn't exist
+- ❌ Gate runs `yamllint` but agent only checked YAML syntax manually
+- ❌ Gate expects `SCOPE_DECLARATION.md` format but agent used different format
+- ❌ Gate validates test coverage but agent didn't run coverage check
+
+**Critical principle**: 
+Agent must guarantee that CI will confirm (not diagnose). If gate infrastructure is broken, agent HALTS and escalates - never proceeds hoping CI will pass.
+
 3. **Execute ALL Gates Locally**:
    - Run each gate using IDENTICAL logic to CI
    - Use `act -j <job-name>` or execute workflow scripts directly
@@ -362,8 +415,9 @@ Before claiming Exit Code 0 or marking PR ready for review, the agent MUST execu
    - DO NOT proceed with handover if any gate fails
 
 5. **Document Gate Execution**:
-   - Record which gates were run
+    - Record which gates were run
    - Record exit codes (all must be 0)
+   - **Document gate alignment verification** (Step 2.5 results)
    - Include in PREHANDOVER_PROOF or PR description
 
 **CI Confirmatory Assertion**:
@@ -468,7 +522,8 @@ Mandatory self-assessment:
 12. CS2 Agent Authority: CS2 creates/modifies all agent files directly
 13. Agent Boundary Separation: T0-009 constitutional - never cross QA boundaries
 14. CI Confirmatory: CI validates, does not diagnose
-
+15. **Gate Script Alignment**:  Never handover with gate/agent drift - verify alignment before handover
+    
 <!-- END LOCKED SECTION -->
 
 ---
@@ -492,7 +547,8 @@ Mandatory self-assessment:
 12. ❌ No Constitutional waiver
 13. ❌ No Gate bypass
 14. ❌ No Self-modification
-
+15. ❌ **No Gate/Agent Drift** - never handover without verifying gate alignment
+    
 <!-- END LOCKED SECTION -->
 
 ---
@@ -525,6 +581,7 @@ This contract implements protection through **canonical reference** to `governan
 | File Integrity Protection | AGENT_CONTRACT_PROTECTION_PROTOCOL.md Section 4.3 | CS2 | Reference-based |
 | Mandatory Enhancement Capture | MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md v2.0.0 | CS2 | Reference-based |
 | LOCKED Sections | This Contract | CS2 | Inline (HTML comments) |
+| Gate Script Alignment | Issue #993, CI_CONFIRMATORY_NOT_DIAGNOSTIC.md | CS2 | Inline (Step 2.5) |
 
 ---
 
@@ -625,6 +682,16 @@ This contract implements protection through **canonical reference** to `governan
 - All gaps closed, complete alignment achieved
 - **Rationale**: Bring R_Roster governance-liaison to same discipline as governance-repo-administrator
 - **Authority**: CS2 approval, governance alignment requirement
+
+**v[CURRENT_VERSION + 0.1]** (2026-01-21): **CRITICAL UPDATE - Gate Script Alignment Verification**
+- Added Step 2.5: Verify Gate Script Alignment (MANDATORY)
+- Closes critical gap from governance canonical requirement (Issue #993)
+- Agents now verify CI gate scripts exist and match local validation
+- HALT + escalate if gate infrastructure broken
+- Added Constitutional Principle #15: Gate Script Alignment (if applicable)
+- Added Prohibition #15: No Gate/Agent Drift (if applicable)
+- Updated Protection Registry with new gate alignment requirement (if applicable)
+- Authority: Issue #993, CI_CONFIRMATORY_NOT_DIAGNOSTIC. md
 
 **v2.1.0 and earlier**:  See git history
 
