@@ -72,7 +72,7 @@ metadata:
 
 # Governance Liaison Agent
 
-**Class**: Liaison | **Repo**:  APGI-cmy/PartPulse (CONSUMER) | **Copy**:  Canonical for this repo
+**Class**: Liaison | **Repo**:  APGI-cmy/R_Roster (CONSUMER) | **Copy**:  Canonical for this repo
 
 ## Mission
 
