@@ -55,32 +55,96 @@ jobs:
       - name: Run yamllint
         if: steps.validation_path.outputs.path == 'script'
         run: |
-          TARGETS=$(git ls-files '*.yml' '*.yaml' '.github/agents/*.md')
-          if [ -z "$TARGETS" ]; then
-            echo "No YAML files found to validate."
-            exit 0
+          echo "=== Validating YAML files ==="
+          
+          # Get pure YAML files (not .md)
+          YAML_FILES=$(git ls-files '*.yml' '*.yaml')
+          
+          # Get agent contract files (.md with frontmatter)
+          AGENT_FILES=$(git ls-files '.github/agents/*.md')
+          
+          YAML_ERRORS=0
+          
+          # Validate pure YAML files normally
+          if [ -n "$YAML_FILES" ]; then
+            echo "Validating .yml/.yaml files..."
+            OUTPUT=$(yamllint -f parsable $YAML_FILES 2>&1 || true)
+            
+            if echo "$OUTPUT" | grep -qi "syntax error"; then
+              echo "❌ YAML syntax errors detected:"
+              echo "$OUTPUT"
+              YAML_ERRORS=$((YAML_ERRORS + 1))
+            elif [ -n "$OUTPUT" ]; then
+              echo "⚠️ YAML style warnings (non-blocking):"
+              echo "$OUTPUT"
+            else
+              echo "✅ All .yml/.yaml files valid"
+            fi
           fi
-
-          OUTPUT=$(yamllint -f parsable $TARGETS 2>&1 || true)
-
-          if [ -z "$OUTPUT" ]; then
-            echo "✅ YAML validation passed."
-            exit 0
+          
+          # Validate agent contract frontmatter only
+          if [ -n "$AGENT_FILES" ]; then
+            echo ""
+            echo "Validating agent contract YAML frontmatter..."
+            
+            for FILE in $AGENT_FILES; do
+              # Skip documentation files (README, SCHEMA, etc.)
+              BASENAME=$(basename "$FILE")
+              if [[ "$BASENAME" == "README.md" ]] || [[ "$BASENAME" == "BUILDER_CONTRACT_SCHEMA.md" ]] || [[ "$BASENAME" == *"instruction"* ]]; then
+                echo "Skipping documentation file: $FILE"
+                continue
+              fi
+              
+              echo "Checking: $FILE"
+              
+              # Check if file starts with YAML frontmatter marker
+              FIRST_LINE=$(head -n 1 "$FILE")
+              if [ "$FIRST_LINE" != "---" ]; then
+                echo "⚠️ No YAML frontmatter (not an agent contract): $FILE"
+                continue
+              fi
+              
+              # Extract YAML frontmatter (between --- markers)
+              FRONTMATTER=$(awk '/^---$/{if(++count==2) exit; if(count==1) next} count==1' "$FILE")
+              
+              if [ -z "$FRONTMATTER" ]; then
+                echo "❌ No YAML frontmatter found in $FILE"
+                YAML_ERRORS=$((YAML_ERRORS + 1))
+                continue
+              fi
+              
+              # Write frontmatter to temp file
+              TEMP_YAML=$(mktemp)
+              echo "$FRONTMATTER" > "$TEMP_YAML"
+              
+              # Validate YAML frontmatter only
+              OUTPUT=$(yamllint -f parsable "$TEMP_YAML" 2>&1 || true)
+              
+              if echo "$OUTPUT" | grep -qi "syntax error"; then
+                echo "❌ YAML frontmatter syntax error in $FILE"
+                echo "$OUTPUT"
+                YAML_ERRORS=$((YAML_ERRORS + 1))
+              elif [ -n "$OUTPUT" ]; then
+                echo "⚠️ YAML frontmatter style warnings (non-blocking)"
+                echo "$OUTPUT"
+              else
+                echo "✅ Valid YAML frontmatter"
+              fi
+              
+              rm "$TEMP_YAML"
+            done
           fi
-
-          if echo "$OUTPUT" | grep -qi "syntax error"; then
-            echo "❌ YAML syntax errors detected:"
-            echo "$OUTPUT"
+          
+          # Final result
+          if [ $YAML_ERRORS -gt 0 ]; then
+            echo ""
+            echo "❌ YAML validation failed with $YAML_ERRORS error(s)"
             exit 1
+          else
+            echo ""
+            echo "✅ All YAML validation passed"
+            exit 0
           fi
-
-          echo "⚠️ YAML style warnings (non-blocking):"
-          echo "$OUTPUT"
-          echo ""
-          echo "Fix command (agent frontmatter): yamllint --fix .github/agents/*.md"
-          echo "For other YAML files, run: yamllint --fix <path>"
-          echo "Requires yamllint >= 1.21.0 for --fix."
-          exit 0
 
       - name: Evidence-Based Validation (BL-027/028)
         if: steps.validation_path.outputs.path == 'evidence'
