@@ -1,8 +1,8 @@
 # Scope Declaration for PR: Update governance-liaison agent contract to v1.2.0
 
-**Agent**: governance-liaison  
-**Date**: 2026-01-26T12:09:51Z  
-**PR Title**: Update governance-liaison agent contract to v1.2.0: Zero-Warning Enforcement, Ripple Protocol, and YAML Fixes  
+**Agent**: governance-liaison
+**Date**: 2026-01-26T12:09:51Z
+**PR Title**: Update governance-liaison agent contract to v1.2.0: Zero-Warning Enforcement, Ripple Protocol, and YAML Fixes
 **Validation Method**: Evidence-Based (BL-027/028)
 
 ---
@@ -42,11 +42,11 @@ Update `.github/agents/governance-liaison.md` to v1.2.0 with recent governance u
 
 ## Scope Summary
 
-**Total Files Changed**: 2 (agent contract + scope declaration)  
-**Agent Contract Updates**: 1  
+**Total Files Changed**: 2 (agent contract + scope declaration)
+**Agent Contract Updates**: 1
 **Documentation**: 1 (this file)
 
-**All Files Documented**: Yes ✓  
+**All Files Documented**: Yes ✓
 **Scope Complete**: Yes ✓
 
 ---
@@ -85,5 +85,5 @@ I attest that:
 - [✓] Changes address issue requirements
 - [✓] PR is ready for review
 
-**Signed**: Copilot (governance-liaison role)  
+**Signed**: Copilot (governance-liaison role)
 **Timestamp**: 2026-01-26T12:09:51Z
