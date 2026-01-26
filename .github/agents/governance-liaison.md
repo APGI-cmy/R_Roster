@@ -1,6 +1,9 @@
 ---
 id: governance-liaison
-description:  Governance liaison for consumer repository.   Receives governance ripple, maintains local governance alignment, coordinates with canonical governance repo.
+description: >-
+  Governance liaison for consumer repository. Receives governance ripple,
+  maintains local governance alignment, coordinates with canonical
+  governance repo.
 
 agent:
   id: governance-liaison
@@ -13,36 +16,93 @@ governance:
     reference: main
 
   bindings:
-    - {id: governance-purpose, path: governance/canon/GOVERNANCE_PURPOSE_AND_SCOPE.md, role: supreme-authority}
-    - {id: build-philosophy, path: BUILD_PHILOSOPHY.md, role: constitutional-principles}
-    - {id: zero-test-debt, path: governance/canon/ZERO_TEST_DEBT_CONSTITUTIONAL_RULE.md, role: test-debt-prohibition}
-    - {id: bootstrap-learnings, path: governance/canon/BOOTSTRAP_EXECUTION_LEARNINGS.md, role: execution-learnings}
-    - {id: ci-confirmatory, path: governance/canon/CI_CONFIRMATORY_NOT_DIAGNOSTIC.md, role: local-validation}
-    - {id: scope-to-diff, path: governance/canon/SCOPE_TO_DIFF_RULE.md, role: scope-enforcement}
-    - {id: agent-protection, path: governance/canon/AGENT_CONTRACT_PROTECTION_PROTOCOL.md, role: contract-protection}
-    - {id: mandatory-enhancement, path: governance/canon/MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md, role: enhancement-capture, version: 2.0.0}
-    - {id: execution-bootstrap, path: governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md, role: execution-verification}
-    - {id: prehandover-proof, path: governance/templates/PREHANDOVER_PROOF_TEMPLATE.md, role: handover-template, version: 2.0.0}
-    - {id: ripple-model, path: governance/canon/GOVERNANCE_RIPPLE_MODEL.md, role: cross-repo-propagation}
-    - {id:  self-governance, path: governance/canon/AGENT_SELF_GOVERNANCE_PROTOCOL.md, role: agent-self-check}
-    - {id: cs2-authority, path: governance/canon/CS2_AGENT_FILE_AUTHORITY_MODEL.md, role: agent-modification-authority}
-    - {id: merge-gate-philosophy, path: governance/canon/MERGE_GATE_PHILOSOPHY.md, role: gate-validation-doctrine}
-    - {id: test-execution, path: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md, role: test-enforcement, enforcement:  MANDATORY}
-    - {id: failure-promotion, path: governance/canon/FAILURE_PROMOTION_RULE.md, role: failure-governance}
-    - {id: opojd, path: governance/opojd/OPOJD_DOCTRINE.md, role: terminal-state-discipline}
-    - {id: opojd-cs2, path: governance/opojd/CS2_OPOJD_EXTENSION.md, role: protected-change-approval}
-    - {id: byg-doctrine, path: governance/philosophy/BYG_DOCTRINE.md, role: build-philosophy}
-    - {id: incident-response, path: governance/philosophy/GOVERNANCE_INCIDENT_RESPONSE_DOCTRINE.md, role: incident-handling}
-    - {id: stop-and-fix, path: governance/canon/STOP_AND_FIX_DOCTRINE.md, role: test-debt-enforcement, enforcement: MANDATORY}
-    - {id: execution-bootstrap, path: governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md, role: execution-verification, version: 1.1.0}  # UPDATE: Add version
-    - {id: locked-sections-template, path: governance/templates/AGENT_FILE_LOCKED_SECTIONS_TEMPLATE.md, role: agent-lockdown-template, version: 1.0.0}  # ADD: New binding
-    - {id: ripple-checklist, path: governance/canon/GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md, role: ripple-enforcement, version: 1.0.0}  # ADD: After Issue #1020
+    - id: governance-purpose
+      path: governance/canon/GOVERNANCE_PURPOSE_AND_SCOPE.md
+      role: supreme-authority
+    - id: build-philosophy
+      path: BUILD_PHILOSOPHY.md
+      role: constitutional-principles
+    - id: zero-test-debt
+      path: governance/canon/ZERO_TEST_DEBT_CONSTITUTIONAL_RULE.md
+      role: test-debt-prohibition
+    - id: bootstrap-learnings
+      path: governance/canon/BOOTSTRAP_EXECUTION_LEARNINGS.md
+      role: execution-learnings
+    - id: ci-confirmatory
+      path: governance/canon/CI_CONFIRMATORY_NOT_DIAGNOSTIC.md
+      role: local-validation
+    - id: scope-to-diff
+      path: governance/canon/SCOPE_TO_DIFF_RULE.md
+      role: scope-enforcement
+    - id: agent-protection
+      path: governance/canon/AGENT_CONTRACT_PROTECTION_PROTOCOL.md
+      role: contract-protection
+    - id: mandatory-enhancement
+      path: governance/canon/MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md
+      role: enhancement-capture
+      version: 2.0.0
+    - id: execution-bootstrap
+      path: governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md
+      role: execution-verification
+    - id: prehandover-proof
+      path: governance/templates/PREHANDOVER_PROOF_TEMPLATE.md
+      role: handover-template
+      version: 2.0.0
+    - id: ripple-model
+      path: governance/canon/GOVERNANCE_RIPPLE_MODEL.md
+      role: cross-repo-propagation
+    - id: self-governance
+      path: governance/canon/AGENT_SELF_GOVERNANCE_PROTOCOL.md
+      role: agent-self-check
+    - id: cs2-authority
+      path: governance/canon/CS2_AGENT_FILE_AUTHORITY_MODEL.md
+      role: agent-modification-authority
+    - id: merge-gate-philosophy
+      path: governance/canon/MERGE_GATE_PHILOSOPHY.md
+      role: gate-validation-doctrine
+    - id: test-execution
+      path: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md
+      role: test-enforcement
+      enforcement: MANDATORY
+    - id: failure-promotion
+      path: governance/canon/FAILURE_PROMOTION_RULE.md
+      role: failure-governance
+    - id: opojd
+      path: governance/opojd/OPOJD_DOCTRINE.md
+      role: terminal-state-discipline
+    - id: opojd-cs2
+      path: governance/opojd/CS2_OPOJD_EXTENSION.md
+      role: protected-change-approval
+    - id: byg-doctrine
+      path: governance/philosophy/BYG_DOCTRINE.md
+      role: build-philosophy
+    - id: incident-response
+      path: governance/philosophy/GOVERNANCE_INCIDENT_RESPONSE_DOCTRINE.md
+      role: incident-handling
+    - id: stop-and-fix
+      path: governance/canon/STOP_AND_FIX_DOCTRINE.md
+      role: test-debt-enforcement
+      enforcement: MANDATORY
+    - id: execution-bootstrap-v2
+      path: governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md
+      role: execution-verification
+      version: 1.1.0
+    - id: locked-sections-template
+      path: governance/templates/AGENT_FILE_LOCKED_SECTIONS_TEMPLATE.md
+      role: agent-lockdown-template
+      version: 1.0.0
+    - id: ripple-checklist
+      path: governance/canon/GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md
+      role: ripple-enforcement
+      version: 1.0.0
 
   tier_0_canon:
     manifest_file: governance/TIER_0_CANON_MANIFEST.json
     manifest_version: "1.3.0"
     load_strategy: dynamic
-    note: "Agent loads all 15 Tier-0 constitutional documents from manifest at runtime"
+    note: >-
+      Agent loads all 15 Tier-0 constitutional documents from
+      manifest at runtime
 
 scope:
   repository: APGI-cmy/R_Roster
@@ -61,17 +121,16 @@ capabilities:
 
 constraints:
   governance_interpretation: forbidden
-  zero_test_debt:  required
+  zero_test_debt: required
   build_to_green_only: true
 
 metadata:
-  version: 1.2.0  # Reflects PR #1015, #1018 propagation
-  repository: APGI-cmy/maturion-foreman-office-app
-  canonical_home: APGI-cmy/maturion-foreman-office-app
+  version: 1.2.0
+  repository: APGI-cmy/R_Roster
+  canonical_home: APGI-cmy/R_Roster
   canonical_path: .github/agents/governance-liaison.agent.md
   this_copy: canonical
-  last_updated: 2026-01-26  # Update to current date
-  
+  last_updated: 2026-01-26
 ---
 
 # Governance Liaison Agent
