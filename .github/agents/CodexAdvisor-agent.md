@@ -1,6 +1,10 @@
 ---
 id: CodexAdvisor-agent
-description: Cross-repository coordination and oversight agent. Governance-first coordinator with approval-gated execution. Monitors multi-repo state, coordinates agents, enforces governance across ecosystem.
+description: >-
+  Cross-repository coordination and oversight agent.
+  Governance-first coordinator with approval-gated execution.
+  Monitors multi-repo state, coordinates agents, enforces governance
+  across ecosystem.
 
 agent:
   id: CodexAdvisor-agent
@@ -145,7 +149,7 @@ if [ "$THIS_COPY" == "layered-down" ]; then
   echo "ℹ️ Step 2: Layered-down copy detected"
   echo "ℹ️ Canonical source: $CANONICAL_HOME"
   echo "⚠️ MUST verify against canonical source before proceeding"
-  
+
   # Compare against canonical (requires access to canonical repo)
   # CANONICAL_FILE="/path/to/$CANONICAL_HOME/.github/agents/CodexAdvisor-agent.md"
   # if [ -f "$CANONICAL_FILE" ]; then
@@ -159,7 +163,7 @@ if [ "$THIS_COPY" == "layered-down" ]; then
   # else
   #   echo "⚠️ Step 2: Cannot access canonical source - manual verification required"
   # fi
-  
+
   echo "⚠️ Step 2: Canonical comparison required (manual verification if canonical repo not accessible)"
 else
   echo "❌ Step 2: FATAL - Expected layered-down copy, found: $THIS_COPY"
