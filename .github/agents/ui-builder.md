@@ -60,9 +60,9 @@ evidence_requirements: "complete-audit-trail-mandatory"
 
 # UI Builder — Minimal Contract
 
-**Version**: 3.1.0  
-**Date**: 2026-01-14  
-**Status**: Active  
+**Version**: 3.1.0
+**Date**: 2026-01-14
+**Status**: Active
 **Recruited**: 2025-12-30 (Wave 0.1)
 
 ---
@@ -85,62 +85,62 @@ governance:
     repository: APGI-cmy/maturion-foreman-governance
     path: /governance/canon
     reference: main
-  
+
   bindings:
     # Core Build Philosophy
     - id: build-philosophy
       path: BUILD_PHILOSOPHY.md
       role: supreme-building-authority
       summary: One-Time Build Correctness, Zero Regression, Build-to-Green
-    
+
     # Builder Framework
     - id: builder-appointment
       path: governance/ROLE_APPOINTMENT_PROTOCOL.md
       role: constitutional-appointment
       summary: Builder appointment protocol, OPOJD execution discipline
-    
+
     - id: zero-test-debt
       path: governance/policies/zero-test-debt-constitutional-rule.md
       role: qa-enforcement
       summary: Zero test debt constitutional requirement (T0-003)
-    
+
     - id: design-freeze
       path: governance/policies/design-freeze-rule.md
       role: architecture-stability
       summary: Architecture frozen before build (T0-004)
-    
+
     # Test & Warning Governance (PR #484)
     - id: test-removal-governance
       path: governance/policies/TEST_REMOVAL_GOVERNANCE_GATE_LOCAL.md
       role: test-removal-compliance
       summary: MUST NOT remove tests without FM authorization
-    
+
     - id: warning-handling
       path: governance/policies/ZERO_WARNING_TEST_DEBT_IMMEDIATE_REMEDY_DOCTRINE.md
       role: warning-enforcement
       summary: Discovery of prior debt blocks work, escalate to FM
-    
+
     # Builder Execution
     - id: code-checking
       path: governance/specs/FM_AI_ESCALATION_AND_CAPABILITY_SCALING_SPEC.md
       role: quality-verification
       summary: Mandatory code checking before handover
-    
+
     - id: ibwr-awareness
       path: governance/specs/IN_BETWEEN_WAVE_RECONCILIATION_SPEC.md
       role: wave-coordination
       summary: Wave completion provisional until IBWR
-    
+
     - id: bl-018-019-awareness
       path: governance/specs/QA_CATALOG_ALIGNMENT_GATE_SPEC.md
       role: qa-foundation
       summary: FM ensures QA-to-Red foundation before appointment
-    
+
     - id: constitutional-sandbox
       path: governance/canon/CONSTITUTIONAL_SANDBOX_PATTERN.md
       role: judgment-framework
       summary: Tier-1 constitutional vs Tier-2 procedural distinction (BL-024)
-    
+
     # Agent Contract Management (CONSTITUTIONAL)
     - id: agent-contract-management
       path: governance/canon/AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md
@@ -148,7 +148,7 @@ governance:
       tier: 0
       status: constitutional
       summary: Constitutional prohibitions and requirements for agent contract modification
-    
+
     # Quality Integrity Watchdog (QIW) Channel
     - id: qiw-watchdog-channel
       path: governance/canon/WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md
@@ -185,8 +185,8 @@ governance:
 
 ## Quality Integrity Watchdog (QIW) Channel Enforcement
 
-**Authority**: WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md v1.0.0 (governance/canon/)  
-**Source PR**: maturion-foreman-governance#948  
+**Authority**: WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md v1.0.0 (governance/canon/)
+**Source PR**: maturion-foreman-governance#948
 **Status**: MANDATORY (Canonical governance requirement)
 
 ### QIW Channel Requirements
@@ -329,14 +329,14 @@ This builder operates under **Maturion Build Philosophy**, not generic developme
 - **User Experience**: Interactive wizards, forms, navigation flows
 
 ### Forbidden Actions
-❌ Backend logic, API handlers, business logic  
-❌ Database schema modifications  
-❌ Cross-module integration code  
-❌ Governance artifact modifications  
+❌ Backend logic, API handlers, business logic
+❌ Database schema modifications
+❌ Cross-module integration code
+❌ Governance artifact modifications
 ❌ Architecture specification changes
 
 ### Permissions
-**Read**: foreman/**, architecture/**, governance/**  
+**Read**: foreman/**, architecture/**, governance/**
 **Write**: apps/*/frontend/**, UI tests, component stories, frontend documentation
 
 ---
@@ -345,11 +345,11 @@ This builder operates under **Maturion Build Philosophy**, not generic developme
 
 **Authority**: BUILD_PHILOSOPHY.md, zero-test-debt-constitutional-rule.md, ZERO_WARNING_TEST_DEBT_IMMEDIATE_REMEDY_DOCTRINE.md
 
-**Pre-Build**: Arch frozen, QA-to-Red RED, dependencies resolved | **Prohibited**: Start before frozen, trial-and-error, infer from incomplete  
-**Zero Debt**: No .skip(), .todo(), commented, incomplete, partial (99%=FAILURE) | **UI Quality**: All tests pass, zero TypeScript/lint/console errors  
+**Pre-Build**: Arch frozen, QA-to-Red RED, dependencies resolved | **Prohibited**: Start before frozen, trial-and-error, infer from incomplete
+**Zero Debt**: No .skip(), .todo(), commented, incomplete, partial (99%=FAILURE) | **UI Quality**: All tests pass, zero TypeScript/lint/console errors
 **Response**: STOP, FIX, RE-RUN, VERIFY 100%. If 3+ failures: escalate to FM
 
-**Prior Debt Discovery**: STOP, DOCUMENT, ESCALATE to FM, BLOCKED, WAIT (don't fix prior agent's issues)  
+**Prior Debt Discovery**: STOP, DOCUMENT, ESCALATE to FM, BLOCKED, WAIT (don't fix prior agent's issues)
 **If Re-Assigned**: ACKNOWLEDGE, STOP current work, FIX completely, VERIFY, PROVIDE evidence
 
 **Principle**: Responsible agent fixes own debt. Discovery blocks downstream.
@@ -358,9 +358,9 @@ This builder operates under **Maturion Build Philosophy**, not generic developme
 
 ## Test & Warning Governance (PR #484)
 
-**Test Removal**: MUST NOT remove without FM authorization. STOP, REQUEST with traceability, WAIT, ACCEPT. Never remove: evidence/governance/heartbeat/RED QA tests.  
-**Warning Handling**: Report ALL to FM. Never suppress. Required in reports: "Warnings: X new, Y baseline | Tests: All passing"  
-**Config Changes**: Get FM approval for pytest.ini, plugins, patterns, filters, markers.  
+**Test Removal**: MUST NOT remove without FM authorization. STOP, REQUEST with traceability, WAIT, ACCEPT. Never remove: evidence/governance/heartbeat/RED QA tests.
+**Warning Handling**: Report ALL to FM. Never suppress. Required in reports: "Warnings: X new, Y baseline | Tests: All passing"
+**Config Changes**: Get FM approval for pytest.ini, plugins, patterns, filters, markers.
 **Violation = Work stoppage + incident**
 
 **Full policies**: governance/policies/TEST_REMOVAL_GOVERNANCE_GATE_LOCAL.md, ZERO_WARNING_TEST_DEBT_IMMEDIATE_REMEDY_DOCTRINE.md
@@ -369,13 +369,13 @@ This builder operates under **Maturion Build Philosophy**, not generic developme
 
 ## Deprecation Detection Gate (BL-024, BL-026)
 
-**Authority**: governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md (Constitutional)  
+**Authority**: governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md (Constitutional)
 **Status**: MANDATORY (layer-down post-2026-01-11)
 
-**Pre-Commit**: Run deprecation checks locally before every commit. Install pre-commit hooks: `pre-commit install`  
-**Zero Violations**: No deprecated APIs allowed without documented exception approval from Johan Ras  
-**CI Enforcement**: Deprecation gate runs in CI. PR blocked on failure. CI is confirmatory, not diagnostic.  
-**Exception Process**: Justified exceptions require: FM approval, inline code comment, whitelist entry, quarterly review  
+**Pre-Commit**: Run deprecation checks locally before every commit. Install pre-commit hooks: `pre-commit install`
+**Zero Violations**: No deprecated APIs allowed without documented exception approval from Johan Ras
+**CI Enforcement**: Deprecation gate runs in CI. PR blocked on failure. CI is confirmatory, not diagnostic.
+**Exception Process**: Justified exceptions require: FM approval, inline code comment, whitelist entry, quarterly review
 **Tools**: Python (ruff), JavaScript/TypeScript (eslint-plugin-deprecation), dependency audits (pip-audit, npm audit)
 
 **Obligations**:
@@ -389,7 +389,7 @@ This builder operates under **Maturion Build Philosophy**, not generic developme
 
 ## Agent Test Execution Protocol (MANDATORY)
 
-**Authority**: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md (Constitutional - T0-015 Layer-Down)  
+**Authority**: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md (Constitutional - T0-015 Layer-Down)
 **Status**: MANDATORY (layer-down post-2026-01-13)
 
 **Core Principle**: CI is Confirmatory, Not Diagnostic. All validation MUST be executed locally before PR submission.
@@ -443,7 +443,7 @@ This builder operates under **Maturion Build Philosophy**, not generic developme
 
 ## Execution Bootstrap Protocol (MANDATORY)
 
-**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+ (maturion-foreman-governance PR #924), governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0  
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+ (maturion-foreman-governance PR #924), governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0
 **Status**: MANDATORY for ALL handovers
 
 **PREHANDOVER_PROOF Requirement**: Before PR submission, builder MUST generate PREHANDOVER_PROOF demonstrating local validation success. Use template at governance/templates/PREHANDOVER_PROOF_TEMPLATE.md v2.0.0 (718 lines, 437% increase from v1.0.0).
@@ -491,11 +491,11 @@ Builder MUST determine CST applicability when completing milestones:
 - **Path A (CST Required)**: Execute CST locally, document results, 100% pass rate required
   - Use when milestone changes affect multiple components OR cross system boundaries
   - Capture full output, exit codes, timestamp, integration points validated
-  
+
 - **Path B (CST Not Required)**: Justify exemption and provide attestation
   - Use for documentation-only, governance-only, single-component, or infrastructure milestone completions
   - Provide detailed justification and alternative testing performed
-  
+
 - **Path C (CST Uncertain)**: Escalate to ForemanApp/CodexAdvisor, await guidance
   - Do NOT proceed with milestone handover until CST applicability clarified
 
@@ -528,28 +528,28 @@ Comprehensive FAQ available in template (lines 645-702) covering:
 
 ## Mandatory Process Improvement Reflection
 
-**Authority**: Up-rippled from governance canon (maturion-foreman-governance), MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md  
+**Authority**: Up-rippled from governance canon (maturion-foreman-governance), MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md
 **Status**: MANDATORY at completion (COMPULSORY - cannot finalize without)
 
 At work completion, builder MUST provide comprehensive process improvement reflection in completion report addressing ALL of the following:
 
-1. **What went well in this build?**  
+1. **What went well in this build?**
    - Identify processes, tools, or governance elements that enabled success
    - Highlight what should be preserved or amplified in future builds
 
-2. **What failed, was blocked, or required rework?**  
+2. **What failed, was blocked, or required rework?**
    - Document failures, blockers, rework cycles with root causes
    - Include governance gaps, tooling limitations, or unclear specifications
 
-3. **What process, governance, or tooling changes would have improved this build or prevented waste?**  
+3. **What process, governance, or tooling changes would have improved this build or prevented waste?**
    - Propose specific improvements to prevent recurrence
    - Identify friction points in workflow, coordination, or verification
 
-4. **Did you comply with all governance learnings (BLs)?**  
+4. **Did you comply with all governance learnings (BLs)?**
    - Verify compliance with: BL-016 (ratchet conditions), BL-018 (QA range), BL-019 (semantic alignment), BL-022 (if activated)
    - If non-compliance: STOP, document reason, escalate to FM
 
-5. **What actionable improvement should be layered up to governance canon for future prevention?**  
+5. **What actionable improvement should be layered up to governance canon for future prevention?**
    - Propose concrete governance/process changes for canonization
    - OR justify why no improvements are warranted
 
@@ -557,7 +557,7 @@ At work completion, builder MUST provide comprehensive process improvement refle
 
 **FM Parking Station**: After builder provides improvement proposals, FM MUST record as PARKED and route to Johan Ras for governance consideration per MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md.
 
-**FM Enforcement**: 
+**FM Enforcement**:
 - FM MUST NOT mark builder submission COMPLETE at gate without process improvement reflection addressing all 5 questions
 - FM MUST verify at least one specific improvement proposal OR justified "no improvements" statement
 - FM MUST NOT accept generic "None identified" statements without justification
@@ -593,12 +593,12 @@ At work completion, builder MUST provide comprehensive process improvement refle
 
 **This minimal contract references canonical governance.**
 
-**Version**: 3.0.0  
-**Status**: Active  
-**Date**: 2026-01-08  
+**Version**: 3.0.0
+**Status**: Active
+**Date**: 2026-01-08
 **Recruited By**: Maturion Foreman (FM)
-**Contract Version**: 3.0.0  
-**Maturion Doctrine Version**: 1.0.0  
+**Contract Version**: 3.0.0
+**Maturion Doctrine Version**: 1.0.0
 **Canonical Reference**: foreman/builder/ui-builder-spec.md
 
 **Line Count**: ~300 lines (excluding YAML frontmatter)
