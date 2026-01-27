@@ -42,7 +42,7 @@
 
 - [ ] **Step 5: Zero Test Debt Verification**
   - [ ] All tests passing: ✅ GREEN
-  - [ ] No skipped tests (unless pre-existing with documented exceptions)
+  - [ ] No skipped tests (ALL must pass - no exceptions per STOP_AND_FIX_DOCTRINE.md v2.0.0)
   - [ ] Coverage requirements met
   - [ ] Test output captured with exit codes
 

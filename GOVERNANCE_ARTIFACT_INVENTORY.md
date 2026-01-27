@@ -3,7 +3,7 @@
 **Purpose**: Inventory of governance artifacts layered down to R_Roster repository
 **Consumer Repository**: APGI-cmy/R_Roster
 **Canonical Source**: APGI-cmy/maturion-foreman-governance
-**Last Updated**: 2026-01-27
+**Last Updated**: 2026-01-27 (v2.0.0 ripple)
 **Maintained By**: governance-liaison agent
 
 ---
@@ -48,7 +48,7 @@ This repository is a **CONSUMER** repository that receives governance canon file
 | `MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `MANDATORY_PROCESS_IMPROVEMENT_REFLECTION_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md` | 2026-01-23 | governance/canon/ | Layered |
-| `STOP_AND_FIX_DOCTRINE.md` | 2026-01-23 | PR #1005 | Layered |
+| `STOP_AND_FIX_DOCTRINE.md` | 2026-01-27 | PR #1023 | **UPDATED v2.0.0 - Layered 2026-01-27** |
 | `WARNING_DISCOVERY_BLOCKER_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md` | 2026-01-23 | governance/canon/ | Layered |
 
@@ -80,6 +80,32 @@ This repository is a **CONSUMER** repository that receives governance canon file
 ---
 
 ## Governance Ripple History
+
+### 2026-01-27: STOP_AND_FIX_DOCTRINE v2.0.0 - Ban Excuse-Based Test Dodging
+
+**Ripple Type**: Tier-0 Constitutional Canon Update (Critical)
+**Authority**: GOVERNANCE_RIPPLE_MODEL.md, STOP_AND_FIX_DOCTRINE.md v2.0.0
+**Source PR**: APGI-cmy/maturion-foreman-governance PR #1023
+**Issue**: [GOVERNANCE][RIPPLE] Ban Excuse-Based Test Dodging
+
+**Files Updated**:
+1. `governance/canon/STOP_AND_FIX_DOCTRINE.md` (v1.0.0 → v2.0.0)
+2. `governance/templates/pr-checklists/BUILDER_PR_CHECKLIST.md` (removed excuse-based language)
+
+**Key Changes in v2.0.0**:
+- **Section 3.5 Added**: "Ban on Excuse-Based Test Dodging" - Comprehensive prohibition of excuse language
+- **7 Prohibited Excuse Patterns**: Minimization, scope deflection, responsibility discharge, deferral, dismissal, sufficiency claims, evasion tactics
+- **Explicit Bans**: "pre-existing issue", "out of scope", "not my responsibility", "will fix later", "non-blocking", "ignore", etc.
+- **Enforcement**: Use of any prohibited pattern is itself a governance violation subject to escalation
+
+**Repository-Wide Impact**:
+- Removed "pre-existing with documented exceptions" language from builder checklist (line 45)
+- Verified agent contracts already enforce zero-tolerance principles
+- No other excuse-based language found in governance files
+
+**Validation**: All gates passing, governance alignment verified, zero excuse patterns remain
+
+---
 
 ### 2026-01-27: Batch 1 - Foundation Canon & Diagrams
 
