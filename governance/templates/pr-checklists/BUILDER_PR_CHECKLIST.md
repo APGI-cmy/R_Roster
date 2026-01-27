@@ -1,15 +1,15 @@
 # Builder PR Release Checklist
 
-**Version**: 2.1.0  
-**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924), PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_PROTOCOL (maturion-foreman-governance PR #952)  
-**Status**: MANDATORY for all builder PRs  
+**Version**: 2.1.0
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL (maturion-foreman-governance PR #924), PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_PROTOCOL (maturion-foreman-governance PR #952)
+**Status**: MANDATORY for all builder PRs
 **Last Updated**: 2026-01-14
 
 ---
 
 ## Category 0: Execution Bootstrap Protocol (MANDATORY) ⚠️
 
-**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+  
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+
 **Enforcement**: CONSTITUTIONAL - Cannot be waived
 
 **Before ANY handover, builder MUST complete ALL of the following:**
@@ -42,7 +42,7 @@
 
 - [ ] **Step 5: Zero Test Debt Verification**
   - [ ] All tests passing: ✅ GREEN
-  - [ ] No skipped tests (unless pre-existing with documented exceptions)
+  - [ ] No skipped tests (ALL must pass - no exceptions per STOP_AND_FIX_DOCTRINE.md v2.0.0)
   - [ ] Coverage requirements met
   - [ ] Test output captured with exit codes
 
@@ -82,7 +82,7 @@
 
 ## Category 8: Builder-Specific Requirements (Builders)
 
-**Authority**: Builder contracts, BUILD_PHILOSOPHY.md  
+**Authority**: Builder contracts, BUILD_PHILOSOPHY.md
 **Enforcement**: MANDATORY per builder role
 
 ### Build & Test Validation
@@ -107,7 +107,7 @@
 
 ### Pre-Implementation Behavior Review (Enhancements Only)
 
-**Authority**: PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md  
+**Authority**: PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md
 **Applies To**: Enhancement/optimization PRs only (not bug fixes, governance, or documentation)
 
 - [ ] **PR Classification Confirmed**
@@ -242,8 +242,8 @@ I certify that:
 - ✅ This PR is ready for FM review and acceptance
 - ✅ No known blocking issues remain
 
-**PREHANDOVER_PROOF Location**: `[filename]`  
-**Pre-Implementation Review** (Enhancement PRs only): `[filename or "N/A - not enhancement" or "Exemption granted by FM"]`  
+**PREHANDOVER_PROOF Location**: `[filename]`
+**Pre-Implementation Review** (Enhancement PRs only): `[filename or "N/A - not enhancement" or "Exemption granted by FM"]`
 **Handover Status**: ✅ **AUTHORIZED**
 
 ---
@@ -307,6 +307,6 @@ I certify that:
 
 ---
 
-**Template Authority**: EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+  
-**Maintained By**: Governance Liaison  
+**Template Authority**: EXECUTION_BOOTSTRAP_PROTOCOL v2.0.0+
+**Maintained By**: Governance Liaison
 **Questions**: Escalate per escalation path above
