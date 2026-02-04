@@ -3,7 +3,7 @@
 **Purpose**: Inventory of governance artifacts layered down to R_Roster repository
 **Consumer Repository**: APGI-cmy/R_Roster
 **Canonical Source**: APGI-cmy/maturion-foreman-governance
-**Last Updated**: 2026-01-27 (v2.0.0 ripple)
+**Last Updated**: 2026-02-04 (Batch 2 - FM LOCKED sections)
 **Maintained By**: governance-liaison agent
 
 ---
@@ -72,14 +72,81 @@ This repository is a **CONSUMER** repository that receives governance canon file
 | File | Last Updated | Status | Canonical For |
 |------|--------------|--------|---------------|
 | `governance-liaison.md` | 2026-01-23 | Active | R_Roster |
+| `R_Roster-app_FM.md` | 2026-02-04 | Active | R_Roster |
 
 **Binding Updates**:
 - Updated `stop-and-fix` binding to point to `STOP_AND_FIX_DOCTRINE.md` (was `STOP_AND_FIX_PROTOCOL.md`)
 - Fixed `byg-doctrine` path formatting
 
+**LOCKED Sections Added** (Batch 2 - 2026-02-04):
+- `R_Roster-app_FM.md`: Added 13 LOCKED sections per AGENT_CONTRACT_PROTECTION_PROTOCOL.md Section 11.2
+  - LOCK-FM-SELF-GOV-001: Pre-Job Self-Governance
+  - LOCK-FM-SELF-MOD-001: Own Contract Modification
+  - LOCK-FM-AGENT-AUTH-001: Agent File Authority
+  - LOCK-FM-BUILDER-APPT-001: Builder Appointment Non-Negotiables
+  - LOCK-FM-TEST-EXECUTION-001: Test Execution Constitutional Non-Negotiables
+  - LOCK-FM-GATE-ALIGN-001: Gate Alignment Enforcement
+  - LOCK-FM-PREHANDOVER-001: Pre-Handover Validation
+  - LOCK-FM-ZERO-WARNING-001: Zero-Warning Handover Enforcement
+  - LOCK-FM-GATES-001: Local Repo Merge Gates
+  - LOCK-FM-LAYER-DOWN-001: Governance Layer-Down Protocol
+  - LOCK-FM-CANON-COMPLIANCE-001: Canon Layer-Down Compliance Protocol
+  - LOCK-FM-AGENTFILE-001: Agent File Creation & Modification Protocol
+  - LOCK-FM-IMPROVEMENT-001: Mandatory Improvement Capture
+- Added `protection_model: embedded` to FM contract YAML front matter
+
 ---
 
 ## Governance Ripple History
+
+### 2026-02-04: Batch 2 - Agent Contract LOCKED Sections (FM)
+
+**Ripple Type**: Agent Contract Protection Implementation (Batch 2 of 10)
+**Authority**: AGENT_CONTRACT_PROTECTION_PROTOCOL.md Section 11.2, GOVERNANCE_RIPPLE_MODEL.md
+**Source**: R_ROSTER_GOVERNANCE_ALIGNMENT_PLAN_10_BATCH.md
+**Batch Reference**: Issue [GOVERNANCE][BATCH 2] Agent Contract LOCKED Sections – Foreman Agent (FM)
+
+**Files Updated**:
+1. `.github/agents/R_Roster-app_FM.md`: Added 13 LOCKED sections + protection_model declaration
+
+**LOCKED Sections Added**:
+- LOCK-FM-SELF-GOV-001: Pre-Job Self-Governance
+- LOCK-FM-SELF-MOD-001: Own Contract Modification
+- LOCK-FM-AGENT-AUTH-001: Agent File Authority
+- LOCK-FM-BUILDER-APPT-001: Builder Appointment Non-Negotiables
+- LOCK-FM-TEST-EXECUTION-001: Test Execution Constitutional Non-Negotiables
+- LOCK-FM-GATE-ALIGN-001: Gate Alignment Enforcement
+- LOCK-FM-PREHANDOVER-001: Pre-Handover Validation
+- LOCK-FM-ZERO-WARNING-001: Zero-Warning Handover Enforcement
+- LOCK-FM-GATES-001: Local Repo Merge Gates
+- LOCK-FM-LAYER-DOWN-001: Governance Layer-Down Protocol
+- LOCK-FM-CANON-COMPLIANCE-001: Canon Layer-Down Compliance Protocol
+- LOCK-FM-AGENTFILE-001: Agent File Creation & Modification Protocol
+- LOCK-FM-IMPROVEMENT-001: Mandatory Improvement Capture
+
+**Key Protections Established**:
+- **Constitutional Non-Negotiables**: Zero test debt, zero warnings, test execution protocol enforcement locked in
+- **Gate Alignment**: Mandatory gate-script alignment verification before every builder handover
+- **Pre-Handover Validation**: All validation commands documented with exit codes
+- **Builder Appointment**: Architecture freeze and QA-to-Red compilation required before builder appointment
+- **Self-Governance**: Pre-job self-governance checks locked in
+- **Contract Protection**: Own contract modification prohibited (CS2 authority only)
+
+**Validation**:
+- ✅ LOCKED sections validation: PASSED (check_locked_sections.py)
+- ✅ JSON validation: PASSED
+- ✅ File format checks: PASSED (git diff --check)
+- ✅ YAML front matter: Valid (Python yaml.safe_load)
+
+**Impact**:
+- FM contract now has complete LOCKED section coverage per Section 11.2 requirements
+- Protection_model: embedded declaration added to FM contract
+- Constitutional requirements protected from unauthorized modification
+- FM authority and boundaries clearly defined and locked
+
+**Next Batch**: Batch 3 - Builder contracts LOCKED sections
+
+---
 
 ### 2026-01-27: STOP_AND_FIX_DOCTRINE v2.0.0 - Ban Excuse-Based Test Dodging
 
