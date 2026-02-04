@@ -130,6 +130,23 @@ In addition to Tier-0, application repositories MUST bind to:
       role: execution-discipline
 ```
 
+#### AGENT_TEST_EXECUTION_PROTOCOL.md
+
+**Binding ID**: `agent-test-execution-protocol`  
+**Path**: `governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md`  
+**Role**: `test-execution-before-handover`
+
+**Why Mandatory**: Enforces CI-Confirmatory-Not-Diagnostic by requiring test execution in agent environment before PR creation. Prevents merge gate failures post-handover due to test failures.
+
+**Applicability**: All application repositories with automated test suites.
+
+**Example**:
+```yaml
+    - id: agent-test-execution-protocol
+      path: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md
+      role: test-execution-before-handover
+```
+
 ### 3.2 Governance Repositories
 
 In addition to Tier-0, governance repositories MUST bind to:
@@ -618,7 +635,7 @@ governance:
 | **governance/schemas/AGENT_FILE_SCHEMA.md** | `.agent` file structure and format |
 | **governance/canon/GOVERNANCE_CANON_MANIFEST.md** | Index of all canonical documents |
 | **governance/canon/GOVERNANCE_RIPPLE_MODEL.md** | How governance changes propagate |
-| **governance/runbooks/AGENT_FILE_VALIDATION.md** | Validation procedure for `.agent` files |
+| **governance/canon/agent-contracts-guidance/runbooks/AGENT_FILE_VALIDATION.md** | Validation procedure for `.agent` files |
 | **governance/runbooks/AGENT_FILE_MAINTENANCE.md** | Maintenance protocol for `.agent` files |
 
 ---
