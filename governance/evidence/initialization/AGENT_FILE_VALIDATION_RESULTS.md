@@ -308,9 +308,9 @@ None required - `.agent` file is fully compliant.
 ## References
 
 - **Schema**: `governance/schemas/AGENT_FILE_SCHEMA.md` v1.0.0
-- **Binding Requirements**: `governance/canon/AGENT_FILE_BINDING_REQUIREMENTS.md` v1.0.0
-- **Validation Process**: `governance/runbooks/AGENT_FILE_VALIDATION.md` v1.0.0
-- **Maintenance Protocol**: `governance/runbooks/AGENT_FILE_MAINTENANCE.md` v1.0.0
+- **Binding Requirements**: `governance/canon/agent-contracts-guidance/AGENT_FILE_BINDING_REQUIREMENTS.md` v1.0.0
+- **Validation Process**: `governance/canon/agent-contracts-guidance/runbooks/AGENT_FILE_VALIDATION.md` v1.0.0
+- **Maintenance Protocol**: `governance/canon/agent-contracts-guidance/runbooks/AGENT_FILE_MAINTENANCE.md` v1.0.0
 - **Canonical Governance**: https://github.com/APGI-cmy/maturion-foreman-governance
 
 ---

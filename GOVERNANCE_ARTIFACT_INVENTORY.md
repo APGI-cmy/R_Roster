@@ -3,7 +3,7 @@
 **Purpose**: Inventory of governance artifacts layered down to R_Roster repository
 **Consumer Repository**: APGI-cmy/R_Roster
 **Canonical Source**: APGI-cmy/maturion-foreman-governance
-**Last Updated**: 2026-02-04 (Batch 2 - FM LOCKED sections)
+**Last Updated**: 2026-02-04 (PR #1027 - Agent contracts guidance centralization)
 **Maintained By**: governance-liaison agent
 
 ---
@@ -30,11 +30,8 @@ This repository is a **CONSUMER** repository that receives governance canon file
 
 | File | Last Updated | Source PR | Status |
 |------|--------------|-----------|--------|
-| `.agent.schema.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md` | 2026-01-23 | governance/canon/ | Layered |
 | `AGENT_CONTRACT_PROTECTION_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `AGENT_FILE_BINDING_REQUIREMENTS.md` | 2026-01-23 | governance/canon/ | Layered |
-| `AGENT_ONBOARDING_QUICKSTART.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `AGENT_SELF_GOVERNANCE_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `CS2_AGENT_FILE_AUTHORITY_MODEL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
@@ -51,6 +48,28 @@ This repository is a **CONSUMER** repository that receives governance canon file
 | `STOP_AND_FIX_DOCTRINE.md` | 2026-01-27 | PR #1023 | **UPDATED v2.0.0 - Layered 2026-01-27** |
 | `WARNING_DISCOVERY_BLOCKER_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md` | 2026-01-23 | governance/canon/ | Layered |
+
+### Agent Contracts Guidance (governance/canon/agent-contracts-guidance/)
+
+**Centralized agent contract guidance folder (PR #1027)**
+
+| File | Last Updated | Source PR | Status |
+|------|--------------|-----------|--------|
+| `.agent.schema.md` | 2026-02-04 | PR #1027 | **MOVED from canon/ - Layered 2026-02-04** |
+| `README.md` | 2026-02-04 | PR #1027 | **NEW - Layered 2026-02-04** |
+| `AGENT_CONTRACT_MIGRATION_GUIDE.md` | 2026-02-04 | PR #1027 | **NEW - Layered 2026-02-04** |
+| `AGENT_FILE_BINDING_REQUIREMENTS.md` | 2026-02-04 | PR #1027 | **MOVED from canon/ - Layered 2026-02-04** |
+| `AGENT_FILE_CREATION_POLICY.md` | 2026-02-04 | PR #1027 | **NEW - Layered 2026-02-04** |
+| `AGENT_ONBOARDING_QUICKSTART.md` | 2026-02-04 | PR #1027 | **MOVED from canon/ - Layered 2026-02-04** |
+| `templates/AGENT_CONTRACT.template.md` | 2026-02-04 | PR #1027 | **NEW - Layered 2026-02-04** |
+| `templates/AGENT_FILE_LOCKED_SECTIONS_TEMPLATE.md` | 2026-02-04 | PR #1027 | **NEW - Layered 2026-02-04** |
+| `runbooks/AGENT_FILE_MAINTENANCE.md` | 2026-02-04 | PR #1027 | **MOVED from governance/runbooks/ - Layered 2026-02-04** |
+| `runbooks/AGENT_FILE_VALIDATION.md` | 2026-02-04 | PR #1027 | **MOVED from governance/runbooks/ - Layered 2026-02-04** |
+
+**Notes**:
+- This folder centralizes all agent contract guidance (schemas, policies, templates, runbooks)
+- Files were moved from scattered locations to enable atomic layer-down
+- Old locations deprecated: `governance/canon/.agent.schema.md`, `governance/canon/AGENT_FILE_BINDING_REQUIREMENTS.md`, `governance/canon/AGENT_ONBOARDING_QUICKSTART.md`, `governance/runbooks/AGENT_FILE_*.md`
 
 ### Governance Philosophy (governance/philosophy/)
 
@@ -98,6 +117,63 @@ This repository is a **CONSUMER** repository that receives governance canon file
 ---
 
 ## Governance Ripple History
+
+### 2026-02-04: Agent Contracts Guidance Centralization (PR #1027)
+
+**Ripple Type**: Tier-0 Structural Governance Canon Layer-Down
+**Authority**: GOVERNANCE_RIPPLE_MODEL.md, PR #1027
+**Source**: APGI-cmy/maturion-foreman-governance PR #1027
+**Issue**: Governance ripple: Align agent contract guidance with canonical model (per #1027)
+
+**Changes Summary**:
+Centralized all agent contract guidance (schemas, policies, templates, runbooks) into single authoritative folder `governance/canon/agent-contracts-guidance/` with subfolders for templates and runbooks.
+
+**Files Layered Down**:
+
+**New Folder Created**: `governance/canon/agent-contracts-guidance/`
+
+**Main Directory** (6 files):
+1. `README.md` — Folder usage guide and documentation
+2. `.agent.schema.md` — Contract schema (MOVED from `governance/canon/`)
+3. `AGENT_CONTRACT_MIGRATION_GUIDE.md` — Migration guide for updating contracts
+4. `AGENT_FILE_BINDING_REQUIREMENTS.md` — Binding requirements (MOVED from `governance/canon/`)
+5. `AGENT_FILE_CREATION_POLICY.md` — Policy for creating agent files
+6. `AGENT_ONBOARDING_QUICKSTART.md` — Agent onboarding guide (MOVED from `governance/canon/`)
+
+**Templates Subfolder** (2 files):
+1. `templates/AGENT_CONTRACT.template.md` — Standard agent contract template
+2. `templates/AGENT_FILE_LOCKED_SECTIONS_TEMPLATE.md` — LOCKED sections template
+
+**Runbooks Subfolder** (2 files):
+1. `runbooks/AGENT_FILE_MAINTENANCE.md` — Maintenance protocol (MOVED from `governance/runbooks/`)
+2. `runbooks/AGENT_FILE_VALIDATION.md` — Validation runbook (MOVED from `governance/runbooks/`)
+
+**Files Removed** (old locations deprecated):
+- `governance/canon/.agent.schema.md` → now in agent-contracts-guidance/
+- `governance/canon/AGENT_FILE_BINDING_REQUIREMENTS.md` → now in agent-contracts-guidance/
+- `governance/canon/AGENT_ONBOARDING_QUICKSTART.md` → now in agent-contracts-guidance/
+- `governance/runbooks/AGENT_FILE_MAINTENANCE.md` → now in agent-contracts-guidance/runbooks/
+- `governance/runbooks/AGENT_FILE_VALIDATION.md` → now in agent-contracts-guidance/runbooks/
+
+**References Updated**:
+- `.github/agents/ui-builder.md`: Updated AGENT_ONBOARDING_QUICKSTART.md path
+- `.github/agents/R_Roster-app_FM.md`: Updated AGENT_ONBOARDING_QUICKSTART.md path
+- `governance/schemas/AGENT_FILE_SCHEMA.md`: Updated all agent guidance file paths
+- `governance/evidence/initialization/AGENT_FILE_VALIDATION_RESULTS.md`: Updated paths
+
+**Validation**:
+- ✅ All files layered down successfully
+- ✅ Old files removed from deprecated locations
+- ✅ All cross-references updated
+- ✅ Folder structure matches canonical
+
+**Impact**:
+- Single authoritative location for all agent contract guidance
+- Enables atomic layer-down during future ripple events
+- Improved discoverability and maintainability
+- Eliminated scattered and duplicate guidance files
+
+---
 
 ### 2026-02-04: Batch 2 - Agent Contract LOCKED Sections (FM)
 
