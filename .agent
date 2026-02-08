@@ -17,6 +17,11 @@ governance:
     path: /governance/canon
     reference: main
   
+  tier_0_manifest:
+    path: governance/TIER_0_CANON_MANIFEST.json
+    version: 5.0.0
+    system: Living Agent System
+  
   fpc_compliance:
     status: complete
     version: 1.0.0
@@ -36,6 +41,13 @@ governance:
       role: constitutional-contract-protocol
       tier: 0
       enforcement: mandatory
+    - id: agent-baseline-management
+      path: governance/canon/AGENT_BASELINE_MANAGEMENT_PROTOCOL.md
+      role: constitutional-baseline
+      tier: 0
+      enforcement: mandatory
+      version: 1.0.0
+      added: 2026-02-08
     
     # FM authority and execution
     - id: fm-execution-mandate
@@ -47,6 +59,20 @@ governance:
     - id: fm-preauth-checklist
       path: governance/canon/FM_PREAUTH_CHECKLIST_CANON.md
       role: builder-gate
+    - id: fm-memory-protocol
+      path: governance/canon/FOREMAN_MEMORY_PROTOCOL.md
+      role: fm-memory-management
+      tier: 0
+      enforcement: mandatory
+      version: 1.0.0
+      added: 2026-02-08
+    - id: fm-wave-planning
+      path: governance/canon/FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md
+      role: fm-wave-orchestration
+      tier: 0
+      enforcement: mandatory
+      version: 1.0.0
+      added: 2026-02-08
     
     # Builder appointment and lifecycle
     - id: builder-appointment
@@ -270,4 +296,3 @@ authority:
     - Builder → FM → Johan (operational)
     - Direct to Johan (constitutional)
 
----

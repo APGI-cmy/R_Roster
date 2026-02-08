@@ -1,0 +1,84 @@
+{
+  "manifest_id": "TIER_0_CANON_MANIFEST",
+  "version": "5.0.0",
+  "system": "Living Agent System",
+  "repository": "APGI-cmy/R_Roster",
+  "canonical_source": "APGI-cmy/maturion-foreman-governance",
+  "last_updated": "2026-02-08T10:04:00Z",
+  "ripple_source": "PR #1044",
+  "description": "Tier-0 canonical governance manifest for R_Roster repository",
+  
+  "protocols": [
+    {
+      "id": "T0-001",
+      "name": "AGENT_BASELINE_MANAGEMENT_PROTOCOL",
+      "path": "governance/canon/AGENT_BASELINE_MANAGEMENT_PROTOCOL.md",
+      "version": "1.0.0",
+      "tier": 0,
+      "authority": "CS2",
+      "status": "active",
+      "added": "2026-02-08",
+      "description": "Agent baseline validation and drift reconciliation protocol"
+    },
+    {
+      "id": "T0-002",
+      "name": "FOREMAN_MEMORY_PROTOCOL",
+      "path": "governance/canon/FOREMAN_MEMORY_PROTOCOL.md",
+      "version": "1.0.0",
+      "tier": 0,
+      "authority": "CS2",
+      "status": "active",
+      "added": "2026-02-08",
+      "description": "FM memory hierarchy, lifecycle, and learning capture protocol"
+    },
+    {
+      "id": "T0-003",
+      "name": "FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL",
+      "path": "governance/canon/FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md",
+      "version": "1.0.0",
+      "tier": 0,
+      "authority": "CS2",
+      "status": "active",
+      "added": "2026-02-08",
+      "description": "Wave planning, decomposition, and issue artifact generation protocol"
+    },
+    {
+      "id": "T0-004",
+      "name": "STOP_AND_FIX_DOCTRINE",
+      "path": "governance/canon/STOP_AND_FIX_DOCTRINE.md",
+      "version": "2.1.0",
+      "tier": 0,
+      "authority": "CS2",
+      "status": "active",
+      "updated": "2026-02-08",
+      "description": "Stop-and-fix doctrine with learning loop integration (Section 8 added)"
+    },
+    {
+      "id": "T0-005",
+      "name": "BOOTSTRAP_EXECUTION_LEARNINGS",
+      "path": "governance/canon/BOOTSTRAP_EXECUTION_LEARNINGS.md",
+      "version": "1.1.0",
+      "tier": 0,
+      "authority": "CS2",
+      "status": "active",
+      "updated": "2026-02-08",
+      "description": "Bootstrap execution learnings with categorization matrix (Appendix A added)"
+    }
+  ],
+  
+  "integration_points": {
+    "living_agent_system": "v5.0.0",
+    "wake_up_validation": "AGENT_BASELINE_MANAGEMENT_PROTOCOL",
+    "memory_lifecycle": "FOREMAN_MEMORY_PROTOCOL",
+    "wave_planning": "FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL",
+    "session_closure": "All protocols integrated"
+  },
+  
+  "notes": [
+    "This manifest tracks Tier-0 canonical protocols for Living Agent System v5.0.0",
+    "All protocols have CS2-only modification authority",
+    "Baseline validation required in agent wake-up phase",
+    "Memory hierarchy: Constitutional → Wave → Session → Learning",
+    "Wave planning includes complexity assessment and subwave decomposition"
+  ]
+}
