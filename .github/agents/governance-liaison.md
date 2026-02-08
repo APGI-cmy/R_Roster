@@ -98,6 +98,12 @@ git log --since="7 days ago" --oneline governance/ 2>/dev/null | head -5 || echo
 echo ""
 echo "🔍 Checking for governance drift..."
 DRIFT_DETECTED=false
+
+# Create session ID early for evidence logging
+SESSION_ID="liaison-$(date +%Y%m%d-%H%M%S)"
+SESSION_DIR=".agent-admin/sessions/governance-liaison"
+mkdir -p "$SESSION_DIR"
+
 EVIDENCE_LOG="$SESSION_DIR/${SESSION_ID}_evidence.log"
 touch "$EVIDENCE_LOG"
 
@@ -154,9 +160,7 @@ echo ""
 echo "[PHASE 3] Generate Session Contract"
 echo "-----------------------------------"
 
-SESSION_ID="liaison-$(date +%Y%m%d-%H%M%S)"
-SESSION_DIR=".agent-admin/sessions/governance-liaison"
-mkdir -p "$SESSION_DIR"
+# Session ID and DIR already created in Phase 2 for evidence logging
 
 SESSION_CONTRACT="$SESSION_DIR/$SESSION_ID.md"
 
