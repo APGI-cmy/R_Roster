@@ -1,8 +1,8 @@
-# Scope Declaration for PR: Fix Windows Compatibility (Rename PREHANDOVER_PROOF Files)
+# Scope Declaration for PR #82
 
-**Agent**: governance-liaison  
-**Date**: 2026-01-21T11:21:00Z  
-**PR Title**: [INFRASTRUCTURE] Update CI gates to accept evidence-based validation (layer down from governance repo PR #981)  
+**Agent**: agent-contract-administrator  
+**Date**: 2026-02-08T12:22:00Z  
+**PR Title**: Fix session storage paths to resolve FM Architecture Gate conflict  
 **Validation Method**: Evidence-Based (BL-027/028)
 
 ---
@@ -17,40 +17,32 @@ This document provides explicit scope declaration and attestation for evidence-b
 
 ## Changed Files
 
-### File Renames (Windows Compatibility Fix)
+### Agent Contracts
 
-- `PREHANDOVER_PROOF_2026-01-11T13:42:09Z.md` → `PREHANDOVER_PROOF_2026-01-11T134209Z.md`
-- `PREHANDOVER_PROOF_2026-01-11T14:23:21Z.md` → `PREHANDOVER_PROOF_2026-01-11T142321Z.md`
-- `PREHANDOVER_PROOF_2026-01-11T15:51:20Z.md` → `PREHANDOVER_PROOF_2026-01-11T155120Z.md`
-- `PREHANDOVER_PROOF_2026-01-11T16:24:47Z.md` → `PREHANDOVER_PROOF_2026-01-11T162447Z.md`
-- `PREHANDOVER_PROOF_2026-01-12T10:07:36Z.md` → `PREHANDOVER_PROOF_2026-01-12T100736Z.md`
-- `PREHANDOVER_PROOF_2026-01-13T06:27:30Z.md` → `PREHANDOVER_PROOF_2026-01-13T062730Z.md`
-- `PREHANDOVER_PROOF_2026-01-13T09:03:34Z.md` → `PREHANDOVER_PROOF_2026-01-13T090334Z.md`
-- `PREHANDOVER_PROOF_2026-01-13T12:45:57Z.md` → `PREHANDOVER_PROOF_2026-01-13T124557Z.md`
-- `PREHANDOVER_PROOF_2026-01-13T14:17:46Z.md` → `PREHANDOVER_PROOF_2026-01-13T141746Z.md`
-- `PREHANDOVER_PROOF_2026-01-14T08:16:03Z.md` → `PREHANDOVER_PROOF_2026-01-14T081603Z.md`
-- `PREHANDOVER_PROOF_2026-01-19T16:05:00Z.md` → `PREHANDOVER_PROOF_2026-01-19T160500Z.md`
-- `PREHANDOVER_PROOF_2026-01-19T16:35:00Z.md` → `PREHANDOVER_PROOF_2026-01-19T163500Z.md`
+- `.github/agents/CodexAdvisor-agent.md` - Updated session storage path references from `.agent/sessions/CodexAdvisor` to `.agent-admin/sessions/CodexAdvisor` in wake-up protocol (Line 109) and session outcome protocol (Line 244)
+- `.github/agents/governance-liaison.md` - Updated session storage path references from `.agent/sessions/governance-liaison` to `.agent-admin/sessions/governance-liaison` in wake-up protocol (Line 120) and session outcome protocol (Line 298)
 
-### Scripts
+### Governance Artifacts
 
-- `.github/scripts/generate-prehandover-proof.sh` - Updated date format from `%H:%M:%S` to `%H-%M-%S` (replace colons with hyphens)
+- `.agent-admin/scans/scan_20260208_113648.md` - Governance scan document created before changes (precondition artifact)
+- `.agent-admin/risk-assessments/risk_001_20260208.md` - Risk assessment document created before changes (precondition artifact)
+- `.agent-admin/change-records/change_20260208_113757.md` - Change record documenting all modifications made during work
+- `.agent-admin/completion-reports/completion_20260208_114127.md` - Completion summary created after changes with continuous improvement section
 
-### Documentation
+### Evidence Documentation
 
-- `governance/onboarding/EVIDENCE_BASED_VALIDATION_ONBOARDING.md` - Updated example date format to use hyphens
-- `governance/onboarding/EXECUTION_BOOTSTRAP_PROTOCOL_ONBOARDING.md` - Updated all date format references to use hyphens
-- `governance/templates/PREHANDOVER_PROOF_TEMPLATE.md` - Updated template instructions to document new Windows-compatible naming convention
+- `PREHANDOVER_PROOF_2026-02-08T11-42-27Z.md` - Complete validation evidence with task completion evidence, governance artifacts, and agent attestation
+- `TASK_SUMMARY.md` - Quick reference summary of task completion
+- `SCOPE_DECLARATION.md` - This document (scope declaration for evidence-based validation)
 
 ---
 
 ## Scope Summary
 
-**Total Files Changed**: 16  
-**File Renames**: 12  
-**Scripts**: 1  
-**Documentation**: 3  
-**Other**: 0
+**Total Files Changed**: 9  
+**Agent Contracts**: 2  
+**Governance Artifacts**: 4  
+**Evidence Documentation**: 3  
 
 **All Files Documented**: Yes ✓  
 **Scope Complete**: Yes ✓
@@ -61,33 +53,35 @@ This document provides explicit scope declaration and attestation for evidence-b
 
 **Why Evidence-Based Validation is Appropriate**:
 
-This PR addresses a cross-platform compatibility issue by renaming existing files and updating documentation. Evidence-based validation is appropriate because:
+This PR modifies agent contract documentation files (`.github/agents/*.md`) which are markdown documents containing instructions for specialized agents. These changes:
 
-1. **Infrastructure Change**: This is a file renaming operation to fix Windows compatibility. The changes don't involve executable code logic that can be tested with automated scripts.
+1. **Are Documentation-Only Changes**: The changes update text strings within agent contract files that specify file paths. No executable code is modified.
 
-2. **Governance Documentation Updates**: The changes update governance documentation (templates, onboarding guides) to reflect the new naming convention. These text documents cannot be validated by automated scripts.
+2. **Cannot Be Script-Validated**: Traditional automated testing cannot validate whether agent contract instructions are correct, as agent contracts define agent behavior that executes in future sessions.
 
-3. **No Functional Code Changes**: The script change (`.github/scripts/generate-prehandover-proof.sh`) is a simple date format string modification. The functionality remains identical - only the output filename format changes.
+3. **Require Human Review**: The correctness of agent contract path references requires understanding the FM Architecture Gate constraint (`.agent` must be a FILE, not directory) and Living Agent System v5.0.0 protocol, which cannot be automatically validated.
 
-4. **File Existence Validation**: The primary validation required is confirming that all files with colons have been renamed and no new files with colons exist. This is a file system state check, not code logic validation.
-
-5. **Constitutional Governance Alignment**: The changes implement cross-platform compatibility requirements, which is a governance principle. Validation requires manual verification of file naming conventions.
+4. **Follow Governance Protocol**: Agent contract modifications fall under the sole authority of the agent-contract-administrator agent, which performed governance scans, risk assessments, and comprehensive validation before changes.
 
 **What Cannot Be Script-Validated**:
 
-- File renaming completeness (all files with colons removed)
-- Cross-platform compatibility (Windows filename restrictions)
-- Documentation accuracy for new naming convention
-- Template instruction completeness
+- Correctness of session storage path references in agent instructions
+- Alignment with Living Agent System v5.0.0 protocol requirements
+- Resolution of FM Architecture Gate conflict (`.agent` file vs directory)
+- Agent contract governance compliance
+- Appropriateness of path corrections across multiple agent contracts
 
 **What Evidence Replaces Scripts**:
 
-This SCOPE_DECLARATION and associated PREHANDOVER_PROOF provide:
-- Manual verification of all file renames completed
-- Confirmation that no files with colons remain in repository
-- Script date format validation (before/after comparison)
-- Documentation accuracy review
-- Local gate execution testing
+The PREHANDOVER_PROOF document provides:
+- Complete governance scan performed before changes
+- Risk assessment with 6 risk categories analyzed
+- Detailed change records with before/after comparison
+- Verification that all 4 path references were updated correctly
+- Verification that no remaining `.agent/sessions/` references exist
+- Pre-gate validation results (scope declaration, YAML syntax, locked sections)
+- Agent attestation of completion and correctness
+- Continuous improvement section with process reflections
 
 ---
 
@@ -95,33 +89,40 @@ This SCOPE_DECLARATION and associated PREHANDOVER_PROOF provide:
 
 ### Git Diff Files
 
+*Run: `git diff --name-only origin/main...HEAD`*
+
 ```
-.github/scripts/generate-prehandover-proof.sh
-PREHANDOVER_PROOF_2026-01-11T13:42:09Z.md → PREHANDOVER_PROOF_2026-01-11T134209Z.md
-PREHANDOVER_PROOF_2026-01-11T14:23:21Z.md → PREHANDOVER_PROOF_2026-01-11T142321Z.md
-PREHANDOVER_PROOF_2026-01-11T15:51:20Z.md → PREHANDOVER_PROOF_2026-01-11T155120Z.md
-PREHANDOVER_PROOF_2026-01-11T16:24:47Z.md → PREHANDOVER_PROOF_2026-01-11T162447Z.md
-PREHANDOVER_PROOF_2026-01-12T10:07:36Z.md → PREHANDOVER_PROOF_2026-01-12T100736Z.md
-PREHANDOVER_PROOF_2026-01-13T06:27:30Z.md → PREHANDOVER_PROOF_2026-01-13T062730Z.md
-PREHANDOVER_PROOF_2026-01-13T09:03:34Z.md → PREHANDOVER_PROOF_2026-01-13T090334Z.md
-PREHANDOVER_PROOF_2026-01-13T12:45:57Z.md → PREHANDOVER_PROOF_2026-01-13T124557Z.md
-PREHANDOVER_PROOF_2026-01-13T14:17:46Z.md → PREHANDOVER_PROOF_2026-01-13T141746Z.md
-PREHANDOVER_PROOF_2026-01-14T08:16:03Z.md → PREHANDOVER_PROOF_2026-01-14T081603Z.md
-PREHANDOVER_PROOF_2026-01-19T16:05:00Z.md → PREHANDOVER_PROOF_2026-01-19T160500Z.md
-PREHANDOVER_PROOF_2026-01-19T16:35:00Z.md → PREHANDOVER_PROOF_2026-01-19T163500Z.md
-governance/onboarding/EVIDENCE_BASED_VALIDATION_ONBOARDING.md
-governance/onboarding/EXECUTION_BOOTSTRAP_PROTOCOL_ONBOARDING.md
-governance/templates/PREHANDOVER_PROOF_TEMPLATE.md
+.agent-admin/change-records/change_20260208_113757.md
+.agent-admin/completion-reports/completion_20260208_114127.md
+.agent-admin/risk-assessments/risk_001_20260208.md
+.agent-admin/scans/scan_20260208_113648.md
+.github/agents/CodexAdvisor-agent.md
+.github/agents/governance-liaison.md
+PREHANDOVER_PROOF_2026-02-08T11-42-27Z.md
+SCOPE_DECLARATION.md
+TASK_SUMMARY.md
 ```
 
 ### Documented Files
 
-All 16 files listed above are documented in the "Changed Files" section.
+*List all files from "Changed Files" section above*
+
+```
+.github/agents/CodexAdvisor-agent.md
+.github/agents/governance-liaison.md
+.agent-admin/scans/scan_20260208_113648.md
+.agent-admin/risk-assessments/risk_001_20260208.md
+.agent-admin/change-records/change_20260208_113757.md
+.agent-admin/completion-reports/completion_20260208_114127.md
+PREHANDOVER_PROOF_2026-02-08T11-42-27Z.md
+TASK_SUMMARY.md
+SCOPE_DECLARATION.md
+```
 
 ### Comparison Result
 
-**Files in Git Diff**: 16  
-**Files in Documentation**: 16  
+**Files in Git Diff**: 9  
+**Files in Documentation**: 9  
 **Match**: Yes ✓
 
 **Discrepancies**: None
@@ -130,16 +131,16 @@ All 16 files listed above are documented in the "Changed Files" section.
 
 ## Validation Evidence Reference
 
-**PREHANDOVER_PROOF File**: `PREHANDOVER_PROOF_QIW_2026-01-14.md` (existing)
+**PREHANDOVER_PROOF File**: `PREHANDOVER_PROOF_2026-02-08T11-42-27Z.md`
 
-**Validation Steps Documented**:
-1. Identified all PREHANDOVER_PROOF files with colons in filenames (12 files)
-2. Renamed all affected files (replaced `:` with `-` in timestamps)
-3. Updated script `.github/scripts/generate-prehandover-proof.sh` to use hyphen-based date format
-4. Updated all documentation references to reflect new naming convention
-5. Verified no files with colons remain in repository (count = 0)
-6. Ran local governance gate validation (EXIT 0)
-7. Constitutional compliance verification (cross-platform compatibility)
+**Validation Steps Documented in PREHANDOVER_PROOF**:
+1. Governance scan completed before any changes (repository context, governance canon review, agent contracts in scope, conflict detection, compliance validation)
+2. Risk assessment performed analyzing 6 risk categories (Governance, Operational, Binding Completeness, Gate Validation, Test Debt, FM Architecture)
+3. All 4 path references updated correctly verified with grep validation
+4. No remaining `.agent/sessions/` references confirmed
+5. Changes aligned with Living Agent System v5.0.0 protocol
+6. Pre-gate validation executed (scope declaration, YAML syntax, locked sections)
+7. Continuous improvement reflections documented (what worked, what could improve, blockers, automation opportunities, governance gaps)
 
 **All Validation Steps Complete**: Yes ✓
 
@@ -153,41 +154,41 @@ I attest that:
 - [✓] All files changed in this PR are documented in the "Changed Files" section above
 - [✓] The scope is complete and no files were omitted from documentation
 - [✓] No files were changed outside of the documented scope
-- [✓] The git diff comparison confirms scope accuracy
-- [✓] All changes serve the stated purpose of this PR (Windows compatibility fix)
+- [✓] The git diff comparison confirms scope accuracy (9 files in git, 9 files documented, 0 discrepancies)
+- [✓] All changes serve the stated purpose of this PR (fixing session storage path conflict)
 
 ### Validation Method Attestation
 
 I attest that:
-- [✓] Evidence-based validation is appropriate for this work (see justification)
-- [✓] Traditional script validation would be insufficient for file renaming validation
-- [✓] Complete validation evidence is provided in this SCOPE_DECLARATION
-- [✓] All validation steps have been performed and documented
-- [✓] All validation results are PASS/GREEN
+- [✓] Evidence-based validation is appropriate for this work (agent contract documentation changes that cannot be script-tested)
+- [✓] Traditional script validation would be insufficient or impossible for this work (agent contract instructions have no executable tests)
+- [✓] Complete validation evidence is provided in PREHANDOVER_PROOF (governance scan, risk assessment, change records, verification results, attestation)
+- [✓] All validation steps have been performed and documented (7 validation steps completed)
+- [✓] All validation results are PASS/GREEN (no failures, no blocking issues)
 
 ### Quality Attestation
 
 I attest that:
-- [✓] All changes follow governance policy and constitutional requirements
-- [✓] All changes address the Windows compatibility issue
-- [✓] All documentation is accurate and complete
-- [✓] All file renames are complete (no colons remain)
-- [✓] This PR is ready for merge subject to human review
+- [✓] All changes follow governance policy and constitutional requirements (Living Agent System v5.0.0, FM Architecture Gate compliance)
+- [✓] All changes are aligned with canonical governance source (maturion-foreman-office-app PR #697 evidence, commit 45af967 pattern)
+- [✓] All documentation is accurate and complete (PREHANDOVER_PROOF 290 lines, governance artifacts present)
+- [✓] All ripple effects have been identified and addressed (both CodexAdvisor and governance-liaison agent contracts updated consistently)
+- [✓] This PR is ready for merge subject to human review (all gates pass, all validation complete, all governance requirements met)
 
 ---
 
 ## Agent Signature
 
-**Agent Identity**: governance-liaison  
-**Contract File**: `.github/agents/governance-liaison.md`  
-**Date**: 2026-01-21T11:21:00Z
+**Agent Identity**: agent-contract-administrator  
+**Contract File**: `.github/agents/agent-contract-administrator.md`  
+**Date**: 2026-02-08T12:22:00Z
 
 **Signature Statement**:
 
-I, governance-liaison, attest that all information in this SCOPE_DECLARATION.md is accurate and complete. I have performed all validation steps and confirmed that this PR meets all governance requirements. I authorize handover of this PR to human reviewers for final approval.
+I, agent-contract-administrator, attest that all information in this SCOPE_DECLARATION.md is accurate and complete. I have performed all validation steps documented in PREHANDOVER_PROOF and confirmed that this PR meets all governance requirements. I authorize handover of this PR to human reviewers for final approval.
 
-**Signed**: governance-liaison  
-**Timestamp**: 2026-01-21T11:21:00Z
+**Signed**: agent-contract-administrator  
+**Timestamp**: 2026-02-08T12:22:00Z
 
 ---
 
@@ -201,10 +202,9 @@ I, governance-liaison, attest that all information in this SCOPE_DECLARATION.md 
 - [ ] Git diff matches documented scope (no discrepancies)
 - [ ] Justification for evidence-based validation is valid
 - [ ] Agent attestations are present and properly signed
-- [ ] All validation evidence is provided
+- [ ] All validation evidence is provided in PREHANDOVER_PROOF
 - [ ] Changes align with PR title and description
 - [ ] No concerns about scope or validation quality
-- [ ] Windows compatibility issue is resolved
 
 **Reviewer**: [reviewer-name]  
 **Date**: [date]  
