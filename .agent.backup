@@ -1,0 +1,251 @@
+---
+id: r-roster
+description: >
+  Teacher absenteeism management application repository.
+  Houses FM agent and builder contracts for managing teacher rosters and absences.
+
+agents:
+  - id: governance-liaison
+    class: overseer
+    contract: .github/agents/governance-liaison.md
+    role: governance-enforcement
+
+  - id: foreman-app
+    class: overseer
+    contract: .github/agents/ForemanApp-agent.md
+    role: execution-authority
+
+  - id: api-builder
+    class: builder
+    contract: .github/agents/api-builder.md
+    role: api-implementation
+
+  - id: integration-builder
+    class: builder
+    contract: .github/agents/integration-builder.md
+    role: integration-implementation
+
+  - id: qa-builder
+    class: builder
+    contract: .github/agents/qa-builder.md
+    role: qa-implementation
+
+  - id: schema-builder
+    class: builder
+    contract: .github/agents/schema-builder.md
+    role: schema-implementation
+
+  - id: ui-builder
+    class: builder
+    contract: .github/agents/ui-builder.md
+    role: ui-implementation
+
+governance:
+  canon:
+    repository: APGI-cmy/maturion-foreman-governance
+    path: /governance/canon
+    reference: main
+
+  bindings:
+    # Tier-0 Bindings (mandatory for ALL repos)
+    - id: governance-purpose-scope
+      path: governance/canon/GOVERNANCE_PURPOSE_AND_SCOPE.md
+      role: supreme-authority-and-scope
+
+    - id: agent-recruitment
+      path: governance/canon/AGENT_RECRUITMENT.md
+      role: agent-legitimacy-and-authority
+
+    - id: governance-ripple-model
+      path: governance/canon/GOVERNANCE_RIPPLE_MODEL.md
+      role: ripple-propagation-protocol
+
+    # Application-Specific Bindings (FM + Builders)
+    - id: fm-authority-model
+      path: governance/canon/FOREMAN_AUTHORITY_AND_SUPERVISION_MODEL.md
+      role: fm-execution-authority
+
+    - id: builder-bindings
+      path: governance/canon/BUILDER_CONTRACT_BINDING_CHECKLIST.md
+      role: builder-requirements
+
+    - id: execution-bootstrap-protocol
+      path: governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md
+      role: execution-discipline
+
+    # Agent Contract Management (Constitutional)
+    - id: agent-contract-management
+      path: governance/canon/AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md
+      role: contract-modification-authority
+      tier: 0
+      status: constitutional
+
+    # Tier-0 Constitutional Rules (T0-015: BL-026 Automated Deprecation Detection)
+    - id: bl-026-deprecation-detection
+      path: governance/learnings/BL-026-deprecation-detection.md
+      role: deprecation-prevention
+      tier: 0
+      status: constitutional
+
+    - id: automated-deprecation-gate
+      path: governance/policies/AUTOMATED_DEPRECATION_DETECTION_GATE.md
+      role: deprecation-enforcement
+      tier: 0
+      status: mandatory
+    
+    # Quality Integrity Watchdog (QIW) Channel (T0: Canonical Governance)
+    - id: qiw-watchdog-channel
+      path: governance/canon/WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md
+      role: quality-integrity-enforcement
+      version: 1.0.0
+      source-pr: maturion-foreman-governance#948
+      tier: 0
+      status: canonical
+
+  test_execution:
+    protocol: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md
+    principle: CI-Confirmatory-Not-Diagnostic
+    status: mandatory
+    requirements:
+      - local_validation_before_pr
+      - prehandover_proof_required
+      - zero_ci_diagnostic_reliance
+      - all_tests_local_execution
+    enforcement: constitutional
+
+scope:
+  repository: APGI-cmy/R_Roster
+
+  allowed_paths:
+    - "*.sh"
+    - "*.md"
+    - "governance/**"
+    - ".architecture/**"
+    - ".qa/**"
+
+  restricted_paths:
+    - ".agent"
+    - ".github/agents/**"
+
+  escalation_required_paths:
+    - ".github/workflows/**"
+    - "BUILD_PHILOSOPHY.md"
+
+capabilities:
+  execute_changes: true
+  modify_tests: true
+  modify_migrations: false
+  mechanical_fixes: true
+  read_only: false
+  advisory_only: false
+
+constraints:
+  governance_interpretation: forbidden
+  scope_expansion: forbidden
+  zero_test_debt: required
+  build_to_green_only: true
+  architecture_immutable_during_build: true
+  secrets_and_env_config: forbidden
+
+enforcement:
+  on_scope_violation: halt_and_escalate
+  on_governance_resolution_failure: halt
+  escalation_target: Foreman
+
+doctrines:
+  build_philosophy_aligned: true
+  constitutional_sandbox_aligned: true
+---
+
+# Repository Agent Contract
+
+**Repository**: R_Roster  
+**Contract Version**: 2.0.0  
+**Date**: 2026-01-12  
+**Authority**: Governance Liaison
+
+## Overview
+
+This repository operates under canonical Maturion governance with a complete agent roster including Foreman and multiple specialized builders.
+
+**Source of Truth**: APGI-cmy/maturion-foreman-governance
+
+## Agent Roster
+
+### Governance Liaison (Primary Governance Authority)
+- **Contract**: `.github/agents/governance-liaison.md`
+- **Role**: Enforce governance, validate PR gates, escalate constitutional matters
+- **Authority**: Veto power on non-compliant changes
+- **Binding**: Mandatory PR-Gate Preflight, PREHANDOVER_PROOF, CI-Confirmatory-Not-Diagnostic
+
+### Foreman Agent (Execution Authority)
+- **Contract**: `.github/agents/ForemanApp-agent.md`
+- **Role**: Coordinate builds, delegate to builders, ensure alignment
+- **Authority**: Build coordination, builder appointment
+- **Binding**: Defer to Governance Liaison for constitutional matters
+
+### Builder Agents
+- **API Builder**: `.github/agents/api-builder.md` - API implementation
+- **Integration Builder**: `.github/agents/integration-builder.md` - Integration implementation
+- **QA Builder**: `.github/agents/qa-builder.md` - QA implementation
+- **Schema Builder**: `.github/agents/schema-builder.md` - Schema implementation
+- **UI Builder**: `.github/agents/ui-builder.md` - UI implementation
+
+**Builder Authority**: Build code within assigned boundaries  
+**Builder Binding**: QA-to-Red before build, Build-to-Green completion, zero test debt
+
+## PR Gate Requirements
+
+All pull requests must satisfy:
+
+1. **Governance Gate** (`.github/workflows/governance-gate.yml`)
+   - Required directories: `.architecture`, `.qa`, `governance`
+   - Required files: `BUILD_PHILOSOPHY.md`, `.agent`, `governance/alignment/GOVERNANCE_ALIGNMENT.md`
+   - Test debt: Zero tolerance
+
+2. **Preflight Validation** (for governance PRs)
+   - Local execution of governance gate
+   - PREHANDOVER_PROOF document required
+   - CI is confirmatory only
+
+3. **Branch Protection** (when activated)
+   - PR required for merge
+   - Status checks required
+   - Code review required
+   - Conversation resolution required
+
+## Escalation Paths
+
+**For Governance/Constitutional Matters**:
+- Primary: Governance Liaison Agent
+- Ultimate: Johan Ras
+
+**For Build Coordination**:
+- Primary: Foreman Agent
+- Ultimate: Johan Ras (if constitutional)
+
+**For Technical Blockers**:
+- Primary: Responsible Builder
+- Secondary: Foreman Agent
+- Ultimate: Johan Ras (if governance gap)
+
+## Tier-0 Compliance
+
+**Status**: ALIGNED (as of 2026-01-12)
+
+**FPC Layer-Down**: COMPLETE
+- Phase 1-8: All requirements met
+- Evidence: `governance/evidence/initialization/INITIALIZATION_EVIDENCE.md`
+- Validation: Local gate execution with PREHANDOVER_PROOF
+
+**Agent File Governance**: COMPLETE (2026-01-12)
+- Schema: `governance/schemas/AGENT_FILE_SCHEMA.md`
+- Binding Requirements: `governance/canon/AGENT_FILE_BINDING_REQUIREMENTS.md`
+- Validation Runbook: `governance/runbooks/AGENT_FILE_VALIDATION.md`
+- Maintenance Protocol: `governance/runbooks/AGENT_FILE_MAINTENANCE.md`
+
+---
+
+**Contract Enforcement**: Mandatory  
+**Waiver Authority**: None (constitutional)  
+**Amendment Authority**: Johan Ras only
