@@ -111,10 +111,18 @@ touch "$EVIDENCE_LOG"
 CANONICAL_REPO="https://github.com/APGI-cmy/maturion-foreman-governance"
 CANONICAL_REF="main"
 CANONICAL_TIER0_URL="$CANONICAL_REPO/raw/$CANONICAL_REF/governance/TIER_0_CANON_MANIFEST.json"
-CANONICAL_TIER0_VERSION=$(curl -s "$CANONICAL_TIER0_URL" | grep '"version"' | head -1 | cut -d'"' -f4)
+
+# Fetch and validate canonical version
+CANONICAL_TIER0_VERSION=$(curl -sf "$CANONICAL_TIER0_URL" 2>/dev/null | grep '"version"' | head -1 | cut -d'"' -f4)
+
+if [ -z "$CANONICAL_TIER0_VERSION" ]; then
+    echo "⚠️  WARNING: Unable to fetch canonical TIER_0 version (network or repository issue)"
+    echo "$(date -Iseconds): WARNING: Failed to fetch canonical TIER_0 version from $CANONICAL_TIER0_URL" >> "$EVIDENCE_LOG"
+    CANONICAL_TIER0_VERSION="unavailable"
+fi
 
 # Compare versions
-if [ -n "$CANONICAL_TIER0_VERSION" ] && [ "$LOCAL_TIER0_VERSION" != "$CANONICAL_TIER0_VERSION" ]; then
+if [ "$CANONICAL_TIER0_VERSION" != "unavailable" ] && [ "$LOCAL_TIER0_VERSION" != "$CANONICAL_TIER0_VERSION" ]; then
     echo "⚠️  DRIFT DETECTED: TIER_0 version mismatch"
     DRIFT_DETECTED=true
     echo "DRIFT: TIER_0 version (local: $LOCAL_TIER0_VERSION, canonical: $CANONICAL_TIER0_VERSION)" >> "$EVIDENCE_LOG"
@@ -134,8 +142,11 @@ for canon_file in "${PENDING_CANON_FILES[@]}"; do
         echo "⚠️  MISSING: $canon_file"
         echo "PENDING: $canon_file (not yet available)" >> "$EVIDENCE_LOG"
     else
-        SHA256=$(sha256sum "$canon_file" | cut -d' ' -f1)
-        echo "$(date -Iseconds): $canon_file exists (SHA256: $SHA256)" >> "$EVIDENCE_LOG"
+        if SHA256=$(sha256sum "$canon_file" 2>/dev/null | cut -d' ' -f1); then
+            echo "$(date -Iseconds): $canon_file exists (SHA256: $SHA256)" >> "$EVIDENCE_LOG"
+        else
+            echo "$(date -Iseconds): $canon_file exists (SHA256: unavailable)" >> "$EVIDENCE_LOG"
+        fi
     fi
 done
 
@@ -375,22 +386,28 @@ CANONICAL_REF="main"
 # Step 1: Fetch canonical TIER_0 manifest
 echo "Step 1: Fetching canonical TIER_0 manifest..."
 CANONICAL_TIER0_URL="$CANONICAL_REPO/raw/$CANONICAL_REF/governance/TIER_0_CANON_MANIFEST.json"
-curl -s "$CANONICAL_TIER0_URL" -o "governance/TIER_0_CANON_MANIFEST.json.new"
 
-if [ -s "governance/TIER_0_CANON_MANIFEST.json.new" ]; then
+HTTP_CODE=$(curl -sf -w "%{http_code}" -o "governance/TIER_0_CANON_MANIFEST.json.new" "$CANONICAL_TIER0_URL" 2>/dev/null)
+
+if [ "$HTTP_CODE" = "200" ] && [ -s "governance/TIER_0_CANON_MANIFEST.json.new" ]; then
     mv "governance/TIER_0_CANON_MANIFEST.json.new" "governance/TIER_0_CANON_MANIFEST.json"
-    SHA256=$(sha256sum "governance/TIER_0_CANON_MANIFEST.json" | cut -d' ' -f1)
-    echo "$(date -Iseconds): TIER_0_CANON_MANIFEST.json layered down (SHA256: $SHA256)" >> "$ALIGNMENT_LOG"
-    echo "✅ TIER_0 manifest updated"
+    if SHA256=$(sha256sum "governance/TIER_0_CANON_MANIFEST.json" 2>/dev/null | cut -d' ' -f1); then
+        echo "$(date -Iseconds): TIER_0_CANON_MANIFEST.json layered down (SHA256: $SHA256)" >> "$ALIGNMENT_LOG"
+        echo "✅ TIER_0 manifest updated"
+    else
+        echo "$(date -Iseconds): TIER_0_CANON_MANIFEST.json layered down (SHA256: unavailable)" >> "$ALIGNMENT_LOG"
+        echo "✅ TIER_0 manifest updated (checksum unavailable)"
+    fi
 else
-    echo "⚠️  Failed to fetch TIER_0 manifest"
-    echo "$(date -Iseconds): ERROR: Failed to fetch TIER_0 manifest" >> "$ALIGNMENT_LOG"
+    rm -f "governance/TIER_0_CANON_MANIFEST.json.new"
+    echo "⚠️  Failed to fetch TIER_0 manifest (HTTP: ${HTTP_CODE:-error})"
+    echo "$(date -Iseconds): ERROR: Failed to fetch TIER_0 manifest (HTTP: ${HTTP_CODE:-error})" >> "$ALIGNMENT_LOG"
 fi
 
 # Step 2: Parse manifest and layer down all canon files
 echo "Step 2: Layering down canonical files..."
 if [ -f "governance/TIER_0_CANON_MANIFEST.json" ]; then
-    # Extract file paths from manifest
+    # Extract file paths from manifest using grep/cut (jq not available in all environments)
     CANON_FILES=$(grep '"path":' governance/TIER_0_CANON_MANIFEST.json | cut -d'"' -f4)
     
     for canon_file in $CANON_FILES; do
@@ -398,31 +415,41 @@ if [ -f "governance/TIER_0_CANON_MANIFEST.json" ]; then
         mkdir -p "$(dirname "$canon_file")"
         
         echo "  Fetching $canon_file..."
-        if curl -s "$CANONICAL_URL" -o "$canon_file.new"; then
-            if [ -s "$canon_file.new" ]; then
-                mv "$canon_file.new" "$canon_file"
-                SHA256=$(sha256sum "$canon_file" | cut -d' ' -f1)
+        HTTP_CODE=$(curl -sf -w "%{http_code}" -o "$canon_file.new" "$CANONICAL_URL" 2>/dev/null)
+        
+        if [ "$HTTP_CODE" = "200" ] && [ -s "$canon_file.new" ]; then
+            mv "$canon_file.new" "$canon_file"
+            if SHA256=$(sha256sum "$canon_file" 2>/dev/null | cut -d' ' -f1); then
                 echo "$(date -Iseconds): $canon_file layered down (SHA256: $SHA256)" >> "$ALIGNMENT_LOG"
                 echo "  ✅ $canon_file"
             else
-                rm -f "$canon_file.new"
-                echo "  ⚠️  Empty file: $canon_file"
-                echo "$(date -Iseconds): WARNING: Empty file for $canon_file" >> "$ALIGNMENT_LOG"
+                echo "$(date -Iseconds): $canon_file layered down (SHA256: unavailable)" >> "$ALIGNMENT_LOG"
+                echo "  ✅ $canon_file (checksum unavailable)"
             fi
         else
-            echo "  ⚠️  Failed to fetch: $canon_file"
-            echo "$(date -Iseconds): ERROR: Failed to fetch $canon_file" >> "$ALIGNMENT_LOG"
+            rm -f "$canon_file.new"
+            echo "  ⚠️  Failed to fetch: $canon_file (HTTP: ${HTTP_CODE:-error})"
+            echo "$(date -Iseconds): ERROR: Failed to fetch $canon_file (HTTP: ${HTTP_CODE:-error})" >> "$ALIGNMENT_LOG"
         fi
     done
 fi
 
 # Step 3: Update inventory
 echo "Step 3: Updating GOVERNANCE_ARTIFACT_INVENTORY.md..."
-if [ -f "GOVERNANCE_ARTIFACT_INVENTORY.md" ]; then
-    sed -i "s/Last Checked:.*/Last Checked: $(date -Iseconds)/" GOVERNANCE_ARTIFACT_INVENTORY.md || true
-    sed -i "s/last_updated:.*/last_updated: $(date -Iseconds)/" GOVERNANCE_ARTIFACT_INVENTORY.md || true
-    echo "$(date -Iseconds): GOVERNANCE_ARTIFACT_INVENTORY.md updated" >> "$ALIGNMENT_LOG"
+if [ -f "GOVERNANCE_ARTIFACT_INVENTORY.md" ] && [ -w "GOVERNANCE_ARTIFACT_INVENTORY.md" ]; then
+    if sed -i "s/Last Checked:.*/Last Checked: $(date -Iseconds)/" GOVERNANCE_ARTIFACT_INVENTORY.md 2>/dev/null; then
+        echo "$(date -Iseconds): GOVERNANCE_ARTIFACT_INVENTORY.md updated (Last Checked)" >> "$ALIGNMENT_LOG"
+    fi
+    if sed -i "s/last_updated:.*/last_updated: $(date -Iseconds)/" GOVERNANCE_ARTIFACT_INVENTORY.md 2>/dev/null; then
+        echo "$(date -Iseconds): GOVERNANCE_ARTIFACT_INVENTORY.md updated (last_updated)" >> "$ALIGNMENT_LOG"
+    fi
     echo "✅ Inventory updated"
+elif [ ! -f "GOVERNANCE_ARTIFACT_INVENTORY.md" ]; then
+    echo "⚠️  Inventory file not found"
+    echo "$(date -Iseconds): WARNING: GOVERNANCE_ARTIFACT_INVENTORY.md not found" >> "$ALIGNMENT_LOG"
+elif [ ! -w "GOVERNANCE_ARTIFACT_INVENTORY.md" ]; then
+    echo "⚠️  Inventory file not writable"
+    echo "$(date -Iseconds): ERROR: GOVERNANCE_ARTIFACT_INVENTORY.md not writable" >> "$ALIGNMENT_LOG"
 fi
 
 # Step 4: Validate alignment
@@ -442,8 +469,12 @@ else
 fi
 
 # Recheck drift status
-CANONICAL_TIER0_VERSION=$(grep '"version"' governance/TIER_0_CANON_MANIFEST.json | head -1 | cut -d'"' -f4)
-echo "$(date -Iseconds): Self-alignment complete - TIER_0 now at v$CANONICAL_TIER0_VERSION" >> "$ALIGNMENT_LOG"
+if [ -f "governance/TIER_0_CANON_MANIFEST.json" ]; then
+    CANONICAL_TIER0_VERSION=$(grep '"version"' governance/TIER_0_CANON_MANIFEST.json | head -1 | cut -d'"' -f4)
+    echo "$(date -Iseconds): Self-alignment complete - TIER_0 now at v$CANONICAL_TIER0_VERSION" >> "$ALIGNMENT_LOG"
+else
+    echo "$(date -Iseconds): Self-alignment complete - TIER_0 version unknown" >> "$ALIGNMENT_LOG"
+fi
 
 echo "✅ SELF-ALIGNMENT COMPLETE for R_Roster"
 echo "   Alignment log: $ALIGNMENT_LOG"
