@@ -312,5 +312,3 @@ See canonical governance repository for detailed protocols:
 ---
 
 **Living Agent System v5.0.0** | Class: Liaison | Authority: CS2 | Self-Alignment: Authorized (Issue #999)
-
-
