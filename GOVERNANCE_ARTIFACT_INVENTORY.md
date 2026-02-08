@@ -3,7 +3,7 @@
 **Purpose**: Inventory of governance artifacts layered down to R_Roster repository
 **Consumer Repository**: APGI-cmy/R_Roster
 **Canonical Source**: APGI-cmy/maturion-foreman-governance
-**Last Updated**: 2026-02-04 (PR #1027 - Agent contracts guidance centralization)
+**Last Updated**: 2026-02-08 (PR #1044 - Living Agent System v5.0.0 protocols layer-down)
 **Maintained By**: governance-liaison agent
 
 ---
@@ -30,13 +30,17 @@ This repository is a **CONSUMER** repository that receives governance canon file
 
 | File | Last Updated | Source PR | Status |
 |------|--------------|-----------|--------|
+| `AGENT_BASELINE_MANAGEMENT_PROTOCOL.md` | 2026-02-08 | PR #1044 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md` | 2026-01-23 | governance/canon/ | Layered |
 | `AGENT_CONTRACT_PROTECTION_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `AGENT_SELF_GOVERNANCE_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
+| `BOOTSTRAP_EXECUTION_LEARNINGS.md` | 2026-02-08 | PR #1044 | **UPDATED v1.1.0 - Appendix A Added - Layered 2026-02-08** |
 | `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `CS2_AGENT_FILE_AUTHORITY_MODEL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `EXECUTION_BOOTSTRAP_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `EXECUTION_BOOTSTRAP_PROTOCOL_MONITORING_AND_ENFORCEMENT.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
+| `FOREMAN_MEMORY_PROTOCOL.md` | 2026-02-08 | PR #1044 | **NEW - v1.0.0 - Layered 2026-02-08** |
+| `FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md` | 2026-02-08 | PR #1044 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `GOVERNANCE_LAYERDOWN_CONTRACT.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `GOVERNANCE_PURPOSE_AND_SCOPE.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
@@ -45,7 +49,7 @@ This repository is a **CONSUMER** repository that receives governance canon file
 | `MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `MANDATORY_PROCESS_IMPROVEMENT_REFLECTION_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md` | 2026-01-23 | governance/canon/ | Layered |
-| `STOP_AND_FIX_DOCTRINE.md` | 2026-01-27 | PR #1023 | **UPDATED v2.0.0 - Layered 2026-01-27** |
+| `STOP_AND_FIX_DOCTRINE.md` | 2026-02-08 | PR #1044 | **UPDATED v2.1.0 - Section 8 Added - Layered 2026-02-08** |
 | `WARNING_DISCOVERY_BLOCKER_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md` | 2026-01-23 | governance/canon/ | Layered |
 
@@ -117,6 +121,84 @@ This repository is a **CONSUMER** repository that receives governance canon file
 ---
 
 ## Governance Ripple History
+
+### 2026-02-08: Living Agent System v5.0.0 - Agent Baseline Management, FM Memory, and Wave Planning (PR #1044)
+
+**Ripple Type**: Tier-0 Critical Foundation Canon Layer-Down (Living Agent System v5.0.0)
+**Authority**: GOVERNANCE_RIPPLE_MODEL.md, PR #1044
+**Source**: APGI-cmy/maturion-foreman-governance PR #1044
+**Issue**: Layer Down: Propagate Living Agent System v5.0.0 Governance Protocols and Canon to R_Roster
+
+**Changes Summary**:
+Added three critical new canonical protocols to enable Living Agent System v5.0.0 deployment: agent baseline management, FM memory protocol, and wave planning with issue artifact generation. Updated two existing protocols with learning loop integration.
+
+**New Protocols Layered (3 files)**:
+
+1. **`AGENT_BASELINE_MANAGEMENT_PROTOCOL.md`** (v1.0.0, 30KB)
+   - Defines agent baselines as immutable constitutional references (CS2-only modification authority)
+   - Baseline validation workflow: wake-up phase checks → drift detection → auto-remediation (L1) or escalation (L2/L3)
+   - Drift reconciliation: Version mismatch (auto-fix) → content drift (escalate) → LOCKED section mismatch (halt)
+   - Living Agent System integration: validation in wake-up §1, working contract generation §4, session closure §5
+
+2. **`FOREMAN_MEMORY_PROTOCOL.md`** (v1.0.0, 28KB)
+   - Four-level memory hierarchy: Constitutional (read-only governance) → Wave (progress artifacts) → Session (rolling 5-session window) → Learning (cross-wave accumulation)
+   - Learning categorization: AL (architectural), QL (QA), BSL (builder supervision), GGL (governance gap)
+   - Memory lifecycle: Wake-up loads all levels → working phase maintains continuity → session closure captures learnings → wave closure finalizes and archives
+   - Promotion triggers: 3+ occurrences or critical severity → escalate to CS2 for canonical governance
+
+3. **`FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md`** (v1.0.0, 26KB)
+   - Wave decomposition: Single wave (default) → subwaves when complexity > builder capacity or architectural boundaries exist
+   - Complexity assessment: 0-10 (simple) → 11-25 (moderate) → 26-50 (complex, 2-3 subwaves) → 51+ (3-5 subwaves or escalate)
+   - Issue artifact types: Wave initialization → builder task (build-to-green) → correction/RCA → governance gap → subwave scope
+   - Wave progress artifact: Updated within 4 hours of phase transitions, artifact creation, issue closure, or correction events
+
+**Updated Protocols (2 files)**:
+
+4. **`STOP_AND_FIX_DOCTRINE.md`** (v2.0.0 → v2.1.0, 42KB)
+   - **Section 8 Added**: Learning Loop Integration and Improvement Escalation
+   - Stop-and-Fix learning capture → categorize (AL/QL/BSL/GGL) → promotion triggers (frequency 3+, severity critical/high) → governance gap issue creation
+   - Integration with FM memory protocol and wave planning
+
+5. **`BOOTSTRAP_EXECUTION_LEARNINGS.md`** (v1.0.0 → v1.1.0, 153KB)
+   - **Appendix A Added**: Categorization Matrix for BL-0001 through BL-0030
+   - Learning Type × Impact × Priority × Target classification
+   - Promotion decision tree: Critical → immediate | High+FL/GL → immediate | High+IL/PL → 2 waves | Medium → 3+ pattern | Low → capture only
+
+**New Infrastructure**:
+
+6. **`governance/TIER_0_CANON_MANIFEST.json`** (NEW)
+   - Living Agent System v5.0.0 manifest with protocol registry
+   - Integration points for wake-up validation, memory lifecycle, wave planning
+   - Protocol versioning and authority tracking (CS2-only modification)
+
+**Integration Points**:
+- Living Agent System v5.0.0: wake-up validation, memory lifecycle, session closure
+- Agent Self-Governance: baseline validation in pre-work check  
+- Governance Ripple: propagation to consumer repos (post-CS2 approval)
+- FM operations: memory management and wave planning integration
+
+**Validation**:
+- ✅ All 3 new protocols layered down successfully (30KB + 28KB + 26KB = 84KB)
+- ✅ 2 protocols updated with new sections
+- ✅ TIER_0_CANON_MANIFEST.json created with v5.0.0 registration
+- ✅ GOVERNANCE_ARTIFACT_INVENTORY.md updated
+- ✅ All files verified present in governance/canon/
+
+**Impact**:
+- **CRITICAL**: Enables Living Agent System v5.0.0 deployment in R_Roster
+- Agents can now perform baseline validation during wake-up
+- FM has canonical memory management specification
+- Wave planning standardized with complexity assessment and subwave decomposition
+- Learning loop integration across Stop-and-Fix, memory, and wave planning
+- Foundation for agent self-governance and drift remediation
+
+**Next Steps**:
+1. Update agent contracts to reference new baseline management protocol
+2. Implement baseline validation in agent wake-up scripts
+3. Configure FM memory hierarchy for R_Roster waves
+4. Apply wave planning protocol to current/future work
+
+---
 
 ### 2026-02-04: Agent Contracts Guidance Centralization (PR #1027)
 
