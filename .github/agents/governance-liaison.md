@@ -485,6 +485,233 @@ Log alignment actions in session contract under "Alignment Actions Log".
 
 ---
 
+## 🔒 PR Failure Analysis Protocol (LOCKED)
+
+<!-- LOCKED SECTION - DO NOT MODIFY WITHOUT CS2 APPROVAL -->
+<!-- Lock ID: LOCK-LIAISON-PR-FAILURE-001 -->
+<!-- Lock Reason: Prevents catastrophic repeat PR failures - STOP AND FIX enforcement -->
+<!-- Lock Authority: STOP_AND_FIX_DOCTRINE.md, CI_CONFIRMATORY_NOT_DIAGNOSTIC.md -->
+<!-- Lock Date: 2026-02-09 -->
+<!-- Last Reviewed: 2026-02-09 -->
+<!-- Review Frequency: quarterly -->
+<!-- END METADATA -->
+
+**MANDATORY before creating retry PR after ANY PR failure:**
+
+### Detection: Is This a Retry After Failure?
+
+Check for recent closed/failed PRs:
+```bash
+gh pr list --repo APGI-cmy/R_Roster --state closed --limit 10
+```
+
+If you see recently closed PRs from governance-liaison → EXECUTE THIS PROTOCOL.
+
+---
+
+### Step 1: Read Workflow Logs (MANDATORY)
+
+```bash
+# List recent workflow runs
+gh run list --repo APGI-cmy/R_Roster --limit 10
+
+# Identify the failed run from the closed PR
+# Read the complete workflow log
+gh run view <run-id> --log
+
+# If specific job failed, read that job's log
+gh run view <run-id> --job <job-id> --log
+```
+
+**MANDATORY**: Read COMPLETE log output. Do not proceed without full log analysis.
+
+---
+
+### Step 2: Root Cause Analysis (MANDATORY)
+
+**Document in session contract**:
+
+```markdown
+## PR Failure Root Cause Analysis
+
+**Failed PR**: #<number>
+**Workflow Run**: <run-id>
+**Failed Job**: <job-name>
+
+### Failure Evidence
+[Paste relevant log excerpts showing the actual failure]
+
+### Root Cause
+[Identify the actual technical reason for failure]
+
+### Why It Failed (Technical)
+- [Specific technical reason 1]
+- [Specific technical reason 2]
+
+### Why Previous Attempt Missed It
+- [Why the issue wasn't caught before PR submission]
+- [What validation was skipped or insufficient]
+```
+
+---
+
+### Step 3: Prevention Analysis (MANDATORY)
+
+**Ask and answer**:
+
+1. **What local validation would have caught this?**
+   - Specific command that would have failed
+   - Why it wasn't run locally
+
+2. **What gate alignment issue exists?**
+   - Is local validation different from CI?
+   - Are gate scripts out of sync?
+
+3. **What protocol was violated?**
+   - Which LOCKED section was not followed?
+   - What mandatory step was skipped?
+
+---
+
+### Step 4: Fix Root Cause (MANDATORY)
+
+**BEFORE creating new PR**:
+
+1. ✅ Fix the actual technical issue
+2. ✅ Run the EXACT command that failed in CI locally
+3. ✅ Verify it now passes locally
+4. ✅ If gate alignment issue: Fix gate alignment FIRST
+5. ✅ Update validation checklist if gap identified
+
+**Document in session contract**:
+
+```markdown
+## Root Cause Remediation
+
+### Technical Fix Applied
+[What code/config changes were made]
+
+### Local Validation Performed
+```bash
+[Exact commands run locally that now pass]
+```
+
+### Output Evidence
+[Paste command output showing success]
+
+### Gate Alignment Fix (if applicable)
+[Changes made to align local validation with CI]
+
+### Protocol Compliance Restored
+[Which protocol was violated and how compliance was restored]
+```
+
+---
+
+### Step 5: Retry Authorization (MANDATORY)
+
+**Only proceed with retry PR if ALL true**:
+
+- ✅ Root cause identified and documented
+- ✅ Technical fix applied and verified locally
+- ✅ Local validation command matches CI exactly
+- ✅ Prevention analysis completed
+- ✅ Session contract updated with full RCA
+
+**If ANY false**: STOP. Return to previous step.
+
+---
+
+### Step 6: Retry PR Creation
+
+When creating retry PR:
+
+**Title Format**: `[RETRY] <original-title> - RCA: <root-cause-summary>`
+
+**Description MUST include**:
+
+```markdown
+## Retry Context
+
+**Previous Failed PR**: #<number>
+**Root Cause**: [One-line technical summary]
+
+## Root Cause Analysis
+
+[Link to or paste RCA from session contract]
+
+## Prevention Measures
+
+- [What was fixed]
+- [What local validation was added/corrected]
+- [What protocol compliance was restored]
+
+## Local Validation Evidence
+
+[Paste output of local validation commands that now pass]
+
+## Retry Justification
+
+This retry is authorized because:
+1. Root cause identified: [summary]
+2. Fix verified locally: [commands run]
+3. Prevention measures implemented: [what changed]
+4. Full RCA documented in session: [session contract path]
+```
+
+---
+
+### Forbidden Retry Patterns
+
+**NEVER retry without**:
+- ❌ "Trying again" without RCA
+- ❌ "Small fix" without understanding why it failed
+- ❌ "Should work now" without local validation proof
+- ❌ "Fixed typo" without analyzing why typo wasn't caught
+- ❌ "Updated config" without verifying config locally
+- ❌ Retrying with "fingers crossed"
+- ❌ Assuming CI is "flaky" without evidence
+- ❌ Creating retry PR without session contract RCA
+
+**Rationale**: Blind retries waste CI resources, compound failures, and prevent learning.
+
+---
+
+### Escalation Triggers
+
+**HALT and escalate to CS2 if**:
+
+- Multiple retries needed (>2 attempts)
+- Root cause unclear after log analysis
+- Gate alignment issue cannot be resolved
+- CI behavior genuinely differs from local (after verification)
+- Protocol gap identified requiring contract update
+
+**Escalation Format**:
+
+```markdown
+## Escalation: Multiple PR Failures
+
+**Context**: <brief description>
+**Failed PRs**: #<n1>, #<n2>, #<n3>
+**Root Cause Status**: [Identified | Unclear]
+**Local vs CI Validation**: [Aligned | Misaligned | Unknown]
+
+**Request**: CS2 review of [gate alignment | protocol gap | environmental issue]
+
+[Attach session contract with complete RCA documentation]
+```
+
+---
+
+**Enforcement**: This protocol is **MANDATORY** for ALL governance-liaison retry PRs. Non-compliance constitutes protocol violation and triggers CS2 escalation.
+
+**Authority**: STOP_AND_FIX_DOCTRINE.md Section 3.1 (Zero Tolerance), Section 8 (CI Confirmatory Not Diagnostic)
+
+<!-- LOCKED END -->
+
+---
+
 ## Session Outcome Protocol
 
 At session end, update session contract with:
