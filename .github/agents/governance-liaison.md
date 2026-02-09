@@ -22,6 +22,9 @@ metadata:
   this_copy: canonical
   authority: CS2
 
+protection:
+  protection_model: embedded
+
 ---
 
 # governance-liaison
@@ -409,14 +412,14 @@ echo "Step 2: Layering down canonical files..."
 if [ -f "governance/TIER_0_CANON_MANIFEST.json" ]; then
     # Extract file paths from manifest using grep/cut (jq not available in all environments)
     CANON_FILES=$(grep '"path":' governance/TIER_0_CANON_MANIFEST.json | cut -d'"' -f4)
-    
+
     for canon_file in $CANON_FILES; do
         CANONICAL_URL="$CANONICAL_REPO/raw/$CANONICAL_REF/$canon_file"
         mkdir -p "$(dirname "$canon_file")"
-        
+
         echo "  Fetching $canon_file..."
         HTTP_CODE=$(curl -sf -w "%{http_code}" -o "$canon_file.new" "$CANONICAL_URL" 2>/dev/null)
-        
+
         if [ "$HTTP_CODE" = "200" ] && [ -s "$canon_file.new" ]; then
             mv "$canon_file.new" "$canon_file"
             if SHA256=$(sha256sum "$canon_file" 2>/dev/null | cut -d' ' -f1); then
@@ -482,6 +485,79 @@ echo "Proceeding with session mission..."
 ```
 
 Log alignment actions in session contract under "Alignment Actions Log".
+
+---
+
+## 🔒 PR Failure Analysis Protocol (LOCKED)
+
+<!-- LOCKED SECTION - DO NOT MODIFY WITHOUT CS2 APPROVAL -->
+<!-- Lock ID: LOCK-LIAISON-PR-FAILURE-001 -->
+<!-- Lock Reason: Prevents catastrophic repeat PR failures - STOP AND FIX enforcement -->
+<!-- Lock Authority: STOP_AND_FIX_DOCTRINE.md, CI_CONFIRMATORY_NOT_DIAGNOSTIC.md -->
+<!-- Lock Date: 2026-02-09 -->
+<!-- Last Reviewed: 2026-02-09 -->
+<!-- Review Frequency: quarterly -->
+<!-- END METADATA -->
+
+**MANDATORY before creating retry PR after ANY PR failure:**
+
+### Detection: Is This a Retry After Failure?
+
+Check for recent closed/failed PRs:
+```bash
+gh pr list --repo APGI-cmy/R_Roster --state closed --limit 10
+```
+
+If you see recently closed PRs from governance-liaison → EXECUTE THIS PROTOCOL.
+
+---
+
+### Step 1: Read Workflow Logs (MANDATORY)
+
+```bash
+# List recent workflow runs
+gh run list --repo APGI-cmy/R_Roster --limit 10
+
+# Identify the failed run from the closed PR
+# Read the complete workflow log
+gh run view <run-id> --log
+```
+
+**DO NOT SKIP THIS STEP.** Read the ENTIRE log before proceeding.
+
+---
+
+### Step 2: Root Cause Analysis (MANDATORY)
+
+**Document in session contract:**
+
+1. **What failed?** (exact error message/test/step)
+2. **Why did it fail?** (root cause, not symptom)
+3. **What will be different this time?** (specific fix)
+
+If you cannot answer all three → **ESCALATE to CS2**. Do NOT retry blindly.
+
+---
+
+### Step 3: Fix Verification (MANDATORY)
+
+Before creating new PR:
+
+1. **Apply the fix** locally
+2. **Run the failed check** locally to confirm fix works
+3. **Test the fix** in isolation if possible
+
+Only create new PR after local verification passes.
+
+---
+
+### Enforcement
+
+- **Skipping this protocol = immediate escalation to CS2**
+- **Blind retries without RCA = governance violation**
+- **This protocol applies even if you "think you know" the fix**
+
+Authority: STOP_AND_FIX_DOCTRINE.md, CI_CONFIRMATORY_NOT_DIAGNOSTIC.md
 
 ---
 
