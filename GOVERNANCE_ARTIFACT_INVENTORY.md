@@ -3,7 +3,7 @@
 **Purpose**: Inventory of governance artifacts layered down to R_Roster repository
 **Consumer Repository**: APGI-cmy/R_Roster
 **Canonical Source**: APGI-cmy/maturion-foreman-governance
-**Last Updated**: 2026-02-08 (PR #1044 - Living Agent System v5.0.0 protocols layer-down)
+**Last Updated**: 2026-02-08 (PR #1048 - LAS v5.0.0 Canon Gap Closures layer-down)
 **Maintained By**: governance-liaison agent
 
 ---
@@ -31,6 +31,7 @@ This repository is a **CONSUMER** repository that receives governance canon file
 | File | Last Updated | Source PR | Status |
 |------|--------------|-----------|--------|
 | `AGENT_BASELINE_MANAGEMENT_PROTOCOL.md` | 2026-02-08 | PR #1044 | **NEW - v1.0.0 - Layered 2026-02-08** |
+| `AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md` | 2026-01-23 | governance/canon/ | Layered |
 | `AGENT_CONTRACT_PROTECTION_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `AGENT_SELF_GOVERNANCE_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
@@ -41,14 +42,20 @@ This repository is a **CONSUMER** repository that receives governance canon file
 | `EXECUTION_BOOTSTRAP_PROTOCOL_MONITORING_AND_ENFORCEMENT.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `FOREMAN_MEMORY_PROTOCOL.md` | 2026-02-08 | PR #1044 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md` | 2026-02-08 | PR #1044 | **NEW - v1.0.0 - Layered 2026-02-08** |
+| `GOVERNANCE_ARTIFACT_TAXONOMY.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `GOVERNANCE_LAYERDOWN_CONTRACT.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `GOVERNANCE_PURPOSE_AND_SCOPE.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
+| `GOVERNANCE_RIPPLE_DETECTION_PROTOCOL.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `GOVERNANCE_RIPPLE_MODEL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
+| `GOVERNANCE_VALIDATION_PROTOCOL.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `GOVERNANCE_VERSIONING_AND_SYNC_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
+| `LIVING_AGENT_GOVERNANCE_HEALTH_CHECKS.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `MANDATORY_PROCESS_IMPROVEMENT_REFLECTION_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
+| `PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md` | 2026-01-23 | governance/canon/ | Layered |
+| `SELF_ALIGNMENT_AUTHORITY_MODEL.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `STOP_AND_FIX_DOCTRINE.md` | 2026-02-08 | PR #1044 | **UPDATED v2.1.0 - Section 8 Added - Layered 2026-02-08** |
 | `WARNING_DISCOVERY_BLOCKER_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md` | 2026-01-23 | governance/canon/ | Layered |
@@ -121,6 +128,101 @@ This repository is a **CONSUMER** repository that receives governance canon file
 ---
 
 ## Governance Ripple History
+
+### 2026-02-08: LAS v5.0.0 Canon Gap Closures - Agent Gate Protocols, Taxonomy, and Health Checks (PR #1048)
+
+**Ripple Type**: Tier-0 Constitutional Canon Layer-Down (LAS v5.0.0 Gap Closure)
+**Authority**: GOVERNANCE_RIPPLE_MODEL.md, PR #1048
+**Source**: APGI-cmy/maturion-foreman-governance PR #1048
+**Issue**: Layer-Down: Apply LAS v5.0.0 Canon Gap Closures from governance repo #1048
+
+**Changes Summary**:
+Layered down 7 critical canonical governance artifacts that close Living Agent System v5.0.0 governance gaps identified during CS2 review: agent-class gate protocols, governance taxonomy, self-alignment authority model, dynamic health checks, ripple detection mechanism, validation protocols, and pending canon references guidance.
+
+**New Protocols Layered (7 files)**:
+
+1. **`AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md`** (v1.0.0, 20KB)
+   - Per-class merge gate protocols (Overseer, Liaison, Builder, Foreman)
+   - Self-alignment authority boundaries and escalation triggers
+   - CI/CD integration patterns for gate validation
+   - Class-specific validation requirements and evidence collection
+
+2. **`GOVERNANCE_ARTIFACT_TAXONOMY.md`** (v1.0.0, 24KB)
+   - 7-type taxonomy: Canon, Doc, Script, Template, Evidence, Code, Tests
+   - Ripple trigger matrix: which artifact types trigger layer-down
+   - Testing obligation matrix by artifact type
+   - File path pattern recognition for automated classification
+
+3. **`SELF_ALIGNMENT_AUTHORITY_MODEL.md`** (v1.0.0, 21KB)
+   - Authority boundaries by agent class × artifact type matrix
+   - Escalation decision framework: what to align vs. escalate
+   - Collaboration patterns between agent classes
+   - Self-alignment audit trail requirements
+
+4. **`LIVING_AGENT_GOVERNANCE_HEALTH_CHECKS.md`** (v1.0.0, 24KB)
+   - 7-phase wake-up protocol: self-ID, memory scan, governance discovery, env health, drift detection, auto-remediation, working contract generation
+   - Dynamic drift detection mechanisms
+   - Automated remediation triggers (L1: auto-fix, L2/L3: escalate)
+   - Agent state awareness and session risk assessment
+
+5. **`GOVERNANCE_RIPPLE_DETECTION_PROTOCOL.md`** (v1.0.0, 22KB)
+   - Ripple signaling mechanisms: PR labels, descriptions, file patterns
+   - Detection methods: agent-driven, CI-triggered, human-initiated
+   - SLA matrix by ripple type (24hr constitutional, 14-day standard)
+   - Audit trail requirements and evidence logging
+
+6. **`GOVERNANCE_VALIDATION_PROTOCOL.md`** (v1.0.0, 20KB)
+   - Validation checklists per agent class (Liaison, Overseer, Builder, Foreman)
+   - Build-to-Green vs. non-BtG validation models
+   - Evidence requirements by artifact type
+   - Syntax, cross-reference, and inventory sync validation
+
+7. **`PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md`** (v1.0.0, 15KB)
+   - Published canon locations: FM_ROLE_CANON, WAVE_MODEL, LIVING_AGENT_SYSTEM
+   - TIER_0_CANON_MANIFEST.json → CANON_INVENTORY.json mapping
+   - Interim compliance guidance for agents
+   - Cross-reference validation workarounds
+
+**Integration Points**:
+- Living Agent System v5.0.0: wake-up validation, dynamic health checks, drift detection
+- Agent Self-Governance: class-specific gate protocols, self-alignment authority boundaries
+- Governance Ripple: ripple detection mechanism, validation protocols, SLA enforcement
+- CI/CD: automated gate validation, artifact classification, ripple signaling
+
+**Validation**:
+- ✅ All 7 new protocols layered down successfully (20KB + 24KB + 21KB + 24KB + 22KB + 20KB + 15KB = 146KB)
+- ✅ SHA256 checksums generated for all files
+- ✅ GOVERNANCE_ARTIFACT_INVENTORY.md updated with 7 new entries
+- ✅ All files verified present in governance/canon/
+- ✅ Evidence logged in session contract and alignment log
+
+**Impact**:
+- **CRITICAL**: Closes 7 governance gaps identified in LAS v5.0.0 rollout
+- Agents now have clear gate protocols per class (no more ambiguity)
+- Governance vs. code taxonomy defined (no more classification confusion)
+- Self-alignment authority boundaries formalized (liaison agents operate with clarity)
+- Dynamic drift detection and health checks standardized
+- Ripple detection mechanism codified (24hr SLA for constitutional changes)
+- Validation procedures defined for non-BtG agents
+- Pending canon references tracked with interim guidance
+
+**GAP References**:
+- [GAP-001] Agent-class gate protocols → AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md
+- [GAP-002] Governance vs. code taxonomy → GOVERNANCE_ARTIFACT_TAXONOMY.md
+- [GAP-003] Self-alignment authority → SELF_ALIGNMENT_AUTHORITY_MODEL.md
+- [GAP-004] Dynamic governance discovery → LIVING_AGENT_GOVERNANCE_HEALTH_CHECKS.md
+- [GAP-005] Ripple detection mechanism → GOVERNANCE_RIPPLE_DETECTION_PROTOCOL.md
+- [GAP-006] Governance validation → GOVERNANCE_VALIDATION_PROTOCOL.md
+- [GAP-007] Pending canon references → PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md
+
+**Next Steps**:
+1. Update agent contracts to reference new gate protocols (per agent class)
+2. Implement 7-phase wake-up protocol in agent baseline scripts
+3. Configure CI/CD pipelines for automated gate validation
+4. Apply artifact taxonomy to governance/code file organization
+5. Update liaison agent self-alignment procedures per authority model
+
+---
 
 ### 2026-02-08: Living Agent System v5.0.0 - Agent Baseline Management, FM Memory, and Wave Planning (PR #1044)
 

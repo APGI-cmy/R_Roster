@@ -1,0 +1,12 @@
+2026-02-08T13:38:09+00:00: WARNING: Failed to fetch canonical TIER_0 version from https://github.com/APGI-cmy/maturion-foreman-governance/raw/main/governance/TIER_0_CANON_MANIFEST.json
+2026-02-08T13:38:09+00:00: TIER_0 version check (local: 5.0.0, canonical: unavailable)
+PENDING: governance/canon/FM_ROLE_CANON.md (not yet available)
+PENDING: governance/canon/WAVE_MODEL.md (not yet available)
+PENDING: governance/canon/LIVING_AGENT_SYSTEM.md (not yet available)
+2026-02-08T13:39:12+00:00: governance/canon/AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md exists (SHA256: fba2f30452b1ffa4a76a385ddaf93fb70440af18f9921ac49be99478b8edfa99)
+2026-02-08T13:39:13+00:00: governance/canon/GOVERNANCE_ARTIFACT_TAXONOMY.md exists (SHA256: 1d5981d48b922da6cafb25809ae3800815996a747fb3af21e9479a28ae50a851)
+2026-02-08T13:39:13+00:00: governance/canon/SELF_ALIGNMENT_AUTHORITY_MODEL.md exists (SHA256: 7bef68ef7cbf538b97e116d1b1fa0a3eb1ebd8af68a4a14cca72c8753c8a08eb)
+2026-02-08T13:39:13+00:00: governance/canon/LIVING_AGENT_GOVERNANCE_HEALTH_CHECKS.md exists (SHA256: 62c5f6b49613dea34d8260e2bbbd71c2c36aa9ddcfd7ab95991317352518beeb)
+2026-02-08T13:39:13+00:00: governance/canon/GOVERNANCE_RIPPLE_DETECTION_PROTOCOL.md exists (SHA256: 7432374184b8a7c5d9b6bf22253c427cef3a293440c0f1450b130ea858ccc0d1)
+2026-02-08T13:39:13+00:00: governance/canon/GOVERNANCE_VALIDATION_PROTOCOL.md exists (SHA256: 6062fa017aa7f6ce5c3d6ca94070d7bd363ee9d9d6bf817b9d2721f741f7f81c)
+2026-02-08T13:39:13+00:00: governance/canon/PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md exists (SHA256: 84c2a3a60a8f3307634b93ca44f74c409d56dc18bddcfaad1ea651f4f51192f6)
