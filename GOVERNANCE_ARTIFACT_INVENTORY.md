@@ -3,7 +3,7 @@
 **Purpose**: Inventory of governance artifacts layered down to R_Roster repository
 **Consumer Repository**: APGI-cmy/R_Roster
 **Canonical Source**: APGI-cmy/maturion-foreman-governance
-**Last Updated**: 2026-02-09 (PR #1054 + #1056 - FM Operational Protocols + Automatic Ripple Log Protocol layer-down)
+**Last Updated**: 2026-02-09 (FM Merge Gate Management Canon layer-down)
 **Maintained By**: governance-liaison agent
 
 ---
@@ -54,6 +54,8 @@ This repository is a **CONSUMER** repository that receives governance canon file
 | `LIVING_AGENT_GOVERNANCE_HEALTH_CHECKS.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `MANDATORY_PROCESS_IMPROVEMENT_REFLECTION_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
+| `MERGE_GATE_APPLICABILITY_MATRIX.md` | 2026-02-09 | This PR | **NEW - v1.0.0 - Layered 2026-02-09** |
+| `FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md` | 2026-02-09 | This PR | **NEW - v1.0.0 - Layered 2026-02-09** |
 | `PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
 | `PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md` | 2026-01-23 | governance/canon/ | Layered |
 | `SELF_ALIGNMENT_AUTHORITY_MODEL.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
@@ -88,6 +90,20 @@ This repository is a **CONSUMER** repository that receives governance canon file
 | File | Last Updated | Source PR | Status |
 |------|--------------|-----------|--------|
 | `BYG_DOCTRINE.md` | 2026-01-23 | PR #1007 | **UPDATED - Layered 2026-01-23** |
+| `MERGE_GATE_PHILOSOPHY.md` | 2026-02-09 | This PR | **NEW - v1.0.0 - Layered 2026-02-09** |
+
+### Governance Alignment (governance/alignment/)
+
+| File | Last Updated | Source PR | Status |
+|------|--------------|-----------|--------|
+| `GOVERNANCE_ALIGNMENT.md` | Existing | - | Existing |
+| `QIW_ALIGNMENT.md` | Existing | - | Existing |
+| `FM_MERGE_GATE_MANAGEMENT_CANON.md` | 2026-02-09 | This PR | **NEW - v1.0.0 - Layered 2026-02-09** |
+
+**Notes**:
+- `FM_MERGE_GATE_MANAGEMENT_CANON.md` provides R_Roster-specific implementation of FM merge gate management
+- Referenced by `.github/agents/R_Roster-app_FM.md` Section "Merge Gate Management (T0-014)"
+- Derived from canonical `governance/canon/FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md`
 
 ### Governance Diagrams (governance/diagrams/)
 
@@ -140,6 +156,69 @@ This repository is a **CONSUMER** repository that receives governance canon file
 ---
 
 ## Governance Ripple History
+
+### 2026-02-09: FM Merge Gate Management Canon Layer-Down (This PR)
+
+**Ripple Type**: Tier-0 Constitutional Canon Layer-Down (FM Merge Gate Management)
+**Authority**: GOVERNANCE_RIPPLE_MODEL.md, GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md
+**Source**: FM Merge Gate Management governance canon files
+**Issue**: Layer down FM merge gate management canon to R_Roster app
+
+**Changes Summary**:
+Layered down 4 governance files establishing FM merge gate management protocol, gate applicability matrix, gate philosophy, and R_Roster-specific FM merge gate canon. These files implement gate management authority, compliance checklists, and authority matrix for the Foreman (FM) agent.
+
+**Files Layered (4 total)**:
+
+1. **`governance/canon/FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md`** (NEW - v1.0.0, 16.5KB)
+   - FM authority and responsibilities for merge gate readiness
+   - Pre-authorization checklist (8 checks) and merge validation checklist (14 gates)
+   - Builder-FM gate coordination protocol and escalation boundaries
+   - FM self-alignment protocol and governance ripple integration
+   - Tier-0 Constitutional Canon, PUBLIC_API status
+
+2. **`governance/canon/MERGE_GATE_APPLICABILITY_MATRIX.md`** (NEW - v1.0.0, 13KB)
+   - Comprehensive matrix mapping gates to agent classes (Overseer, Liaison, Foreman, Builder)
+   - Universal gates (UG-001 to UG-004), class-specific gates (OS, LI, FM, BL series)
+   - Gate pass/fail criteria, escalation criteria, self-alignment boundaries
+   - Cross-class gate interaction protocols
+   - Tier-0 Constitutional Canon, PUBLIC_API status
+
+3. **`governance/philosophy/MERGE_GATE_PHILOSOPHY.md`** (NEW - v1.0.0, 11KB)
+   - Foundational philosophy of merge gate enforcement
+   - Core principles: Quality-First, Appropriate Rigor, Self-Alignment Boundary, Zero Ambiguity, Evidence-Based Validation, Constitutional Safeguard
+   - Gate philosophy by agent class (Builder, Foreman, Liaison, Overseer)
+   - Merge gate lifecycle (pre-merge, evaluation, post-merge)
+   - Anti-patterns and integration with Living Agent System
+   - Tier-0 Constitutional Canon, PUBLIC_API status
+
+4. **`governance/alignment/FM_MERGE_GATE_MANAGEMENT_CANON.md`** (NEW - v1.0.0, 14.8KB)
+   - R_Roster-specific implementation of FM merge gate management
+   - R_Roster builder classes (api-builder, ui-builder, qa-builder, schema-builder, integration-builder)
+   - R_Roster-specific gate readiness and validation checklists
+   - R_Roster protected files and escalation triggers
+   - Governance alignment binding for FM agent contract
+   - Repository-Specific (R_Roster), Referenced by `.github/agents/R_Roster-app_FM.md`
+
+**Governance Integration**:
+- Updated `GOVERNANCE_ARTIFACT_INVENTORY.md` to record new files
+- Files align with existing `AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md`
+- Implements authority matrix and compliance checklists as required
+- Closes gap identified in FM agent contract (missing `governance/alignment/FM_MERGE_GATE_MANAGEMENT_CANON.md`)
+
+**Validation**:
+- ✅ All 4 files created successfully
+- ✅ Files follow canonical governance structure and formatting
+- ✅ Version 1.0.0 established for all new files
+- ✅ Governance artifact inventory updated
+- ✅ FM agent contract reference satisfied
+
+**Ripple Impact**:
+- **FM Agent**: Can now validate gate management authority and responsibilities
+- **Builder Agents**: Have clear gate requirements and escalation paths
+- **Liaison Agent**: Can propagate gate management changes
+- **Repository**: R_Roster now has complete merge gate management governance
+
+---
 
 ### 2026-02-09: Foreman Operational Sandbox & Issue Artifact Protocols (PR #1052)
 
