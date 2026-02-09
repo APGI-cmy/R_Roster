@@ -3,7 +3,7 @@
 **Purpose**: Inventory of governance artifacts layered down to R_Roster repository
 **Consumer Repository**: APGI-cmy/R_Roster
 **Canonical Source**: APGI-cmy/maturion-foreman-governance
-**Last Updated**: 2026-02-08 (PR #1048 - LAS v5.0.0 Canon Gap Closures layer-down)
+**Last Updated**: 2026-02-09 (PR #1052 - Foreman Operational Sandbox & Issue Artifact Protocols layer-down)
 **Maintained By**: governance-liaison agent
 
 ---
@@ -97,6 +97,17 @@ This repository is a **CONSUMER** repository that receives governance canon file
 | `error-drift-handling-workflow.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 | `inventory-ripple-process-workflow.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
 
+### Governance Maturion (governance/maturion/)
+
+| File | Last Updated | Source PR | Status |
+|------|--------------|-----------|--------|
+| `FM_ROLE_CANON.md` | 2026-02-09 | PR #1052 | **NEW - Layered 2026-02-09 (Sections 12, 13 added)** |
+
+**Notes**:
+- FM_ROLE_CANON.md defines Foreman role, authority, autonomy, responsibilities, and prohibitions
+- Last updated 2026-01-03 in canonical governance (Sections 12, 13 added for Operational Sandbox and Issue Artifact Generation)
+- Published status per PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md
+
 ### Agent Contracts (.github/agents/)
 
 | File | Last Updated | Status | Canonical For |
@@ -128,6 +139,76 @@ This repository is a **CONSUMER** repository that receives governance canon file
 ---
 
 ## Governance Ripple History
+
+### 2026-02-09: Foreman Operational Sandbox & Issue Artifact Protocols (PR #1052)
+
+**Ripple Type**: Tier-0 Constitutional Canon Layer-Down (FM Role & Protocols)
+**Authority**: GOVERNANCE_RIPPLE_MODEL.md, PR #1052
+**Source**: APGI-cmy/maturion-foreman-governance PR #1052
+**Issue**: [Governance Ripple] Propagate 5 Canon Changes from PR #1052
+
+**Changes Summary**:
+Layered down 5 canonical files from PR #1052 establishing Foreman operational sandbox, issue artifact generation governance, and FM role canon updates. Four files were already current from PR #1044 layer-down; one new file (FM_ROLE_CANON.md) was layered down.
+
+**Files Layered (5 total)**:
+
+1. **`governance/maturion/FM_ROLE_CANON.md`** (NEW - 33KB)
+   - Defines Foreman role, authority, autonomy, responsibilities, and prohibitions
+   - NEW Section 12: Operational Sandbox (execution environment, security boundaries, degraded mode)
+   - NEW Section 13: Issue Artifact Generation and Governance (wave init, builder task, correction/RCA, governance gap, subwave scope)
+   - Published status per PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md §3.1
+
+2. **`governance/canon/FOREMAN_MEMORY_PROTOCOL.md`** (v1.0.0, VERIFIED CURRENT)
+   - Four-level memory hierarchy (Constitutional, Wave, Session, Learning)
+   - Memory lifecycle and retention policies
+   - Learning loop integration
+   - PUBLIC_API status (already layered in PR #1044)
+
+3. **`governance/canon/FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md`** (v1.0.0, VERIFIED CURRENT)
+   - Wave planning methodology and decomposition strategy
+   - Subwave identification and boundary establishment
+   - Issue artifact generation workflow (wave, builder task, correction, gap)
+   - PUBLIC_API status (already layered in PR #1044)
+
+4. **`governance/canon/STOP_AND_FIX_DOCTRINE.md`** (v2.1.0, VERIFIED CURRENT)
+   - Section 8: Learning Loop Integration and Improvement Escalation
+   - Stop-and-Fix learning capture and categorization (AL/QL/BSL/GGL)
+   - Promotion triggers and governance gap issue creation workflow
+   - Already layered in PR #1044
+
+5. **`governance/canon/BOOTSTRAP_EXECUTION_LEARNINGS.md`** (VERIFIED CURRENT)
+   - Appendix A: Learning/Failure/Improvement Classification Matrix
+   - Categorization matrix for BL-0001 through BL-0030
+   - Promotion priority guidance and governance target selection
+   - Already layered in PR #1044
+
+**Integration Points**:
+- FM_ROLE_CANON.md §12: Operational Sandbox → FOREMAN_MEMORY_PROTOCOL.md, execution environment constraints
+- FM_ROLE_CANON.md §13: Issue Artifacts → FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md
+- STOP_AND_FIX_DOCTRINE.md §8 → FOREMAN_MEMORY_PROTOCOL.md §5 (Learning Loop Integration)
+- BOOTSTRAP_EXECUTION_LEARNINGS.md Appendix A → FOREMAN_MEMORY_PROTOCOL.md §5.2 (Learning categorization)
+
+**Validation**:
+- ✅ 1 new file layered down successfully (governance/maturion/FM_ROLE_CANON.md, 33KB)
+- ✅ 4 files verified current via git blob SHA matching (already layered in PR #1044)
+- ✅ SHA256 checksum generated for new file (c3e177137fa61533df3a39122bff256179b7b855dc17ed8f080d60b9470a4e48)
+- ✅ GOVERNANCE_ARTIFACT_INVENTORY.md updated with new governance/maturion/ section
+- ✅ Evidence logged in session contract and alignment log
+
+**Impact**:
+- **CRITICAL**: Completes FM operational governance with canonical role definition (FM_ROLE_CANON.md)
+- FM now has complete governance for operational sandbox, issue artifact generation, and role boundaries
+- Closes pending canon reference (FM_ROLE_CANON.md was listed as "pending" in PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md)
+- Establishes governance/maturion/ directory structure for Maturion-specific canonical files
+- All 5 files from PR #1052 now present and current in R_Roster
+
+**Next Steps**:
+1. Review agent contracts for any needed binding updates (TIER_0_CANON_MANIFEST.json covers all)
+2. Apply operational sandbox constraints per FM_ROLE_CANON.md §12
+3. Implement issue artifact generation workflow per FM_ROLE_CANON.md §13
+4. Complete wave planning per FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md
+
+---
 
 ### 2026-02-08: LAS v5.0.0 Canon Gap Closures - Agent Gate Protocols, Taxonomy, and Health Checks (PR #1048)
 

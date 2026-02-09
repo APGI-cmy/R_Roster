@@ -1,0 +1,15 @@
+2026-02-09T07:17:16+00:00: Starting PR #1052 layer-down from https://github.com/APGI-cmy/maturion-foreman-governance
+2026-02-09T07:17:16+00:00: ERROR: Failed to fetch governance/canon/FOREMAN_MEMORY_PROTOCOL.md (HTTP: 302)
+2026-02-09T07:17:16+00:00: ERROR: Failed to fetch governance/canon/FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md (HTTP: 302)
+2026-02-09T07:17:17+00:00: ERROR: Failed to fetch governance/maturion/FM_ROLE_CANON.md (HTTP: 302)
+2026-02-09T07:17:17+00:00: ERROR: Failed to fetch governance/canon/STOP_AND_FIX_DOCTRINE.md (HTTP: 302)
+2026-02-09T07:17:17+00:00: ERROR: Failed to fetch governance/canon/BOOTSTRAP_EXECUTION_LEARNINGS.md (HTTP: 302)
+
+2026-02-09T07:18:47+00:00: ========== PR #1052 Layer-Down Results ==========
+2026-02-09T07:18:47+00:00: Layered down governance/maturion/FM_ROLE_CANON.md (SHA256: c3e177137fa61533df3a39122bff256179b7b855dc17ed8f080d60b9470a4e48, 33271 bytes)
+2026-02-09T07:18:47+00:00: Verified governance/canon/FOREMAN_MEMORY_PROTOCOL.md (git blob: 78cd807dd0526cf17ca9848e3695fd8f9414b616 - ALREADY CURRENT)
+2026-02-09T07:18:47+00:00: Verified governance/canon/FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md (git blob: 82c937f383a2aa6c7836028904224541a3997471 - ALREADY CURRENT)
+2026-02-09T07:18:47+00:00: Verified governance/canon/STOP_AND_FIX_DOCTRINE.md (git blob: 89283d58c566b43fd2dddd118aae06f3029a30b0 - ALREADY CURRENT)
+2026-02-09T07:18:47+00:00: Verified governance/canon/BOOTSTRAP_EXECUTION_LEARNINGS.md (git blob: ccd0dc864daaf57eb8c1b3744059e9ea772a2876 - ALREADY CURRENT)
+2026-02-09T07:18:47+00:00: ========== Layer-Down Complete ==========
+2026-02-09T07:18:47+00:00: Summary: 1 new file layered down, 4 files verified current
