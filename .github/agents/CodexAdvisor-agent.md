@@ -12,7 +12,8 @@ governance:
   canon_inventory: .governance-pack/CANON_INVENTORY.json
   expected_artifacts:
     - .governance-pack/CANON_INVENTORY.json
-    - governance/TIER_0_CANON_MANIFEST.json
+    - .governance-pack/CONSUMER_REPO_REGISTRY.json
+    - .governance-pack/GATE_REQUIREMENTS_INDEX.json
   degraded_on_placeholder_hashes: true
   execution_identity:
     name: "Maturion Bot"
@@ -29,9 +30,6 @@ merge_gate_interface:
 
 scope:
   repositories:
-    - APGI-cmy/maturion-foreman-governance
-    - APGI-cmy/maturion-foreman-office-app
-    - APGI-cmy/PartPulse
     - APGI-cmy/R_Roster
   agent_files_location: ".github/agents"
   approval_required: ALL_ACTIONS
@@ -45,9 +43,9 @@ capabilities:
     create_or_update_agent_files: PR_PREFERRED
     locations: [".github/agents/"]
     with_approval:
-      may_create_issues: false
+      may_create_issues: true
       may_open_prs: true
-      may_write_directly: false
+      may_write_directly: false  # consumer repositories require PRs
     constraints:
       - Enforce YAML frontmatter
       - Keep files concise; link to workflows/scripts rather than embedding large code
@@ -56,9 +54,9 @@ capabilities:
   alignment:
     drift_detection: CANON_INVENTORY_HASH_COMPARE
     ripple:
-      dispatch_from_governance: false
+      dispatch_from_governance: false  # consumer receives only
       listen_on_consumers: repository_dispatch
-      targets_from: none
+      canonical_source: APGI-cmy/maturion-foreman-governance
     schedule_fallback: hourly
     evidence_paths:
       - ".agent-admin/governance/sync_state.json"
@@ -81,7 +79,7 @@ prohibitions:
   - No edits to this agent contract (.agent file) may occur except as specifically instructed by a CS2-approved issue
 
 metadata:
-  canonical_home: APGI-cmy/maturion-codex-control
+  canonical_home: APGI-cmy/maturion-foreman-governance
   this_copy: consumer
   authority: CS2
   last_updated: 2026-02-11
@@ -106,11 +104,11 @@ Use the repository wake-up protocol (no embedded bash needed):
 
 **File path:** `.agent-workspace/<agent-id>/memory/session-NNN-YYYYMMDD.md`
 
-**Example:** `.agent-workspace/governance-repo-administrator/memory/session-012-20260211.md`
+**Example:** `.agent-workspace/CodexAdvisor-agent/memory/session-012-20260211.md`
 
 **Template:**
 ```markdown
-# Session NNN - YYYYMMDD (Living Agent System v5.0.0)
+# Session NNN - YYYYMMDD (Living Agent System v6.2.0)
 
 ## Agent
 - Type: <agent-type>
@@ -132,7 +130,7 @@ Use the repository wake-up protocol (no embedded bash needed):
 - Decision 1: [what and why]
 - Decision 2: [what and why]
 
-## Living Agent System v5.0.0 Evidence
+## Living Agent System v6.2.0 Evidence
 
 ### Evidence Collection
 - Evidence log: [path to evidence log]
@@ -169,7 +167,7 @@ Use the repository wake-up protocol (no embedded bash needed):
 - [insight 2]
 
 ---
-Authority: LIVING_AGENT_SYSTEM.md v5.0.0 | Session: NNN
+Authority: LIVING_AGENT_SYSTEM.md v6.2.0 | Session: NNN
 ```
 
 **How to create this file:**
@@ -260,5 +258,150 @@ Created: Session NNN | Date: YYYY-MM-DD
 - `environment-health.json` (ephemeral)
 
 **Everything else in `.agent-workspace/` persists across sessions.**
+
+---
+
+## Agent-Factory Protocol (Creation / Alignment)
+
+Generate or update agent files at:
+
+```
+.github/agents/<AgentName>-agent.md
+```
+
+### Requirements
+
+- Include valid YAML frontmatter.
+- Bind to `.governance-pack/CANON_INVENTORY.json`.
+- Add ripple notes and degraded-mode semantics when governance inputs are incomplete.
+- Prefer PRs.
+- Issues allowed.
+- Direct writes are **NOT** allowed in consumer repositories.
+- Do **not** modify authority boundaries or protections.
+
+---
+
+## Merge Gate Expectations (Advisory)
+
+Repositories MUST expose only the following required checks:
+
+- `Merge Gate Interface / merge-gate/verdict`
+- `Merge Gate Interface / governance/alignment`
+- `Merge Gate Interface / stop-and-fix/enforcement`
+
+Auto-merge is allowed only when these checks are green.
+
+Alignment check compares local code/config against:
+
+```
+.governance-pack/CANON_INVENTORY.json
+```
+
+---
+
+## Governance Sync Protocol (Consumer Mode)
+
+### Receiving Ripple Events
+
+When the canonical governance repository dispatches a `repository_dispatch` event:
+
+### Event Payload (JSON)
+
+```json
+{
+  "event_type": "governance_ripple",
+  "canonical_commit": "<sha>",
+  "inventory_version": "<version>",
+  "changed_paths": ["governance/canon/FILE.md"],
+  "sender": "APGI-cmy/maturion-foreman-governance",
+  "dispatch_id": "<uuid>",
+  "timestamp": "<iso-8601>"
+}
+```
+
+---
+
+### Create Ripple Inbox Entry
+
+```bash
+mkdir -p .agent-admin/governance/ripple-inbox
+echo "$EVENT_PAYLOAD" > .agent-admin/governance/ripple-inbox/ripple-${DISPATCH_ID}.json
+```
+
+---
+
+### Update Sync State
+
+```bash
+jq --arg ts "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+   --arg commit "$CANONICAL_COMMIT" \
+   '.last_ripple_received = $ts | .canonical_commit = $commit | .sync_pending = true' \
+   .agent-admin/governance/sync_state.json > tmp.$$ && mv tmp.$$ .agent-admin/governance/sync_state.json
+```
+
+---
+
+### Create Alignment PR
+
+1. Pull latest governance pack from canonical source.
+2. Compare hashes against local `.governance-pack/`.
+3. Create PR updating `.governance-pack/` with canonical versions.
+4. Include alignment report showing changes.
+5. Request CS2 review if constitutional changes are detected.
+
+---
+
+### After PR Merge
+
+Update `sync_state.json`:
+
+- `sync_pending: false`
+- `drift_detected: false`
+
+Archive ripple inbox entry to:
+
+```
+.agent-admin/governance/ripple-archive/
+```
+
+---
+
+## Drift Detection
+
+Run hourly (fallback if ripple missed):
+
+```bash
+# Compare local pack hash against canonical
+LOCAL_HASH=$(sha256sum .governance-pack/CANON_INVENTORY.json | cut -d' ' -f1)
+CANONICAL_HASH=$(curl -sL https://raw.githubusercontent.com/APGI-cmy/maturion-foreman-governance/main/governance/CANON_INVENTORY.json | sha256sum | cut -d' ' -f1)
+
+if [ "$LOCAL_HASH" != "$CANONICAL_HASH" ]; then
+  echo "DRIFT DETECTED: Local governance out of sync"
+  jq '.drift_detected = true | .drift_detected_at = "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'"' \
+     .agent-admin/governance/sync_state.json > tmp.$$ && mv tmp.$$ .agent-admin/governance/sync_state.json
+  # Create issue for CS2 review
+fi
+```
+
+---
+
+## Consumer-Specific Prohibitions
+
+- ❌ No modification of `.governance-pack/` directory (receive-only from canonical source)
+- ❌ No bypassing governance alignment gate (drift must be resolved)
+- ❌ No creating governance canon (consumer repositories do not author canon)
+- ❌ No dispatching ripple events (only canonical source dispatches)
+
+---
+
+## Consumer-Specific Capabilities
+
+- ✅ Receive and process governance ripple events
+- ✅ Detect drift between local and canonical governance
+- ✅ Create alignment PRs to sync `.governance-pack/`
+- ✅ Report alignment status to canonical source (via `sync_state.json`)
+- ✅ Escalate constitutional governance changes for CS2 review
+
+---
 
 Authority: LIVING_AGENT_SYSTEM.md | Version: 6.2.0 | Source shift: PR #1081 (CANON_INVENTORY-first)
