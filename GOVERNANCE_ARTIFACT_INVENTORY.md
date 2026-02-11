@@ -3,7 +3,7 @@
 **Purpose**: Inventory of governance artifacts layered down to R_Roster repository
 **Consumer Repository**: APGI-cmy/R_Roster
 **Canonical Source**: APGI-cmy/maturion-foreman-governance
-**Last Updated**: 2026-02-09 (FM Merge Gate Management Canon layer-down)
+**Last Updated**: 2026-02-11 (Governance Requirements Artifacts layer-down from PR #1083)
 **Maintained By**: governance-liaison agent
 
 ---
@@ -85,6 +85,19 @@ This repository is a **CONSUMER** repository that receives governance canon file
 - Files were moved from scattered locations to enable atomic layer-down
 - Old locations deprecated: `governance/canon/.agent.schema.md`, `governance/canon/AGENT_FILE_BINDING_REQUIREMENTS.md`, `governance/canon/AGENT_ONBOARDING_QUICKSTART.md`, `governance/runbooks/AGENT_FILE_*.md`
 
+### Governance Contracts (governance/contracts/)
+
+| File | Last Updated | Source PR | Status |
+|------|--------------|-----------|--------|
+| `GOVERNANCE_REPO_ADMINISTRATOR_REQUIREMENTS.md` | 2026-02-11 | PR #1083 | **NEW - v2.0.0 - Layered 2026-02-11** |
+| `GOVERNANCE_REPO_ADMINISTRATOR_REQUIREMENTS.json` | 2026-02-11 | PR #1083 | **NEW - v2.0.0 - Layered 2026-02-11** |
+
+**Notes**:
+- Requirements artifacts derived from governance canon and LCAS-001 strategy
+- Machine-readable (JSON) + human-readable (MD) formats
+- 56 requirements across 11 categories (15 CRITICAL, 25 HIGH, 14 MEDIUM, 2 LOW)
+- Serves as validation checklist for governance-repo-administrator agent
+
 ### Governance Philosophy (governance/philosophy/)
 
 | File | Last Updated | Source PR | Status |
@@ -156,6 +169,48 @@ This repository is a **CONSUMER** repository that receives governance canon file
 ---
 
 ## Governance Ripple History
+
+### 2026-02-11: Governance Requirements Artifacts Layer-Down (PR #1083)
+
+**Ripple Type**: Governance Contracts - Requirements Artifacts (Canon-Only)  
+**Source**: APGI-cmy/maturion-foreman-governance PR #1083  
+**Layer-Down Date**: 2026-02-11  
+**Agent**: governance-liaison  
+**Issue**: APGI-cmy/R_Roster#95
+
+**Artifacts Layered**:
+- `governance/contracts/GOVERNANCE_REPO_ADMINISTRATOR_REQUIREMENTS.md` (23KB, 56 requirements, v2.0.0)
+- `governance/contracts/GOVERNANCE_REPO_ADMINISTRATOR_REQUIREMENTS.json` (31KB, machine-readable, v2.0.0)
+
+**Description**:
+Layer-down of governance-repo-administrator requirements artifacts created in canonical governance repository. These artifacts provide:
+- Comprehensive 56-requirement checklist derived from governance canon and LCAS-001 strategy
+- Machine-readable JSON format for automated validation and merge gate consumption
+- Human-readable markdown checklist organized by 11 categories
+- Severity classification (15 CRITICAL, 25 HIGH, 14 MEDIUM, 2 LOW)
+- Validation hooks for CI/CD, pre-commit, and session closure checks
+
+**Categories Covered**:
+1. Canon Management (5 requirements)
+2. Evidence & Records (5 requirements)
+3. Ripple & Alignment (6 requirements)
+4. Gate Compliance (5 requirements)
+5. Authority, Self-Alignment & Escalation (5 requirements)
+6. Execution & Operations (6 requirements)
+7. Merge Gate Interface (5 requirements)
+8. Coordination & Reporting (5 requirements)
+9. Security & Safety (5 requirements)
+10. Ambiguities & Gaps (4 requirements)
+11. Validation Hooks (summary category)
+
+**Impact**:
+- Provides deterministic requirements source for governance-repo-administrator agent validation
+- Enables machine-readable gate enforcement in canonical governance repository
+- Establishes requirements artifact pattern for other agent classes (foreman, builders, etc.)
+
+**Files SHA256**:
+- GOVERNANCE_REPO_ADMINISTRATOR_REQUIREMENTS.md: e3d5934c1726b78ea4a01833a5952eee43dcd59957adbfeb806d24c3b99cd1e0
+- GOVERNANCE_REPO_ADMINISTRATOR_REQUIREMENTS.json: ba3fdfd199e577c5076b307a7259989e444691e046d8c7537e4cbe2dace61b3b
 
 ### 2026-02-09: FM Merge Gate Management Canon Layer-Down (This PR)
 
