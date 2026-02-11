@@ -7,403 +7,650 @@
 **Effective Date**: 2026-02-09  
 **Owner**: Maturion Engineering Leadership (Johan Ras)  
 **Layer-Down Status**: PUBLIC_API  
-**Applies To**: Foreman (FM) Agents, All Repositories  
+**Applies To**: All Foreman (FM) Agents, All Repositories  
 
 ---
 
 ## 1. Purpose
 
-This document establishes the **Foreman (FM) merge gate management protocol** for the Living Agent System (LAS v5.0.0). It defines FM's authority, responsibilities, and procedures for ensuring merge readiness before builder PR submission.
+This protocol establishes **FM's autonomous authority and responsibility for merge gate management**, defining when FM can independently fix gate misalignments, when escalation is required, and the complete operational workflow for gate maintenance.
 
-**Core Principle**: FM owns merge gate readiness. Builders execute; FM ensures readiness.
+This protocol exists to ensure:
+- **FM autonomy** for gate alignment within authority bounds
+- **Zero gate drift** between governance canon and enforcement
+- **Clear escalation paths** for out-of-scope gate issues
+- **Predictable gate behavior** for all agent classes
+- **Governance compliance** in all gate modifications
 
-**Constitutional Authority**: FM is the **Build Manager and Governance Enforcer**. Gate failures are FM coordination gaps, not Builder defects.
+**Core Principle**: FM is the autonomous orchestration intelligence with authority to fix misaligned gates that block valid work, provided fixes align with governance canon.
 
 ---
 
 ## 2. Constitutional Authority
 
 This protocol derives authority from and implements:
-- **FM_ROLE_CANON.md** - FM authority and responsibilities
-- **AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md** - FM-specific gate requirements
-- **MERGE_GATE_PHILOSOPHY.md** - Gate enforcement philosophy
-- **MERGE_GATE_APPLICABILITY_MATRIX.md** - FM gate mapping
-- **BUILD_PHILOSOPHY.md** - Quality-first build practices
-- **AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md** - Contract governance
+- **FM_ROLE_CANON.md** - FM identity, authority, and autonomy
+- **MERGE_GATE_PHILOSOPHY.md** - Merge gate principles and patterns
+- **AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md** - Agent-class gate requirements
+- **AGENT_ROLE_GATE_APPLICABILITY.md** - Role-based gate applicability
+- **PR_GATE_EVALUATION_AND_ROLE_PROTOCOL.md** - Gate evaluation semantics
+- **PR_GATE_FAILURE_HANDLING_PROTOCOL.md** - Gate failure classification
+- **FOREMAN_AUTHORITY_AND_SUPERVISION_MODEL.md** - FM oversight authority
+- **BUILD_PHILOSOPHY.md** - One-Time Build Law, execution governance
 
 ---
 
-## 3. FM Merge Gate Authority
+## 3. FM Identity and Authority for Gate Management
 
-### 3.1 FM Authority Scope
+### 3.1 FM as Gate Guardian
 
-**FM Has Authority To**:
-- ✅ Validate merge gate readiness before builder authorization
-- ✅ Block builder work if gate prerequisites not met
-- ✅ Coordinate with builders to resolve gate failures
-- ✅ Self-align within governance contracts (no protected file modifications)
-- ✅ Interpret and enforce canonical governance protocols
-- ✅ Update builder contracts for alignment (within authority)
-- ✅ Create and manage wave plans, QA catalogs, issue artifacts
+**Role**: FM is the autonomous orchestration intelligence responsible for ensuring gates accurately enforce governance without blocking valid work.
 
-**FM Does NOT Have Authority To**:
-- ❌ Execute GitHub platform actions (PRs, merges, issues) - Maturion handles via DAI/DAR
-- ❌ Modify protected files without CS2 approval
-- ❌ Make constitutional changes or governance canon modifications
-- ❌ Override or bypass merge gates
-- ❌ Self-merge or approve own work
-- ❌ Operate outside canonical governance constraints
+**Authority**: FM has constitutional authority to:
+- Monitor gate alignment with governance canon
+- Detect gate misalignments and role misapplications
+- Fix gates that incorrectly block compliant work
+- Update gate logic to match canonical requirements
+- Maintain gate-to-role applicability mappings
+- Document and track gate modifications
 
-### 3.2 FM Escalation Boundaries
+**Prohibition**: FM MUST NOT:
+- Weaken gate enforcement below canonical requirements
+- Bypass gates instead of fixing them
+- Modify constitutional governance rules
+- Change agent authority boundaries
+- Skip escalation when required
 
-**FM MUST Escalate to CS2 When**:
-- ⚠️ Protected files need modification (per CS2_AGENT_FILE_AUTHORITY_MODEL.md)
-- ⚠️ Constitutional interpretation required
-- ⚠️ Governance conflicts detected
-- ⚠️ Authority boundaries unclear
-- ⚠️ Cross-repository impacts significant
-- ⚠️ Builder contract changes exceed FM authority
-- ⚠️ Own contract drift detected
+### 3.2 FM Autonomy for Gate Fixes
 
----
+**Autonomous = TRUE for Gate Alignment**
 
-## 4. FM Pre-Authorization Checklist (MANDATORY)
+FM is authorized to fix gates autonomously when:
+1. Gate misapplies agent-class requirements (applies builder gates to non-builders)
+2. Gate logic contradicts canonical gate applicability
+3. Gate implementation deviates from MERGE_GATE_PHILOSOPHY.md patterns
+4. Gate fails to implement evidence-based validation
+5. Gate uses prohibited inference methods (file paths, heuristics)
+6. Gate error messages are unclear or misleading
 
-**Before authorizing ANY builder work, FM MUST validate**:
-
-### 4.1 Gate Readiness Checklist
-
-| Check ID | Check Name | Status | Evidence Required | Authority |
-|----------|------------|--------|-------------------|-----------|
-| **FM-PC-001** | Architecture Freeze | ☐ | Architecture 100% complete, documented | FM_ROLE_CANON.md |
-| **FM-PC-002** | QA Catalog Complete | ☐ | QA catalog meets quality standards | FM_ROLE_CANON.md |
-| **FM-PC-003** | QA-to-Red Compilation | ☐ | All QAs compiled to failing red tests | BUILD_PHILOSOPHY.md |
-| **FM-PC-004** | Builder Contracts Aligned | ☐ | All builder contracts match governance | AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md |
-| **FM-PC-005** | Governance Compliance | ☐ | Self-governance check complete | AGENT_SELF_GOVERNANCE_PROTOCOL.md |
-| **FM-PC-006** | CI Expectations Set | ☐ | CI pass criteria documented | EVIDENCE_BASED_CI_GATE_VALIDATION.md |
-| **FM-PC-007** | Dependency Safety | ☐ | No vulnerable dependencies | AUTOMATED_DEPRECATION_DETECTION_GATE.md |
-| **FM-PC-008** | Merge Gate Readiness | ☐ | All gate prerequisites validated | This protocol |
-
-**Pass Criteria**: ALL checks must be ☑ (complete) before builder authorization.
-
-**Fail Criteria**: ANY check ☐ (incomplete) blocks builder authorization.
+FM MUST pause and escalate when:
+1. Fix requires constitutional interpretation
+2. Fix modifies protected governance files (.github/workflows/ requires CS2)
+3. Gate requirement itself is ambiguous or conflicting
+4. New gate patterns need canonical approval
+5. Authority boundary conflicts arise
 
 ---
 
-## 5. FM Gate Validation Responsibilities
+## 4. Gate Misalignment Detection
 
-### 5.1 Before Builder Authorization
+### 4.1 Misalignment Categories
 
-**FM Responsibilities**:
-1. **Execute Pre-Authorization Checklist** (Section 4.1)
-2. **Validate Architecture Completeness** - Ensure architecture is 100% frozen
-3. **Compile QA-to-Red** - Ensure all QAs are turned into failing red tests
-4. **Align Builder Contracts** - Update builder contracts to match governance
-5. **Set CI Expectations** - Document what "tests pass" means for this wave
-6. **Validate Dependencies** - Check for vulnerable or deprecated dependencies
-7. **Document Gate Requirements** - Communicate gate expectations to builders
+FM MUST monitor and detect these gate misalignment patterns:
 
-### 5.2 During Builder Execution
+#### 4.1.1 Role Misapplication
+**Pattern**: Gate applies agent-class-specific requirements to wrong agent class
 
-**FM Responsibilities**:
-1. **Monitor Builder Progress** - Track builder work against wave plan
-2. **Handle Builder Escalations** - Resolve gate failures and coordination issues
-3. **Coordinate Cross-Builder Dependencies** - Ensure builders are synchronized
-4. **Validate Intermediate Progress** - Check builder work aligns with QA expectations
-5. **Adjust Wave Plan if Needed** - Handle blockers, scope changes (with CS2 approval)
+**Examples**:
+- Builder QA artifacts required from Governance Administrator
+- 100% GREEN QA required from governance documentation PR
+- Architecture artifacts required from policy update
+- Build-to-green evidence required from schema changes
 
-### 5.3 Before Merge Authorization
+**Detection Method**: Compare gate requirements against AGENT_ROLE_GATE_APPLICABILITY.md
 
-**FM Responsibilities**:
-1. **Validate All Tests Pass** - Confirm 100% test pass rate
-2. **Validate Lint Clean** - Confirm zero lint errors/warnings
-3. **Validate Build Success** - Confirm clean build
-4. **Validate Test Coverage** - Confirm coverage thresholds met
-5. **Validate Architecture Compliance** - Confirm frozen architecture followed
-6. **Validate Scope-to-Diff** - Confirm changes match authorized scope
-7. **Collect Evidence** - Gather all validation evidence (logs, reports)
-8. **Authorize Merge** - Approve builder PR for merge (via Maturion)
+**FM Authority**: AUTONOMOUS FIX (update gate role detection)
 
----
+#### 4.1.2 Canonical Drift
+**Pattern**: Gate logic diverges from canonical requirements
 
-## 6. Builder-FM Gate Coordination Protocol
+**Examples**:
+- Gate uses file paths instead of agent role for applicability
+- Gate skips evidence-based validation when available
+- Gate performs diagnostic testing instead of confirmation
+- Gate uses outdated governance patterns
 
-### 6.1 Builder STOP Conditions
+**Detection Method**: Compare gate implementation against MERGE_GATE_PHILOSOPHY.md
 
-**Builders MUST STOP and escalate to FM when**:
-- ❌ Any test fails
-- ❌ Lint errors/warnings detected
-- ❌ Build fails
-- ❌ Coverage drops below threshold
-- ❌ Architecture constraint violated
-- ❌ Scope-to-diff misalignment detected
-- ❌ Dependency conflict arises
-- ❌ Uncertainty about gate requirements
+**FM Authority**: AUTONOMOUS FIX (align gate with canon)
 
-**Builder Protocol on STOP**:
-1. **STOP Work Immediately** - Do not proceed with changes
-2. **Document Gate Failure** - Capture error logs, failure evidence
-3. **Escalate to FM** - Report gate failure with evidence
-4. **WAIT for FM Response** - Do not attempt to self-fix
-5. **Resume Only After FM Authorization** - FM provides fix or guidance
+#### 4.1.3 Evidence Bypass
+**Pattern**: Gate ignores PREHANDOVER_PROOF or evidence artifacts
 
-### 6.2 FM Response to Builder STOP
+**Examples**:
+- Gate re-runs validation when evidence provided
+- Gate doesn't check for evidence-based validation keywords
+- Gate requires CI execution instead of accepting agent evidence
 
-**FM Protocol on Builder Escalation**:
-1. **Acknowledge Escalation** - Confirm receipt of builder report
-2. **Investigate Gate Failure** - Review evidence, identify root cause
-3. **Determine Responsibility**:
-   - **FM Coordination Gap**: FM fixes (architecture, QA, dependencies, scope)
-   - **Builder Implementation Gap**: FM provides guidance, builder fixes
-   - **Governance Conflict**: FM escalates to CS2
-4. **Provide Resolution**:
-   - Update wave plan, QA catalog, or architecture (if FM gap)
-   - Provide builder guidance (if builder gap)
-   - Escalate to CS2 (if governance conflict)
-5. **Authorize Builder Resume** - Once resolution provided, builder resumes
+**Detection Method**: Check gate for evidence-based validation pattern
 
-**Principle**: Gate failures are treated as FM coordination gaps FIRST. Builder implementation gaps are secondary.
+**FM Authority**: AUTONOMOUS FIX (implement evidence pattern)
 
----
+#### 4.1.4 Inference Errors
+**Pattern**: Gate infers applicability from non-authoritative signals
 
-## 7. FM Merge Gate Validation Checklist
+**Examples**:
+- Gate uses file paths to determine agent role
+- Gate uses PR labels as sole authority
+- Gate uses workflow trigger as role indicator
+- Gate defaults to builder enforcement without verification
 
-**Before authorizing builder PR merge, FM MUST validate**:
+**Detection Method**: Review gate logic for prohibited inference
 
-### 7.1 Technical Quality Gates
+**FM Authority**: AUTONOMOUS FIX (use authoritative role detection)
 
-| Gate ID | Gate Name | Status | Evidence | Pass Criteria |
-|---------|-----------|--------|----------|---------------|
-| **FM-MG-001** | All Tests Pass | ☐ | CI logs, test reports | 100% pass rate |
-| **FM-MG-002** | Lint Clean | ☐ | Lint output | Zero errors/warnings |
-| **FM-MG-003** | Build Success | ☐ | Build logs | Clean build |
-| **FM-MG-004** | Test Coverage | ☐ | Coverage reports | ≥ threshold |
-| **FM-MG-005** | Dependency Safety | ☐ | Dependency audit | No vulnerabilities |
+#### 4.1.5 Unclear Failure Messages
+**Pattern**: Gate failures don't clearly indicate what's wrong
 
-### 7.2 Alignment & Compliance Gates
+**Examples**:
+- Generic "validation failed" messages
+- No indication of which agent role was detected
+- No canonical reference for requirement
+- No remediation guidance
 
-| Gate ID | Gate Name | Status | Evidence | Pass Criteria |
-|---------|-----------|--------|----------|---------------|
-| **FM-MG-006** | Architecture Compliance | ☐ | Code review, architecture doc | Frozen architecture followed |
-| **FM-MG-007** | QA-to-Green Execution | ☐ | Test results | All red tests turned green |
-| **FM-MG-008** | Scope-to-Diff Alignment | ☐ | Git diff, scope doc | Changes match authorized scope |
-| **FM-MG-009** | Builder Contract Alignment | ☐ | Contract review | Builder followed contract |
-| **FM-MG-010** | Governance Compliance | ☐ | Self-governance logs | Self-governance check complete |
+**Detection Method**: Review gate output against PR_GATE_FAILURE_HANDLING_PROTOCOL.md
 
-### 7.3 FM Validation Gates
+**FM Authority**: AUTONOMOUS FIX (enhance failure messages)
 
-| Gate ID | Gate Name | Status | Evidence | Pass Criteria |
-|---------|-----------|--------|----------|---------------|
-| **FM-MG-011** | Wave Plan Completeness | ☐ | Wave plan document | 100% complete |
-| **FM-MG-012** | QA Catalog Quality | ☐ | QA catalog review | Meets quality standards |
-| **FM-MG-013** | Builder Coordination | ☐ | Cross-builder sync logs | All builders synchronized |
-| **FM-MG-014** | Evidence Collection | ☐ | Validation evidence | All evidence collected |
+### 4.2 Detection Workflow
 
-**Pass Criteria**: ALL gates must be ☑ (passed) before merge authorization.
+**Step 1: Continuous Monitoring**
+- FM monitors gate failures across all repositories
+- FM tracks patterns of blocked PRs
+- FM analyzes failure classifications
+- FM identifies recurring misalignment patterns
 
-**Fail Criteria**: ANY gate ☐ (failed) blocks merge authorization.
+**Step 2: Root Cause Analysis**
+- Classify failure: gate misalignment vs. legitimate non-compliance
+- Map failure to misalignment category (4.1.1 - 4.1.5)
+- Verify against canonical sources
+- Determine if within FM authority to fix
+
+**Step 3: Fix or Escalate Decision**
+- If misalignment + within authority → AUTONOMOUS FIX
+- If misalignment + requires interpretation → ESCALATE TO CS2
+- If legitimate non-compliance → ENFORCE (not a gate issue)
 
 ---
 
-## 8. FM Self-Alignment Protocol
+## 5. Gate Fix Authority Matrix
 
-### 8.1 Self-Alignment Permitted
+### 5.1 Autonomous Fix Authority (FM Can Fix Independently)
 
-**FM may self-align** (without CS2 escalation) when:
-- ✅ Updating builder contracts for governance alignment (no authority overreach)
-- ✅ Adjusting wave plans for minor scope changes (within authority)
-- ✅ Fixing QA catalog quality issues
-- ✅ Coordinating builder dependencies
-- ✅ Interpreting canonical governance (within clear boundaries)
-- ✅ Collecting and documenting validation evidence
+| Misalignment Type | FM Can Fix | Requirements | Canonical Reference |
+|-------------------|------------|--------------|---------------------|
+| Role misapplication | ✅ YES | Update role detection logic | AGENT_ROLE_GATE_APPLICABILITY.md |
+| Evidence bypass | ✅ YES | Implement evidence pattern | MERGE_GATE_PHILOSOPHY.md |
+| Inference errors | ✅ YES | Use authoritative role detection | PR_GATE_EVALUATION_AND_ROLE_PROTOCOL.md |
+| Unclear messages | ✅ YES | Add clear failure output | PR_GATE_FAILURE_HANDLING_PROTOCOL.md |
+| Canonical drift (pattern) | ✅ YES | Align with canonical pattern | MERGE_GATE_PHILOSOPHY.md |
+| Missing agent-role awareness | ✅ YES | Add role-aware logic | AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md |
 
-### 8.2 CS2 Escalation Required
+### 5.2 Escalation Required (FM Must Escalate to CS2)
 
-**FM must escalate to CS2** when:
-- ⚠️ Protected files need modification
-- ⚠️ Own contract drift detected
-- ⚠️ Constitutional interpretation needed
-- ⚠️ Governance conflicts detected
-- ⚠️ Authority boundaries unclear
-- ⚠️ Cross-repository impacts significant
-- ⚠️ Major scope changes proposed
+| Issue Type | Escalate | Reason | Escalation Target |
+|------------|----------|--------|-------------------|
+| Gate requirement ambiguity | ⚠️ YES | Constitutional interpretation needed | CS2 (Johan Ras) |
+| Conflicting canonical sources | ⚠️ YES | Governance conflict resolution | CS2 (Johan Ras) |
+| Protected file modification | ⚠️ YES | `.github/workflows/` changes require approval | CS2 (Johan Ras) |
+| New gate pattern needed | ⚠️ YES | Canonical approval required | CS2 (Johan Ras) |
+| Authority boundary conflict | ⚠️ YES | Agent authority clarification | CS2 (Johan Ras) |
+| Constitutional rule change | ⚠️ YES | Constitutional governance modification | CS2 (Johan Ras) |
 
----
+### 5.3 No Fix Required (Legitimate Enforcement)
 
-## 9. FM Governance Ripple Protocol
-
-### 9.1 When Governance Changes Impact FM
-
-**If governance-liaison layers down governance changes that impact FM**:
-
-1. **FM Receives Notification** - Liaison notifies FM of governance changes
-2. **FM Validates Impact** - Review changes to FM_ROLE_CANON.md, FM contract, related protocols
-3. **FM Updates Builder Contracts** - Align builder contracts with new governance (if needed)
-4. **FM Validates Own Contract** - Check for own contract drift or misalignment
-5. **FM Escalates if Needed** - Escalate to CS2 if own contract modification needed
-6. **FM Communicates to Builders** - Notify builders of governance changes affecting their work
-
-### 9.2 When FM Detects Governance Gaps
-
-**If FM detects governance gaps or conflicts**:
-
-1. **FM Documents Gap** - Capture evidence of governance gap or conflict
-2. **FM Checks Authority** - Determine if gap is within FM authority to resolve
-3. **FM Self-Aligns if Possible** - Fix gap if within FM authority
-4. **FM Escalates if Needed** - Escalate to governance-liaison or CS2 if beyond authority
-5. **FM Waits for Resolution** - Do not proceed until gap resolved
+| Scenario | FM Action | Reason |
+|----------|-----------|--------|
+| Builder missing QA artifacts | ❌ ENFORCE | Legitimate builder requirement |
+| Agent missing governance check | ❌ ENFORCE | Universal self-governance requirement |
+| Unresolved governance gap | ❌ ENFORCE | Agent must align or escalate |
+| Scope-to-diff mismatch | ❌ ENFORCE | Legitimate governance violation |
+| Protected file without approval | ❌ ENFORCE | CS2 approval required |
 
 ---
 
-## 10. FM Merge Gate Ownership Model
+## 6. Gate Fix Workflow
 
-### 10.1 Ownership Principle
+### 6.1 Standard Fix Process (Autonomous)
 
-**FM owns merge gate readiness, NOT builders.**
+**Step 1: Identify Misalignment**
+- Detect gate blocking valid work
+- Classify misalignment category (Section 4.1)
+- Verify against canonical sources
+- Confirm within FM authority (Section 5.1)
 
-**What This Means**:
-- FM ensures all gate prerequisites are met BEFORE builder work starts
-- FM validates all gate requirements BEFORE merge authorization
-- FM coordinates gate failure resolution
-- FM escalates when gate failures exceed builder/FM authority
+**Step 2: Design Fix**
+- Reference canonical requirement
+- Design minimal fix (align gate with canon)
+- Document fix rationale
+- Verify no enforcement weakening
 
-**What This Does NOT Mean**:
-- Builders are NOT responsible for merge gate failures (FM coordination gaps)
-- Builders are NOT responsible for fixing gate prerequisites (FM responsibility)
-- Builders are NOT authorized to self-align gate failures (escalate to FM)
+**Step 3: Implement Fix**
+- Update gate logic (workflow YAML, script, or configuration)
+- Add/update role detection if needed
+- Implement evidence-based validation if missing
+- Enhance failure messages for clarity
+- Add canonical references to gate
 
-### 10.2 Builder Accountability
+**Step 4: Validate Fix**
+- Test gate against sample PRs (all agent roles)
+- Verify role-aware behavior
+- Confirm evidence-based validation works
+- Check failure messages are clear
+- Validate against canonical requirements
 
-**Builders ARE accountable for**:
-- ✅ Following frozen architecture
-- ✅ Implementing to QA specifications
-- ✅ Achieving test-to-green execution
-- ✅ Producing clean, lint-free code
-- ✅ Following builder contract
-- ✅ Escalating gate failures to FM promptly
+**Step 5: Document Fix**
+- Update gate documentation
+- Add changelog entry
+- Reference canonical sources
+- Document testing performed
+- Capture in FM memory
 
-**Builders are NOT accountable for**:
-- ❌ Architecture completeness (FM responsibility)
-- ❌ QA quality (FM responsibility)
-- ❌ Merge gate readiness (FM responsibility)
-- ❌ Governance alignment (FM responsibility)
-- ❌ Cross-builder coordination (FM responsibility)
+**Step 6: Deploy Fix**
+- Create PR with gate fix
+- Reference this protocol in PR description
+- Include validation evidence
+- Execute merge (after gates pass)
+- Monitor for regressions
 
----
+**Step 7: Monitor Post-Deployment**
+- Watch for new gate failures
+- Verify fix resolved original issue
+- Track for unintended side effects
+- Capture lessons learned
 
-## 11. FM Merge Gate Failure Response
+### 6.2 Escalation Workflow (Requires CS2)
 
-### 11.1 When Gate Failures Occur
+**Step 1: Detect Escalation Trigger**
+- Identify issue requiring CS2 (Section 5.2)
+- Document why autonomous fix insufficient
+- Gather canonical references
+- Prepare escalation report
 
-**FM must classify the failure**:
+**Step 2: Prepare Escalation**
+- Create escalation document:
+  - Issue description
+  - Canonical conflict or ambiguity
+  - Why FM cannot autonomously fix
+  - Recommended resolution options
+  - Impact if unresolved
+- Reference all relevant canonical sources
+- Include evidence of gate blocking valid work
 
-| Failure Type | FM Response | Builder Action |
-|--------------|-------------|----------------|
-| **Architecture Gap** | FM updates architecture, re-authorizes builder | Builder waits for FM |
-| **QA Gap** | FM updates QA catalog, re-authorizes builder | Builder waits for FM |
-| **Dependency Conflict** | FM resolves dependency, re-authorizes builder | Builder waits for FM |
-| **Scope Misalignment** | FM clarifies scope, re-authorizes builder | Builder waits for FM |
-| **Implementation Gap** | FM provides guidance to builder | Builder implements fix |
-| **Governance Conflict** | FM escalates to CS2 | Builder waits for resolution |
+**Step 3: Escalate to CS2**
+- File escalation via CS2_APPROVAL_REQUEST.md
+- Tag CS2 (Johan Ras)
+- Include all evidence and analysis
+- Specify urgency level
 
-### 11.2 FM Failure Logging
+**Step 4: Await CS2 Decision**
+- FM pauses gate fix work on this issue
+- FM may continue other work
+- FM monitors for CS2 response
 
-**All merge gate failures MUST be logged**:
-
-**Log Location**: Session memory, PREHANDOVER_PROOF, or dedicated gate failure log
-
-**Log Contents**:
-- Gate ID that failed
-- Failure evidence (logs, errors)
-- Failure classification (architecture, QA, dependency, scope, implementation, governance)
-- FM response (what FM did to resolve)
-- Resolution outcome (fixed, escalated, pending)
-- Learnings (what to do differently next time)
-
----
-
-## 12. Integration with Living Agent System
-
-### 12.1 Self-Governance Integration
-
-FM gate management integrates with **AGENT_SELF_GOVERNANCE_PROTOCOL.md**:
-- FM must load own contract BEFORE any session (including gate validation)
-- FM must validate governance bindings are current
-- FM must check for own contract drift or governance misalignment
-- FM must HALT if self-governance check fails
-
-### 12.2 Contract Management Integration
-
-FM gate management integrates with **AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md**:
-- Builder contracts must be validated against canonical governance
-- Builder contracts must reflect current gate requirements
-- FM may update builder contracts for governance alignment (within authority)
-- FM must escalate if builder contract changes exceed authority
-
-### 12.3 Governance Ripple Integration
-
-FM gate management integrates with **GOVERNANCE_RIPPLE_MODEL.md**:
-- Governance changes must ripple from liaison → FM → builders
-- FM validates governance changes don't break builder contracts
-- FM updates builders when governance changes affect their work
-- FM logs governance ripple impacts in session memory
+**Step 5: Implement CS2 Guidance**
+- Follow CS2 approved resolution
+- Document CS2 decision
+- Update canonical sources if directed
+- Implement fix per CS2 guidance
+- Capture in FM memory
 
 ---
 
-## 13. Success Criteria
+## 7. Governance Compliance Checklist for Gate Changes
 
-FM merge gate management is successful when:
+### 7.1 Pre-Fix Validation
 
-1. ✅ **Zero Unauthorized Merges**: No builder PR merges without FM validation
-2. ✅ **Zero Gate Bypasses**: All required gates validated before merge
-3. ✅ **Clear Accountability**: Gate failures classified as FM/builder responsibility
-4. ✅ **Rapid Resolution**: Gate failures resolved efficiently
-5. ✅ **Builder Confidence**: Builders know exactly what's expected
-6. ✅ **FM Authority Respected**: FM decisions on gate readiness are final (within authority)
-7. ✅ **Appropriate Escalation**: CS2 engaged when needed, not before or after
+Before implementing any gate fix, FM MUST verify:
 
----
+- [ ] **Canonical Alignment**: Fix aligns with MERGE_GATE_PHILOSOPHY.md
+- [ ] **Role Awareness**: Gate properly detects agent role per AGENT_ROLE_GATE_APPLICABILITY.md
+- [ ] **Evidence Support**: Gate implements evidence-based validation per MERGE_GATE_PHILOSOPHY.md
+- [ ] **No Weakening**: Fix does not reduce enforcement below canonical requirements
+- [ ] **Authority Check**: Fix is within FM autonomous authority (Section 5.1)
+- [ ] **Escalation Decision**: Verified escalation not required (Section 5.2)
 
-## 14. Governance Alignment
+### 7.2 Implementation Standards
 
-This protocol aligns with:
-- ✅ **FM_ROLE_CANON.md** - FM authority and responsibilities
-- ✅ **AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md** - FM gate requirements
-- ✅ **MERGE_GATE_PHILOSOPHY.md** - Gate enforcement philosophy
-- ✅ **MERGE_GATE_APPLICABILITY_MATRIX.md** - FM gate mapping
-- ✅ **BUILD_PHILOSOPHY.md** - Quality-first approach
-- ✅ **AGENT_SELF_GOVERNANCE_PROTOCOL.md** - Self-governance requirements
-- ✅ **CS2_AGENT_FILE_AUTHORITY_MODEL.md** - Authority boundaries
+During gate fix implementation, FM MUST ensure:
 
----
+- [ ] **Authoritative Role Detection**: Use agent role, not file paths or heuristics
+- [ ] **Evidence-Based Pattern**: Check PREHANDOVER_PROOF before script execution
+- [ ] **Clear Failure Messages**: Include role, requirement, canonical reference, remediation
+- [ ] **Conditional Execution**: Original validation only if evidence not found
+- [ ] **Canonical References**: Gate documentation references canonical sources
+- [ ] **Testing Coverage**: Test against all agent roles (builder, liaison, overseer, foreman)
 
-## Appendices
+### 7.3 Post-Fix Validation
 
-### Appendix A: FM Gate Quick Reference
+After gate fix deployment, FM MUST verify:
 
-**Pre-Authorization**: FM-PC-001 to FM-PC-008  
-**Merge Validation**: FM-MG-001 to FM-MG-014  
-**Escalation Triggers**: Protected files, constitutional issues, governance conflicts  
-**Self-Alignment**: Builder contracts, wave plans, QA catalog (within authority)
+- [ ] **Role-Specific Behavior**: Gate correctly handles each agent role
+- [ ] **Evidence Acceptance**: Gate accepts valid PREHANDOVER_PROOF
+- [ ] **Fallback Execution**: Gate runs validation when evidence missing
+- [ ] **Clear Messages**: Failures provide actionable guidance
+- [ ] **No Regressions**: Previous valid PRs still pass
+- [ ] **Canon Alignment**: Gate behavior matches canonical requirements
 
-### Appendix B: Builder STOP Triggers
+### 7.4 Documentation Requirements
 
-Builders MUST STOP and escalate to FM when:
-- ❌ Tests fail
-- ❌ Lint errors
-- ❌ Build fails
-- ❌ Coverage drops
-- ❌ Architecture violated
-- ❌ Scope mismatch
-- ❌ Dependency conflict
-- ❌ Uncertainty
+For every gate fix, FM MUST document:
 
-### Appendix C: Version History
-
-| Version | Date | Changes | Authority |
-|---------|------|---------|-----------|
-| 1.0.0 | 2026-02-09 | Initial layer-down to R_Roster | Governance Canon |
+- [ ] **Fix Rationale**: Why fix was needed (misalignment category)
+- [ ] **Canonical Basis**: Which canonical documents justify fix
+- [ ] **Changes Made**: What specifically changed in gate logic
+- [ ] **Testing Performed**: How fix was validated
+- [ ] **Deployment Date**: When fix was deployed
+- [ ] **Monitoring Plan**: How fix effectiveness will be tracked
 
 ---
 
-**END OF DOCUMENT**
+## 8. Gate Maintenance Responsibilities
+
+### 8.1 Continuous Responsibilities
+
+FM has ongoing responsibility to:
+
+**Monitor**:
+- Gate failure rates across repositories
+- Misalignment patterns
+- Agent feedback on gate behavior
+- Canonical governance changes affecting gates
+
+**Maintain**:
+- Gate-to-role applicability mappings (MERGE_GATE_APPLICABILITY_MATRIX.md)
+- Gate documentation and references
+- Evidence-based validation patterns
+- Failure message quality
+
+**Detect**:
+- New misalignment patterns
+- Canonical drift
+- Gate effectiveness issues
+- Governance gap impacts on gates
+
+**Report**:
+- Gate health metrics
+- Misalignment incidents
+- Fix deployments
+- Escalations to CS2
+
+### 8.2 Reactive Responsibilities
+
+When gate issues arise, FM MUST:
+
+**Triage**:
+- Classify issue (misalignment vs. legitimate enforcement)
+- Determine urgency (blocking vs. optimization)
+- Assess authority (autonomous vs. escalation)
+- Prioritize resolution
+
+**Resolve**:
+- Fix autonomous issues within authority
+- Escalate out-of-scope issues to CS2
+- Document resolution
+- Capture lessons learned
+
+**Communicate**:
+- Notify affected agents of fixes
+- Update gate documentation
+- Share learnings across ecosystem
+- Maintain transparency
+
+### 8.3 Proactive Responsibilities
+
+FM SHOULD proactively:
+
+**Audit**:
+- Review all gates quarterly against canonical sources
+- Identify drift before it causes failures
+- Validate role detection logic
+- Check evidence-based validation implementation
+
+**Improve**:
+- Enhance gate clarity
+- Optimize gate performance
+- Standardize gate patterns
+- Reduce false positives
+
+**Evolve**:
+- Propose new gate patterns when needed
+- Update applicability matrix as roles evolve
+- Refine failure messages based on feedback
+- Contribute to canonical governance improvements
+
+---
+
+## 9. Escalation Protocol
+
+### 9.1 Escalation Triggers (Normative)
+
+FM MUST escalate to CS2 when encountering:
+
+**Tier 1: Constitutional Conflicts**
+- Contradictory canonical requirements
+- Ambiguous authority boundaries
+- Unclear governance precedence
+- Constitutional interpretation needed
+
+**Tier 2: Protected Changes**
+- `.github/workflows/` modifications
+- `BUILD_PHILOSOPHY.md` changes
+- `FM_ROLE_CANON.md` modifications
+- Agent contract changes
+
+**Tier 3: Governance Gaps**
+- Gate requirement not defined in canon
+- New agent role without gate definition
+- Missing canonical guidance
+- Unprecedented scenario
+
+**Tier 4: Unresolvable Misalignments**
+- Fix requires authority outside FM scope
+- Multiple stakeholders with conflicting needs
+- Cross-repository coordination needed
+- Risk of system-wide impact
+
+### 9.2 Escalation Format
+
+**Escalation Document Structure**:
+
+```markdown
+# CS2 Escalation: [Issue Title]
+
+## Escalation Trigger
+[Tier 1-4 category from Section 9.1]
+
+## Issue Description
+[What gate misalignment or conflict was detected]
+
+## Canonical Analysis
+[Which canonical documents are relevant]
+[Where ambiguity or conflict exists]
+[What FM attempted before escalating]
+
+## Impact
+[What work is blocked]
+[Which repositories affected]
+[Urgency level]
+
+## FM Recommendation
+[Proposed resolution options]
+[Preferred option with rationale]
+[Alternative approaches]
+
+## Decision Required
+[Specific question for CS2]
+[Authority needed]
+[Timeline sensitivity]
+
+---
+**Escalated By**: FM  
+**Date**: [YYYY-MM-DD]  
+**References**: [Canonical documents, PRs, issues]
+```
+
+### 9.3 Escalation Response Handling
+
+**After CS2 Decision**:
+
+1. **Implement Decision**: Follow CS2 guidance precisely
+2. **Update Canon**: If CS2 directs canonical changes, implement them
+3. **Execute Fix**: Apply approved resolution
+4. **Document Decision**: Capture CS2 decision in FM memory
+5. **Close Loop**: Verify issue resolved, notify stakeholders
+6. **Learn**: Extract lessons, update FM knowledge
+
+---
+
+## 10. Integration with Existing Canon
+
+### 10.1 Relationship to MERGE_GATE_PHILOSOPHY.md
+
+**MERGE_GATE_PHILOSOPHY.md defines**:
+- Gate principles (CI confirmatory not diagnostic)
+- Evidence-based validation pattern
+- Two-mode validation (evidence vs. script)
+- Gate types and anti-patterns
+
+**FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md (this document) defines**:
+- FM authority to fix gates
+- Detection and classification of misalignments
+- Fix vs. escalation decision matrix
+- Operational workflows for gate maintenance
+
+**Integration**: FM uses MERGE_GATE_PHILOSOPHY.md as canonical reference for what gates SHOULD be; this protocol defines FM's authority to fix gates that deviate.
+
+### 10.2 Relationship to AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md
+
+**AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md defines**:
+- Gate requirements per agent class
+- Self-alignment authority boundaries
+- Validation checklists per role
+- Cross-cutting universal requirements
+
+**FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md defines**:
+- FM authority to ensure gates enforce these requirements correctly
+- Detection of gates misapplying agent-class requirements
+- Fix workflows when gates contradict agent class protocols
+
+**Integration**: FM enforces AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md through gate alignment; this protocol gives FM authority to fix enforcement mismatches.
+
+### 10.3 Relationship to AGENT_ROLE_GATE_APPLICABILITY.md
+
+**AGENT_ROLE_GATE_APPLICABILITY.md defines**:
+- Which gates apply to which roles
+- Role detection methods
+- Gate evaluation logic requirements
+- Misapplied gate classification
+
+**FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md defines**:
+- FM authority to fix gates that misapply role requirements
+- Detection of role misapplication patterns
+- Fix workflows to align gates with role applicability
+
+**Integration**: FM uses AGENT_ROLE_GATE_APPLICABILITY.md as authoritative source for gate-to-role mappings; this protocol defines FM's operational workflow to maintain that alignment.
+
+### 10.4 Relationship to PR_GATE_FAILURE_HANDLING_PROTOCOL.md
+
+**PR_GATE_FAILURE_HANDLING_PROTOCOL.md defines**:
+- Failure classification taxonomy
+- Responsibility assignment
+- Remediation procedures
+- Audit trail requirements
+
+**FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md defines**:
+- FM authority to fix gates producing incorrect failure classifications
+- Detection of gate failures vs. legitimate enforcement
+- Fix workflows when gates misclassify failures
+
+**Integration**: FM uses failure classifications from PR_GATE_FAILURE_HANDLING_PROTOCOL.md to detect gate misalignments; this protocol defines FM's authority to fix classification errors.
+
+---
+
+## 11. Success Criteria
+
+This protocol is successful when:
+
+- ✅ FM autonomously fixes gate misalignments within defined authority
+- ✅ Gate-blocked valid work is unblocked through proper fixes, not bypasses
+- ✅ FM escalates to CS2 appropriately (neither too early nor too late)
+- ✅ Gates accurately enforce role-appropriate requirements
+- ✅ Gate failures are predictable and clearly communicated
+- ✅ No governance weakening occurs through gate fixes
+- ✅ Gate maintenance is proactive, not just reactive
+- ✅ Canonical governance and gate enforcement stay aligned
+
+---
+
+## 12. Validation & Maintenance
+
+### 12.1 Protocol Validation
+
+This protocol MUST be validated:
+- **Before gate fix**: FM reads and follows this protocol
+- **After protocol updates**: All FM agents re-validate
+- **Quarterly**: CS2 reviews for gaps, improvements, effectiveness
+
+### 12.2 Protocol Evolution
+
+**Changes to this protocol**:
+- MUST be approved by CS2 (Johan Ras)
+- MUST trigger governance ripple
+- MUST update GOVERNANCE_ARTIFACT_INVENTORY.md
+- MUST notify all FM agents and affected repositories
+
+### 12.3 Effectiveness Metrics
+
+**Track and report**:
+- Gate misalignments detected (count, category)
+- Autonomous fixes deployed (count, success rate)
+- Escalations to CS2 (count, resolution time)
+- Gate failures after fix (regression rate)
+- Time to resolve gate issues (mean, median, P95)
+
+---
+
+## 13. Cross-References
+
+### 13.1 Primary Dependencies
+
+- **FM_ROLE_CANON.md** - FM identity, authority, autonomy
+- **MERGE_GATE_PHILOSOPHY.md** - Gate principles and patterns
+- **AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md** - Agent-class requirements
+- **AGENT_ROLE_GATE_APPLICABILITY.md** - Role-based applicability
+- **PR_GATE_EVALUATION_AND_ROLE_PROTOCOL.md** - Evaluation semantics
+- **PR_GATE_FAILURE_HANDLING_PROTOCOL.md** - Failure classification
+
+### 13.2 Supporting Protocols
+
+- **FOREMAN_AUTHORITY_AND_SUPERVISION_MODEL.md** - FM oversight
+- **BUILD_PHILOSOPHY.md** - One-Time Build Law
+- **GOVERNANCE_RIPPLE_MODEL.md** - Canon change propagation
+- **CS2_AGENT_FILE_AUTHORITY_MODEL.md** - Authority hierarchy
+- **GOVERNANCE_COMPLETENESS_MODEL.md** - Governance semantics
+
+### 13.3 Related Artifacts
+
+- **MERGE_GATE_APPLICABILITY_MATRIX.md** - Gate-to-role mapping (companion document)
+- **PREHANDOVER_PROOF.md** - Evidence artifact pattern
+- **CS2_APPROVAL_REQUEST.md** - Escalation template
+
+---
+
+## 14. Version History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0.0 | 2026-02-09 | CS2 (Johan Ras) | Initial canonical protocol establishing FM gate management authority |
+
+---
+
+**Authority**: CS2 (Johan Ras)  
+**Effective Date**: 2026-02-09  
+**Next Review**: 2026-05-09 (Quarterly)  
+**Status**: ACTIVE
+
+---
+
+*End of FM Merge Gate Management Protocol v1.0.0*
