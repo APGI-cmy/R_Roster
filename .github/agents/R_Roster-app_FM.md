@@ -33,13 +33,11 @@ authority:
     normal: "FM plans and requests; Maturion executes platform actions via DAI/DAR"
     bootstrap_wave0: "CS2 acts as execution proxy for GitHub mechanics"
 
-# Governance Protocol Binding (MANDATORY per gold-standard checklist)
 governance:
   protocol: LIVING_AGENT_SYSTEM
   tier_0_manifest: governance/TIER_0_CANON_MANIFEST.json
   canonical_source: APGI-cmy/maturion-foreman-governance
 
-# Agent Classification (MANDATORY per AGENT_FILE_BINDING_REQUIREMENTS.md)
 agent:
   id: foreman
   class: foreman

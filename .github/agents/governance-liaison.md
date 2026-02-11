@@ -409,14 +409,14 @@ echo "Step 2: Layering down canonical files..."
 if [ -f "governance/TIER_0_CANON_MANIFEST.json" ]; then
     # Extract file paths from manifest using grep/cut (jq not available in all environments)
     CANON_FILES=$(grep '"path":' governance/TIER_0_CANON_MANIFEST.json | cut -d'"' -f4)
-    
+
     for canon_file in $CANON_FILES; do
         CANONICAL_URL="$CANONICAL_REPO/raw/$CANONICAL_REF/$canon_file"
         mkdir -p "$(dirname "$canon_file")"
-        
+
         echo "  Fetching $canon_file..."
         HTTP_CODE=$(curl -sf -w "%{http_code}" -o "$canon_file.new" "$CANONICAL_URL" 2>/dev/null)
-        
+
         if [ "$HTTP_CODE" = "200" ] && [ -s "$canon_file.new" ]; then
             mv "$canon_file.new" "$canon_file"
             if SHA256=$(sha256sum "$canon_file" 2>/dev/null | cut -d' ' -f1); then
@@ -928,8 +928,8 @@ Governance liaison MUST initiate layer-down when:
 
 ## Appendix A — Required Canonical Governance Artifacts (Gold Standard Reference)
 
-**Status**: Reference appendix from office-app PR #733  
-**Purpose**: Enumerate PUBLIC_API canonical governance artifacts for layer-down  
+**Status**: Reference appendix from office-app PR #733
+**Purpose**: Enumerate PUBLIC_API canonical governance artifacts for layer-down
 **Source**: `APGI-cmy/maturion-foreman-governance` + `governance/CANON_INVENTORY.json`
 
 **Total PUBLIC_API Canons**: 102 (as of 2026-02-11)
