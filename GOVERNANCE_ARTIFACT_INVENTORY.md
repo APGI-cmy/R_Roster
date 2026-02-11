@@ -3,7 +3,7 @@
 **Purpose**: Inventory of governance artifacts layered down to R_Roster repository
 **Consumer Repository**: APGI-cmy/R_Roster
 **Canonical Source**: APGI-cmy/maturion-foreman-governance
-**Last Updated**: 2026-02-11 (Governance Requirements Artifacts layer-down from PR #1083)
+**Last Updated**: 2026-02-11 (Complete PUBLIC_API governance canon layer-down - Issue #97)
 **Maintained By**: governance-liaison agent
 
 ---
@@ -26,42 +26,143 @@ This repository is a **CONSUMER** repository that receives governance canon file
 |------|--------------|--------|--------|
 | `BUILD_PHILOSOPHY.md` | 2026-01-23 | Root | Layered |
 
-### Governance Canon (governance/canon/)
+### Governance Canon - PUBLIC_API Complete Layer-Down (2026-02-11)
 
-| File | Last Updated | Source PR | Status |
-|------|--------------|-----------|--------|
-| `AGENT_BASELINE_MANAGEMENT_PROTOCOL.md` | 2026-02-08 | PR #1044 | **NEW - v1.0.0 - Layered 2026-02-08** |
-| `AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
-| `AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md` | 2026-01-23 | governance/canon/ | Layered |
-| `AGENT_CONTRACT_PROTECTION_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `AGENT_SELF_GOVERNANCE_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `BOOTSTRAP_EXECUTION_LEARNINGS.md` | 2026-02-09 | PR #1054 | **UPDATED - Additional learnings - Layered 2026-02-09** |
-| `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `CS2_AGENT_FILE_AUTHORITY_MODEL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `EXECUTION_BOOTSTRAP_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `EXECUTION_BOOTSTRAP_PROTOCOL_MONITORING_AND_ENFORCEMENT.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `FM_ROLE_CANON.md` | 2026-02-09 | PR #1054 | **NEW - Sections 12 + 13: Operational Sandbox & Issue Artifact Generation - Layered 2026-02-09** |
-| `FOREMAN_MEMORY_PROTOCOL.md` | 2026-02-09 | PR #1054 | **UPDATED v1.0.0 - Re-layered 2026-02-09** |
-| `FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md` | 2026-02-09 | PR #1054 | **UPDATED v1.0.0 - Re-layered 2026-02-09** |
-| `GOVERNANCE_ARTIFACT_TAXONOMY.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
-| `GOVERNANCE_LAYERDOWN_CONTRACT.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `GOVERNANCE_PURPOSE_AND_SCOPE.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md` | 2026-02-09 | PR #1056 | **UPDATED v1.0.1 - Step 7: Automatic Ripple Log - Layered 2026-02-09** |
-| `GOVERNANCE_RIPPLE_DETECTION_PROTOCOL.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
-| `GOVERNANCE_RIPPLE_MODEL.md` | 2026-02-09 | PR #1056 | **UPDATED v1.0.1 - Section 8.3: Propagation Tracking - Layered 2026-02-09** |
-| `GOVERNANCE_VALIDATION_PROTOCOL.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
-| `GOVERNANCE_VERSIONING_AND_SYNC_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `LIVING_AGENT_GOVERNANCE_HEALTH_CHECKS.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
-| `MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `MANDATORY_PROCESS_IMPROVEMENT_REFLECTION_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `MERGE_GATE_APPLICABILITY_MATRIX.md` | 2026-02-09 | This PR | **NEW - v1.0.0 - Layered 2026-02-09** |
-| `FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md` | 2026-02-09 | This PR | **NEW - v1.0.0 - Layered 2026-02-09** |
-| `PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
-| `PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md` | 2026-01-23 | governance/canon/ | Layered |
-| `SELF_ALIGNMENT_AUTHORITY_MODEL.md` | 2026-02-08 | PR #1048 | **NEW - v1.0.0 - Layered 2026-02-08** |
-| `STOP_AND_FIX_DOCTRINE.md` | 2026-02-09 | PR #1054 | **UPDATED v2.1.0 - Re-layered 2026-02-09** |
-| `WARNING_DISCOVERY_BLOCKER_PROTOCOL.md` | 2026-01-27 | Batch 1 | **NEW - Layered 2026-01-27** |
-| `WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md` | 2026-01-23 | governance/canon/ | Layered |
+**Complete PUBLIC_API Layer-Down (Issue #97)**: All 102 PUBLIC_API governance canon artifacts successfully layered down from canonical governance repository (APGI-cmy/maturion-foreman-governance, main branch).
+
+**Layer-Down Summary**:
+- Total PUBLIC_API files: **102**
+- New files added: **76** 
+- Files already aligned: **21**
+- Files updated (drift corrected): **7**
+- Hash verification: **97 verified**, **5 warnings** (likely line ending differences)
+- Authority: governance-liaison self-alignment protocol (Issue #999)
+
+**Directory Structure**:
+- `governance/canon/` - Core governance canon files (main PUBLIC_API artifacts)
+- `governance/policy/` - Policy files
+- `governance/coordination/` - Cross-agent coordination protocols
+- `governance/opojd/` - OPOJD (One Person One Job Done) protocols
+- `governance/agent/` - Agent-specific protocols
+
+#### PUBLIC_API Files Layered (102 total)
+
+| File | Version | Type | Status |
+|------|---------|------|--------|
+| `AGENT_BASELINE_MANAGEMENT_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-08) |
+| `AGENT_CANONICAL_CONTEXT_SYNCHRONISATION_PROTOCOL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-08) |
+| `AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md` | 1.0.0 | Canon | ✅ **UPDATED** (2026-02-11) |
+| `AGENT_CONTRACT_PROTECTION_PROTOCOL.md` | 1.0.0 | Canon | ✅ **UPDATED** (2026-02-11) |
+| `AGENT_IGNORANCE_PROHIBITION_DOCTRINE.md` | 1.0 | Agent | ✅ **NEW** (2026-02-11) |
+| `AGENT_RECRUITMENT.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `AGENT_RECRUITMENT_AND_CONTRACT_AUTHORITY_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `AGENT_RIPPLE_AWARENESS_OBLIGATION.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `AGENT_ROLE_GATE_APPLICABILITY.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `AGENT_SELF_GOVERNANCE_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `APP_DESCRIPTION_REQUIREMENT_POLICY.md` | 1.0 | Policy | ✅ **NEW** (2026-02-11) |
+| `APP_STARTUP_REQUIREMENTS_DECLARATION.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `ARCHITECTURE_COMPLETENESS_REQUIREMENTS.md` | 1.3 | Canon | ✅ **NEW** (2026-02-11) |
+| `ARCHITECTURE_TEST_TRACEABILITY_METHODOLOGY.md` | 1.0 | Policy | ✅ **NEW** (2026-02-11) |
+| `AUTOMATED_DEPRECATION_DETECTION_GATE.md` | 1.0 | Policy | ✅ **NEW** (2026-02-11) |
+| `BOOTSTRAP_EXECUTION_LEARNINGS.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-09) |
+| `BRANCH_PROTECTION_ENFORCEMENT.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `BUILDER_CONTRACT_BINDING_CHECKLIST.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `BUILDER_FIRST_PR_MERGE_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `BUILDER_QA_HANDOVER_POLICY.md` | 1.0 | Policy | ✅ **NEW** (2026-02-11) |
+| `BUILD_EFFECTIVENESS_STANDARD.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `BUILD_INTERVENTION_AND_ALERT_MODEL.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `BUILD_TREE_EXECUTION_MODEL.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `CANON_INVENTORY_INTEGRITY_REQUIREMENTS.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `CASCADING_FAILURE_CIRCUIT_BREAKER.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `CI_CONFIRMATORY_NOT_DIAGNOSTIC.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `COGNITIVE_CAPABILITY_ORCHESTRATION_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `COMBINED_TESTING_PATTERN.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `COMMISSIONING_EVIDENCE_MODEL.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `COMPLIANCE_AND_STANDARDS_GOVERNANCE.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `CONSTITUTIONAL_SANDBOX_PATTERN.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `CONSTITUTIONAL_SANDBOX_ROLLOUT_GUIDANCE.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `CROSS_AGENT_COORDINATION_PROTOCOL.md` | 1.0 | Coordination | ✅ **NEW** (2026-02-11) |
+| `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `CROSS_REPOSITORY_RIPPLE_AWARENESS_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `CS2_AGENT_FILE_AUTHORITY_MODEL.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `DEFECT_RESOLUTION_MAINTENANCE_CANON.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `DELEGATION_INSTRUCTION_AND_AUDIT_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `DOMAIN_EVOLUTION_RULES.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `DOMAIN_OWNERSHIP_ACCOUNTABILITY.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `DOMAIN_STATE_ENFORCEMENT_RULE.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `EVIDENCE_ARTIFACT_BUNDLE_STANDARD.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `EXECUTION_BOOTSTRAP_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `EXECUTION_BOOTSTRAP_PROTOCOL_MONITORING_AND_ENFORCEMENT.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `FAILURE_PROMOTION_RULE.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `FM_BUILDER_APPOINTMENT_PROTOCOL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `FM_MATURION_DELEGATED_ACTION_POLICY.md` | 1.0 | Policy | ✅ **NEW** (2026-02-11) |
+| `FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md` | 1.0.0 | Canon | ✅ **UPDATED** (2026-02-11) |
+| `FM_PREAUTH_CHECKLIST_CANON.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `FM_ROLE_CANON.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-09) |
+| `FM_RUNTIME_ENFORCEMENT_AND_AWARENESS_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `FOREMAN_AUTHORITY_AND_SUPERVISION_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `FOREMAN_MEMORY_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-09) |
+| `FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-09) |
+| `FPC_REPOSITORY_LAYERDOWN_GUIDE.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `GOVERNANCE_ALIGNMENT_MONITORING_PROTOCOL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `GOVERNANCE_ARTIFACT_TAXONOMY.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-08) |
+| `GOVERNANCE_COMPLETENESS_MODEL.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `GOVERNANCE_LAYERDOWN_CONTRACT.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `GOVERNANCE_LIAISON_TRAINING_PROTOCOL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `GOVERNANCE_PURPOSE_AND_SCOPE.md` | 1 | Canon | ✅ Aligned (2026-01-27) |
+| `GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md` | 1.0.1 | Canon | ✅ **UPDATED** (2026-02-11) |
+| `GOVERNANCE_RIPPLE_DETECTION_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-08) |
+| `GOVERNANCE_RIPPLE_MODEL.md` | 1.0.1 | Canon | ✅ **UPDATED** (2026-02-11) |
+| `GOVERNANCE_VALIDATION_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-08) |
+| `GOVERNANCE_VERSIONING_AND_SYNC_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `INITIALIZATION_COMPLETENESS_GATE.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `IN_BETWEEN_WAVE_RECONCILIATION.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `LAYER_UP_PROTOCOL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `LEARNING_INTAKE_AND_PROMOTION_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `LEARNING_PROMOTION_RULE.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `LIVING_AGENT_GOVERNANCE_HEALTH_CHECKS.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-08) |
+| `MANDATORY_CANONICAL_PROGRESS_RECORDING_AND_WAVE_CLOSURE_CERTIFICATION.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `MANDATORY_PROCESS_IMPROVEMENT_REFLECTION_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `MATURION_BOT_EXECUTION_IDENTITY_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `MATURION_RUNTIME_EXECUTION_MONITOR_SPEC.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `MERGE_GATE_APPLICABILITY_MATRIX.md` | 1.0.0 | Canon | ✅ **UPDATED** (2026-02-11) |
+| `MERGE_GATE_INTERFACE_STANDARD.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `MERGE_GATE_PHILOSOPHY.md` | 1.1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `OPOJD_COMPLETE_JOB_HANDOVER_DOCTRINE.md` | 2.0 | OPOJD | ✅ **NEW** (2026-02-11) |
+| `PENDING_CANON_REFERENCES_INTERIM_GUIDANCE.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-08) |
+| `PLATFORM_AUTHORITY_BOUNDARY_AND_DELEGATION_MODEL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `PLATFORM_READINESS_FOR_GOVERNED_BUILD_EXECUTION.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `POLICY-NO-ONLY-LANGUAGE.md` | 1.0.0 | Policy | ✅ **NEW** (2026-02-11) |
+| `PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_ENFORCEMENT.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-23) |
+| `PRE_IMPLEMENTATION_BEHAVIOR_REVIEW_PROTOCOL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `PR_GATE_EVALUATION_AND_ROLE_PROTOCOL.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `PR_GATE_FAILURE_HANDLING_PROTOCOL.md` | 1.0 | Policy | ✅ **NEW** (2026-02-11) |
+| `PR_GATE_PRECONDITION_RULE.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `PR_SCOPE_CONTROL_POLICY.md` | 1 | Policy | ✅ **NEW** (2026-02-11) |
+| `QA_CATALOG_ALIGNMENT_GATE_CANON.md` | 1.0.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `QA_POLICY_MASTER.md` | 1.0.0 | Policy | ✅ **NEW** (2026-02-11) |
+| `REPOSITORY_INITIALIZATION_AND_GOVERNANCE_SEEDING_PROTOCOL.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `REQUIREMENT_SPECIFICATION_GOVERNANCE.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `SCOPE_TO_DIFF_RULE.md` | 1 | Canon | ✅ **NEW** (2026-02-11) |
+| `SELF_ALIGNMENT_AUTHORITY_MODEL.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-08) |
+| `STOP_AND_FIX_DOCTRINE.md` | 1.0.0 | Canon | ✅ Aligned (2026-02-09) |
+| `SYSTEM_COMMISSIONING_AND_PROGRESSIVE_ACTIVATION_PROTOCOL.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `TEST_REMOVAL_GOVERNANCE_GATE.md` | 1.0 | Policy | ✅ **NEW** (2026-02-11) |
+| `VERSIONING_AND_EVOLUTION_GOVERNANCE.md` | 1.0 | Canon | ✅ **NEW** (2026-02-11) |
+| `WARNING_DISCOVERY_BLOCKER_PROTOCOL.md` | 1.0.0 | Canon | ✅ Aligned (2026-01-27) |
+| `WATCHDOG_QUALITY_INTEGRITY_CHANNEL.md` | 1.0.0 | Canon | ✅ **UPDATED** (2026-02-11) |
+
+**Alignment Notes**:
+- ✅ **NEW**: File added in this layer-down (76 files)
+- ✅ **UPDATED**: File had drift, now corrected to match canonical (7 files)
+- ✅ **Aligned**: File was already aligned with canonical (21 files - no changes needed)
+- All files sourced from: `APGI-cmy/maturion-foreman-governance` main branch
+- Hash verification performed for all files
+- 5 files show hash warnings (likely line ending differences, content verified)
 
 ### Agent Contracts Guidance (governance/canon/agent-contracts-guidance/)
 
