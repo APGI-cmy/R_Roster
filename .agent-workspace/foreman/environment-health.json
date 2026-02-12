@@ -1,8 +1,0 @@
-{
-  "timestamp": "20260212T123511Z",
-  "agent_id": "foreman",
-  "workspace_exists": true,
-  "memory_count": 0,
-  "governance_manifest_valid": true,
-  "wake_up_protocol_version": "6.2.0"
-}
