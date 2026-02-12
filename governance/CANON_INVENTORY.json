@@ -5,11 +5,10 @@
   "repository": "APGI-cmy/R_Roster",
   "repository_mode": "consumer",
   "canonical_source": "APGI-cmy/maturion-foreman-governance",
-  "last_updated": "2026-02-12T15:32:00Z",
+  "last_updated": "2026-02-12T15:57:00Z",
   "updated_by": "CodexAdvisor-agent",
-  "session": "003",
+  "session": "005",
   "description": "Canon inventory tracking governance artifacts and agent contracts for R_Roster consumer repository",
-  
   "checklists": [
     {
       "id": "CHECKLIST-001",
@@ -60,7 +59,6 @@
       "description": "Requirements checklist for Builder agent contract compliance (all builder types)"
     }
   ],
-  
   "agent_contracts": [
     {
       "id": "AGENT-001",
@@ -81,16 +79,15 @@
       "path": ".github/agents/foreman.md",
       "version": "6.2.0",
       "contract_version": "2.0.0",
-      "class": "supervisor",
+      "class": "foreman",
       "authority": "CS2",
       "status": "active",
       "last_updated": "2026-02-12",
-      "sha256": "f2a07d27a56f81e6e4f5567c73f895dafea0f15c83bbfb7ff337b0c66c6b37da",
+      "sha256": "7772990b52b5128a59b9fa3833c9ed21e8c91b1abae8c37ce68002d44fdc886d",
       "checklist_binding": "CHECKLIST-002",
       "description": "Foreman agent supervising builders through architecture-first QA-first enforcement"
     }
   ],
-  
   "tier_0_manifest": {
     "id": "TIER_0_CANON_MANIFEST",
     "path": "governance/TIER_0_CANON_MANIFEST.json",
@@ -99,7 +96,6 @@
     "description": "References Tier-0 canonical governance protocols",
     "protocols_count": 5
   },
-  
   "alignment_state": {
     "last_sync": "2026-02-12T15:32:00Z",
     "canonical_commit": "main",
@@ -107,7 +103,6 @@
     "ripple_pending": false,
     "sync_state_path": ".agent-admin/governance/sync_state.json"
   },
-  
   "inventory_integrity": {
     "checklist_coverage": {
       "codex_advisor": "COMPLETE",
@@ -124,7 +119,6 @@
     "validation_status": "VALID",
     "last_validated": "2026-02-12T15:32:00Z"
   },
-  
   "version_declarations": {
     "living_agent_system": "6.2.0",
     "repositories_with_v6_2_0": [
@@ -133,7 +127,6 @@
     "session_memory_v6_2_0": true,
     "all_agents_v6_2_0": true
   },
-  
   "notes": [
     "This inventory tracks governance artifacts for R_Roster consumer repository",
     "Checklist files created during CodexAdvisor self-review session 003 (2026-02-12)",

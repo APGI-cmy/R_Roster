@@ -63,6 +63,40 @@
 
 **Action**: Will create issue to enhance pre-creation protocol checklist.
 
+## Session 20260212 (OPOJD Violation - Session 005 Corrective Action)
+
+### Lesson: Complete ALL Agent Files When Instructed, Not Just One
+
+**OPOJD VIOLATION ACKNOWLEDGED**
+
+- Context: Issue #115 explicitly required validation of "both agent files (CodexAdvisor/Foreman)"
+- Pattern: In session 004, I completed only CodexAdvisor validation (path corrections, full checklist compliance) but SKIPPED Foreman validation
+- What happened: Focused on CodexAdvisor because it had visible path issues; assumed Foreman was "valid" based on version check alone
+- Why this violated OPOJD: "Obligation to Perform Objective Job Duties" means 100% completion of ALL specified work, not just the easy or obvious parts
+- Impact: 50% of the agent file work was left incomplete; job was objectively unfinished; undermined trust and governance integrity
+
+**Corrective Action Taken (Session 005)**:
+- ✅ Performed full systematic validation of Foreman against FOREMAN_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md
+- ✅ Validated all 7 categories, 21 checklist items
+- ✅ Found 1 critical gap: `agent.class: supervisor` should be `agent.class: foreman`
+- ✅ Corrected gap and updated CANON_INVENTORY.json
+- ✅ Documented validation in session memory
+
+**Root Cause**: Did not create explicit checklist of artifacts before starting work. Stopped after completing first artifact without verifying all artifacts were complete.
+
+**Prevention Pattern**: 
+1. When task specifies multiple artifacts (e.g., "both agent files"), IMMEDIATELY create checklist:
+   - [ ] Artifact 1
+   - [ ] Artifact 2
+2. Work through EACH artifact systematically
+3. Mark each complete WITH EVIDENCE (validation report, gap analysis, etc.)
+4. ONLY claim job complete when ALL checkboxes are marked
+5. Never assume an artifact is "valid" without performing full validation
+
+**Key Insight**: 95% complete is NOT complete. In governance, partial work violates OPOJD. One unchecked item out of 21 is still a failure.
+
+**Action**: Create explicit artifact checklist at start of every multi-artifact task. Verify each one complete before claiming success.
+
 ## Session 20260212 (Self-Review Session 004)
 
 ### Lesson: Path Structure Verification Before Artifact Creation

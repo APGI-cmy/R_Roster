@@ -4,7 +4,7 @@ description: Foreman (FM) agent - Managerial authority supervising builders thro
 
 agent:
   id: foreman
-  class: supervisor
+  class: foreman
   version: 6.2.0
   contract_version: 2.0.0
 
