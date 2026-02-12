@@ -1,0 +1,579 @@
+name: Merge Gate Interface
+
+on:
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  # ================================================================
+  # JOB 1: merge-gate/verdict
+  # ================================================================
+  merge-gate/verdict:
+    name: merge-gate/verdict
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Classify PR (Deterministic)
+        id: classify
+        run: |
+          echo "=========================================="
+          echo "Deterministic PR Classification"
+          echo "=========================================="
+          
+          # Get changed files
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          
+          # Initialize classification flags
+          HAS_GOVERNANCE_CHANGES=false
+          HAS_CODE_CHANGES=false
+          HAS_DOCS_ONLY=false
+          CLASSIFICATION=""
+          
+          # Check for label overrides first (Rule 1)
+          LABELS="${{ toJson(github.event.pull_request.labels.*.name) }}"
+          if echo "$LABELS" | grep -qi "governance-only"; then
+            CLASSIFICATION="governance-only"
+            echo "✓ Classification: governance-only (label override)"
+            echo "classification=governance-only" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          if echo "$LABELS" | grep -qi "docs-only"; then
+            CLASSIFICATION="docs-only"
+            echo "✓ Classification: docs-only (label override)"
+            echo "classification=docs-only" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Check branch patterns
+          BRANCH="${{ github.head_ref }}"
+          if [[ "$BRANCH" =~ ^(release|hotfix)/ ]]; then
+            CLASSIFICATION="code-change"
+            echo "✓ Classification: code-change (release/hotfix branch pattern)"
+            echo "classification=code-change" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Analyze changed files (Rules 2-4)
+          while IFS= read -r file; do
+            if [ -z "$file" ]; then
+              continue
+            fi
+            
+            # Rule 2: Governance changes
+            if [[ "$file" =~ ^(governance/|\.agent$|\.agent-admin/) ]]; then
+              HAS_GOVERNANCE_CHANGES=true
+            # Rule 3: Documentation
+            elif [[ "$file" =~ ^docs/ ]] || [[ "$file" =~ \.md$ ]]; then
+              HAS_DOCS_ONLY=true
+            # Rule 4: Code changes
+            else
+              HAS_CODE_CHANGES=true
+            fi
+          done <<< "$CHANGED_FILES"
+          
+          # Determine final classification (first match wins)
+          if [ "$HAS_GOVERNANCE_CHANGES" = "true" ]; then
+            CLASSIFICATION="governance-only"
+          elif [ "$HAS_CODE_CHANGES" = "true" ]; then
+            CLASSIFICATION="code-change"
+          elif [ "$HAS_DOCS_ONLY" = "true" ]; then
+            CLASSIFICATION="docs-only"
+          else
+            CLASSIFICATION="unknown"
+          fi
+          
+          echo "✓ Classification: $CLASSIFICATION"
+          echo "  - Governance changes: $HAS_GOVERNANCE_CHANGES"
+          echo "  - Code changes: $HAS_CODE_CHANGES"
+          echo "  - Docs only: $HAS_DOCS_ONLY"
+          echo "=========================================="
+          
+          echo "classification=$CLASSIFICATION" >> $GITHUB_OUTPUT
+
+      - name: Check for Evidence Artifacts
+        id: evidence
+        run: |
+          echo "=========================================="
+          echo "Evidence Artifact Validation"
+          echo "=========================================="
+          
+          # Check for required evidence bundle paths
+          MISSING_ARTIFACTS=""
+          
+          # Check for PREHANDOVER_PROOF (any timestamped version in root)
+          if ! find . -maxdepth 1 -name "PREHANDOVER_PROOF_*.md" -type f | grep -q .; then
+            MISSING_ARTIFACTS="${MISSING_ARTIFACTS}\n  - PREHANDOVER_PROOF_*.md (root level)"
+          else
+            PROOF_FILE=$(find . -maxdepth 1 -name "PREHANDOVER_PROOF_*.md" -type f | head -n1)
+            echo "✓ Found: $PROOF_FILE"
+          fi
+          
+          # Check for gate results JSON
+          if [ ! -d ".agent-admin/gates" ]; then
+            MISSING_ARTIFACTS="${MISSING_ARTIFACTS}\n  - .agent-admin/gates/ directory"
+          else
+            if ! find .agent-admin/gates -name "*.json" -type f | grep -q .; then
+              MISSING_ARTIFACTS="${MISSING_ARTIFACTS}\n  - .agent-admin/gates/*.json (gate results)"
+            else
+              echo "✓ Found: gate results in .agent-admin/gates/"
+            fi
+          fi
+          
+          # Check for improvements capture
+          if [ ! -d ".agent-admin/improvements" ]; then
+            MISSING_ARTIFACTS="${MISSING_ARTIFACTS}\n  - .agent-admin/improvements/ directory"
+          else
+            if ! find .agent-admin/improvements -type f | grep -q .; then
+              MISSING_ARTIFACTS="${MISSING_ARTIFACTS}\n  - .agent-admin/improvements/* (may be PARKED)"
+            else
+              echo "✓ Found: improvements capture in .agent-admin/improvements/"
+            fi
+          fi
+          
+          # Set output
+          if [ -n "$MISSING_ARTIFACTS" ]; then
+            echo "has_evidence=false" >> $GITHUB_OUTPUT
+            echo "missing_artifacts<<EOF" >> $GITHUB_OUTPUT
+            echo -e "$MISSING_ARTIFACTS" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          else
+            echo "has_evidence=true" >> $GITHUB_OUTPUT
+            echo "✓ All required evidence artifacts present"
+          fi
+          
+          echo "=========================================="
+
+      - name: Validate Gate Results JSON
+        if: steps.evidence.outputs.has_evidence == 'true'
+        id: validate_json
+        run: |
+          echo "=========================================="
+          echo "Gate Results JSON Schema Validation"
+          echo "=========================================="
+          
+          # Find gate results JSON
+          GATE_JSON=$(find .agent-admin/gates -name "*.json" -type f | head -n1)
+          
+          if [ -z "$GATE_JSON" ]; then
+            echo "❌ No gate results JSON found"
+            echo "valid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "Validating: $GATE_JSON"
+          
+          # Validate JSON syntax
+          if ! python3 -c "import json; json.load(open('$GATE_JSON'))" 2>/dev/null; then
+            echo "❌ Invalid JSON syntax"
+            echo "valid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Validate required fields
+          REQUIRED_FIELDS="timestamp pr_number verdict gates"
+          MISSING_FIELDS=""
+          
+          for field in $REQUIRED_FIELDS; do
+            if ! python3 -c "import json; d=json.load(open('$GATE_JSON')); exit(0 if '$field' in d else 1)" 2>/dev/null; then
+              MISSING_FIELDS="$MISSING_FIELDS $field"
+            fi
+          done
+          
+          if [ -n "$MISSING_FIELDS" ]; then
+            echo "❌ Missing required fields:$MISSING_FIELDS"
+            echo "valid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "✓ Gate results JSON is valid"
+          echo "valid=true" >> $GITHUB_OUTPUT
+          echo "=========================================="
+
+      - name: Check for Minimizing Language
+        id: check_language
+        run: |
+          echo "=========================================="
+          echo "No-Minimizing-Language Check"
+          echo "=========================================="
+          
+          # Banned phrases (per POLICY-NO-ONLY-LANGUAGE.md concept)
+          BANNED_PATTERNS="just|only|simply|merely|trivial|minor change"
+          
+          VIOLATIONS=""
+          
+          # Check PR title
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          if echo "$PR_TITLE" | grep -Ei "$BANNED_PATTERNS"; then
+            VIOLATIONS="${VIOLATIONS}\n  - PR Title contains minimizing language"
+          fi
+          
+          # Check PREHANDOVER_PROOF if exists
+          if find . -maxdepth 1 -name "PREHANDOVER_PROOF_*.md" -type f | grep -q .; then
+            PROOF_FILE=$(find . -maxdepth 1 -name "PREHANDOVER_PROOF_*.md" -type f | head -n1)
+            if grep -Ei "$BANNED_PATTERNS" "$PROOF_FILE" > /dev/null 2>&1; then
+              VIOLATIONS="${VIOLATIONS}\n  - PREHANDOVER_PROOF contains minimizing language"
+            fi
+          fi
+          
+          if [ -n "$VIOLATIONS" ]; then
+            echo "has_violations=true" >> $GITHUB_OUTPUT
+            echo "violations<<EOF" >> $GITHUB_OUTPUT
+            echo -e "$VIOLATIONS" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            echo "⚠️  Minimizing language detected"
+          else
+            echo "has_violations=false" >> $GITHUB_OUTPUT
+            echo "✓ No minimizing language detected"
+          fi
+          
+          echo "=========================================="
+
+      - name: Verdict Decision
+        id: verdict
+        run: |
+          echo "=========================================="
+          echo "Merge Gate Verdict"
+          echo "=========================================="
+          
+          CLASSIFICATION="${{ steps.classify.outputs.classification }}"
+          HAS_EVIDENCE="${{ steps.evidence.outputs.has_evidence }}"
+          JSON_VALID="${{ steps.validate_json.outputs.valid }}"
+          HAS_LANGUAGE_VIOLATIONS="${{ steps.check_language.outputs.has_violations }}"
+          
+          echo "PR Classification: $CLASSIFICATION"
+          echo "Evidence Present: $HAS_EVIDENCE"
+          echo "JSON Valid: $JSON_VALID"
+          echo "Language Violations: $HAS_LANGUAGE_VIOLATIONS"
+          echo ""
+          
+          # Fail-fast logic
+          if [ "$HAS_LANGUAGE_VIOLATIONS" = "true" ]; then
+            echo "❌ VERDICT: FAIL"
+            echo "Reason: Minimizing language policy violation"
+            echo ""
+            echo "Violations:"
+            echo "${{ steps.check_language.outputs.violations }}"
+            echo ""
+            echo "Action: Remove minimizing language from PR title and evidence artifacts"
+            echo "Reference: governance/policies/POLICY-NO-ONLY-LANGUAGE.md"
+            exit 1
+          fi
+          
+          if [ "$HAS_EVIDENCE" = "false" ]; then
+            echo "❌ VERDICT: FAIL"
+            echo "Reason: Required evidence artifacts missing"
+            echo ""
+            echo "Missing artifacts:"
+            echo "${{ steps.evidence.outputs.missing_artifacts }}"
+            echo ""
+            echo "Action: Create required evidence bundle per EVIDENCE_ARTIFACT_BUNDLE_STANDARD.md"
+            echo "Required paths:"
+            echo "  - PREHANDOVER_PROOF_*.md (root)"
+            echo "  - .agent-admin/gates/*.json"
+            echo "  - .agent-admin/improvements/*"
+            echo ""
+            echo "Reference: governance/canon/EVIDENCE_ARTIFACT_BUNDLE_STANDARD.md"
+            exit 1
+          fi
+          
+          if [ "$JSON_VALID" = "false" ]; then
+            echo "❌ VERDICT: FAIL"
+            echo "Reason: Gate results JSON invalid or incomplete"
+            echo ""
+            echo "Action: Ensure .agent-admin/gates/*.json contains valid gate results"
+            echo "Required fields: timestamp, pr_number, verdict, gates"
+            echo ""
+            echo "Reference: governance/canon/EVIDENCE_ARTIFACT_BUNDLE_STANDARD.md"
+            exit 1
+          fi
+          
+          echo "✅ VERDICT: PASS"
+          echo "All evidence artifacts present and valid"
+          echo "=========================================="
+
+  # ================================================================
+  # JOB 2: governance/alignment
+  # ================================================================
+  governance/alignment:
+    name: governance/alignment
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check Governance Sync State
+        id: sync_check
+        run: |
+          echo "=========================================="
+          echo "Governance Alignment Check"
+          echo "=========================================="
+          
+          ALIGNMENT_STATE="UNKNOWN"
+          
+          # Check for governance sync state
+          if [ -f ".agent-admin/governance/sync_state.json" ]; then
+            echo "✓ Found governance sync state"
+            
+            # Validate JSON
+            if python3 -c "import json; json.load(open('.agent-admin/governance/sync_state.json'))" 2>/dev/null; then
+              # Check for alignment status
+              ALIGNMENT=$(python3 -c "import json; d=json.load(open('.agent-admin/governance/sync_state.json')); print(d.get('alignment_state', 'UNKNOWN'))" 2>/dev/null || echo "UNKNOWN")
+              ALIGNMENT_STATE="$ALIGNMENT"
+              echo "  Alignment state: $ALIGNMENT_STATE"
+            else
+              echo "⚠️  Invalid JSON in sync_state.json"
+              ALIGNMENT_STATE="DEGRADED"
+            fi
+          else
+            echo "⚠️  No governance sync state found"
+            echo "  Expected: .agent-admin/governance/sync_state.json"
+            ALIGNMENT_STATE="DRIFT"
+          fi
+          
+          echo "alignment_state=$ALIGNMENT_STATE" >> $GITHUB_OUTPUT
+          echo "=========================================="
+
+      - name: Check TIER_0_CANON_MANIFEST
+        id: canon_check
+        run: |
+          echo "=========================================="
+          echo "Canon Manifest Validation"
+          echo "=========================================="
+          
+          if [ ! -f "governance/TIER_0_CANON_MANIFEST.json" ]; then
+            echo "❌ TIER_0_CANON_MANIFEST.json not found"
+            echo "manifest_valid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "✓ Found TIER_0_CANON_MANIFEST.json"
+          
+          # Validate JSON syntax
+          if ! python3 -c "import json; json.load(open('governance/TIER_0_CANON_MANIFEST.json'))" 2>/dev/null; then
+            echo "❌ Invalid JSON syntax"
+            echo "manifest_valid=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Check for placeholder hashes (degraded mode indicator)
+          if grep -E '(PLACEHOLDER|TODO|TBD|xxx|000)' governance/TIER_0_CANON_MANIFEST.json > /dev/null 2>&1; then
+            echo "⚠️  Placeholder hashes detected (degraded mode)"
+            echo "manifest_valid=degraded" >> $GITHUB_OUTPUT
+          else
+            echo "✓ Canon manifest valid"
+            echo "manifest_valid=true" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "=========================================="
+
+      - name: Alignment Decision
+        run: |
+          echo "=========================================="
+          echo "Governance Alignment Decision"
+          echo "=========================================="
+          
+          ALIGNMENT_STATE="${{ steps.sync_check.outputs.alignment_state }}"
+          MANIFEST_VALID="${{ steps.canon_check.outputs.manifest_valid }}"
+          
+          echo "Alignment State: $ALIGNMENT_STATE"
+          echo "Manifest Valid: $MANIFEST_VALID"
+          echo ""
+          
+          # Fail on degraded manifest
+          if [ "$MANIFEST_VALID" = "degraded" ]; then
+            echo "❌ ALIGNMENT: FAIL"
+            echo "Reason: TIER_0_CANON_MANIFEST contains placeholder hashes"
+            echo ""
+            echo "Action: Update canon manifest with actual sha256 hashes"
+            echo "This indicates degraded governance mode - escalate to CS2 per REQ-SS-004"
+            echo ""
+            echo "Reference: governance/canon/LIVING_AGENT_GOVERNANCE_HEALTH_CHECKS.md"
+            exit 1
+          fi
+          
+          if [ "$MANIFEST_VALID" = "false" ]; then
+            echo "❌ ALIGNMENT: FAIL"
+            echo "Reason: TIER_0_CANON_MANIFEST invalid or missing"
+            echo ""
+            echo "Action: Create valid TIER_0_CANON_MANIFEST.json"
+            echo "Reference: governance/canon/CANON_MANIFEST_PROTOCOL.md"
+            exit 1
+          fi
+          
+          # Warn on drift but don't block (governance liaison should handle)
+          if [ "$ALIGNMENT_STATE" = "DRIFT" ]; then
+            echo "⚠️  ALIGNMENT: WARNING"
+            echo "Reason: Governance sync state missing or indicates drift"
+            echo ""
+            echo "Action: Governance liaison should sync with canonical source"
+            echo "Reference: governance/canon/GOVERNANCE_RIPPLE_MODEL.md"
+            echo ""
+            echo "✅ ALIGNMENT: PASS (with warning)"
+            exit 0
+          fi
+          
+          if [ "$ALIGNMENT_STATE" = "DEGRADED" ]; then
+            echo "⚠️  ALIGNMENT: WARNING"
+            echo "Reason: Governance alignment in degraded state"
+            echo ""
+            echo "Action: Review .agent-admin/governance/sync_state.json"
+            echo ""
+            echo "✅ ALIGNMENT: PASS (with warning)"
+            exit 0
+          fi
+          
+          echo "✅ ALIGNMENT: PASS"
+          echo "Governance alignment validated"
+          echo "=========================================="
+
+  # ================================================================
+  # JOB 3: stop-and-fix/enforcement
+  # ================================================================
+  stop-and-fix/enforcement:
+    name: stop-and-fix/enforcement
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for Stop-and-Fix Indicators
+        id: check_stop_and_fix
+        run: |
+          echo "=========================================="
+          echo "Stop-and-Fix Detection"
+          echo "=========================================="
+          
+          STOP_AND_FIX_OCCURRED=false
+          
+          # Check commit messages for stop-and-fix indicators
+          git fetch origin "${{ github.base_ref }}" --depth=1
+          COMMITS=$(git log --pretty=format:"%s" origin/${{ github.base_ref }}...HEAD)
+          
+          if echo "$COMMITS" | grep -Ei "stop.?and.?fix|blocked|emergency.?fix|urgent.?fix"; then
+            echo "⚠️  Stop-and-fix indicator found in commit messages"
+            STOP_AND_FIX_OCCURRED=true
+          fi
+          
+          # Check for RCA in evidence artifacts
+          if [ -d ".agent-admin/rca" ]; then
+            if find .agent-admin/rca -type f | grep -q .; then
+              echo "✓ RCA found in .agent-admin/rca/"
+              echo "has_rca=true" >> $GITHUB_OUTPUT
+            else
+              echo "⚠️  .agent-admin/rca/ exists but empty"
+              echo "has_rca=false" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "ℹ️  No .agent-admin/rca/ directory"
+            echo "has_rca=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Check PR labels
+          LABELS="${{ toJson(github.event.pull_request.labels.*.name) }}"
+          if echo "$LABELS" | grep -Ei "stop-and-fix|urgent|emergency|hotfix"; then
+            echo "⚠️  Stop-and-fix label detected"
+            STOP_AND_FIX_OCCURRED=true
+          fi
+          
+          echo "stop_and_fix_occurred=$STOP_AND_FIX_OCCURRED" >> $GITHUB_OUTPUT
+          echo ""
+          echo "Stop-and-Fix Occurred: $STOP_AND_FIX_OCCURRED"
+          echo "=========================================="
+
+      - name: Check for Unresolved Issues
+        id: check_issues
+        run: |
+          echo "=========================================="
+          echo "Unresolved Issue Detection"
+          echo "=========================================="
+          
+          UNRESOLVED_ISSUES=""
+          
+          # Check for TODO/FIXME in code (excluding docs/governance)
+          if git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -v "^governance/" | grep -v "^docs/" | grep -v "\.md$" > /tmp/code_files.txt; then
+            while IFS= read -r file; do
+              if [ -f "$file" ]; then
+                if grep -Eni "(TODO|FIXME|XXX|HACK):" "$file" > /dev/null 2>&1; then
+                  UNRESOLVED_ISSUES="${UNRESOLVED_ISSUES}\n  - $file contains TODO/FIXME markers"
+                fi
+              fi
+            done < /tmp/code_files.txt
+          fi
+          
+          if [ -n "$UNRESOLVED_ISSUES" ]; then
+            echo "has_unresolved=true" >> $GITHUB_OUTPUT
+            echo "unresolved_issues<<EOF" >> $GITHUB_OUTPUT
+            echo -e "$UNRESOLVED_ISSUES" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            echo "⚠️  Unresolved issues detected"
+          else
+            echo "has_unresolved=false" >> $GITHUB_OUTPUT
+            echo "✓ No unresolved issues detected"
+          fi
+          
+          echo "=========================================="
+
+      - name: Stop-and-Fix Decision
+        run: |
+          echo "=========================================="
+          echo "Stop-and-Fix Enforcement Decision"
+          echo "=========================================="
+          
+          STOP_AND_FIX="${{ steps.check_stop_and_fix.outputs.stop_and_fix_occurred }}"
+          HAS_RCA="${{ steps.check_stop_and_fix.outputs.has_rca }}"
+          HAS_UNRESOLVED="${{ steps.check_issues.outputs.has_unresolved }}"
+          
+          echo "Stop-and-Fix Occurred: $STOP_AND_FIX"
+          echo "RCA Present: $HAS_RCA"
+          echo "Unresolved Issues: $HAS_UNRESOLVED"
+          echo ""
+          
+          # Require RCA if stop-and-fix occurred
+          if [ "$STOP_AND_FIX" = "true" ] && [ "$HAS_RCA" = "false" ]; then
+            echo "❌ ENFORCEMENT: FAIL"
+            echo "Reason: Stop-and-fix occurred but no RCA found"
+            echo ""
+            echo "Action: Create RCA in .agent-admin/rca/"
+            echo "Required when stop-and-fix condition triggered"
+            echo ""
+            echo "Reference: governance/canon/STOP_AND_FIX_PROTOCOL.md"
+            exit 1
+          fi
+          
+          # Fail on unresolved issues in code
+          if [ "$HAS_UNRESOLVED" = "true" ]; then
+            echo "❌ ENFORCEMENT: FAIL"
+            echo "Reason: Unresolved TODO/FIXME markers in code"
+            echo ""
+            echo "Unresolved issues:"
+            echo "${{ steps.check_issues.outputs.unresolved_issues }}"
+            echo ""
+            echo "Action: Resolve all TODO/FIXME markers before merge"
+            echo "Reference: BUILD_PHILOSOPHY.md (Zero Test Debt)"
+            exit 1
+          fi
+          
+          echo "✅ ENFORCEMENT: PASS"
+          if [ "$STOP_AND_FIX" = "true" ]; then
+            echo "Stop-and-fix properly documented with RCA"
+          else
+            echo "No stop-and-fix conditions detected"
+          fi
+          echo "=========================================="
