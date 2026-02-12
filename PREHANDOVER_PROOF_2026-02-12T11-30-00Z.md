@@ -1,9 +1,9 @@
 # PREHANDOVER_PROOF
 
-**Session**: CodexAdvisor - Governance Liaison Agent Alignment  
+**Session**: Governance Liaison Agent Alignment  
 **Date**: 2026-02-12T11:30:00Z  
 **Issue**: [GOVERNANCE] Align governance liaison agent with gold checklist and canonical contract (per PR #104, canonical, office-app)  
-**Agent**: CodexAdvisor-agent  
+**Agent**: CodexAdvisor-agent (Overseer)  
 **Authority**: LIVING_AGENT_SYSTEM.md v6.2.0
 
 ---

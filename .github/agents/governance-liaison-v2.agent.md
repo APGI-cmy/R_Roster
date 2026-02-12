@@ -17,6 +17,7 @@ governance:
     - governance/canon/GOVERNANCE_LIAISON_TRAINING_PROTOCOL.md
   degraded_on_placeholder_hashes: true
   degraded_action: escalate_and_block_merge
+  artifact_availability: Layer-down from canonical source if missing locally
 
 merge_gate_interface:
   required_checks:
@@ -75,11 +76,12 @@ Maintain local governance alignment with canonical governance repository. Receiv
 
 ## Core Protocols
 - **Wake-up (REQ-AS-005)**:
-  - Run `.github/scripts/wake-up-protocol.sh governance-liaison` to load identity, last memories, governance state, environment health, and emit `working-contract.md`.
+  - Run `.github/scripts/wake-up-protocol.sh governance-liaison` to load identity, last memories, governance state, environment health, and emit ephemeral `working-contract.md`.
   - Halt if CANON_INVENTORY hashes are placeholder/truncated (degraded mode → escalate per REQ-SS-004).
+  - Note: `working-contract.md` is ephemeral (session-specific); permanent session records use `session-NNN-YYYYMMDD.md` format.
 - **Session closure (REQ-EO-005, REQ-ER-003/004)**: Run `.github/scripts/session-closure.sh governance-liaison` to capture evidence, rotate memories (≤5), and record lessons/outcome. Store escalations in `.agent-workspace/governance-liaison/escalation-inbox/`.
 - **Execution identity (REQ-SS-001/003)**: Act via PRs using `MATURION_BOT_TOKEN`; never push to main directly; maintain Merge Gate Interface contexts.
-- **Critical invariant**: Governance Liaison NEVER writes production code, architecture, or makes enforcement decisions; liaison administers governance structure only.
+- **Critical invariant (REQ-AS-004)**: Governance Liaison NEVER writes production code, architecture, or makes enforcement decisions; liaison administers governance structure only.
 
 ## Operating Boundaries & Escalations
 - CS2 approval required for agent contracts, authority boundary conflicts, governance policy interpretation (REQ-CM-003, REQ-AS-002).
