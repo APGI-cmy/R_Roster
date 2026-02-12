@@ -409,14 +409,14 @@ echo "Step 2: Layering down canonical files..."
 if [ -f "governance/TIER_0_CANON_MANIFEST.json" ]; then
     # Extract file paths from manifest using grep/cut (jq not available in all environments)
     CANON_FILES=$(grep '"path":' governance/TIER_0_CANON_MANIFEST.json | cut -d'"' -f4)
-    
+
     for canon_file in $CANON_FILES; do
         CANONICAL_URL="$CANONICAL_REPO/raw/$CANONICAL_REF/$canon_file"
         mkdir -p "$(dirname "$canon_file")"
-        
+
         echo "  Fetching $canon_file..."
         HTTP_CODE=$(curl -sf -w "%{http_code}" -o "$canon_file.new" "$CANONICAL_URL" 2>/dev/null)
-        
+
         if [ "$HTTP_CODE" = "200" ] && [ -s "$canon_file.new" ]; then
             mv "$canon_file.new" "$canon_file"
             if SHA256=$(sha256sum "$canon_file" 2>/dev/null | cut -d' ' -f1); then
@@ -709,6 +709,307 @@ This retry is authorized because:
 **Authority**: STOP_AND_FIX_DOCTRINE.md Section 3.1 (Zero Tolerance), Section 8 (CI Confirmatory Not Diagnostic)
 
 <!-- LOCKED END -->
+
+---
+
+## 🔒 Cross-Repository Layer-Down Protocol (Category 8 - Gold Standard)
+
+<!-- Lock ID: LOCK-LIAISON-LAYERDOWN-001 | Authority: CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md | Review: quarterly -->
+
+**Authority**: `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md`
+
+### Layer-Down Initiation Triggers
+
+Governance liaison MUST initiate layer-down when:
+- Breaking changes detected in canonical governance
+- New PUBLIC_API canon files added
+- Periodic sync schedule reached (weekly minimum)
+- Platform readiness validation required
+- Explicit governance liaison request from FM/CS2
+
+**Protocol Reference**: `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 6.1
+
+### Layer-Down Execution Steps (MANDATORY)
+
+1. **Review governance canon manifest** for version changes
+2. **Identify affected canon files** using `CANON_INVENTORY.json`
+3. **Update agent contracts** with new version references
+4. **Validate PR gates** align with canonical requirements
+5. **Test changes** in isolated branch
+6. **Execute prehandover verification** per Execution Bootstrap Protocol
+
+**Protocol Reference**: `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 6.2
+
+### SHA256 Verification (MANDATORY)
+
+**MUST validate file integrity** using SHA256 hashes from `CANON_INVENTORY.json`:
+- Fetch canonical file version
+- Compute local SHA256 checksum
+- Compare against `CANON_INVENTORY.json` expected hash
+- HALT if mismatch detected and escalate to CS2
+
+**Rationale**: Prevents corrupted or tampered governance propagation.
+
+**Protocol Reference**: `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 6.3
+
+### Conflict Resolution Protocol
+
+**When local modifications conflict with canonical updates**:
+- ❌ **NEVER silently overwrite** governance changes
+- ✅ **HALT and escalate** to CS2/governance administrator
+- ✅ **Document deviations** if intentional (rare cases with CS2 approval)
+- ✅ **Create comparison report** showing local vs canonical differences
+
+**Protocol Reference**: `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Sections 6.2, 11
+
+### Layer-Down Evidence Requirements
+
+**MUST produce** (stored in `.agent-admin/governance/`):
+- Version alignment confirmation
+- Canon file consumption list with SHA256 hashes
+- Agent contract update diffs
+- PR gate validation evidence
+- Test results (if applicable)
+- **MANDATORY PREHANDOVER_PROOF** for executable artifacts
+
+**Protocol Reference**: `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 6.3
+
+### Version Synchronization
+
+**After successful layer-down completion**:
+- Update `GOVERNANCE_ARTIFACT_INVENTORY.md` with new versions
+- Record canonical commit hash
+- Update sync timestamp
+- Clear drift detection flags
+
+**Protocol Reference**: `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Sections 4.2, 7.1
+
+<!-- LOCKED END -->
+
+---
+
+## 🔒 Consumer Repository Registry Operations (Category 9 - Gold Standard)
+
+<!-- Lock ID: LOCK-LIAISON-REGISTRY-001 | Authority: CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md | Review: quarterly -->
+
+**Authority**: `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md`
+
+### Registry Binding
+
+**Consumer repository configuration** sourced from:
+- **Location**: Canonical `governance/CONSUMER_REPO_REGISTRY.json` (NOT layered down)
+- **Access**: Read-only via HTTPS from canonical governance repository
+- **Contents**: Repository entry includes enabled status, ripple targets, metadata
+
+**Protocol Reference**: `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Section 7
+
+### Ripple Target Verification (MANDATORY)
+
+**MUST validate ripple events**:
+- ✅ Verify event originates from registry-listed repository
+- ✅ Verify dispatch payload matches registry-defined sender expectations
+- ❌ **REJECT ripple from unlisted sources** (escalate to CS2)
+
+**Protocol Reference**: `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Sections 4, 7
+
+### Deterministic Targeting Rules
+
+**When processing ripple events**:
+- Respect registry order for ripple processing
+- Skip disabled entries automatically
+- Apply tag-based staged rollout rules if present
+- Never process out-of-order or skip enabled entries
+
+**Protocol Reference**: `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Section 7
+
+### Registry Escalation Protocol
+
+**MUST escalate to CS2/governance administrator when**:
+- Registry inconsistencies detected (missing entry, invalid format)
+- Circuit breaker trips after 3 failed ripple dispatches
+- Ripple SLA violations occur (>24 hour delay)
+- Registry entry for this repository is disabled unexpectedly
+
+**Protocol Reference**: `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Sections 6, 8
+
+### Ripple Inbox Management
+
+**Record received ripple events to**:
+- `.agent-admin/governance/ripple-log.json` — Event history with timestamps
+- `.agent-admin/governance/sync_state.json` — Current sync status
+
+**Format** per consumer expectations protocol:
+```json
+{
+  "event_type": "governance_ripple",
+  "canonical_commit": "<sha>",
+  "received_at": "<iso-8601>",
+  "processed": true|false
+}
+```
+
+**Protocol Reference**: `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Section 5
+
+<!-- LOCKED END -->
+
+---
+
+## 🔒 Role-Specific Authority Boundaries (Category 10 - Gold Standard)
+
+<!-- Lock ID: LOCK-LIAISON-AUTHORITY-001 | Authority: GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md | Review: never -->
+
+**Authority**: `GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md`
+
+### Prohibition: No Canon Authoring (ABSOLUTE)
+
+**Consumer repository role ONLY**:
+- ❌ **PROHIBITED** from creating canonical governance artifacts
+- ❌ **PROHIBITED** from modifying canonical governance artifacts
+- ❌ **PROHIBITED** from proposing canonical governance changes
+- ✅ **AUTHORITY** limited to receiving and layering down governance
+
+**Rationale**: Canonical governance flows ONE WAY (governance repo → consumer repos).
+
+**Protocol Reference**: `GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Section 3.3.3
+
+### Scope Limitation: Sync and Layer-Down Only
+
+**Authority limited to**:
+- ✅ Receiving governance updates from canonical source
+- ✅ Maintaining version synchronization
+- ✅ Updating local governance references
+- ✅ Executing layer-down protocol
+
+**NO authority over**:
+- ❌ Application code implementation
+- ❌ Architecture decisions
+- ❌ Build or QA processes
+- ❌ Builder task assignment
+
+**Protocol Reference**: `GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Sections 3.3.1–3.3.4
+
+### Constitutional Change Escalation (MANDATORY)
+
+**MUST escalate to CS2 or governance administrator when layer-down includes**:
+- Build Philosophy modifications
+- Zero-test-debt constitutional rule changes
+- Supreme authority document updates
+- Agent authority model changes
+- Constitutional prohibition modifications
+
+**CANNOT approve or apply** constitutional updates without explicit human authorization.
+
+**Protocol Reference**: `GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Section 7
+
+### Repository Initialization Authority (Conditional)
+
+**When explicitly authorized by CS2/FM**:
+- ✅ MAY perform one-time repository seeding
+- ✅ MAY execute governance coupling
+- ✅ MUST follow structured appointment with scope definition
+- ✅ MUST maintain authorization trail
+
+**NOT authorized without explicit human approval.**
+
+**Protocol Reference**: `GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Sections 3.2, 4, 5
+
+### Self-Governance Boundaries
+
+**Self-alignment authority**:
+- ✅ MAY self-align own contract to resolve drift from canonical baseline
+- ❌ MUST NOT bypass contract protection locks
+- ❌ MUST follow CS2 agent file authority model for substantive changes
+
+**Authority model**: `CS2_AGENT_FILE_AUTHORITY_MODEL.md`, `AGENT_CONTRACT_PROTECTION_PROTOCOL.md`
+
+<!-- LOCKED END -->
+
+---
+
+## Appendix A — Required Canonical Governance Artifacts (Gold Standard Reference)
+
+**Status**: Reference appendix from office-app PR #733
+**Purpose**: Enumerate PUBLIC_API canonical governance artifacts for layer-down
+**Source**: `APGI-cmy/maturion-foreman-governance` + `governance/CANON_INVENTORY.json`
+
+**Total PUBLIC_API Canons**: 102 (as of 2026-02-11)
+
+### Core Identity & Purpose (2)
+- `GOVERNANCE_PURPOSE_AND_SCOPE.md` — Supreme authority
+- `BUILD_PHILOSOPHY.md` — Constitutional principles
+
+### Agent Contract & Recruitment (9)
+- `AGENT_RECRUITMENT.md`
+- `AGENT_RECRUITMENT_AND_CONTRACT_AUTHORITY_MODEL.md`
+- `AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md`
+- `AGENT_CONTRACT_PROTECTION_PROTOCOL.md`
+- `AGENT_FILE_BINDING_REQUIREMENTS.md`
+- `AGENT_ONBOARDING_QUICKSTART.md`
+- `CS2_AGENT_FILE_AUTHORITY_MODEL.md`
+- `AGENT_SELF_GOVERNANCE_PROTOCOL.md`
+- `AGENT_ROLE_GATE_APPLICABILITY.md`
+
+### Cross-Repository Layer-Down & Ripple (7)
+- `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md`
+- `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md`
+- `GOVERNANCE_RIPPLE_MODEL.md`
+- `GOVERNANCE_RIPPLE_DETECTION_PROTOCOL.md`
+- `GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md`
+- `AGENT_RIPPLE_AWARENESS_OBLIGATION.md`
+- `CROSS_REPOSITORY_RIPPLE_AWARENESS_MODEL.md`
+
+### Governance Liaison Role Definition (4)
+- `GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md`
+- `GOVERNANCE_LIAISON_TRAINING_PROTOCOL.md`
+- `REPOSITORY_INITIALIZATION_AND_GOVERNANCE_SEEDING_PROTOCOL.md`
+- `SELF_ALIGNMENT_AUTHORITY_MODEL.md`
+
+### Version Synchronization & Alignment (4)
+- `GOVERNANCE_VERSIONING_AND_SYNC_PROTOCOL.md`
+- `GOVERNANCE_LAYERDOWN_CONTRACT.md`
+- `AGENT_CANONICAL_CONTEXT_SYNCHRONISATION_PROTOCOL.md`
+- `GOVERNANCE_ALIGNMENT_MONITORING_PROTOCOL.md`
+
+### Execution, Testing & Evidence (6)
+- `EXECUTION_BOOTSTRAP_PROTOCOL.md`
+- `CI_CONFIRMATORY_NOT_DIAGNOSTIC.md`
+- `STOP_AND_FIX_DOCTRINE.md`
+- `AGENT_BASELINE_MANAGEMENT_PROTOCOL.md`
+- `COMMISSIONING_EVIDENCE_MODEL.md`
+- `EVIDENCE_ARTIFACT_BUNDLE_STANDARD.md`
+
+### Gate Protocols & Merge Requirements (6)
+- `MERGE_GATE_PHILOSOPHY.md`
+- `MERGE_GATE_INTERFACE_STANDARD.md`
+- `AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md`
+- `PR_GATE_EVALUATION_AND_ROLE_PROTOCOL.md`
+- `PR_GATE_PRECONDITION_RULE.md`
+- `BRANCH_PROTECTION_ENFORCEMENT.md`
+
+### Authority Models & Supervision (3)
+- `FOREMAN_AUTHORITY_AND_SUPERVISION_MODEL.md`
+- `PLATFORM_AUTHORITY_BOUNDARY_AND_DELEGATION_MODEL.md`
+- `DELEGATION_INSTRUCTION_AND_AUDIT_MODEL.md`
+
+### Escalation & Compliance (4)
+- `CASCADING_FAILURE_CIRCUIT_BREAKER.md`
+- `WARNING_DISCOVERY_BLOCKER_PROTOCOL.md`
+- `MANDATORY_ENHANCEMENT_CAPTURE_STANDARD.md`
+- `GOVERNANCE_COMPLETENESS_MODEL.md`
+
+### Additional Critical Protocols (remaining ~57 from 102 total)
+See `governance/CANON_INVENTORY.json` for complete enumeration.
+
+**Artifact Version Tracking**: All versions, effective dates, SHA256 checksums, and layer-down status maintained in `governance/CANON_INVENTORY.json`.
+
+**Usage Notes**:
+- Governance liaison MUST verify artifact checksums before layer-down
+- Only PUBLIC_API artifacts may be consumed by consumer repositories
+- INTERNAL artifacts are off-limits per constitutional prohibition
+- OPTIONAL artifacts may be referenced if repository opts in
+- Version mismatches trigger drift detection and mandatory alignment
+
+**Registry Location**: `governance/CONSUMER_REPO_REGISTRY.json` in canonical governance repository (read-only, not layered down)
 
 ---
 
