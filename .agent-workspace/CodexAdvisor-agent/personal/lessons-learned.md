@@ -46,3 +46,19 @@
 - Context: Agents need concrete guidance for session memory and evidence creation
 - Pattern: Including full session memory templates and evidence automation scripts in contract
 - Action: Embed operational templates directly in contracts to reduce agent cognitive load
+
+## Session 20260212 (PR #114 Corrective Action)
+
+### Lesson: Session Memory Creation Failure (PR #114)
+
+**Pattern Failure**: Failed to create session memory for agent file recompilation (R_Roster PR #114). Same failure occurred in maturion-isms PR #76.
+
+**Root Cause**: Session memory not integrated into agent-factory workflow trigger.
+
+**Correction**: CS2 corrective action required to complete PR.
+
+**Lesson**: **Agent file creation/modification ALWAYS requires session memory.** No exceptions.
+
+**Checklist Gap Identified**: Pre-creation protocol needs Step 7: "Create session memory documenting the work"
+
+**Action**: Will create issue to enhance pre-creation protocol checklist.
