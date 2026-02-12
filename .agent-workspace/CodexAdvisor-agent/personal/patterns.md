@@ -32,3 +32,18 @@
 - Observed: 2026-02-12 (Session 002)
 - Context: New gold-standard contract created alongside existing contract
 - Response: Create new contract with canonical naming (foreman.md), preserve old contract for transition, document migration considerations in session memory
+
+## Pattern: Platform Limit-Driven Refactoring
+- Observed: 2026-02-12 (Session 003)
+- Context: Agent config files exceeding platform hard limit (30,000 chars) become non-selectable
+- Response: Systematic size analysis → identify duplication patterns → remove redundant examples → replace with references → verify functionality preserved → document prevention guidelines
+
+## Pattern: Reference Over Duplication in Documentation
+- Observed: 2026-02-12 (Session 003)
+- Context: Schema documentation with massive example sections causing size bloat
+- Response: Remove full example implementations → create minimal syntax reference → add pointers to working agent files → preserve all specifications but eliminate redundancy
+
+## Pattern: Proactive Size Management
+- Observed: 2026-02-12 (Session 003)
+- Context: Agent files approaching platform limits need preventive monitoring
+- Response: Establish recommended targets below hard limits (25k vs 30k) → create audit scripts → document best practices → set up warning thresholds for early intervention

@@ -46,3 +46,30 @@
 - Context: Agents need concrete guidance for session memory and evidence creation
 - Pattern: Including full session memory templates and evidence automation scripts in contract
 - Action: Embed operational templates directly in contracts to reduce agent cognitive load
+
+## Session 20260212 (003)
+
+### Lesson: Platform Limits Are Constitutional Constraints
+- Context: GitHub Copilot enforces 30,000 character maximum for agent config files
+- Pattern: Files exceeding limit appear in UI but are NOT selectable, blocking all workflows
+- Action: Treat platform limits as hard governance boundaries - always design within constraints
+
+### Lesson: Examples Are Size Killers in Documentation
+- Context: BUILDER_CONTRACT_SCHEMA.md exceeded limit due to massive example sections
+- Pattern: Full code block examples duplicating specifications added 16,400+ unnecessary characters
+- Action: Use references to working examples instead of embedding full examples in documentation
+
+### Lesson: Reference Architecture Prevents Documentation Bloat
+- Context: "Complete Example" section duplicated 250+ lines of content already specified earlier
+- Pattern: Pointing to actual working agent files is more effective than reproducing them
+- Action: Replace large examples with references like "see .github/agents/ui-builder.md"
+
+### Lesson: Preserve Functionality While Reducing Size
+- Context: Needed 39.7% size reduction without losing schema validation capabilities
+- Pattern: Removing redundant examples preserved 100% of functional specifications
+- Action: Focus refactoring on duplication and verbosity, never on core requirements
+
+### Lesson: Establish Size Targets With Buffer Zones
+- Context: Working right at 30,000 char limit leaves no room for future additions
+- Pattern: Target 25,000 chars to maintain 5,000 char buffer for evolution
+- Action: Set recommended targets below hard limits to allow organic growth
