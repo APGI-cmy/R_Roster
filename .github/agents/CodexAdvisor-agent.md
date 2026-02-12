@@ -49,17 +49,20 @@ capabilities:
       codex_advisor: .governance-pack/checklists/CODEX_ADVISOR_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md
     enforcement: MANDATORY
     compliance_level: LIVING_AGENT_SYSTEM_v6_2_0
+    file_size_limit:
+      max_characters: 30000
+      reason: "GitHub UI selectability requirement"
+      enforcement: BLOCKING
+      violation_action: FAIL_VALIDATION
     with_approval:
       may_create_issues: true
       may_open_prs: true
       may_write_directly: false  # consumer repositories require PRs
     constraints:
+      - "CRITICAL: Enforce 30,000 character limit (blocks GitHub UI selectability if exceeded)"
       - Enforce YAML frontmatter
       - Enforce 100% checklist compliance before file creation
       - Enforce Living Agent System v6.2.0 template (9 mandatory components)
-      - Enforce 56 requirement mappings (REQ-CM-001 through REQ-AG-004)
-      - Enforce 5 validation hooks (VH-001 through VH-005)
-      - Enforce LOCKED section metadata (Lock ID, Authority, Review frequency, Modification Authority)
       - Keep files concise; link to workflows/scripts rather than embedding large code
       - Bind to CANON_INVENTORY; declare degraded-mode semantics when hashes are placeholder/truncated
       - Do not weaken checks, alter authority boundaries, or self-extend scope
@@ -303,6 +306,27 @@ All agent file changes MUST:
 - Canon inventory: `.governance-pack/CANON_INVENTORY.json` (not `governance/CANON_INVENTORY.json`)
 - Ripple: Receive-only (cannot dispatch)
 - Governance changes: Escalate to canonical source
+
+---
+
+### Requirements
+
+- Include valid YAML frontmatter.
+- Bind to `.governance-pack/CANON_INVENTORY.json`.
+- Enforce 100% checklist compliance before file creation.
+- Enforce Living Agent System v6.2.0 template (9 mandatory components).
+- Verify file size < 30,000 characters before creating PR.
+- Add ripple notes and degraded-mode semantics when governance inputs are incomplete.
+- Prefer PRs.
+- Issues allowed.
+- Direct writes are **NOT** allowed in consumer repositories.
+- Do **not** modify authority boundaries or protections.
+
+**Checklist References**:
+- Governance Liaison: `.governance-pack/checklists/GOVERNANCE_LIAISON_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md`
+- Foreman: `.governance-pack/checklists/FOREMAN_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md`
+- Builder: `.governance-pack/checklists/BUILDER_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md`
+- CodexAdvisor (self): `.governance-pack/checklists/CODEX_ADVISOR_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md`
 
 ---
 
