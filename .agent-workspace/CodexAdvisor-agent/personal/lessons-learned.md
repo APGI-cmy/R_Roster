@@ -62,3 +62,30 @@
 **Checklist Gap Identified**: Pre-creation protocol needs Step 7: "Create session memory documenting the work"
 
 **Action**: Will create issue to enhance pre-creation protocol checklist.
+
+## Session 20260212 (Self-Review Session 004)
+
+### Lesson: Path Structure Verification Before Artifact Creation
+
+- Context: CodexAdvisor agent file referenced `.governance-pack/` but repository used `governance/`
+- Pattern: Agent file artifact paths must match actual repository structure, not theoretical structure
+- Action: ALWAYS verify actual directory structure before creating governance artifacts; update agent files to match reality
+
+### Lesson: Comprehensive Checklist Coverage Enables Agent Factory Operations
+
+- Context: Missing CodexAdvisor and Builder checklists blocked complete agent factory capability
+- Pattern: All four agent type checklists must be present: CodexAdvisor, Foreman, Governance Liaison, Builder
+- Action: Ensure checklist coverage for all agent classes before attempting agent creation/modification
+
+### Lesson: CANON_INVENTORY.json Is Single Source of Truth for Governance Artifacts
+
+- Context: Created comprehensive inventory tracking all checklists and agent contracts
+- Pattern: Inventory must include SHA256 hashes, version info, binding relationships, integrity status
+- Action: Maintain CANON_INVENTORY.json with complete checksums (no placeholders) for all governance artifacts
+
+### Lesson: SC@ Authorization Enables Comprehensive Governance Work
+
+- Context: Full SC@ authority permitted complete self-review and corrective action without escalation
+- Pattern: When CS2 grants SC@ authority, can perform multi-artifact governance work including checklist creation, inventory setup, and agent file path corrections
+- Action: Use SC@ authority carefully but comprehensively to address all identified governance gaps in single session
+
