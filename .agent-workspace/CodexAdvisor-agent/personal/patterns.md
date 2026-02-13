@@ -32,3 +32,24 @@
 - Observed: 2026-02-12 (Session 002)
 - Context: New gold-standard contract created alongside existing contract
 - Response: Create new contract with canonical naming (foreman.md), preserve old contract for transition, document migration considerations in session memory
+
+## Pattern: Path Verification Before Governance Artifact Creation
+- Observed: 2026-02-12 (Session 004)
+- Context: Agent files referenced `.governance-pack/` but repository structure used `governance/`
+- Response: Verify actual directory structure first, then create artifacts in correct locations; update agent file references to match reality
+
+## Pattern: CANON_INVENTORY as Governance Integrity Checkpoint
+- Observed: 2026-02-12 (Session 004)
+- Context: Multiple governance artifacts needed integrity tracking and SHA256 verification
+- Response: Create CANON_INVENTORY.json with complete checksums for all checklists, agent contracts, and tier-0 manifest; use as single source of truth for artifact integrity
+
+## Pattern: Systematic Gap Analysis for Self-Review
+- Observed: 2026-02-12 (Session 004)
+- Context: CodexAdvisor self-review required comprehensive assessment of governance completeness
+- Response: Check for each expected artifact, identify what's missing vs. what exists, categorize gaps (missing files, path mismatches, integrity issues), create corrective plan addressing all gaps
+
+## Pattern: Checklist Condensation from Canonical Sources
+- Observed: 2026-02-12 (Session 004)
+- Context: Canonical BUILDER_CONTRACT_BINDING_CHECKLIST.md was 53KB, needed local requirements version
+- Response: Extract essential categories and requirements, condense to ~10KB while preserving completeness, maintain category structure for consistency, reference canonical source for full details
+
