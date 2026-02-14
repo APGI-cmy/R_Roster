@@ -20,38 +20,38 @@ jobs:
   scheduled-alignment-check:
     name: scheduled-governance-alignment
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Check last sync time
         id: sync_check
         run: |
           echo "=========================================="
           echo "Scheduled Governance Alignment Check"
           echo "=========================================="
-          
+
           SYNC_STATE=".agent-admin/governance/sync_state.json"
-          
+
           if [ -f "$SYNC_STATE" ]; then
             LAST_SYNC=$(jq -r '.last_sync // "never"' "$SYNC_STATE")
             ALIGNMENT_STATE=$(jq -r '.alignment_state // "UNKNOWN"' "$SYNC_STATE")
-            
+
             echo "Last sync: $LAST_SYNC"
             echo "Alignment state: $ALIGNMENT_STATE"
-            
+
             # Calculate time since last sync
             if [ "$LAST_SYNC" != "never" ]; then
               LAST_SYNC_EPOCH=$(date -d "$LAST_SYNC" +%s 2>/dev/null || echo 0)
               CURRENT_EPOCH=$(date +%s)
               HOURS_SINCE_SYNC=$(( (CURRENT_EPOCH - LAST_SYNC_EPOCH) / 3600 ))
-              
+
               echo "Hours since last sync: $HOURS_SINCE_SYNC"
-              
+
               if [ $HOURS_SINCE_SYNC -gt 24 ]; then
                 echo "⚠️  Drift window exceeded 24 hours!"
                 echo "needs_alignment=true" >> $GITHUB_OUTPUT
@@ -59,7 +59,7 @@ jobs:
             else
               echo "needs_alignment=true" >> $GITHUB_OUTPUT
             fi
-            
+
             if [ "$ALIGNMENT_STATE" = "DRIFT_DETECTED" ]; then
               echo "⚠️  Drift previously detected - needs remediation"
               echo "needs_alignment=true" >> $GITHUB_OUTPUT
@@ -68,41 +68,41 @@ jobs:
             echo "⚠️  No sync state found - initializing"
             echo "needs_alignment=true" >> $GITHUB_OUTPUT
           fi
-          
+
           echo "=========================================="
-      
+
       - name: Run drift detection
         id: drift_check
         run: |
           echo "Running drift detection..."
-          
+
           # Use check-governance-drift.sh if available
           if [ -f ".github/scripts/check-governance-drift.sh" ]; then
             bash .github/scripts/check-governance-drift.sh
           else
             echo "Drift detection script not found - performing basic checks"
-            
+
             # Basic integrity checks
             DRIFT_DETECTED=false
-            
+
             # Check CANON_INVENTORY exists
             if [ ! -f "governance/CANON_INVENTORY.json" ]; then
               echo "❌ CANON_INVENTORY.json missing"
               DRIFT_DETECTED=true
             fi
-            
+
             # Check TIER_0_CANON_MANIFEST exists
             if [ ! -f "governance/TIER_0_CANON_MANIFEST.json" ]; then
               echo "❌ TIER_0_CANON_MANIFEST.json missing"
               DRIFT_DETECTED=true
             fi
-            
+
             # Check sync_state exists
             if [ ! -f ".agent-admin/governance/sync_state.json" ]; then
               echo "❌ sync_state.json missing"
               DRIFT_DETECTED=true
             fi
-            
+
             if [ "$DRIFT_DETECTED" = true ]; then
               echo "drift_detected=true" >> $GITHUB_OUTPUT
               echo "❌ Drift detected"
@@ -111,27 +111,27 @@ jobs:
               echo "✓ No drift detected"
             fi
           fi
-      
+
       - name: Execute alignment if needed
         if: steps.sync_check.outputs.needs_alignment == 'true' || steps.drift_check.outputs.drift_detected == 'true'
         run: |
           echo "Executing alignment..."
-          
+
           if [ -f ".github/scripts/align-governance.sh" ]; then
             bash .github/scripts/align-governance.sh
           else
             echo "⚠️  Alignment script not found"
             echo "Manual alignment required"
           fi
-      
+
       - name: Update sync state
         if: always()
         run: |
           TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           SYNC_STATE=".agent-admin/governance/sync_state.json"
-          
+
           mkdir -p .agent-admin/governance
-          
+
           # Update or create sync state
           if [ -f "$SYNC_STATE" ]; then
             jq --arg ts "$TIMESTAMP" \
@@ -151,18 +151,18 @@ jobs:
           }
           EOF
           fi
-          
+
           echo "Sync state updated:"
           cat "$SYNC_STATE"
-      
+
       - name: Create alignment evidence
         if: always()
         run: |
           TIMESTAMP=$(date -u +"%Y%m%dT%H%M%SZ")
           EVIDENCE_DIR=".agent-admin/evidence/governance-liaison/scheduled-${TIMESTAMP}"
-          
+
           mkdir -p "$EVIDENCE_DIR"
-          
+
           # Create evidence log
           cat > "$EVIDENCE_DIR/evidence-log.json" <<EOF
           {
@@ -175,25 +175,25 @@ jobs:
             "sync_state": ".agent-admin/governance/sync_state.json"
           }
           EOF
-          
+
           echo "Evidence created at: $EVIDENCE_DIR"
-      
+
       - name: Commit sync state updates
         if: always()
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
+
           git add .agent-admin/governance/
           git add .agent-admin/evidence/
-          
+
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "chore: scheduled governance alignment check [skip ci]"
             git push
           fi
-      
+
       - name: Escalate if drift persists
         if: steps.drift_check.outputs.drift_detected == 'true'
         run: |
@@ -204,36 +204,36 @@ jobs:
           echo "Review .agent-admin/governance/sync_state.json"
           echo "Manual remediation may be required."
           echo "=========================================="
-          
+
           # Create escalation file if drift persists
           ESCALATION_DIR=".agent-workspace/governance-liaison/escalation-inbox"
           mkdir -p "$ESCALATION_DIR"
-          
+
           TIMESTAMP=$(date -u +"%Y-%m-%d")
           ESCALATION_FILE="$ESCALATION_DIR/drift-detected-${TIMESTAMP}.md"
-          
+
           if [ ! -f "$ESCALATION_FILE" ]; then
             cat > "$ESCALATION_FILE" <<EOF
           # Escalation: Governance Drift Detected
-          
+
           ## Type
           GOVERNANCE_GAP
-          
+
           ## Description
           Scheduled governance alignment check detected drift between local and canonical governance.
-          
+
           ## Context
           - Detection: Scheduled alignment workflow
           - Timestamp: $(date -u +"%Y-%m-%dT%H:%M:%SZ")
           - Sync state: .agent-admin/governance/sync_state.json
-          
+
           ## Recommendation
           Execute governance alignment to synchronize with canonical source.
-          
+
           ---
           Created: Scheduled Check | Date: $TIMESTAMP
           EOF
-            
+
             echo "Escalation created: $ESCALATION_FILE"
           fi
 
