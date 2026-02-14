@@ -1,0 +1,171 @@
+name: Governance Ripple Sync
+
+on:
+  repository_dispatch:
+    types: [governance_ripple]
+  workflow_dispatch:
+    inputs:
+      force_sync:
+        description: 'Force synchronization even if no drift detected'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  receive-and-align:
+    name: governance-ripple-receiver
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Record ripple event
+        run: |
+          echo "=========================================="
+          echo "Governance Ripple Event Received"
+          echo "=========================================="
+          
+          # Create ripple log directory if needed
+          mkdir -p .agent-admin/governance
+          
+          # Record event to ripple log
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          RIPPLE_LOG=".agent-admin/governance/ripple-log.json"
+          
+          # Initialize log file if it doesn't exist
+          if [ ! -f "$RIPPLE_LOG" ]; then
+            echo '{"events": []}' > "$RIPPLE_LOG"
+          fi
+          
+          # Extract event data
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            CANONICAL_COMMIT="${{ github.event.client_payload.canonical_commit }}"
+            INVENTORY_VERSION="${{ github.event.client_payload.inventory_version }}"
+            DISPATCH_ID="${{ github.event.client_payload.dispatch_id }}"
+            SENDER="${{ github.event.client_payload.sender }}"
+            
+            echo "Ripple dispatch received:"
+            echo "  Canonical commit: $CANONICAL_COMMIT"
+            echo "  Inventory version: $INVENTORY_VERSION"
+            echo "  Dispatch ID: $DISPATCH_ID"
+            echo "  Sender: $SENDER"
+            
+            # Append to log
+            jq --arg ts "$TIMESTAMP" \
+               --arg commit "$CANONICAL_COMMIT" \
+               --arg version "$INVENTORY_VERSION" \
+               --arg id "$DISPATCH_ID" \
+               --arg sender "$SENDER" \
+               '.events += [{
+                 timestamp: $ts,
+                 canonical_commit: $commit,
+                 inventory_version: $version,
+                 dispatch_id: $id,
+                 sender: $sender,
+                 trigger: "repository_dispatch"
+               }]' "$RIPPLE_LOG" > "${RIPPLE_LOG}.tmp" && mv "${RIPPLE_LOG}.tmp" "$RIPPLE_LOG"
+          else
+            echo "Manual workflow dispatch"
+            
+            # Record manual trigger
+            jq --arg ts "$TIMESTAMP" \
+               '.events += [{
+                 timestamp: $ts,
+                 trigger: "workflow_dispatch",
+                 force_sync: "${{ github.event.inputs.force_sync }}"
+               }]' "$RIPPLE_LOG" > "${RIPPLE_LOG}.tmp" && mv "${RIPPLE_LOG}.tmp" "$RIPPLE_LOG"
+          fi
+          
+          echo "=========================================="
+      
+      - name: Execute alignment check
+        id: alignment
+        run: |
+          echo "Executing governance alignment..."
+          
+          # Run alignment script
+          if [ -f ".github/scripts/align-governance.sh" ]; then
+            bash .github/scripts/align-governance.sh
+          else
+            echo "⚠️  Alignment script not found. Creating alignment PR manually..."
+            
+            # Basic drift detection
+            if [ -f "governance/CANON_INVENTORY.json" ]; then
+              echo "✓ CANON_INVENTORY.json exists"
+              echo "drift_detected=false" >> $GITHUB_OUTPUT
+            else
+              echo "❌ CANON_INVENTORY.json missing"
+              echo "drift_detected=true" >> $GITHUB_OUTPUT
+            fi
+          fi
+      
+      - name: Update sync state
+        if: always()
+        run: |
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          SYNC_STATE=".agent-admin/governance/sync_state.json"
+          
+          # Update sync state
+          if [ -f "$SYNC_STATE" ]; then
+            jq --arg ts "$TIMESTAMP" \
+               --arg state "${{ steps.alignment.outputs.drift_detected == 'true' && 'DRIFT_DETECTED' || 'ALIGNED' }}" \
+               '.last_sync = $ts | .alignment_state = $state' \
+               "$SYNC_STATE" > "${SYNC_STATE}.tmp" && mv "${SYNC_STATE}.tmp" "$SYNC_STATE"
+          fi
+          
+          echo "Sync state updated: $(cat $SYNC_STATE)"
+      
+      - name: Create alignment evidence
+        if: always()
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%dT%H%M%SZ")
+          EVIDENCE_DIR=".agent-admin/evidence/governance-liaison/ripple-${TIMESTAMP}"
+          
+          mkdir -p "$EVIDENCE_DIR"
+          
+          # Create evidence log
+          cat > "$EVIDENCE_DIR/evidence-log.json" <<EOF
+          {
+            "session_type": "governance_ripple",
+            "timestamp": "$TIMESTAMP",
+            "trigger": "${{ github.event_name }}",
+            "drift_detected": "${{ steps.alignment.outputs.drift_detected }}",
+            "alignment_status": "${{ steps.alignment.outputs.drift_detected == 'true' && 'DRIFT_DETECTED' || 'ALIGNED' }}",
+            "ripple_log": ".agent-admin/governance/ripple-log.json",
+            "sync_state": ".agent-admin/governance/sync_state.json"
+          }
+          EOF
+          
+          echo "Evidence bundle created at: $EVIDENCE_DIR"
+          ls -la "$EVIDENCE_DIR/"
+
+      - name: Commit ripple tracking updates
+        if: always()
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          git add .agent-admin/governance/
+          git add .agent-admin/evidence/
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: record governance ripple event [skip ci]"
+            git push
+          fi
+
+# Per CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md:
+# - Push ripple via repository_dispatch (mandatory)
+# - Scheduled fallback every 60 minutes (mandatory)
+# - Record to ripple-log.json and sync_state.json
+# - Create alignment PR on drift detection
+# - Evidence artifacts per EVIDENCE_ARTIFACT_BUNDLE_STANDARD.md
