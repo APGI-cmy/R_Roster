@@ -124,3 +124,44 @@ R_Roster supports two validation methods:
 - Missing reviews BLOCK PR merge
 - No tolerance for incomplete reviews without exemption
 - Repeat non-compliance escalated to Governance Liaison
+
+---
+
+## Governance Ripple System
+
+R_Roster participates in the Living Agent System's automated governance synchronization. This ensures canonical governance policies are propagated automatically.
+
+### How It Works
+
+- **Push Ripple**: Receives `repository_dispatch` events from canonical governance when policies change
+- **Scheduled Fallback**: Hourly checks ensure no drift for more than 24 hours
+- **Automated Alignment**: Scripts detect and remediate governance drift automatically
+- **Evidence-First**: All alignment actions are tracked and auditable
+
+### Key Components
+
+- **Workflows**: `.github/workflows/governance-ripple-sync.yml`, `governance-alignment-schedule.yml`
+- **Scripts**: `.github/scripts/align-governance.sh`, `check-governance-drift.sh`
+- **Evidence**: `.agent-admin/governance/ripple-log.json`, `sync_state.json`
+
+### For Developers
+
+You typically won't interact with the ripple system directly. It runs automatically in the background.
+
+**If you see drift warnings**:
+1. The Governance Liaison agent will handle alignment
+2. Review PRs from governance-liaison for governance updates
+3. Merge gate validates alignment on all PRs
+
+### Documentation
+
+See **[Governance Ripple System Documentation](docs/GOVERNANCE_RIPPLE_SYSTEM.md)** for complete details.
+
+### Required Secrets
+
+**`MATURION_BOT_TOKEN`** (optional - for automated alignment PRs)
+- Used by Governance Liaison agent to create alignment PRs
+- Configure in: Repository Settings → Secrets and variables → Actions
+- Permissions: `contents: write`, `pull-requests: write`, `issues: write`
+
+**Note**: System works without this token using `GITHUB_TOKEN`, but automated PR creation is limited.

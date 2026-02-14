@@ -324,24 +324,37 @@ jobs:
           
           ALIGNMENT_STATE="UNKNOWN"
           
-          # Check for governance sync state
-          if [ -f ".agent-admin/governance/sync_state.json" ]; then
-            echo "✓ Found governance sync state"
-            
-            # Validate JSON
-            if python3 -c "import json; json.load(open('.agent-admin/governance/sync_state.json'))" 2>/dev/null; then
-              # Check for alignment status
-              ALIGNMENT=$(python3 -c "import json; d=json.load(open('.agent-admin/governance/sync_state.json')); print(d.get('alignment_state', 'UNKNOWN'))" 2>/dev/null || echo "UNKNOWN")
-              ALIGNMENT_STATE="$ALIGNMENT"
-              echo "  Alignment state: $ALIGNMENT_STATE"
+          # Use drift detection script if available
+          if [ -f ".github/scripts/check-governance-drift.sh" ]; then
+            echo "Running automated drift detection..."
+            if bash .github/scripts/check-governance-drift.sh; then
+              ALIGNMENT_STATE="ALIGNED"
+              echo "✓ Automated drift check passed"
             else
-              echo "⚠️  Invalid JSON in sync_state.json"
-              ALIGNMENT_STATE="DEGRADED"
+              ALIGNMENT_STATE="DRIFT"
+              echo "⚠️  Automated drift check detected drift"
             fi
           else
-            echo "⚠️  No governance sync state found"
-            echo "  Expected: .agent-admin/governance/sync_state.json"
-            ALIGNMENT_STATE="DRIFT"
+            # Fallback to manual checks
+            # Check for governance sync state
+            if [ -f ".agent-admin/governance/sync_state.json" ]; then
+              echo "✓ Found governance sync state"
+              
+              # Validate JSON
+              if python3 -c "import json; json.load(open('.agent-admin/governance/sync_state.json'))" 2>/dev/null; then
+                # Check for alignment status
+                ALIGNMENT=$(python3 -c "import json; d=json.load(open('.agent-admin/governance/sync_state.json')); print(d.get('alignment_state', 'UNKNOWN'))" 2>/dev/null || echo "UNKNOWN")
+                ALIGNMENT_STATE="$ALIGNMENT"
+                echo "  Alignment state: $ALIGNMENT_STATE"
+              else
+                echo "⚠️  Invalid JSON in sync_state.json"
+                ALIGNMENT_STATE="DEGRADED"
+              fi
+            else
+              echo "⚠️  No governance sync state found"
+              echo "  Expected: .agent-admin/governance/sync_state.json"
+              ALIGNMENT_STATE="DRIFT"
+            fi
           fi
           
           echo "alignment_state=$ALIGNMENT_STATE" >> $GITHUB_OUTPUT
