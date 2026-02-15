@@ -3,7 +3,7 @@
   "alignment_state": "ALIGNED",
   "last_sync": "2026-02-15T09:38:14Z",
   "canonical_source": "APGI-cmy/maturion-foreman-governance",
-  "drift_detected": false,
+  "drift_detected": true,
   "notes": "Initial sync state - repository implementing Living Agent System v6.2.0",
   "last_scheduled_check": "2026-02-15T09:38:14Z"
 }

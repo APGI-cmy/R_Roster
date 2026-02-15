@@ -1,0 +1,9 @@
+{
+  "session_type": "governance_alignment",
+  "timestamp": "20260215T083053Z",
+  "drift_detected": true,
+  "missing_files_count": 0,
+  "validation_errors_count": 0,
+  "alignment_status": "DRIFT_DETECTED",
+  "canonical_source": "APGI-cmy/maturion-foreman-governance"
+}

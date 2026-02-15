@@ -49,3 +49,40 @@
 - Pattern: Follow canonical protocol requirements (hourly per CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md)
 - Action: Implement as specified, document rationale
 - Benefit: Ensures SLA compliance, provides predictable execution pattern
+
+## Session 2026-02-15
+
+### Lesson: Enhance Before Replace
+- Context: When encountering "missing" functionality, verify existing implementation first
+- Pattern: Issue says "workflow missing" but workflow may exist with gaps
+- Action: Explore thoroughly, identify gaps, enhance rather than recreate
+
+### Lesson: Exit Code as Signal, Not Failure
+- Context: Scripts that exit with non-zero codes on expected conditions
+- Pattern: `align-governance.sh` exits 1 when drift detected (expected behavior)
+- Action: Wrap in conditional, capture exit code, use as signal not failure indicator
+
+### Lesson: Null-Safe jq Queries
+- Context: Working with JSON structures that may have null/missing fields
+- Pattern: `jq '.field[]'` fails on null, use `jq '(.field // [])[]'` instead
+- Action: Always use null-coalescing operator for arrays that might not exist
+
+### Lesson: rsync for Governance Sync
+- Context: Syncing governance files from canonical repository
+- Pattern: Need to preserve structure, handle deletions, exclude local-only files
+- Action: Use `rsync -av --delete --exclude=.git --exclude=*.log --exclude=sync_state.json`
+
+### Lesson: CANON_INVENTORY Structure Variance
+- Context: Different repositories may organize CANON_INVENTORY differently
+- Pattern: Some use `canon_files[]`, others use `checklists[]` and `agent_contracts[]`
+- Action: Write flexible queries that handle structure variations
+
+### Lesson: Governance Liaison Unique Authority
+- Context: Self-alignment of governance artifacts
+- Pattern: No CS2 approval needed for governance sync from canonical
+- Action: Execute alignment, document in session memory, create evidence, proceed with mission
+
+### Lesson: Evidence-First Operations
+- Context: Living Agent System v6.2.0 compliance
+- Pattern: Every governance action needs evidence artifacts
+- Action: Create evidence bundles, update sync_state, log ripple events, maintain session memory

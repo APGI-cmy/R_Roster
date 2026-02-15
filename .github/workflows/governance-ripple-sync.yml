@@ -91,9 +91,17 @@ jobs:
         run: |
           echo "Executing governance alignment..."
 
-          # Run alignment script
+          # Run alignment script (exits 1 on drift, 0 on aligned)
           if [ -f ".github/scripts/align-governance.sh" ]; then
             bash .github/scripts/align-governance.sh
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -eq 0 ]; then
+              echo "✓ No drift detected"
+              echo "drift_detected=false" >> $GITHUB_OUTPUT
+            else
+              echo "⚠️  Drift detected (exit code $EXIT_CODE)"
+              echo "drift_detected=true" >> $GITHUB_OUTPUT
+            fi
           else
             echo "⚠️  Alignment script not found. Creating alignment PR manually..."
 
@@ -163,6 +171,56 @@ jobs:
             git push
           fi
 
+      # Fetch governance files from canonical repository
+      - name: Fetch canonical governance
+        if: steps.alignment.outputs.drift_detected == 'true'
+        run: |
+          echo "=========================================="
+          echo "Fetching Canonical Governance"
+          echo "=========================================="
+
+          CANONICAL_REPO="APGI-cmy/maturion-foreman-governance"
+          CANONICAL_BRANCH="main"
+
+          # Create temporary directory for canonical governance
+          TEMP_DIR=$(mktemp -d)
+
+          echo "Cloning canonical governance repository..."
+          git clone --depth 1 --branch "$CANONICAL_BRANCH" \
+            "https://github.com/$CANONICAL_REPO.git" "$TEMP_DIR" || {
+            echo "❌ Failed to clone canonical repository"
+            exit 1
+          }
+
+          echo "✓ Canonical repository cloned"
+
+          # Sync governance directory
+          echo ""
+          echo "Syncing governance files..."
+
+          # Copy governance files (preserving structure)
+          rsync -av --delete \
+            --exclude='.git' \
+            --exclude='*.log' \
+            --exclude='sync_state.json' \
+            "$TEMP_DIR/governance/" governance/ || {
+            echo "❌ Failed to sync governance files"
+            rm -rf "$TEMP_DIR"
+            exit 1
+          }
+
+          echo "✓ Governance files synced"
+
+          # Cleanup
+          rm -rf "$TEMP_DIR"
+
+          # Show what changed
+          echo ""
+          echo "Changes detected:"
+          git --no-pager diff --stat governance/ || echo "No changes"
+
+          echo "=========================================="
+
       # ✅ NEW: Create alignment PR with duplicate prevention and auto-merge
       - name: Create governance alignment PR
         if: steps.alignment.outputs.drift_detected == 'true'
@@ -172,60 +230,60 @@ jobs:
           echo "=========================================="
           echo "Creating Governance Alignment PR"
           echo "=========================================="
-          
+
           # ✅ Stable branch name
           BRANCH_NAME="governance-alignment-auto"
           PR_TITLE="[Governance] Automated governance alignment from ripple event"
-          
+
           # ✅ Check for existing open PR
           EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number' 2>/dev/null || echo "")
-          
+
           if [ -n "$EXISTING_PR" ]; then
             echo "⚠️  Open governance alignment PR already exists: #$EXISTING_PR"
             echo "   Skipping PR creation to prevent duplicates"
             echo "   Existing PR will be updated by subsequent alignment"
             exit 0
           fi
-          
+
           echo "✓ No existing open governance alignment PR found"
           echo "   Proceeding with PR creation"
-          
+
           # Create alignment branch
           git checkout -b "$BRANCH_NAME" || git checkout "$BRANCH_NAME"
-          
+
           # Add governance changes
           git add governance/
           git add .agent-admin/
-          
+
           if git diff --staged --quiet; then
             echo "⚠️  No governance changes to commit"
             exit 0
           fi
-          
+
           git commit -m "chore: governance alignment from ripple event"
           git push -f origin "$BRANCH_NAME"
-          
+
           # Create PR with labels
           PR_BODY="## Automated Governance Alignment
-          
+
           **Trigger**: Repository dispatch ripple event
           **Timestamp**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
           **Canonical Source**: APGI-cmy/maturion-foreman-governance
-          
+
           ### Changes
           This PR synchronizes local governance with the canonical governance repository.
-          
+
           ### Validation
           - Governance alignment validated by ripple system
           - SHA256 checksums verified
           - Canonical source is trusted
-          
+
           ### Authority
           - CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md
           - LIVING_AGENT_SYSTEM.md v6.2.0
-          
+
           **Note**: This PR is auto-generated by the governance ripple system and will auto-merge after passing checks."
-          
+
           # Create PR
           PR_NUMBER=$(gh pr create \
             --title "$PR_TITLE" \
@@ -235,19 +293,19 @@ jobs:
             --label "governance" \
             --label "automated" \
             --label "agent:liaison" | grep -oP '\d+$' || echo "")
-          
+
           if [ -z "$PR_NUMBER" ]; then
             echo "❌ Failed to create PR"
             exit 1
           fi
-          
+
           echo "✅ PR created: #$PR_NUMBER"
-          
+
           # ✅ Enable auto-merge
           echo ""
           echo "Enabling auto-merge for PR #$PR_NUMBER"
           gh pr merge "$PR_NUMBER" --auto --squash || echo "⚠️  Auto-merge failed (may need branch protection settings)"
-          
+
           echo "=========================================="
 
 # Per CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md:

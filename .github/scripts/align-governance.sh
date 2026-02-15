@@ -61,8 +61,8 @@ if [ -f "governance/CANON_INVENTORY.json" ]; then
     else
         echo "✓ CANON_INVENTORY.json is valid JSON"
         
-        # Check for placeholder hashes
-        PLACEHOLDER_COUNT=$(jq '[.canon_files[] | select(.sha256 == "placeholder" or .sha256 == "" or (.sha256 | length) < 64)] | length' governance/CANON_INVENTORY.json)
+        # Check for placeholder hashes (handle null canon_files gracefully)
+        PLACEHOLDER_COUNT=$(jq '[(.canon_files // [])[] | select(.sha256 == "placeholder" or .sha256 == "" or (.sha256 | length) < 64)] | length' governance/CANON_INVENTORY.json)
         
         if [ "$PLACEHOLDER_COUNT" -gt 0 ]; then
             echo "⚠️  Found $PLACEHOLDER_COUNT placeholder hashes in CANON_INVENTORY.json"
