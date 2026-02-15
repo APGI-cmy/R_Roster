@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.MATURION_BOT_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Record ripple event
         run: |
@@ -45,31 +45,34 @@ jobs:
             echo '{"events": []}' > "$RIPPLE_LOG"
           fi
 
-          # Extract event data
+          # Extract event data (field names match canonical repo implementation)
           if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
-            CANONICAL_COMMIT="${{ github.event.client_payload.canonical_commit }}"
-            INVENTORY_VERSION="${{ github.event.client_payload.inventory_version }}"
-            DISPATCH_ID="${{ github.event.client_payload.dispatch_id }}"
-            SENDER="${{ github.event.client_payload.sender }}"
+            # Note: Canonical repo sends commit_sha, commit_message, timestamp, source_repo
+            # Not canonical_commit, inventory_version, dispatch_id, sender per protocol
+            # This is a protocol implementation divergence requiring CS2 review
+            COMMIT_SHA="${{ github.event.client_payload.commit_sha }}"
+            COMMIT_MESSAGE="${{ github.event.client_payload.commit_message }}"
+            TIMESTAMP_RECEIVED="${{ github.event.client_payload.timestamp }}"
+            SOURCE_REPO="${{ github.event.client_payload.source_repo }}"
 
             echo "Ripple dispatch received:"
-            echo "  Canonical commit: $CANONICAL_COMMIT"
-            echo "  Inventory version: $INVENTORY_VERSION"
-            echo "  Dispatch ID: $DISPATCH_ID"
-            echo "  Sender: $SENDER"
+            echo "  Source repo: $SOURCE_REPO"
+            echo "  Commit SHA: $COMMIT_SHA"
+            echo "  Commit message: $COMMIT_MESSAGE"
+            echo "  Timestamp: $TIMESTAMP_RECEIVED"
 
             # Append to log
             jq --arg ts "$TIMESTAMP" \
-               --arg commit "$CANONICAL_COMMIT" \
-               --arg version "$INVENTORY_VERSION" \
-               --arg id "$DISPATCH_ID" \
-               --arg sender "$SENDER" \
+               --arg commit "$COMMIT_SHA" \
+               --arg message "$COMMIT_MESSAGE" \
+               --arg ts_received "$TIMESTAMP_RECEIVED" \
+               --arg source "$SOURCE_REPO" \
                '.events += [{
                  timestamp: $ts,
-                 canonical_commit: $commit,
-                 inventory_version: $version,
-                 dispatch_id: $id,
-                 sender: $sender,
+                 source_repo: $source,
+                 commit_sha: $commit,
+                 commit_message: $message,
+                 timestamp_received: $ts_received,
                  trigger: "repository_dispatch"
                }]' "$RIPPLE_LOG" > "${RIPPLE_LOG}.tmp" && mv "${RIPPLE_LOG}.tmp" "$RIPPLE_LOG"
           else
