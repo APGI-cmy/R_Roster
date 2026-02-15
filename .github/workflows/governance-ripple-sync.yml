@@ -93,11 +93,13 @@ jobs:
 
           # Run alignment script (exits 1 on drift, 0 on aligned)
           if [ -f ".github/scripts/align-governance.sh" ]; then
-            if bash .github/scripts/align-governance.sh; then
+            bash .github/scripts/align-governance.sh
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -eq 0 ]; then
               echo "✓ No drift detected"
               echo "drift_detected=false" >> $GITHUB_OUTPUT
             else
-              echo "⚠️  Drift detected (exit code $?)"
+              echo "⚠️  Drift detected (exit code $EXIT_CODE)"
               echo "drift_detected=true" >> $GITHUB_OUTPUT
             fi
           else
