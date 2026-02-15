@@ -1,0 +1,51 @@
+# Files Modified - Session 002
+
+## Workflows
+1. .github/workflows/governance-ripple-sync.yml
+   - Lines added: 89
+   - Purpose: Add PR creation with stable branch, duplicate prevention, and auto-merge
+   - Key changes:
+     * New step: "Create governance alignment PR"
+     * Stable branch: governance-alignment-auto
+     * Duplicate check before PR creation
+     * Auto-merge enablement with gh CLI
+
+2. .github/workflows/governance-alignment-schedule.yml
+   - Lines added: 90
+   - Purpose: Same as ripple workflow for scheduled checks
+   - Key changes:
+     * New step: "Create governance alignment PR"
+     * Synchronized with ripple workflow logic
+     * Same duplicate prevention and auto-merge
+
+3. .github/workflows/merge-gate-interface.yml
+   - Lines added: 56
+   - Lines removed: 1
+   - Purpose: Add bypass logic for automated governance PRs
+   - Key changes:
+     * New step: "Check for Automated Governance PR" (first in job)
+     * Dual detection: labels (governance+automated+agent:liaison) OR branch (governance-alignment-auto)
+     * Conditional execution: All other steps skip if governance PR detected
+     * Updated verdict step with bypass messaging
+
+## Scripts
+4. .github/scripts/align-governance.sh
+   - Lines added: 24
+   - Purpose: Add duplicate PR detection in script
+   - Key changes:
+     * New Step 5a: Check for existing governance alignment PR
+     * Uses gh CLI to query open PRs
+     * Writes state to /tmp/alignment_state.txt
+
+## Validation
+All files validated:
+- YAML syntax: PASSED (Python yaml.safe_load)
+- Indentation: Correct (multiline strings properly indented)
+- Logic flow: Verified (duplicate check → create → auto-merge)
+
+## Git Commit
+- Commit: 90be796
+- Branch: copilot/apply-auto-merge-fixes
+- Files changed: 4
+- Insertions: 258
+- Deletions: 1

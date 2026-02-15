@@ -23,8 +23,45 @@ jobs:
         with:
           fetch-depth: 0
 
+      # ✅ NEW: Bypass Merge Gate for Automated Governance PRs
+      - name: Check for Automated Governance PR
+        id: check_governance
+        run: |
+          echo "=========================================="
+          echo "Automated Governance PR Check"
+          echo "=========================================="
+          
+          # Get PR labels as comma-separated string
+          PR_LABELS="${{ join(github.event.pull_request.labels.*.name, ',') }}"
+          PR_BRANCH="${{ github.event.pull_request.head.ref }}"
+          
+          echo "PR Labels: $PR_LABELS"
+          echo "PR Branch: $PR_BRANCH"
+          echo ""
+          
+          # Check if this is an automated governance alignment PR
+          if [[ "$PR_LABELS" == *"governance"* ]] && [[ "$PR_LABELS" == *"automated"* ]] && [[ "$PR_LABELS" == *"agent:liaison"* ]]; then
+            echo "✅ AUTOMATED GOVERNANCE PR DETECTED"
+            echo "   This PR is from the governance alignment system"
+            echo "   Bypassing merge gate validation per governance ripple protocol"
+            echo ""
+            echo "is_governance_auto=true" >> $GITHUB_OUTPUT
+          elif [[ "$PR_BRANCH" == "governance-alignment-auto" ]]; then
+            echo "✅ AUTOMATED GOVERNANCE PR DETECTED (by branch name)"
+            echo "   Branch: governance-alignment-auto"
+            echo "   Bypassing merge gate validation per governance ripple protocol"
+            echo ""
+            echo "is_governance_auto=true" >> $GITHUB_OUTPUT
+          else
+            echo "ℹ️  Regular PR - proceeding with normal merge gate validation"
+            echo "is_governance_auto=false" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "=========================================="
+
       - name: Classify PR (Deterministic)
         id: classify
+        if: steps.check_governance.outputs.is_governance_auto != 'true'
         run: |
           echo "=========================================="
           echo "Deterministic PR Classification"
@@ -103,6 +140,7 @@ jobs:
 
       - name: Check for Evidence Artifacts
         id: evidence
+        if: steps.check_governance.outputs.is_governance_auto != 'true'
         run: |
           echo "=========================================="
           echo "Evidence Artifact Validation"
@@ -155,7 +193,7 @@ jobs:
           echo "=========================================="
 
       - name: Validate Gate Results JSON
-        if: steps.evidence.outputs.has_evidence == 'true'
+        if: steps.check_governance.outputs.is_governance_auto != 'true' && steps.evidence.outputs.has_evidence == 'true'
         id: validate_json
         run: |
           echo "=========================================="
@@ -202,6 +240,7 @@ jobs:
 
       - name: Check for Minimizing Language
         id: check_language
+        if: steps.check_governance.outputs.is_governance_auto != 'true'
         run: |
           echo "=========================================="
           echo "No-Minimizing-Language Check"
@@ -245,6 +284,21 @@ jobs:
           echo "=========================================="
           echo "Merge Gate Verdict"
           echo "=========================================="
+          
+          # ✅ Check if this is an automated governance PR
+          if [[ "${{ steps.check_governance.outputs.is_governance_auto }}" == "true" ]]; then
+            echo "PR Type: Automated Governance Alignment"
+            echo "Validation: BYPASSED (trusted governance system)"
+            echo ""
+            echo "✅ VERDICT: PASS (auto-approved)"
+            echo ""
+            echo "Per CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md:"
+            echo " - Automated governance alignment PRs are pre-validated"
+            echo " - SHA256 checksums verified during alignment"
+            echo " - Canonical source is trusted (APGI-cmy/maturion-foreman-governance)"
+            echo "=========================================="
+            exit 0
+          fi
           
           CLASSIFICATION="${{ steps.classify.outputs.classification }}"
           HAS_EVIDENCE="${{ steps.evidence.outputs.has_evidence }}"

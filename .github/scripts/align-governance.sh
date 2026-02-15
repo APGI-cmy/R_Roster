@@ -161,6 +161,30 @@ if [ "$DRIFT_DETECTED" = true ]; then
     echo "  3. Update local CANON_INVENTORY.json"
     echo "  4. Validate alignment"
     echo "  5. Create alignment PR"
+    
+    # ✅ NEW: Check for existing open governance alignment PR
+    echo ""
+    echo "Step 5a: Check for existing governance alignment PR"
+    echo "=========================================="
+    
+    # Check if gh CLI is available
+    if command -v gh &> /dev/null; then
+        # Check for open PR from governance-alignment-auto branch
+        EXISTING_PR=$(gh pr list --head governance-alignment-auto --state open --json number --jq '.[0].number' 2>/dev/null || echo "")
+        
+        if [ -n "$EXISTING_PR" ]; then
+            echo "⚠️  Open governance alignment PR already exists: #$EXISTING_PR"
+            echo "   Skipping PR creation to prevent duplicates"
+            echo "   Existing PR will be updated by subsequent commits"
+            echo "has_existing_pr=true" >> /tmp/alignment_state.txt
+        else
+            echo "✓ No existing open governance alignment PR"
+            echo "has_existing_pr=false" >> /tmp/alignment_state.txt
+        fi
+    else
+        echo "⚠️  gh CLI not available, cannot check for existing PRs"
+        echo "has_existing_pr=unknown" >> /tmp/alignment_state.txt
+    fi
 else
     echo "✓ NO DRIFT DETECTED"
     echo "Local governance is aligned with requirements"
