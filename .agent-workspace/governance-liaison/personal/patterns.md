@@ -121,3 +121,33 @@
 
 ---
 Created: Session 001 | Date: 2026-02-14
+
+## Pattern: Workflow Enhancement Over Replacement
+- Observed: 2026-02-15 (Session 001)
+- Context: Issue requests implementation of "missing" workflow
+- Response: Explore existing implementation first, identify actual gaps, enhance not replace
+- Rationale: Preserves existing functionality (logging, evidence, PR management)
+
+## Pattern: Exit Code as Drift Signal
+- Observed: 2026-02-15 (Session 001)
+- Context: align-governance.sh exits 1 on drift detection
+- Response: Wrap script in conditional, use exit code to set workflow output variable
+- Rationale: Drift detection is expected behavior, not a failure condition
+
+## Pattern: Null-Safe JSON Processing
+- Observed: 2026-02-15 (Session 001)
+- Context: jq queries fail when expected array is null
+- Response: Use null-coalescing operator: `(.field // [])[]`
+- Rationale: CANON_INVENTORY structures vary across repositories
+
+## Pattern: rsync for Governance Sync
+- Observed: 2026-02-15 (Session 001)
+- Context: Syncing governance files from canonical repository
+- Response: `rsync -av --delete --exclude=.git --exclude=*.log --exclude=sync_state.json`
+- Rationale: Preserves structure, handles deletions, excludes local-only files
+
+## Pattern: Self-Alignment Without Approval
+- Observed: 2026-02-15 (Session 001)
+- Context: Governance Liaison has unique authority for governance alignment
+- Response: Detect drift → Fetch canonical → Sync files → Document → Create PR
+- Rationale: Authority defined in GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md (Issue #999)
