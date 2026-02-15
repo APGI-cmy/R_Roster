@@ -2,13 +2,27 @@
 
 **Repository**: APGI-cmy/R_Roster  
 **Investigation Date**: 2026-02-15  
-**Status**: ✅ RESOLVED - No Issue Found
+**Status**: ⚠️ CRITICAL ISSUE IDENTIFIED
 
 ---
 
 ## TL;DR
 
-**R_Roster IS receiving and processing governance ripple events correctly.** No PR was created because the repository is already aligned with canonical governance (no drift detected). This is the expected behavior.
+**R_Roster IS receiving governance ripple events, BUT the alignment script is inadequate.** It doesn't actually compare file content with canonical source, only checks that required files exist. This means drift can exist but go undetected, preventing PR creation when changes are needed.
+
+### Critical Finding
+
+The alignment script (`.github/scripts/align-governance.sh`) checks:
+- ✅ Files exist
+- ✅ JSON is valid  
+- ✅ Directories exist
+
+But it DOES NOT check:
+- ❌ **Actual file content matches canonical**
+- ❌ File checksums/hashes
+- ❌ Whether local files are outdated
+
+This is why no PR is created - the script incorrectly reports "no drift" even when files may be outdated.
 
 ---
 
@@ -158,9 +172,17 @@ All evidence preserved in repository:
 
 ## Conclusion
 
-**R_Roster governance ripple system is functioning as designed.** The repository is correctly receiving events, executing alignment checks, and only creating PRs when drift is detected. No configuration changes are required for core functionality.
+**R_Roster governance ripple reception is working, but alignment detection is broken.** The repository is receiving events correctly, but the alignment script is too simplistic - it only validates structure, not content. This creates a false sense of alignment and prevents PRs from being created when governance actually needs updating.
 
-The only identified improvement opportunity is updating the token configuration to populate event metadata for better audit trails, but this is optional and does not affect the ripple system's operation.
+### Three-Part Problem
+
+1. ✅ **Ripple Reception**: Working correctly - events are received
+2. ❌ **Drift Detection**: BROKEN - script doesn't compare actual content
+3. ❌ **PR Creation**: Blocked - no PR because no drift detected (incorrectly)
+
+The fix is NOT to change ripple reception, but to upgrade the alignment script to perform real content comparison against canonical source.
+
+See `ALIGNMENT_SCRIPT_INADEQUATE.md` for detailed analysis and fix recommendations.
 
 ---
 
