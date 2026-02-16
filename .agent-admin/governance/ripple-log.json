@@ -23,6 +23,14 @@
       "dispatch_id": "",
       "sender": "",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-16T06:11:34Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "eed533c8d0b3041aab131323ea25ee84ee162ce2",
+      "commit_message": "Merge pull request #1134 from APGI-cmy/copilot/update-governance-payload-specification\n\nAlign ripple protocol spec with actual dispatch payload",
+      "timestamp_received": "2026-02-16T06:11:27Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
