@@ -83,3 +83,36 @@
 - Context: Created session-006 when already at 5-session limit
 - Response: Move oldest session (session-001) to `.archive/` subdirectory, keep 5 most recent sessions active, maintain chronological order, preserve all historical content in archive
 
+
+## Pattern: 4-Phase Canonical Agent Contract Architecture
+- Observed: 2026-02-17 (Session 007)
+- Context: Creating BuilderApp-agent.md with Living Agent System v6.2.0 compliance
+- Structure:
+  * Phase 1: Preflight (Identity, Authority, LOCKED section, RAEC examples, Canonical references)
+  * Phase 2: Induction (Wake-up protocol, governance loading, environment health)
+  * Phase 3: Build (Execution, specializations, operating boundaries, consumer mode)
+  * Phase 4: Handover (Session memory protocol, memory rotation, escalations)
+- Response: Use this pattern consistently for all future agent contract creation
+- References: ForemanApp-agent.md, BuilderApp-agent.md, maturion-foreman-governance PRs #1147, #1149
+
+## Pattern: RAEC Behavioral Example Format
+- Observed: 2026-02-17 (Session 007)
+- Context: Demonstrating correct agent behavior in contract
+- Format:
+  1. Present scenario (task or situation)
+  2. Show WRONG behavior (traditional coding agent anti-pattern)
+  3. Identify problems with wrong approach
+  4. Show CORRECT behavior (RAEC: Review-Advise-Escalate-Coordinate)
+  5. Highlight what makes the correct approach compliant
+- Response: Always provide both wrong and correct examples to illustrate behavioral boundaries
+- Key scenarios: Architecture enforcement, QA gates, self-modification, authority boundaries
+
+## Pattern: Unified Template with Specialized Instances
+- Observed: 2026-02-17 (Session 007)
+- Context: Managing multiple related agent contracts (builders)
+- Approach:
+  * Create unified template contract (BuilderApp-agent.md) demonstrating canonical pattern
+  * Maintain specialized contracts (api-builder, ui-builder, etc.) for role-specific recruitment
+  * Track all contracts in CANON_INVENTORY.json with proper bindings
+- Response: Template provides compliance reference, specialized instances allow targeted recruitment
+- Benefits: Consistency, checklist compliance, specialization flexibility
