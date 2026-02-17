@@ -53,3 +53,33 @@
 - Context: Canonical BUILDER_CONTRACT_BINDING_CHECKLIST.md was 53KB, needed local requirements version
 - Response: Extract essential categories and requirements, condense to ~10KB while preserving completeness, maintain category structure for consistency, reference canonical source for full details
 
+## Pattern: 4-Phase Agent Contract Template Reuse
+- Observed: 2026-02-17 (Session 006)
+- Context: Creating ForemanApp-agent.md with Living Agent System v6.2.0 compliance
+- Response: Use CodexAdvisor-agent.md as proven template, replicate 4-phase structure (Preflight-Induction-Build-Handover), adapt content for foreman role, maintain structural consistency
+
+## Pattern: Behavioral Examples for RAEC Operating Model
+- Observed: 2026-02-17 (Session 006)
+- Context: RAEC model needs concrete demonstrations to guide agent behavior
+- Response: Create 4 behavioral examples showing traditional (wrong) vs RAEC (correct) approaches, include self-modification prohibition example, demonstrate escalation patterns, show boundary enforcement
+
+## Pattern: Line-Number Checklist Verification
+- Observed: 2026-02-17 (Session 006)
+- Context: 100% checklist compliance claims need evidence backing
+- Response: Create verification report mapping each requirement to specific line numbers in created artifact, document 21/21 verification with explicit references, provide summary statistics
+
+## Pattern: Consumer Mode Boundary Documentation
+- Observed: 2026-02-17 (Session 006)
+- Context: Consumer repositories need clear guidance on governance constraints
+- Response: Document prohibitions explicitly (no governance mods, no ripple dispatch, no canon weakening), list capabilities separately (receive ripple, detect drift, create alignment PRs), include alignment protocol with step-by-step process
+
+## Pattern: Deprecation Without Deletion
+- Observed: 2026-02-17 (Session 006)
+- Context: New ForemanApp-agent.md created while old foreman.md exists
+- Response: Mark old file as deprecated in CANON_INVENTORY.json, add new file as active entry, preserve historical reference until migration confirmed, update notes explaining transition
+
+## Pattern: Memory Rotation at 5-Session Limit
+- Observed: 2026-02-17 (Session 006)
+- Context: Created session-006 when already at 5-session limit
+- Response: Move oldest session (session-001) to `.archive/` subdirectory, keep 5 most recent sessions active, maintain chronological order, preserve all historical content in archive
+

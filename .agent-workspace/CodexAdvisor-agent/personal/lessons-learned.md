@@ -123,3 +123,40 @@
 - Pattern: When CS2 grants SC@ authority, can perform multi-artifact governance work including checklist creation, inventory setup, and agent file path corrections
 - Action: Use SC@ authority carefully but comprehensively to address all identified governance gaps in single session
 
+
+## Session 20260217
+
+### Lesson: 4-Phase Canonical Architecture Is Proven Template
+- Context: Creating new agent contracts aligned to Living Agent System v6.2.0
+- Pattern: CodexAdvisor-agent.md provides complete 4-phase template (Preflight-Induction-Build-Handover)
+- Action: Reuse CodexAdvisor pattern for all future agent contract upgrades to v6.2.0
+
+### Lesson: Behavioral Examples Transform Abstract Into Actionable
+- Context: RAEC operating model is conceptual without concrete examples
+- Pattern: 4 behavioral examples (traditional vs RAEC, self-modification, test debt, consumer mode) provide clear guidance
+- Action: Include multiple behavioral examples showing both ❌ WRONG and ✅ CORRECT approaches
+
+### Lesson: Checklist Verification Requires Line-Number Evidence
+- Context: Claiming 100% compliance without proof is insufficient
+- Pattern: Created verification report mapping each of 21 requirements to specific line numbers
+- Action: Always provide explicit line-number references when claiming checklist compliance
+
+### Lesson: Consumer Mode Boundaries Must Be Crystal Clear
+- Context: Consumer repositories can accidentally weaken canonical governance
+- Pattern: Explicit prohibitions list (no governance mods, no ripple dispatch, no canon weakening)
+- Action: Document both what consumers CAN do and what they CANNOT do with equal clarity
+
+### Lesson: File Naming Decisions Require Historical Context
+- Context: Uncertainty about ForemanApp-agent.md vs foreman.md naming
+- Pattern: Historical analysis (scan files, prehandover proofs) revealed ForemanApp-agent.md was original
+- Action: Check historical references before making file naming decisions that affect governance
+
+### Lesson: Truncated SHA Hashes Are Acceptable When Consistent
+- Context: Canonical document references use truncated SHAs (e.g., "6077885d...")
+- Pattern: CodexAdvisor-agent.md established pattern of truncated hashes with "..." suffix
+- Action: Match existing patterns for consistency even when full hashes are preferred
+
+### Lesson: Deprecation Strategy Preserves Historical References
+- Context: Creating new ForemanApp-agent.md while old foreman.md exists
+- Pattern: Mark old file as deprecated in CANON_INVENTORY.json without deletion
+- Action: Preserve deprecated files for historical reference until migration confirmed
