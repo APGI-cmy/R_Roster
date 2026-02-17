@@ -5,9 +5,9 @@
   "repository": "APGI-cmy/R_Roster",
   "repository_mode": "consumer",
   "canonical_source": "APGI-cmy/maturion-foreman-governance",
-  "last_updated": "2026-02-17T10:00:00Z",
+  "last_updated": "2026-02-17T10:49:03Z",
   "updated_by": "CodexAdvisor-agent",
-  "session": "006",
+  "session": "TBD",
   "description": "Canon inventory tracking governance artifacts and agent contracts for R_Roster consumer repository",
   "checklists": [
     {
@@ -103,6 +103,93 @@
       "contract_pattern": "four_phase_canonical",
       "operating_model": "RAEC",
       "self_modification_prohibited": true
+    },
+    {
+      "id": "AGENT-004",
+      "name": "BuilderApp",
+      "path": ".github/agents/BuilderApp-agent.md",
+      "version": "6.2.0",
+      "contract_version": "1.0.0",
+      "class": "builder",
+      "authority": "CS2",
+      "status": "active",
+      "last_updated": "2026-02-17",
+      "sha256": "6ab51b4cc0a83d38e61bd8a55c24ce4410f4d1d77d12d0a16a68e718319bb5d6",
+      "checklist_binding": "CHECKLIST-004",
+      "description": "Unified Builder agent with 4-phase canonical architecture (LAS v6.2.0, RAEC, consumer mode)",
+      "contract_pattern": "four_phase_canonical",
+      "operating_model": "RAEC",
+      "self_modification_prohibited": true
+    },
+    {
+      "id": "AGENT-005",
+      "name": "api-builder",
+      "path": ".github/agents/api-builder.md",
+      "version": "3.1.0",
+      "class": "builder",
+      "builder_type": "api",
+      "authority": "CS2",
+      "status": "active",
+      "last_updated": "2026-01-14",
+      "sha256": "1c9ff2915ed2a9fd31aede4ac46f564cc65d297dbc40065cb8f0a7b33da87d14",
+      "checklist_binding": "CHECKLIST-004",
+      "description": "API Builder for Maturion ISMS modules (specialized builder)"
+    },
+    {
+      "id": "AGENT-006",
+      "name": "ui-builder",
+      "path": ".github/agents/ui-builder.md",
+      "version": "3.1.0",
+      "class": "builder",
+      "builder_type": "ui",
+      "authority": "CS2",
+      "status": "active",
+      "last_updated": "2026-01-14",
+      "sha256": "d7f35a8571caf8e71010ba1e9961a67575fabbd508913e9a1876b58aa7875d8a",
+      "checklist_binding": "CHECKLIST-004",
+      "description": "UI Builder for Maturion ISMS modules (specialized builder)"
+    },
+    {
+      "id": "AGENT-007",
+      "name": "qa-builder",
+      "path": ".github/agents/qa-builder.md",
+      "version": "3.1.0",
+      "class": "builder",
+      "builder_type": "qa",
+      "authority": "CS2",
+      "status": "active",
+      "last_updated": "2026-01-14",
+      "sha256": "28701e07292c0e7062e19d057ef9157ac14f5d0ef08c3fe97c69dbff2d01ea9d",
+      "checklist_binding": "CHECKLIST-004",
+      "description": "QA Builder for Maturion ISMS modules (specialized builder)"
+    },
+    {
+      "id": "AGENT-008",
+      "name": "schema-builder",
+      "path": ".github/agents/schema-builder.md",
+      "version": "3.1.0",
+      "class": "builder",
+      "builder_type": "schema",
+      "authority": "CS2",
+      "status": "active",
+      "last_updated": "2026-01-14",
+      "sha256": "d30021262dc46138ae384c3397ab42041722c8fff2f5364a8fdacd45899be1a1",
+      "checklist_binding": "CHECKLIST-004",
+      "description": "Schema Builder for Maturion ISMS modules (specialized builder)"
+    },
+    {
+      "id": "AGENT-009",
+      "name": "integration-builder",
+      "path": ".github/agents/integration-builder.md",
+      "version": "3.1.0",
+      "class": "builder",
+      "builder_type": "integration",
+      "authority": "CS2",
+      "status": "active",
+      "last_updated": "2026-01-14",
+      "sha256": "f42a8cb86814f264612897eee42324fd6bcae8643b40edb1bbb21b4f99bf52ca",
+      "checklist_binding": "CHECKLIST-004",
+      "description": "Integration Builder for Maturion ISMS modules (specialized builder)"
     }
   ],
   "tier_0_manifest": {
@@ -130,12 +217,18 @@
     "agent_contract_coverage": {
       "codex_advisor": "BOUND",
       "foreman": "BOUND",
-      "foremanapp": "BOUND"
+      "foremanapp": "BOUND",
+      "builderapp": "BOUND",
+      "api_builder": "BOUND",
+      "ui_builder": "BOUND",
+      "qa_builder": "BOUND",
+      "schema_builder": "BOUND",
+      "integration_builder": "BOUND"
     },
     "placeholder_hashes": false,
     "truncated_hashes": false,
     "validation_status": "VALID",
-    "last_validated": "2026-02-17T10:00:00Z"
+    "last_validated": "2026-02-17T10:49:03Z"
   },
   "version_declarations": {
     "living_agent_system": "6.2.0",
@@ -155,6 +248,13 @@
     "Consumer mode: receives governance from canonical source via ripple/alignment",
     "ForemanApp-agent.md created with 4-phase canonical architecture (session 006, 2026-02-17)",
     "ForemanApp-agent.md includes RAEC behavioral examples and self-modification prohibition",
-    "Old foreman.md marked as deprecated in favor of ForemanApp-agent.md"
+    "Old foreman.md marked as deprecated in favor of ForemanApp-agent.md",
+    "BuilderApp-agent.md created with 4-phase canonical architecture (session TBD, 2026-02-17)",
+    "BuilderApp-agent.md serves as unified Builder contract template with LAS v6.2.0 compliance",
+    "BuilderApp-agent.md includes multiple RAEC behavioral examples: architecture-first, QA enforcement, self-modification prohibition, architecture freeze respect",
+    "BuilderApp-agent.md references 5 canonical documents with SHA identifiers (from maturion-foreman-governance PRs #1147, #1149)",
+    "Individual builder contracts (api-builder, ui-builder, qa-builder, schema-builder, integration-builder) tracked with SHA256 hashes",
+    "All builder contracts bound to CHECKLIST-004 (BUILDER_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md)",
+    "BuilderApp-agent.md enforces zero-test-debt (100% GREEN) and consumer repository mode prohibitions"
   ]
 }

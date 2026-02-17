@@ -160,3 +160,30 @@
 - Context: Creating new ForemanApp-agent.md while old foreman.md exists
 - Pattern: Mark old file as deprecated in CANON_INVENTORY.json without deletion
 - Action: Preserve deprecated files for historical reference until migration confirmed
+
+## Session 20260217 (Session 007)
+
+### Lesson: 4-Phase Canonical Architecture Pattern for Agent Contracts
+- Context: Creating new agent contracts aligned with Living Agent System v6.2.0
+- Pattern: Use Preflight-Induction-Build-Handover structure consistently
+- Action: Reference existing canonical contracts (e.g., ForemanApp-agent.md) as templates
+
+### Lesson: RAEC Behavioral Examples Critical for Contract Quality
+- Context: Agent contracts need clear behavioral guidance
+- Pattern: Provide wrong (anti-pattern) and correct (RAEC) examples for key scenarios
+- Action: Cover architecture enforcement, QA gates, self-modification, authority boundaries
+
+### Lesson: Systematic Checklist Verification Ensures Completeness
+- Context: Builder contract has 68 checklist items across 13 categories
+- Pattern: Create explicit verification document mapping contract to checklist
+- Action: Track compliance percentage, document N/A items with rationale
+
+### Lesson: Unified Template with Specialized Instances Pattern
+- Context: Multiple builder types (API, UI, QA, Schema, Integration) need contracts
+- Pattern: Create unified template (BuilderApp-agent.md) while keeping specialized contracts
+- Action: Template provides canonical pattern, specialized contracts allow role-specific recruitment
+
+### Lesson: SHA256 Hash Tracking for Contract Integrity
+- Context: CANON_INVENTORY.json tracks all agent contracts
+- Pattern: Compute and store SHA256 hashes for all contract files
+- Action: Ensures audit trail, version tracking, and governance alignment verification
