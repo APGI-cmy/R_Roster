@@ -39,6 +39,14 @@
       "commit_message": "Merge pull request #1139 from APGI-cmy/copilot/define-delivery-standard\n\nAdd FULLY_FUNCTIONAL_DELIVERY_STANDARD.md: Enforce deliverable verification at wave gates",
       "timestamp_received": "2026-02-16T12:17:27Z",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-17T07:43:47Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "aa2b08fe59e2d1ee6d05d39626b3edc15c64cd11",
+      "commit_message": "Merge pull request #1147 from APGI-cmy/copilot/governance-realignment-canonical-agent\n\nEstablish 4-phase canonical agent contract architecture (Tier-0)",
+      "timestamp_received": "2026-02-17T07:43:39Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
