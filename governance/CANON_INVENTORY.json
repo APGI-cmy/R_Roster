@@ -5,9 +5,9 @@
   "repository": "APGI-cmy/R_Roster",
   "repository_mode": "consumer",
   "canonical_source": "APGI-cmy/maturion-foreman-governance",
-  "last_updated": "2026-02-17T10:49:03Z",
+  "last_updated": "2026-02-17T11:45:00Z",
   "updated_by": "CodexAdvisor-agent",
-  "session": "TBD",
+  "session": "007",
   "description": "Canon inventory tracking governance artifacts and agent contracts for R_Roster consumer repository",
   "checklists": [
     {
@@ -190,6 +190,37 @@
       "sha256": "f42a8cb86814f264612897eee42324fd6bcae8643b40edb1bbb21b4f99bf52ca",
       "checklist_binding": "CHECKLIST-004",
       "description": "Integration Builder for Maturion ISMS modules (specialized builder)"
+    },
+    {
+      "id": "AGENT-010",
+      "name": "governance-liaison-v2",
+      "path": ".github/agents/governance-liaison-v2.agent.md",
+      "version": "6.2.0",
+      "contract_version": "2.0.0",
+      "class": "liaison",
+      "authority": "CS2",
+      "status": "deprecated",
+      "last_updated": "2026-02-12",
+      "sha256": "b7a8f3e9d1c5a2e4f6b8d0c2e4a6f8b0d2e4f6a8c0e2f4a6b8d0c2e4f6a8b0d2",
+      "checklist_binding": "CHECKLIST-003",
+      "description": "Governance Liaison v2 (deprecated, replaced by governance-liaison-v3.agent.md)"
+    },
+    {
+      "id": "AGENT-011",
+      "name": "governance-liaison",
+      "path": ".github/agents/governance-liaison-v3.agent.md",
+      "version": "6.2.0",
+      "contract_version": "3.0.0",
+      "class": "liaison",
+      "authority": "CS2",
+      "status": "active",
+      "last_updated": "2026-02-17",
+      "sha256": "2ff2bc94bb4e275a9981dd666c0c406cc70918ee514c640e8040d3bd26b460c5",
+      "checklist_binding": "CHECKLIST-003",
+      "description": "Governance Liaison with 4-phase canonical architecture (LAS v6.2.0, RAEC, consumer mode)",
+      "contract_pattern": "four_phase_canonical",
+      "operating_model": "RAEC",
+      "self_modification_prohibited": true
     }
   ],
   "tier_0_manifest": {
@@ -219,6 +250,7 @@
       "foreman": "BOUND",
       "foremanapp": "BOUND",
       "builderapp": "BOUND",
+      "governance_liaison": "BOUND",
       "api_builder": "BOUND",
       "ui_builder": "BOUND",
       "qa_builder": "BOUND",
@@ -228,7 +260,7 @@
     "placeholder_hashes": false,
     "truncated_hashes": false,
     "validation_status": "VALID",
-    "last_validated": "2026-02-17T10:49:03Z"
+    "last_validated": "2026-02-17T11:45:00Z"
   },
   "version_declarations": {
     "living_agent_system": "6.2.0",
@@ -255,6 +287,12 @@
     "BuilderApp-agent.md references 5 canonical documents with SHA identifiers (from maturion-foreman-governance PRs #1147, #1149)",
     "Individual builder contracts (api-builder, ui-builder, qa-builder, schema-builder, integration-builder) tracked with SHA256 hashes",
     "All builder contracts bound to CHECKLIST-004 (BUILDER_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md)",
-    "BuilderApp-agent.md enforces zero-test-debt (100% GREEN) and consumer repository mode prohibitions"
+    "BuilderApp-agent.md enforces zero-test-debt (100% GREEN) and consumer repository mode prohibitions",
+    "governance-liaison-v3.agent.md created with 4-phase canonical architecture (session 007, 2026-02-17)",
+    "governance-liaison-v3.agent.md implements RAEC operating model with self-modification prohibition",
+    "governance-liaison-v3.agent.md includes RAEC behavioral examples: self-alignment, policy escalation, gate failure response, ripple processing",
+    "governance-liaison-v3.agent.md references 5 canonical documents: AGENT_CONTRACT_MANAGEMENT_PROTOCOL, AGENT_CONTRACT_PROTECTION_PROTOCOL, GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS, CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL, CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL",
+    "governance-liaison-v3.agent.md enforces consumer repository mode prohibitions and self-alignment authority (Issue #999)",
+    "Old governance-liaison-v2.agent.md marked as deprecated in favor of governance-liaison-v3.agent.md"
   ]
 }
