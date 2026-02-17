@@ -71,6 +71,14 @@
       "commit_message": "Document pre-flight checks for builder agent availability\n\nAdded learning on pre-flight builder agent availability checks and established protocols to prevent governance violations during wave execution.",
       "timestamp_received": "2026-02-17T11:50:54Z",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-17T16:39:23Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "21ad3d73a93165ae851204c08e735f5ac55bead2",
+      "commit_message": "Merge pull request #1155 from APGI-cmy/copilot/canonize-agent-discovery-protocol\n\nCanonize BL-031: Agent discovery protocol and mandatory pre-wave checks",
+      "timestamp_received": "2026-02-17T16:39:13Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
