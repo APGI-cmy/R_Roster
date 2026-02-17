@@ -63,6 +63,14 @@
       "commit_message": "Merge pull request #1151 from APGI-cmy/copilot/create-escalation-policy-md\n\nCreate canonical ESCALATION_POLICY.md consolidating distributed escalation protocols",
       "timestamp_received": "2026-02-17T08:06:13Z",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-17T11:51:02Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "0fb3479ae50d3e65a827d7c7fb0cb1297cb27a0e",
+      "commit_message": "Document pre-flight checks for builder agent availability\n\nAdded learning on pre-flight builder agent availability checks and established protocols to prevent governance violations during wave execution.",
+      "timestamp_received": "2026-02-17T11:50:54Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
