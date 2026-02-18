@@ -87,6 +87,14 @@
       "commit_message": "Merge pull request #1157 from APGI-cmy/copilot/define-fcwt-governance-process\n\nEstablish Final Complete Wave Test (FCWT) protocol for pre-audit application validation",
       "timestamp_received": "2026-02-18T05:42:22Z",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-18T14:22:52Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "df7a0985cdcdcb498fca170eff997b0d7189acb1",
+      "commit_message": "Merge pull request #1161 from APGI-cmy/copilot/update-governance-policy-lint\n\nMandate lint/static analysis gates before handover",
+      "timestamp_received": "2026-02-18T14:22:44Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
