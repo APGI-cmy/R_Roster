@@ -79,6 +79,14 @@
       "commit_message": "Merge pull request #1155 from APGI-cmy/copilot/canonize-agent-discovery-protocol\n\nCanonize BL-031: Agent discovery protocol and mandatory pre-wave checks",
       "timestamp_received": "2026-02-17T16:39:13Z",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-18T05:42:29Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "18e3f142221609e0ec23b43a21880c82ad7d98ea",
+      "commit_message": "Merge pull request #1157 from APGI-cmy/copilot/define-fcwt-governance-process\n\nEstablish Final Complete Wave Test (FCWT) protocol for pre-audit application validation",
+      "timestamp_received": "2026-02-18T05:42:22Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
