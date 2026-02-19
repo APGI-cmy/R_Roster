@@ -95,6 +95,14 @@
       "commit_message": "Merge pull request #1161 from APGI-cmy/copilot/update-governance-policy-lint\n\nMandate lint/static analysis gates before handover",
       "timestamp_received": "2026-02-18T14:22:44Z",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-19T08:58:11Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "aa85be2d55358727de3349aa170333374e51132e",
+      "commit_message": "Merge pull request #1165 from APGI-cmy/copilot/add-ai-features-mat-frontend\n\nLL-031: Canonize platform-wide AI requirements as mandatory",
+      "timestamp_received": "2026-02-19T08:58:02Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
