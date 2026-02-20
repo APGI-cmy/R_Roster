@@ -103,6 +103,14 @@
       "commit_message": "Merge pull request #1165 from APGI-cmy/copilot/add-ai-features-mat-frontend\n\nLL-031: Canonize platform-wide AI requirements as mandatory",
       "timestamp_received": "2026-02-19T08:58:02Z",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-20T12:27:04Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "fa2179e8f9549c9ec7bb7d6e4448a6012e4346e0",
+      "commit_message": "Merge pull request #1169 from APGI-cmy/copilot/create-canonical-governance\n\nPhase 1: Canonical governance for orchestrator/specialist architecture",
+      "timestamp_received": "2026-02-20T12:26:57Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
