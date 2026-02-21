@@ -111,6 +111,14 @@
       "commit_message": "Merge pull request #1169 from APGI-cmy/copilot/create-canonical-governance\n\nPhase 1: Canonical governance for orchestrator/specialist architecture",
       "timestamp_received": "2026-02-20T12:26:57Z",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-21T08:23:40Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "d3961a13a765e2a5982ca56276e15bd0afe5cee2",
+      "commit_message": "Merge pull request #1172 from APGI-cmy/copilot/align-governance-living-agent-system\n\nAdd AGENT_TIER_ARCHITECTURE.md alias to resolve consumer-repo forward-reference mismatch",
+      "timestamp_received": "2026-02-21T08:23:33Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
