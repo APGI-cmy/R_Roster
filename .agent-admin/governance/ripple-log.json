@@ -119,6 +119,14 @@
       "commit_message": "Merge pull request #1172 from APGI-cmy/copilot/align-governance-living-agent-system\n\nAdd AGENT_TIER_ARCHITECTURE.md alias to resolve consumer-repo forward-reference mismatch",
       "timestamp_received": "2026-02-21T08:23:33Z",
       "trigger": "repository_dispatch"
+    },
+    {
+      "timestamp": "2026-02-21T10:15:04Z",
+      "source_repo": "APGI-cmy/maturion-foreman-governance",
+      "commit_sha": "371495ae9d2671ac2135865a8413f722c68720b6",
+      "commit_message": "Merge pull request #1174 from APGI-cmy/copilot/formalize-ecosystem-vocabulary\n\n[Governance Canon] Formalize ECOSYSTEM_VOCABULARY.md & Foreman Agent Modalities (v2.1.0)",
+      "timestamp_received": "2026-02-21T10:14:57Z",
+      "trigger": "repository_dispatch"
     }
   ],
   "schema_version": "1.0.0",
