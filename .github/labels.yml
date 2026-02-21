@@ -1,0 +1,31 @@
+# GitHub Labels Configuration
+# Required for governance ripple automation workflows
+# Reference: .github/workflows/ripple-integration.yml
+
+- name: governance
+  color: "0075ca"
+  description: "Governance-related changes and ripple sync"
+
+- name: layer-down
+  color: "e4e669"
+  description: "Governance layer-down from canonical source"
+
+- name: automated
+  color: "bfd4f2"
+  description: "Automated action by governance liaison agent"
+
+- name: "agent:liaison"
+  color: "d93f0b"
+  description: "Created or managed by the governance liaison agent"
+
+- name: ripple-sync
+  color: "0e8a16"
+  description: "Ripple synchronisation from maturion-foreman-governance"
+
+- name: cs2-required
+  color: "b60205"
+  description: "Requires CS2 approval before merging"
+
+- name: agent-file-change
+  color: "f9d0c4"
+  description: "PR contains changes to agent contract files"
