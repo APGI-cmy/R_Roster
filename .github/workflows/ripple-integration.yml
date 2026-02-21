@@ -20,13 +20,12 @@ jobs:
     name: layer-down-listener
     runs-on: ubuntu-latest
 
-    # Only process issues labeled 'governance-layer-down' or when manually dispatched
+    # Only process issues with both 'governance' and 'layer-down' labels (matching upstream dispatch)
     if: >
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'issues' &&
-       (contains(github.event.issue.labels.*.name, 'governance-layer-down') ||
-        contains(github.event.issue.title, '[Governance Layer-Down]') ||
-        contains(github.event.issue.title, 'Layer Down Governance')))
+       contains(github.event.issue.labels.*.name, 'governance') &&
+       contains(github.event.issue.labels.*.name, 'layer-down'))
 
     steps:
       - name: Checkout repository
