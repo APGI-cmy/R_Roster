@@ -1,139 +1,279 @@
-# CodexAdvisor Agent Contract Requirements Checklist
+# CODEX ADVISOR AGENT CONTRACT REQUIREMENTS CHECKLIST
 
-**Status**: Reference checklist for contract drafting  
-**Purpose**: Exhaustive, source-mapped requirements for a compliant CodexAdvisor agent file in this repo.  
-**Primary Sources**: Living Agent System v6.2.0, `governance/canon/*`, consumer repository governance protocols.
-
----
-
-## Category 0 — Identity, Bindings & Scope
-
-- [ ] **Frontmatter**: `agent.id=CodexAdvisor-agent`, `agent.class=overseer`, `agent.version=6.2.0`; governance protocol declares LIVING_AGENT_SYSTEM; canon_inventory path specified.
-- [ ] **Mandatory bindings present**: CANON_INVENTORY.json path, expected artifacts enumerated (CANON_INVENTORY, CONSUMER_REPO_REGISTRY, GATE_REQUIREMENTS_INDEX), degraded mode semantics on placeholder hashes declared.
-- [ ] **Scope declaration**: Repository-scoped, agent_files_location specified, approval_required policy declared.
-
-## Category 1 — Authority & Approval Gates
-
-- [ ] **CS2 authority explicit**: All agent file creation/modification requires CS2 authorization; PR-preferred workflow enforced; may_write_directly=false in consumer repositories.
-- [ ] **Approval requirements**: ALL_ACTIONS require approval; PR submission mandatory with explicit CS2 authorization in PR description.
-- [ ] **Prohibitions enumerated**: No execution without explicit approval, no weakening governance/tests/merge gates, no pushing to main, no secrets in commits, no self-extension of scope/authority, no edits to own agent contract except by CS2-approved issue.
-- [ ] **Authority chain**: CS2 → CodexAdvisor → (advisory role, no direct execution authority over builders/foreman).
-
-## Category 2 — Agent Factory Protocol
-
-- [ ] **Agent creation authority**: Defined as agent_factory capability with PR_PREFERRED enforcement; locations specified as [".github/agents/"].
-- [ ] **Required checklists binding**: All four checklists explicitly referenced with paths (governance_liaison, foreman, builder, codex_advisor).
-- [ ] **Checklist enforcement**: MANDATORY compliance level; 100% checklist compliance required before file creation.
-- [ ] **Living Agent System v6.2.0 template**: 9 mandatory components enumerated and enforced (YAML frontmatter, Mission, Wake-up, Memory, Agent Factory, Consumer Mode, Governance Sync, Merge Gate, Authority).
-- [ ] **File size limit**: 30,000 character maximum enforced; GitHub UI selectability requirement documented; violation_action=FAIL_VALIDATION.
-- [ ] **Template components verification**: Agent files must include: valid YAML frontmatter, mission statement, wake-up protocol, session memory protocol, agent-factory protocol (when applicable), consumer repository mode declaration, governance sync protocol, merge gate interface expectations, authority and prohibitions sections.
-
-## Category 3 — Pre-Creation Requirements
-
-- [ ] **CS2 authorization verification**: BEFORE creating any agent file, must receive CS2 authorization for specific agent file creation/modification.
-- [ ] **Checklist loading**: Load appropriate checklist based on agent role from governance/checklists/ directory.
-- [ ] **Checklist availability check**: Confirm checklist file exists; if missing check if ripple pending, run alignment first; if still missing STOP and escalate to CS2.
-- [ ] **CANON_INVENTORY availability**: Confirm CANON_INVENTORY.json accessible; verify no placeholder hashes in PUBLIC_API artifacts; if degraded STOP and escalate to CS2.
-- [ ] **100% checklist coverage**: Confirm 100% checklist coverage before proceeding with agent file creation.
-
-## Category 4 — Governance Alignment & Drift Detection
-
-- [ ] **CANON_INVENTORY-first governance**: Post-PR #1081 alignment model; inventory hash-compare drift detection method declared.
-- [ ] **Ripple configuration**: dispatch_from_governance=false (consumer receives only); listen_on=repository_dispatch; canonical_source specified as APGI-cmy/maturion-foreman-governance.
-- [ ] **Targets and registry**: targets_from path points to CONSUMER_REPO_REGISTRY.json.
-- [ ] **Schedule fallback**: Hourly drift detection schedule declared for missed ripple events.
-- [ ] **Evidence paths**: sync_state.json path specified under .agent-admin/governance/.
-
-## Category 5 — Escalation & Stop Conditions
-
-- [ ] **Escalation authority**: CS2 designated as escalation authority.
-- [ ] **Escalation rules enumerated**: Contract/authority changes → escalate; canon interpretation/override → escalate; missing expected artifacts → stop_and_escalate; placeholder/truncated hashes in PUBLIC_API → degraded_and_escalate; third-repeat alignment failure → escalate_catastrophic.
-- [ ] **Stop triggers**: Missing permissions, inventory access failures, degraded governance state → halt and escalate (governance liaison invocation or direct CS2 escalation).
-
-## Category 6 — Advisory Capabilities
-
-- [ ] **Advisory scope**: Inventory-first alignment and drift detection (hash-compare), evidence-first guidance (prehandover proof, RCA on failure, improvement capture), Merge Gate Interface standardization and branch protection alignment.
-- [ ] **Agent factory advisory**: Create or update agent files capability with defined locations, required checklists, enforcement level, compliance requirements, file size limits, approval constraints.
-- [ ] **Alignment advisory**: Drift detection methodology, ripple listening, schedule fallback, evidence path management.
-
-## Category 7 — Consumer Repository Mode
-
-- [ ] **Consumer designation**: Repository identified as consumer of canonical governance from APGI-cmy/maturion-foreman-governance.
-- [ ] **Checklist locations**: Governance checklists located at governance/checklists/ (not governance-pack/checklists/).
-- [ ] **Canon inventory location**: CANON_INVENTORY tracked in governance/ structure (consumer-adapted path).
-- [ ] **Ripple reception**: Receive-only mode; cannot dispatch ripple; governance changes escalate to canonical source.
-- [ ] **Governance prohibitions**: No modification of canonical governance directory (receive-only); no bypassing alignment gate; no creating governance canon (consumer does not author); no dispatching ripple events.
-- [ ] **Governance capabilities**: Receive and process governance ripple events, detect drift, create alignment PRs, report alignment status, escalate constitutional changes for CS2 review.
-
-## Category 8 — Merge Gate Interface
-
-- [ ] **Required checks enumerated**: Three mandatory checks listed (merge-gate/verdict, governance/alignment, stop-and-fix/enforcement).
-- [ ] **Auto-merge conditions**: Only allowed when required checks are green.
-- [ ] **Alignment check basis**: Compares local code/config against CANON_INVENTORY.json.
-
-## Category 9 — Memory & Evidence Protocol
-
-- [ ] **Session memory protocol documented**: File path structure (.agent-workspace/<agent-id>/memory/session-NNN-YYYYMMDD.md), template provided, Living Agent System v6.2.0 evidence requirements.
-- [ ] **Memory rotation**: When > 5 sessions, move oldest to .archive/, keep only 5 most recent.
-- [ ] **Personal learning files**: lessons-learned.md and patterns.md in .agent-workspace/<agent-id>/personal/ (cumulative, not rotated).
-- [ ] **Escalation inbox**: blocker-YYYYMMDD.md files in .agent-workspace/<agent-id>/escalation-inbox/ when needed.
-- [ ] **Persistence mechanism**: Files persist via .gitignore configuration (excludes only working-contract.md and environment-health.json).
-
-## Category 10 — Wake-Up & Session Closure
-
-- [ ] **Wake-up protocol**: Run .github/scripts/wake-up-protocol.sh CodexAdvisor-agent; review generated working-contract.md; proceed only when CANON_INVENTORY present and hashes complete.
-- [ ] **Wake-up phases**: Identity → memory scan → governance load → environment health → big picture → escalations → working contract.
-- [ ] **Degraded mode handling**: Escalate if CANON_INVENTORY has placeholder/truncated hashes.
-- [ ] **Session closure requirements**: Create session memory file, update personal learning files, create escalations if needed, all via standard file creation and git commit.
-
-## Category 11 — Execution Identity & Safety
-
-- [ ] **Execution identity**: Name specified as "Maturion Bot", secret references MATURION_BOT_TOKEN.
-- [ ] **Safety constraints**: never_push_main=true, write_via_pr_by_default=true.
-- [ ] **PR workflow**: All writes via PR; no direct pushes to main branch.
-
-## Category 12 — Version & Metadata
-
-- [ ] **Version declaration**: agent.version=6.2.0 present in YAML frontmatter.
-- [ ] **Living Agent System compliance**: LIVING_AGENT_SYSTEM_v6_2_0 compliance level declared.
-- [ ] **Metadata section**: canonical_home specified (APGI-cmy/maturion-foreman-governance), this_copy marked as "consumer", authority=CS2, last_updated timestamp present.
-- [ ] **Version status confirmation**: Repository identified as having all v6.2.0 references including session memory (as of governance audit).
-
----
-
-## Appendix A — Living Agent System v6.2.0 Template Components (9 Mandatory)
-
-These components MUST appear in every agent file created by CodexAdvisor:
-
-1. **YAML Frontmatter** (REQ-CM-001, REQ-CM-002): Consumer mode fields including id, agent class/version, governance protocol/canon_inventory, merge_gate_interface, scope, capabilities, escalation, prohibitions, metadata.
-
-2. **Mission Statement**: Clear declaration of agent's purpose, role, and primary responsibilities.
-
-3. **Living-Agent Wake-Up Protocol**: Phases enumerated, wake-up script path, working contract review, CANON_INVENTORY verification, degraded-mode semantics.
-
-4. **Session Memory Protocol**: File path structure, template with all required sections, memory rotation rules, personal learning updates, escalation creation process.
-
-5. **Agent-Factory Protocol** (when applicable): Authority notice, CS2 authorization requirement, consumer repository mode, requirements (frontmatter, bindings, checklists, template, size limits), pre-creation requirements.
-
-6. **Consumer Repository Mode**: Key differences, checklist locations, canon inventory path, ripple reception mode, prohibitions, capabilities.
-
-7. **Governance Sync Protocol**: Receiving ripple events, creating ripple inbox entry, updating sync state, creating alignment PR, post-merge actions, drift detection.
-
-8. **Merge Gate Interface Expectations**: Required checks enumeration, auto-merge conditions, alignment check basis.
-
-9. **Authority & Prohibitions**: CS2 authority explicit, approval requirements clear, prohibitions enumerated, escalation paths defined.
-
----
-
-## Usage
-
-Treat every unchecked item as a blocker for CodexAdvisor agent file readiness. Cite the listed source or agent file section that satisfies the item. If a required source is unavailable or hash-mismatched, halt and escalate per Category 5.
-
-**Compliance verification**: Run validation against this checklist before any agent file creation/modification PR is submitted. A CodexAdvisor agent file is INVALID and OUT OF GOVERNANCE if ANY required element is missing or non-compliant.
-
----
-
-**Authority**: Living Agent System v6.2.0  
+**Status**: Canonical Governance Validation Checklist  
 **Version**: 1.0.0  
+**Authority**: CS2 (Johan Ras)  
 **Created**: 2026-02-12  
-**Repository**: APGI-cmy/R_Roster (Consumer Mode)
+**Last Updated**: 2026-02-12  
+**Purpose**: Machine-checkable checklist of MANDATORY elements for CodexAdvisor agent contract compliance with Living Agent System v6.2.0
+
+---
+
+## Executive Summary
+
+This document provides a **machine-checkable binding checklist** that defines the **MANDATORY elements** that MUST appear in the CodexAdvisor agent contract for the agent to be considered **fully compliant** with Living Agent System v6.2.0.
+
+**Critical Principle**: A CodexAdvisor contract is INCOMPLETE and the agent is OUT OF GOVERNANCE if ANY required element is missing or non-compliant.
+
+This checklist implements:
+- Living Agent System v6.2.0 (56 requirements: REQ-CM-001 through REQ-AG-004)
+- 9 Mandatory Components (REQ-CM-001 through REQ-CM-010)
+- 5 Validation Hooks (VH-001 through VH-005)
+- Agent-Factory Protocol Requirements
+- 30,000 Character Limit Enforcement
+
+---
+
+## Usage Instructions
+
+### For Contract Authors
+
+When creating or updating the CodexAdvisor contract:
+1. Verify ALL checklist items are present and compliant
+2. Mark items as ✅ (present) or ❌ (missing)
+3. Contract is VALID only if ALL required items are ✅
+4. Character count MUST be < 30,000 (GitHub UI selectability)
+
+### For Validation Tooling
+
+Automated validators MUST:
+1. Parse agent contract file (.github/agents/CodexAdvisor-agent.md)
+2. Verify each checklist item
+3. Validate character count < 30,000
+4. Return VALID only if 100% compliance achieved
+5. Block merge if validation fails
+
+---
+
+## SECTION 1: MANDATORY COMPONENTS (9 Required)
+
+### 1.1 YAML Frontmatter (REQ-CM-001, REQ-CM-002)
+
+- **Requirement**: MANDATORY
+- **Validation**: Valid YAML with ALL required fields
+- **Required Fields**:
+  - `id: CodexAdvisor-agent`
+  - `description: [mission statement]`
+  - `agent.id: CodexAdvisor-agent`
+  - `agent.class: overseer`
+  - `agent.version: 6.2.0`
+  - `governance.protocol: LIVING_AGENT_SYSTEM`
+  - `governance.canon_inventory: governance/CANON_INVENTORY.json`
+  - `governance.expected_artifacts: [list]`
+  - `governance.degraded_on_placeholder_hashes: true`
+  - `governance.execution_identity.name: "Maturion Bot"`
+  - `governance.execution_identity.secret: "[secret-name]"` (e.g., "MATURION_BOT_TOKEN")
+  - `governance.execution_identity.safety.never_push_main: true`
+  - `governance.execution_identity.safety.write_via_pr_by_default: true`
+  - `merge_gate_interface.required_checks: [list of 3 checks]`
+  - `scope.repositories: [list]`
+  - `scope.approval_required: ALL_ACTIONS`
+  - `capabilities: [role-specific capabilities]`
+  - `escalation.authority: CS2`
+  - `escalation.rules: [list]`
+  - `prohibitions: [list]`
+  - `metadata.canonical_home: APGI-cmy/maturion-codex-control`
+  - `metadata.this_copy: canonical`
+  - `metadata.authority: CS2`
+  - `metadata.last_updated: YYYY-MM-DD`
+- **Severity if Missing**: BLOCKER - Cannot parse agent configuration
+
+### 1.2 Mission Statement (REQ-CM-003)
+
+- **Requirement**: MANDATORY
+- **Validation**: Clear mission aligned to Living Agent System v6.2.0
+- **Format**: `# CodexAdvisor\n## Mission\n[mission text]`
+- **Severity if Missing**: HIGH - Agent purpose unclear
+
+### 1.3 Wake-Up Protocol (REQ-CM-004)
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains wake-up protocol referencing `.github/scripts/wake-up-protocol.sh`
+- **Required Elements**:
+  - Phase sequence: identity → memory scan → governance load → environment health → big picture → escalations → working contract
+  - Script reference: `.github/scripts/wake-up-protocol.sh CodexAdvisor-agent`
+  - Degraded-mode escalation requirement
+- **Severity if Missing**: BLOCKER - Agent cannot initialize properly
+
+### 1.4 Session Memory Protocol (REQ-CM-005)
+
+- **Requirement**: MANDATORY
+- **Validation**: Complete session memory protocol with v6.2.0 references
+- **Required Elements**:
+  - Session memory file creation template
+  - Memory rotation protocol (≤5 sessions)
+  - Personal learning updates protocol
+  - Escalation creation protocol
+  - Version reference MUST be v6.2.0 (NOT v5.0.0)
+- **Severity if Missing**: HIGH - Cannot track agent history
+
+### 1.5 Agent-Factory Operational Protocol (REQ-CM-006)
+
+- **Requirement**: MANDATORY (role-specific for CodexAdvisor)
+- **Validation**: Contains agent creation/alignment protocol
+- **Required Elements**:
+  - CS2 authorization requirement for agent file creation
+  - Pre-creation requirements (MANDATORY section)
+  - Living Agent System v6.2.0 template structure
+  - 9 mandatory component definitions
+  - 56 requirement mappings
+  - Character count validation (30K limit)
+  - Degraded mode operations protocol
+  - Compliance enforcement rules
+- **Severity if Missing**: BLOCKER - Cannot create/manage agents
+
+### 1.6 Validation Hooks (REQ-CM-007)
+
+- **Requirement**: MANDATORY
+- **Validation**: All 5 validation hooks documented
+- **Required Hooks**:
+  - VH-001: YAML frontmatter validation
+  - VH-002: Checklist compliance validation
+  - VH-003: CANON_INVENTORY hash validation
+  - VH-004: Merge gate interface validation
+  - VH-005: Prohibition enforcement validation
+- **Severity if Missing**: HIGH - Cannot validate compliance
+
+### 1.7 Requirement Mappings (REQ-CM-008)
+
+- **Requirement**: MANDATORY
+- **Validation**: All 56 requirements mapped with line references
+- **Required Mappings**:
+  - REQ-CM-001 through REQ-CM-010 (Canon Management)
+  - REQ-ER-001 through REQ-ER-005 (Evidence & Records)
+  - REQ-RA-001 through REQ-RA-006 (Ripple & Alignment)
+  - REQ-GC-001 through REQ-GC-005 (Gate Compliance)
+  - REQ-AS-001 through REQ-AS-005 (Authority & Self-Alignment)
+  - REQ-EO-001 through REQ-EO-006 (Execution & Operations)
+  - REQ-MGI-001 through REQ-MGI-005 (Merge Gate Interface)
+  - REQ-CR-001 through REQ-CR-005 (Coordination & Reporting)
+  - REQ-SS-001 through REQ-SS-005 (Security & Safety)
+  - REQ-AG-001 through REQ-AG-004 (Ambiguities & Gaps)
+  - VH-001 through VH-005 (Validation Hooks)
+- **Severity if Missing**: BLOCKER - Cannot verify compliance
+
+### 1.8 LOCKED Section Metadata (REQ-CM-009)
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains LOCKED section with metadata
+- **Required Fields**:
+  - Lock ID: unique identifier
+  - Authority: CS2 (Johan Ras)
+  - Review Frequency: Quarterly
+  - Modification Authority: CS2 only via authorized PR
+  - Protected Elements list
+  - Last Review date
+  - Next Review Due date
+- **Severity if Missing**: HIGH - Cannot protect critical sections
+
+### 1.9 Authority and Version Footer (REQ-CM-010)
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains authority footer with correct version
+- **Format**: `Authority: LIVING_AGENT_SYSTEM.md | Version: 6.2.0 | Agent Contract: CodexAdvisor-agent`
+- **Must Include**: Checklist Compliance: 100% | Last Updated: YYYY-MM-DD
+- **Severity if Missing**: HIGH - Cannot verify version compliance
+
+---
+
+## SECTION 2: AGENT-FACTORY SPECIFIC REQUIREMENTS
+
+### 2.1 Required Checklists Configuration
+
+- **Requirement**: MANDATORY
+- **Validation**: Checklist paths defined for all agent types
+- **Required Paths**:
+  - `governance/checklists/GOVERNANCE_LIAISON_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md`
+  - `governance/checklists/FOREMAN_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md`
+  - `governance/checklists/BUILDER_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md`
+  - `governance/checklists/CODEX_ADVISOR_AGENT_CONTRACT_REQUIREMENTS_CHECKLIST.md`
+- **Severity if Missing**: BLOCKER - Cannot validate agent creation
+
+### 2.2 Character Limit Enforcement
+
+- **Requirement**: MANDATORY (BLOCKING)
+- **Validation**: File size limit configuration present
+- **Required Configuration**:
+  - `max_characters: 30000`
+  - `reason: "GitHub UI selectability requirement"`
+  - `enforcement: BLOCKING`
+  - `violation_action: FAIL_VALIDATION`
+- **Severity if Missing**: BLOCKER - Cannot enforce GitHub UI constraint
+
+### 2.3 Compliance Level Declaration
+
+- **Requirement**: MANDATORY
+- **Validation**: Living Agent System version declared
+- **Required Value**: `compliance_level: LIVING_AGENT_SYSTEM_v6_2_0`
+- **Severity if Missing**: HIGH - Cannot verify compliance baseline
+
+---
+
+## SECTION 3: PROHIBITIONS (REQ-CM-009)
+
+### 3.1 Core Prohibitions
+
+- **Requirement**: MANDATORY
+- **Validation**: All core prohibitions listed
+- **Required Prohibitions**:
+  - No execution without explicit approval
+  - No weakening of governance, tests, or merge gates
+  - No pushing to main (use PRs)
+  - No secrets in commits/issues/PRs
+  - No self-extension of scope/authority
+  - No edits to this agent contract except via CS2-approved issue
+- **Severity if Missing**: BLOCKER - Agent may violate governance
+
+---
+
+## SECTION 4: VALIDATION REQUIREMENTS
+
+### 4.1 File Size Validation
+
+- **Requirement**: MANDATORY (BLOCKING)
+- **Validation**: Character count MUST be < 30,000
+- **Enforcement**: Pre-PR creation validation
+- **Test Command**: `wc -m < .github/agents/CodexAdvisor-agent.md`
+- **Severity if Exceeded**: BLOCKER - Violates GitHub UI selectability
+
+### 4.2 Version Consistency
+
+- **Requirement**: MANDATORY
+- **Validation**: All version references MUST be v6.2.0
+- **Check Locations**:
+  - YAML frontmatter: `agent.version: 6.2.0`
+  - Session memory template: `Living Agent System v6.2.0`
+  - Authority footer: `Version: 6.2.0`
+- **Severity if Inconsistent**: HIGH - Version regression detected
+
+### 4.3 CANON_INVENTORY Hash Validation
+
+- **Requirement**: MANDATORY
+- **Validation**: No placeholder or truncated hashes in PUBLIC_API entries
+- **Action if Degraded**: Stop, escalate to CS2, do NOT proceed
+- **Severity if Ignored**: BLOCKER - Operating in degraded mode
+
+---
+
+## VALIDATION SUMMARY
+
+**Total Required Items**: 56 requirements + 9 components + 5 hooks = 70 items
+
+**Compliance Threshold**: 100% (ALL items MUST be ✅)
+
+**Character Limit**: < 30,000 characters (BLOCKING)
+
+**Version Requirement**: Living Agent System v6.2.0 (NO v5.0.0 references)
+
+**CS2 Authorization**: REQUIRED for all agent file modifications
+
+---
+
+## Authority
+
+**Living Agent System**: v6.2.0  
+**Checklist Version**: 1.0.0  
+**Authority**: CS2 (Johan Ras)  
+**Canonical Home**: APGI-cmy/maturion-foreman-governance  
+**Last Updated**: 2026-02-12  
+**Review Frequency**: Quarterly

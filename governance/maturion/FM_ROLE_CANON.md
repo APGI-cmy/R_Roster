@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: c9a6b55beedca2f06fc34b75085c74569097e21b)# FM Role Canon
+# FM Role Canon
 
 **Status**: Canonical  
 **Authority**: Constitutional  
