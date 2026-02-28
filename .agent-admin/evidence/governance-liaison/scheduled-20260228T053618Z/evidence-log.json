@@ -1,0 +1,9 @@
+{
+  "session_type": "scheduled_alignment",
+  "timestamp": "20260228T053618Z",
+  "trigger": "schedule",
+  "drift_detected": "",
+  "needs_alignment": "",
+  "alignment_status": "ALIGNED",
+  "sync_state": ".agent-admin/governance/sync_state.json"
+}
