@@ -3,7 +3,7 @@
 ## Status
 Canonical Governance Policy  
 **Policy ID**: POLICY-NO-ONLY-LANGUAGE  
-**Version**: v1.0  
+**Version**: v1.1  
 **Authority**: CS2 (Johan Ras)  
 **Effective Date**: 2026-01-08  
 **Triggered By**: PR APGI-cmy/maturion-foreman-office-app#504 (Foundation Wave, ZWZDI Campaign)  
@@ -80,6 +80,31 @@ The automated scan is intentionally scoped to **high-confidence** failure/debt p
 ### 3.3 Fixture examples
 
 See `governance/policy/minimizing_language_examples.json` for allowed/prohibited fixture examples used to validate the curated pattern list.
+
+### 3.4 Authority-language exception
+
+Governance and agent contracts routinely use **authority-scoping language** that includes "only" as a permission or scope delimiter — not as minimization. These uses are **explicitly permitted** and will not trigger the automated scanner:
+
+- ✅ "Only CS2 can authorize this change"
+- ✅ "Only applies to governance repository"
+- ✅ "Only when explicitly authorized"
+- ✅ "Only the Governance Administrator may approve"
+
+These phrases define authority boundaries; they do not minimize technical debt or incomplete work. The `only_failure_context` pattern (see §3.1) is scoped to failure/debt terms and the `allowlist` field in `minimizing_language_patterns.json` provides additional insurance against authority-phrasing false positives.
+
+### 3.5 Approved substitute terms for banned 'non-blocking' language
+
+When a technical document or agent contract must convey that something **does not halt execution or does not stop a merge**, the following approved substitutes MUST be used instead of 'non-blocking':
+
+| Context | Banned term | Approved substitute |
+|---------|-------------|---------------------|
+| Alerts / Warnings in build models | `non-blocking` | `execution-continues notification` or `does not halt execution` |
+| Governance / Ripple evolution invariants | `non-blocking` | `merge-transparent` or `does not block merge` |
+| Watchdog soft-stop / advisory findings | `non-blocking` | `ESCALATE for visibility — does not block merge` or `PARKING-STATION eligible` |
+| SAST / QA severity tables | `NON-BLOCKING` | `WARN — FM exception required within 2 weeks; CS2 exception required to defer beyond 2 weeks` (Medium) or `PARKING-STATION eligible` (Low) |
+| Parking-station enhancement proposals | `non-blocking` | Allowed as-is (current validators scan PR/RCA content, not repo files; parking-station files are not scanned by the automated gate) |
+
+**Rationale**: The word 'non-blocking' is indistinguishable to automated scanners from its prohibited test-dodging use. The approved alternatives are equally precise, context-specific, and scanner-safe.
 
 ---
 
@@ -556,8 +581,8 @@ By submitting work in the Maturion ecosystem, builders acknowledge:
 
 **Policy Status**: ACTIVE  
 **Enforcement**: IMMEDIATE  
-**Version**: 1.0  
-**Last Updated**: 2026-01-08  
+**Version**: 1.1  
+**Last Updated**: 2026-02-28  
 **Next Review**: 2026-04-08 (quarterly)
 
 ---
