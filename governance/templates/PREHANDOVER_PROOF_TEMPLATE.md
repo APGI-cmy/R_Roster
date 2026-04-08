@@ -1,718 +1,1438 @@
-# PREHANDOVER PROOF
+# PREHANDOVER_PROOF Template
 
 **Purpose**: Standard template for documenting execution verification before PR handover.  
-**Version**: 2.0.0  
+**Version**: 4.0.0  
+**Authority**: 
+- `governance/canon/MERGE_GATE_PHILOSOPHY.md` v2.0.0 (Pre-Handover Gate Duplication Mandate)
+- `governance/opojd/OPOJD_COMPLETE_JOB_HANDOVER_DOCTRINE.md` v2.0 (Complete Handover)
+- `governance/agent/AGENT_IGNORANCE_PROHIBITION_DOCTRINE.md` (No Ignorance Excuse)
+- `governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md` (Section 5.1 Zero-Warning Enforcement)
+- `BUILD_PHILOSOPHY.md` (One-Time Build Law: delivered means 100% working)
+- `WE_ONLY_FAIL_ONCE_DOCTRINE.md` (Structural governance prevents repeat failures)
+- `BL-030` (Validation Evidence Requirements)
+- Issue: "Governance Policy Update: Mandatory Lint/Static Analysis Gates Before Handover" (Wave 5.6 Post-Mortem)
+
+**Mandatory For**: **ALL PRs** - Pre-handover gate validation is constitutional requirement  
+**Optional For**: None (evidence required for all PRs per OPOJD v2.0 and MERGE_GATE_PHILOSOPHY v2.0)
+
+**Version 4.0.0 Changes** (2026-02-18): 
+- **CRITICAL GOVERNANCE UPDATE**: Added mandatory "Static Analysis & Build Gates" section
+- **MAJOR**: Lint validation now MANDATORY with ZERO errors/warnings requirement (Wave 5.6 learning)
+- **MAJOR**: Type-check validation now MANDATORY with ZERO errors requirement
+- **MAJOR**: Build validation now MANDATORY with success requirement
+- **MAJOR**: Post-static-analysis test re-confirmation required
+- **BREAKING**: Handover strictly prohibited if ANY static gate fails (lint/type/build)
+- Added 4-gate protocol: Lint, Type-Check, Build, Tests (post-fixes)
+- Added detailed evidence requirements for each static gate
+- Added iterations protocol for gate failures and fixes
+- Implements learning from Wave 5.6 post-mortem: "QA-to-Red test results alone are NOT sufficient"
+- Cross-references to BUILD_PHILOSOPHY, WE_ONLY_FAIL_ONCE_DOCTRINE
+
+**Version 3.0.0 Changes** (2026-02-11): 
+- **CONSTITUTIONAL UPGRADE**: Aligned with MERGE_GATE_PHILOSOPHY v2.0.0 Pre-Handover Gate Duplication Mandate
+- **MAJOR**: Merge gate validation now MANDATORY for ALL PRs (was implicit, now explicit)
+- **MAJOR**: Added detailed "Pre-Handover Gate Validation (CONSTITUTIONAL)" section with 6-step protocol
+- **MAJOR**: Requires documentation of EXACT gate script commands (not just "validation method")
+- **MAJOR**: Prohibits attestation without actual script execution
+- Integrates with OPOJD v2.0, Ignorance Prohibition, Stop-and-Fix doctrines
+- Added escalation protocol section for gate validation failures
+- Added gate enumeration requirement (must list ALL applicable gates)
+- Cross-references to constitutional governance documents
+
+---
+
+## When to Use This Template
+
+Use this template in your PR description when your changes include:
+
+- ✅ Directory structure creation
+- ✅ Workflow file installation or modification
+- ✅ Agent contract deployment
+- ✅ Gate implementation or changes
+- ✅ Configuration changes affecting CI
+- ✅ Schema or policy creation
+- ✅ Any artifact that can fail in CI
+
+**When uncertain, include PREHANDOVER_PROOF.**
+
+---
+
+## Template
+
+Copy this template into your PR description and fill in all sections:
+
+```markdown
+## PREHANDOVER_PROOF
+
+### Artifacts Created
+
+**Requirement**: [Describe what was supposed to be created]
+
+**Verification**:
+```
+[Paste command showing artifact exists, e.g., ls -la, cat, tree]
+[Paste output from command]
+```
+
+**Status**: ✅ VERIFIED | ❌ NOT VERIFIED
+
+---
+
+### Execution Validation
+
+**Requirement**: [Describe what was supposed to execute successfully]
+
+**Commands Executed**:
+```
+[Command 1]
+[Output from command 1]
+[Exit code: X]
+
+[Command 2]
+[Output from command 2]
+[Exit code: X]
+
+[Additional commands as needed]
+```
+
+**Status**: ✅ ALL GREEN | ⚠️ PARTIAL | ❌ FAILED
+
+---
+
+### Test Execution Validation
+
+**Requirement**: [Describe what tests were supposed to pass - e.g., "All unit tests for Dashboard component must pass"]
+
+**Applicability**: 
+- ✅ Required for PRs with code changes that have associated tests
+- ⊘ Not applicable for documentation-only changes or governance-only changes
+- ⚠️ Exception documented below (if applicable)
+
+**Test Command Executed**:
+```
+[Exact command used to run tests, e.g., npm test, pytest, cargo test]
+```
+
+**Execution Details**:
+- **Date**: [YYYY-MM-DD HH:MM:SS UTC]
+- **Environment**: [OS, Runtime version, Package manager, Test runner version]
+- **Exit Code**: [0 = SUCCESS, non-zero = FAILURE]
+
+**Test Results Summary**:
+```
+[Test execution output showing all tests passed]
+[Include: test suites passed/total, tests passed/total, duration, final status]
+[Full output OR abbreviated summary with key metrics]
+```
+
+**Status**: ✅ ALL GREEN | ❌ FAILURES PRESENT | ⊘ NOT APPLICABLE | ⚠️ EXCEPTION
+
+**Iterations** (if any):
+- [Describe any test failures encountered and how they were resolved]
+- [Include "All tests GREEN on final run" confirmation]
+- [If no iterations: "Tests passed on first execution"]
+
+**Exception Documentation** (if applicable):
+```
+**Exception Category**: [Environment Impossibility | Emergency Hotfix | Test Infrastructure Gap]
+**Justification**: [Why test execution protocol cannot be followed]
+**Alternative Validation**: [What validation was done instead]
+**Authorization**: [Authorized by X on YYYY-MM-DD with evidence: link]
+**Remediation Plan**: [How will test execution be achieved in future]
+```
+
+**Guarantee**: All tests passed locally before PR creation. CI will confirm success, not discover test failures.
+
+**Authority**: `governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md`
+
+---
+
+### Static Analysis & Build Gates (MANDATORY)
+
+**Purpose**: Document zero-defect static analysis and build validation compliance before handover.
+
+**Authority**: 
+- Issue: "Governance Policy Update: Mandatory Lint/Static Analysis Gates Before Handover" (Wave 5.6 Post-Mortem)
+- `BUILD_PHILOSOPHY.md` — One-Time Build Law: delivered means working 100%
+- `governance/canon/STOP_AND_FIX_DOCTRINE.md` — Warnings = Errors
+- `governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md` — Section 5.1 Zero-Warning Enforcement
+
+**Constitutional Requirement**: ALL handovers MUST include evidence that lint, type-check, and build gates pass with ZERO errors and ZERO warnings. Handover is strictly prohibited if any gate fails.
+
+**Background**: Wave 5.6 deployment failed post-merge due to unresolved lint errors. Pre-handover certification focused on behavioral tests only, not static analysis, leading to governance violation.
+
+**Applicability**: 
+- ✅ MANDATORY for ALL PRs with application code changes (TypeScript, JavaScript, Python, Go, Rust, etc.)
+- ✅ MANDATORY for ALL PRs to application repositories
+- ⊘ Not applicable for governance-only repository changes without application code
+- ⚠️ Exception requires CS2 approval and documented justification
+
+---
+
+#### Static Analysis Gate Requirements
+
+**Critical Requirements**:
+- ✅ ALL lint commands must exit 0 with ZERO errors
+- ✅ ALL lint commands must exit 0 with ZERO warnings
+- ✅ ALL type-check commands must exit 0 with ZERO errors
+- ✅ Build command must complete successfully (exit 0)
+- ✅ ALL test suites must pass (exit 0, 100% GREEN)
+- ✅ Evidence of ALL gate executions attached (CLI output, exit codes, timestamps)
+- ✅ Local validation is MANDATORY (CI is confirmatory, not diagnostic)
+
+**Prohibited Actions**:
+- ❌ Handing over with ANY lint error or warning
+- ❌ Handing over with ANY type-check error
+- ❌ Handing over with build failures
+- ❌ Stating "will fix in follow-up PR" to defer static analysis issues
+- ❌ Stating "will validate in CI" to defer local validation
+- ❌ Treating pre-existing lint/type issues as exemption from remediation
+- ❌ Partial handovers with known static analysis failures
+- ❌ Skipping static analysis validation for "minor changes"
+
+---
+
+#### Gate 1: Lint Validation
+
+**Requirement**: All lint checks must pass with ZERO errors and ZERO warnings.
+
+**Applicability**: 
+- ✅ Required for all application code changes (TypeScript, JavaScript, Python, Go, Rust, etc.)
+- ⊘ Not applicable if repository has no linter configured
+
+**Lint Command Executed**:
+```bash
+[Exact command used to run linter, e.g., yarn lint, npm run lint, eslint ., pylint src/, cargo clippy]
+```
+
+**Execution Details**:
+- **Date**: [YYYY-MM-DD HH:MM:SS UTC]
+- **Environment**: [OS, Node/Python/Go/Rust version, Linter version]
+- **Exit Code**: [MUST be 0]
+
+**Lint Results**:
+```
+[Paste FULL lint output or summary showing:]
+- Total files linted: [N]
+- Errors found: [MUST be 0]
+- Warnings found: [MUST be 0]
+- Final status: [e.g., "✨ No issues found", "All checks passed"]
+```
+
+**Status**: ✅ PASS (0 errors, 0 warnings) | ❌ FAIL (cannot hand over) | ⊘ NOT APPLICABLE
+
+**Iterations** (if any):
+```
+[If lint failed initially:]
+- Initial errors/warnings: [list what failed]
+- Root cause: [why it failed]
+- Fix applied: [what you changed]
+- Re-run evidence: [exit code 0, 0 errors, 0 warnings after fix]
+[If no iterations: "Lint passed on first execution with zero errors/warnings"]
+```
+
+**Prohibition**: If ANY lint error or warning remains, MUST fix immediately per STOP_AND_FIX_DOCTRINE before handover.
+
+---
+
+#### Gate 2: Type-Check Validation
+
+**Requirement**: All type-checking must pass with ZERO errors (if applicable).
+
+**Applicability**: 
+- ✅ Required for TypeScript projects
+- ✅ Required for Python projects with type hints (mypy, pyright)
+- ✅ Required for any language with type checking
+- ⊘ Not applicable if language/project does not use static typing
+
+**Type-Check Command Executed**:
+```bash
+[Exact command, e.g., yarn type-check, tsc --noEmit, mypy ., cargo check]
+```
+
+**Execution Details**:
+- **Date**: [YYYY-MM-DD HH:MM:SS UTC]
+- **Environment**: [OS, TypeScript/Python/other version, Type-checker version]
+- **Exit Code**: [MUST be 0]
+
+**Type-Check Results**:
+```
+[Paste output showing:]
+- Files checked: [N]
+- Type errors found: [MUST be 0]
+- Final status: [e.g., "No errors found", "Type-check passed"]
+```
+
+**Status**: ✅ PASS (0 type errors) | ❌ FAIL (cannot hand over) | ⊘ NOT APPLICABLE
+
+**Iterations** (if any):
+```
+[If type-check failed initially:]
+- Initial type errors: [list what failed]
+- Root cause: [why it failed]
+- Fix applied: [what you changed]
+- Re-run evidence: [exit code 0, 0 errors after fix]
+[If no iterations: "Type-check passed on first execution with zero errors"]
+```
+
+**Prohibition**: If ANY type error remains, MUST fix immediately before handover.
+
+---
+
+#### Gate 3: Build Validation
+
+**Requirement**: Application build must complete successfully.
+
+**Applicability**: 
+- ✅ MANDATORY for ALL application code PRs
+- ✅ Required even if "minor changes" (CSS, config, etc.)
+- ⊘ Not applicable for documentation-only changes in governance repos
+
+**Build Command Executed**:
+```bash
+[Exact command, e.g., yarn build, npm run build, make build, cargo build --release]
+```
+
+**Execution Details**:
+- **Date**: [YYYY-MM-DD HH:MM:SS UTC]
+- **Environment**: [OS, Build tool versions]
+- **Exit Code**: [MUST be 0]
+
+**Build Results**:
+```
+[Paste output showing:]
+- Build started: [timestamp]
+- Build completed: [timestamp]
+- Build artifacts generated: [list key artifacts, e.g., dist/, build/]
+- Warnings during build: [MUST be 0 or documented/approved]
+- Final status: [e.g., "Build succeeded", "webpack compiled successfully"]
+```
+
+**Status**: ✅ PASS (build succeeded) | ❌ FAIL (cannot hand over)
+
+**Iterations** (if any):
+```
+[If build failed initially:]
+- Initial build errors: [list what failed]
+- Root cause: [why it failed]
+- Fix applied: [what you changed]
+- Re-run evidence: [exit code 0, successful build after fix]
+[If no iterations: "Build succeeded on first execution"]
+```
+
+**Prohibition**: If build fails, MUST fix immediately before handover.
+
+---
+
+#### Gate 4: Complete Test Suite (Re-confirmation)
+
+**Note**: This gate re-confirms test execution after ALL static analysis fixes applied.
+
+**Requirement**: After fixing any lint/type/build issues, ALL tests MUST still pass.
+
+**Rationale**: Fixes to lint/type issues may introduce test failures. Must verify complete system health.
+
+**Test Command Re-Executed**:
+```bash
+[Same test command from "Test Execution Validation" section above]
+```
+
+**Execution Details**:
+- **Date**: [YYYY-MM-DD HH:MM:SS UTC] (AFTER lint/type/build fixes)
+- **Exit Code**: [MUST be 0]
+
+**Test Results Summary**:
+```
+[Paste output confirming:]
+- All test suites passed: [X/X]
+- All tests passed: [Y/Y]
+- Final status: [100% GREEN]
+```
+
+**Status**: ✅ ALL GREEN | ❌ FAILURES (cannot hand over)
+
+**Cross-Reference**: See "Test Execution Validation" section above for initial test execution.
+
+---
+
+#### Static Analysis Summary
+
+**All Gates Status**:
+- Lint: ✅ PASS (0 errors, 0 warnings) | ❌ FAIL | ⊘ N/A
+- Type-Check: ✅ PASS (0 errors) | ❌ FAIL | ⊘ N/A
+- Build: ✅ PASS | ❌ FAIL | ⊘ N/A
+- Tests (post-static-fixes): ✅ PASS (100% GREEN) | ❌ FAIL | ⊘ N/A
+
+**Final Static Analysis State**:
+- [ ] ALL applicable gates executed locally
+- [ ] ALL gates returned exit code 0 (success)
+- [ ] ZERO lint errors
+- [ ] ZERO lint warnings
+- [ ] ZERO type errors
+- [ ] Build succeeded
+- [ ] ALL tests still GREEN after static analysis fixes
+- [ ] Evidence documented for EVERY gate
+
+**Summary**: ✅ ALL STATIC GATES GREEN | ❌ INCOMPLETE (CANNOT HAND OVER)
+
+**Handover Prohibition**: Per governance policy (Wave 5.6 learning), handover is **strictly prohibited** if ANY static analysis gate fails. CI will confirm success via evidence-based validation, not discover lint/type/build failures.
+
+**Authority**: 
+- Issue: "Governance Policy Update: Mandatory Lint/Static Analysis Gates Before Handover"
+- `BUILD_PHILOSOPHY.md` — Delivered means 100% working
+- `WE_ONLY_FAIL_ONCE_DOCTRINE.md` — Structural governance prevents repeat failures
+
+---
+
+### Pre-Handover Gate Validation (CONSTITUTIONAL)
+
+**Authority**: `governance/canon/MERGE_GATE_PHILOSOPHY.md` v2.0.0 Section "Pre-Handover Gate Duplication Mandate"
+
+**Constitutional Requirement**: Per OPOJD v2.0, AGENT_IGNORANCE_PROHIBITION_DOCTRINE, and MERGE_GATE_PHILOSOPHY v2.0, agents MUST duplicate ALL applicable merge gate logic locally and validate in their own environment BEFORE creating PR.
+
+**Violations**: Handing over PR without gate validation = OPOJD v2.0 violation + Ignorance Prohibition violation
+
+---
+
+#### Step 1: Gate Enumeration (MANDATORY)
+
+**Requirement**: Agent MUST identify ALL merge gates that apply to this PR.
+
+**Enumeration Method Used**:
+```
+[Describe how you identified applicable gates]
+Example: "Checked .github/workflows/*.yml for triggers matching modified file paths"
+Example: "Reviewed MERGE_GATE_APPLICABILITY_MATRIX.md for gates applicable to [agent-role]"
+Example: "Listed all workflow files: ls .github/workflows/, then checked each 'on:' trigger"
+```
+
+**Applicable Gates Identified**:
+```
+[List ALL gates that apply to this PR - NONE is not acceptable unless truly documentation-only]
+Example:
+1. governance-scope-to-diff-gate.yml (triggered by: any file change)
+2. governance-gate.yml (triggered by: governance/** changes)
+3. agent-governance-check.yml (triggered by: .github/agents/** changes)
+```
+
+**Total Gates**: [X gates applicable to this PR]
+
+**Ignorance Check**: 
+- [ ] I have reviewed ALL workflow files in `.github/workflows/`
+- [ ] I have checked triggers for each workflow against my changed files
+- [ ] I have NOT assumed any gate "doesn't apply" without verification
+- [ ] I CANNOT claim "didn't know gate applied" (ignorance prohibited)
+
+---
+
+#### Step 2: Gate Script Location (MANDATORY)
+
+**Requirement**: Agent MUST locate the actual validation scripts referenced in workflow files.
+
+**Gate Script Locations**:
+
+1. **[Gate Name 1]**:
+   - Workflow file: `.github/workflows/[filename].yml`
+   - Script location: [e.g., `.github/scripts/validate-scope-to-diff.sh` OR `embedded in workflow YAML`]
+   - Script verified to exist: ✅ YES | ❌ NO (if NO, escalated per protocol)
+
+2. **[Gate Name 2]**:
+   - Workflow file: `.github/workflows/[filename].yml`
+   - Script location: [script path or "embedded"]
+   - Script verified to exist: ✅ YES | ❌ NO
+
+[Repeat for ALL applicable gates]
+
+**Escalation** (if any script missing/broken):
+```
+[If any gate script is missing or broken, document escalation here]
+[Include: What was attempted, coordination with FM, resolution, re-validation after fix]
+[Cannot hand over without resolving - OPOJD v2.0 requirement]
+```
+
+---
+
+#### Step 3: Gate Script Execution (MANDATORY)
+
+**Requirement**: Agent MUST run the EXACT same commands that CI will run, in same environment/context.
+
+**Gate Execution Evidence**:
+
+##### Gate 1: [Exact Gate Name from workflow file]
+
+**Script Command Executed** (EXACT command from workflow or script):
+```bash
+[Paste EXACT command here - must match what CI runs]
+Example: .github/scripts/validate-scope-to-diff.sh
+Example: yamllint .github/agents/*.md
+```
+
+**Execution Environment**:
+- Working directory: [e.g., repository root]
+- Date/Time: [YYYY-MM-DD HH:MM:SS UTC]
+- Shell: [bash/zsh/other]
+- Relevant environment variables: [if any]
+
+**Exit Code**: [MUST be 0 for PASS, re-run until 0]
+
+**Output Excerpt** (showing success):
+```
+[Paste relevant output showing gate passed]
+[Include final success message or summary]
+[If output is long, paste key success indicators]
+```
+
+**Iterations** (if gate initially failed):
+```
+[If gate failed on first run, document:]
+- Initial failure output: [what failed]
+- Root cause: [why it failed]
+- Fix applied: [what you changed]
+- Re-run evidence: [exit code 0 after fix]
+[Per Stop-and-Fix: must fix immediately, then re-run ALL gates]
+```
+
+**Status**: ✅ PASS (exit code 0) | ❌ FAIL (cannot hand over) | ⚠️ ESCALATED (see below)
+
+---
+
+##### Gate 2: [Exact Gate Name]
+
+**Script Command Executed**:
+```bash
+[Exact command]
+```
+
+**Execution Environment**:
+- Working directory: [path]
+- Date/Time: [timestamp]
+
+**Exit Code**: [0 required]
+
+**Output Excerpt**:
+```
+[Success output]
+```
+
+**Iterations** (if any):
+```
+[Failure/fix iterations if applicable]
+```
+
+**Status**: ✅ PASS | ❌ FAIL | ⚠️ ESCALATED
+
+---
+
+[Repeat for EVERY applicable gate - NO SKIPS ALLOWED]
+
+---
+
+#### Step 4: Gate Validation Summary
+
+**All Gates Status**:
+- Total gates applicable: [X]
+- Gates validated and passed: [Y]
+- Gates skipped (with justification): [Z - should be 0]
+- Gates failed and escalated: [N - explain below]
+
+**Final Validation State**:
+- [ ] ALL applicable gates executed locally
+- [ ] ALL gates returned exit code 0 (success)
+- [ ] ZERO gates skipped without valid escalation
+- [ ] All gate failures fixed per Stop-and-Fix
+- [ ] All gates re-run after any fix
+- [ ] Evidence documented for EVERY gate
+
+**Summary**: ✅ ALL GATES GREEN | ❌ INCOMPLETE (cannot hand over)
+
+---
+
+#### Step 5: Escalation Documentation (If Applicable)
+
+**If ANY gate could not be validated (script broken, environment gap, etc.)**:
+
+**Gate**: [Which gate]
+**Issue**: [Specific problem preventing validation]
+**Category**: [Gate Script Broken | Tool/Environment Gap | Gate Scope Mismatch | Other]
+
+**Attempts Made**:
+1. [First attempt to resolve and outcome]
+2. [Second attempt to resolve and outcome]
+3. [Third attempt to resolve and outcome]
+
+**Coordination with FM** (per CROSS_AGENT_COORDINATION_PROTOCOL.md):
+```
+[Document coordination request made to FM]
+[Include: Job context, gate issue, error message, proposed fix]
+[Document FM response and resolution]
+[Document re-validation after fix]
+```
+
+**Resolution**:
+```
+[How issue was resolved - gate fixed, alternative validation, CS2 exception, etc.]
+[Include: Who fixed it, what changed, verification that it now works]
+```
+
+**Re-Validation After Resolution**:
+```
+[Paste evidence of gate passing after resolution]
+[Exit code: 0]
+```
+
+**Cannot Hand Over Without Resolution**: Per OPOJD v2.0, agent maintains job ownership until all gates validated.
+
+---
+
+#### Step 6: Prohibited Behaviors Check
+
+**Agent Attestation** (per AGENT_IGNORANCE_PROHIBITION_DOCTRINE.md):
+
+I confirm I have NOT:
+- [ ] ❌ Created PR without running gate scripts locally
+- [ ] ❌ Provided PREHANDOVER_PROOF without actual command execution
+- [ ] ❌ Claimed "CI will validate" instead of local validation
+- [ ] ❌ Handed over with known gate failures
+- [ ] ❌ Skipped gate validation due to "script complexity"
+- [ ] ❌ Assumed gate "should pass" without running it
+- [ ] ❌ Used mental validation instead of script execution
+- [ ] ❌ Delegated gate validation to CI
+
+I confirm I HAVE:
+- [ ] ✅ Enumerated ALL applicable gates
+- [ ] ✅ Located and verified all gate scripts
+- [ ] ✅ Executed EXACT gate commands locally
+- [ ] ✅ Documented exit codes for ALL gates (all 0)
+- [ ] ✅ Fixed all failures per Stop-and-Fix
+- [ ] ✅ Escalated any unresolvable gate issues
+- [ ] ✅ Re-validated after any fixes
+- [ ] ✅ Provided complete evidence (not attestation)
+
+**Final Guarantee**: All applicable merge gates have been run locally with exit code 0. CI will confirm success via evidence-based validation, not discover failures.
+
+---
+
+### Zero-Warning Validation
+
+**Purpose**: Document zero-warning enforcement compliance per EXECUTION_BOOTSTRAP_PROTOCOL.md Section 5.1.
+
+**Authority**: `governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md` v1.1.0 Section 5.1, `governance/canon/STOP_AND_FIX_DOCTRINE.md`, `BUILD_PHILOSOPHY.md` (Warnings = Errors)
+
+**Critical Requirements**:
+- ✅ ALL validation commands must exit 0 with ZERO warnings
+- ✅ ALL changes committed BEFORE running validation (especially scope-to-diff)
+- ✅ If ANY warning detected: HALT, fix completely, re-run ALL gates
+- ✅ Local validation is MANDATORY (CI is confirmatory, not diagnostic)
+- ✅ Apply STOP_AND_FIX_DOCTRINE.md to ALL issues encountered
+
+**Prohibited Actions**:
+- ❌ Handing over with ANY warning in validation output
+- ❌ Handing over with "skipped" validations due to uncommitted changes
+- ❌ Stating "will validate in CI" to defer validation
+- ❌ Exit codes != 0 for any validation command
+- ❌ Treating "pre-existing issues" as exemption from remediation
+- ❌ Partial handovers with known issues
+
+---
+
+#### Pre-Validation Checklist
+
+- [ ] All changes reviewed and ready for commit
+- [ ] All changes committed with descriptive commit message
+- [ ] Working directory clean (`git status` shows no uncommitted changes)
+- [ ] Ready to execute validation with committed state
+
+**Commit Verification**:
+```
+[Paste output from: git status]
+[Should show: "nothing to commit, working tree clean"]
+```
+
+---
+
+#### Validation Execution
+
+**All validation commands executed with committed changes**:
+
+1. **YAML Validation**
+   ```
+   $ yamllint .github/agents/*.md
+   [Paste output]
+   Exit code: [MUST be 0]
+   ```
+
+2. **File Structure Validation**
+   ```
+   $ for f in governance/philosophy/BYG_DOCTRINE.md governance/CONSTITUTION.md governance/escalation/ESCALATION_POLICY.md .github/CODEOWNERS; do [ -f "$f" ] || exit 1; done
+   [Paste output]
+   Exit code: [MUST be 0]
+   ```
+
+3. **Scope-to-Diff Validation** (if applicable)
+   ```
+   $ .github/scripts/validate-scope-to-diff.sh main
+   [Paste output]
+   Exit code: [MUST be 0]
+   ```
+
+4. **Locked Section Validation** (if agent contracts modified)
+   ```
+   $ python .github/scripts/check_locked_sections.py --mode=detect-modifications --base-ref=main --head-ref=HEAD
+   [Paste output]
+   Exit code: [MUST be 0]
+   
+   $ python .github/scripts/check_locked_sections.py --mode=validate-metadata --contracts-dir=.github/agents
+   [Paste output]
+   Exit code: [MUST be 0]
+   ```
+
+5. **Additional Gate Validations**
+   ```
+   [Add any additional gate-specific validations here]
+   [Each must show: command executed, output, exit code = 0]
+   ```
+
+---
+
+#### Zero-Warning Attestation
+
+**MANDATORY**: Provide EVIDENCE, not just attestation. All commands must include:
+- Exact command executed (copy-paste ready)
+- Exit code (MUST be 0)
+- Relevant output (especially if warnings/errors)
+- Execution timestamp
+
+**Validation Results**:
+- ✅ ALL validation commands executed
+- ✅ ALL exit codes = 0 (no errors)
+- ✅ ZERO warnings detected in output
+- ✅ NO skipped validations
+- ✅ NO "will validate in CI" deferrals
+- ✅ Changes committed BEFORE validation
+- ✅ STOP_AND_FIX_DOCTRINE.md applied to all issues
+
+**Scope Declaration Freshness** (if applicable):
+- ✅ PR_ID matches current branch name: [verification]
+- ✅ DATE_UTC within last 24 hours: [verification]
+- ✅ RESPONSIBILITY_DOMAIN matches PR purpose: [verification]
+- ✅ FILES_CHANGED lists actual git diff files: [verification]
+- ✅ Scope-to-diff validation passed: [exit code 0]
+
+**Iterations** (if any issues encountered):
+```
+[Document any issues discovered during validation]
+[Document how each issue was remediated]
+[Document re-running ALL gates after fixes]
+[Final attestation: "All gates GREEN on final run with zero warnings"]
+```
+
+**If no iterations**: All validations passed on first execution with zero warnings.
+
+**Final Attestation**: 
+```
+I attest that:
+1. ALL validation gates were executed locally with committed changes
+2. ALL validation commands exited with code 0
+3. ZERO warnings were present in any validation output
+4. Any issues discovered were immediately fixed per STOP_AND_FIX_DOCTRINE.md
+5. All gates were re-run after fixes until 100% clean
+6. CI will confirm success, not discover warnings or failures
+7. EVIDENCE (not just claims) provided above for all validations
+8. Scope declaration verified fresh and matching actual changes
+
+Timestamp: [YYYY-MM-DD HH:MM:SS UTC]
+Validator: [Agent name or your name]
+```
+
+**Authority**: 
+- EXECUTION_BOOTSTRAP_PROTOCOL.md v1.1.0 Section 5.1
+- governance-repo-administrator.agent.md v4.3.0 (Validation Evidence Requirements LOCKED section)
+- BL-030 (False Attestation Pattern Prevention)
+- INCIDENT_2026-01-27_PR_1023_FALSE_ATTESTATION_RCA.md
+
+---
+
+### Execution Timestamp
+
+**Validation Performed**: [YYYY-MM-DD HH:MM:SS UTC]  
+**Environment**: [Operating system, shell, tool versions]  
+**Validator**: [Agent name or your name]
+
+---
+
+### Handover Guarantee
+
+**I guarantee**:
+- ✅ All artifacts exist and are functional
+- ✅ All executions succeeded locally (or documented failures explained)
+- ✅ All applicable gates validated in preflight
+- ✅ CI will confirm success (not discover failures)
+
+**If CI fails after this guarantee, it indicates**:
+- Incomplete preflight validation (I missed a gate or validation step), OR
+- Environment difference between local and CI (documented below), OR
+- Governance defect (gate misapplied, misconfigured, or contradictory)
+
+**Known Environment Differences** (if any):
+- [List any known differences between local environment and CI, e.g., "Local uses bash 5.1, CI uses bash 5.0"]
+- [If none: "None known"]
+
+**Root Cause Commitment**: If CI fails, I will perform RCA to determine whether failure was due to incomplete preflight validation or governance defect, and will document findings in incident report if pattern indicates systemic issue.
+
+---
+
+### Embedded Governance Artifacts
+
+**Purpose**: Document all governance artifacts required for this work unit.
+
 **Authority**: `governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md`
 
----
-
-**Repository**: [REPO_NAME]  
-**Branch**: [BRANCH_NAME]  
-**Commit**: [COMMIT_SHA]  
-**Timestamp**: [ISO_8601_TIMESTAMP]  
-**Agent**: [AGENT_NAME]  
-**Task**: [TASK_DESCRIPTION]
-
----
-
-## Governance Artifacts (MANDATORY)
-
-This section provides embedded or referenced governance artifacts required for full constitutional compliance and 10/10 governance auditability.
-
-### Artifact 1: Governance Scan
-
-**Purpose**: Pre-work governance compliance scan to identify applicable policies, bindings, and constitutional requirements.
-
-**Status**: [✅ COMPLETED | ❌ NOT COMPLETED | ⚠️ PARTIALLY COMPLETED]
-
-**Scan Method**: [Manual review | Automated scan | Hybrid]
-
-**Artifacts**:
-- **Embedded**: [Yes/No - If Yes, include scan results below]
-- **Separate File**: [Yes/No - If Yes, provide path: `.agent-admin/scans/scan_YYYYMMDD_HHMMSS.md`]
-
-**Scan Results** (if embedded):
-```
-[GOVERNANCE SCAN OUTPUT]
-
-Canonical Governance Review:
-- [List relevant governance documents from maturion-foreman-governance]
-- [Constitutional requirements identified]
-- [Tier-0 bindings applicable to this task]
-
-Local Governance Review:
-- [List relevant local governance documents]
-- [Repository-specific policies]
-- [Agent contract requirements]
-
-Constitutional Principles Assessed:
-- [Build Philosophy compliance]
-- [Zero Test Debt compliance]
-- [Agent boundaries]
-- [Other relevant principles]
-
-Governance Gaps Identified: [NONE | List any gaps]
-```
-
-**Governance Scan Reference**: [If separate file, provide full path here]
-
----
-
-### Artifact 2: Risk Assessment
-
-**Purpose**: Comprehensive impact analysis and risk mitigation strategy for proposed changes.
-
-**Status**: [✅ COMPLETED | ❌ NOT COMPLETED | ⚠️ PARTIALLY COMPLETED]
-
-**Artifacts**:
-- **Embedded**: [Yes/No - If Yes, include assessment below]
-- **Separate File**: [Yes/No - If Yes, provide path: `.agent-admin/risk-assessments/risk_NNN_YYYYMMDD.md`]
-
-**Risk Assessment** (if embedded):
-```
-[RISK ASSESSMENT OUTPUT]
-
-Repository Context: [Repository name, application domain]
-Agent Context: [Agents affected by this change]
-
-Impact Analysis:
-- [Impact Category 1]: [Description and severity]
-- [Impact Category 2]: [Description and severity]
-- [Impact Category 3]: [Description and severity]
-
-Ripple Effects:
-- [File/Component 1]: [Expected ripple effect]
-- [File/Component 2]: [Expected ripple effect]
-
-Risk Mitigation Strategies:
-- [Risk 1]: [Mitigation approach]
-- [Risk 2]: [Mitigation approach]
-
-Residual Risks: [NONE | List remaining risks after mitigation]
-
-Constitutional Compliance Risks: [NONE | List compliance risks]
-```
-
-**Risk Assessment Reference**: [If separate file, provide full path here]
-
----
-
-### Artifact 3: Change Record
-
-**Purpose**: Detailed change log with rationale, decisions made, and traceability to requirements.
-
-**Status**: [✅ COMPLETED | ❌ NOT COMPLETED]
-
-**Artifacts**:
-- **Embedded**: [Yes/No - If Yes, include change record below]
-- **Separate File**: [Yes/No - If Yes, provide path: `.agent-admin/changes/change_NNN_YYYYMMDD.md`]
-
-**Change Record** (if embedded):
-```
-[CHANGE RECORD OUTPUT]
-
-Change Summary:
-- [Brief description of what changed]
-
-Files Modified:
-1. [File path] - [Reason for change]
-2. [File path] - [Reason for change]
-3. [File path] - [Reason for change]
-
-Files Created:
-1. [File path] - [Purpose]
-2. [File path] - [Purpose]
-
-Files Deleted:
-1. [File path] - [Reason for deletion] (if applicable)
-
-Design Decisions:
-- [Decision 1]: [Rationale]
-- [Decision 2]: [Rationale]
-
-Alternatives Considered:
-- [Alternative 1]: [Why not chosen]
-- [Alternative 2]: [Why not chosen]
-
-Traceability to Requirements:
-- [Requirement 1] → [Implementation approach]
-- [Requirement 2] → [Implementation approach]
-```
-
-**Change Record Reference**: [If separate file, provide full path here]
-
----
-
-### Artifact 4: Completion Summary
-
-**Purpose**: Final delivery summary with metrics, evidence, and handover readiness assessment.
-
-**Status**: [✅ COMPLETED | ❌ NOT COMPLETED]
-
-**Artifacts**:
-- **Embedded**: [Yes/No - If Yes, include summary below]
-- **Separate File**: [Yes/No - If Yes, provide path: `.agent-admin/completion/completion_NNN_YYYYMMDD.md`]
-
-**Completion Summary** (if embedded):
-```
-[COMPLETION SUMMARY OUTPUT]
-
-Delivery Metrics:
-- Files Changed: [Total count - created/modified/deleted]
-- Lines Changed: [+additions / -deletions]
-- Documentation Updated: [Yes/No - list files]
-- Tests Added/Modified: [Count or N/A]
-- Validation Checks Run: [Count]
-
-Deliverable Status:
-- [Deliverable 1]: ✅ COMPLETE
-- [Deliverable 2]: ✅ COMPLETE
-- [Deliverable 3]: ✅ COMPLETE
-
-Quality Gates Passed:
-- [Gate 1]: ✅ PASSED
-- [Gate 2]: ✅ PASSED
-- [Gate 3]: ✅ PASSED
-
-Constitutional Compliance:
-- Build Philosophy: ✅ COMPLIANT
-- Zero Test Debt: ✅ COMPLIANT
-- Agent Boundaries: ✅ COMPLIANT
-- [Other principles]: ✅ COMPLIANT
-
-Handover Readiness: [✅ READY | ❌ NOT READY]
-
-Evidence Location: [List all evidence files, logs, artifacts]
-```
-
-**Completion Summary Reference**: [If separate file, provide full path here]
-
----
-
-## CST Validation Attestation
-
-**CST**: Combined Systems Testing - Integration testing across multiple system components, services, or boundaries.
-
-**CST Applicability**: [✅ REQUIRED | ⚠️ NOT REQUIRED | ❓ UNCERTAIN]
-
-### Path A: CST Required
-
-**If CST is required for this change, complete this section:**
-
-**CST Scope**:
-- [Component 1] ↔ [Component 2]: [Integration point description]
-- [Component 3] ↔ [Component 4]: [Integration point description]
-- [Service 1] ↔ [Service 2]: [Integration point description]
-
-**CST Execution Results**:
-```bash
-# CST Test Suite Execution
-$ [command to run CST]
-
-[PASTE ACTUAL CST OUTPUT HERE]
-
-# Example expected output:
-# Combined Systems Test Suite
-#   Integration Tests
-#     ✓ API → Database integration (125ms)
-#     ✓ UI → API integration (234ms)
-#     ✓ Service → Service communication (189ms)
-#     ✓ End-to-end workflow (456ms)
-#
-# Test Suites: 1 passed, 1 total
-# Tests:       4 passed, 4 total
-# Time:        1.234s
-```
-
-**CST Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]  
-**CST Pass Rate**: [X/Y tests passed - MUST be 100%]  
-**CST Timestamp**: [ISO_8601_TIMESTAMP]
-
-**Integration Points Validated**: [List all validated integration points]
-
-**CST Status**: [✅ PASSED | ❌ FAILED]
-
----
-
-### Path B: CST Not Required
-
-**If CST is NOT required for this change, provide attestation:**
-
-**Reason for CST Exemption**: [Select one or more]
-- [ ] Documentation-only changes (no code modified)
-- [ ] Governance-only changes (no application code affected)
-- [ ] Single-component changes with no integration impact
-- [ ] Unit tests sufficient (no cross-component interaction)
-- [ ] Infrastructure/tooling changes (no application logic)
-- [ ] Other: [Specify reason]
-
-**Exemption Justification**:
-```
-[DETAILED JUSTIFICATION]
-
-Why CST is not applicable to this change:
-- [Justification point 1]
-- [Justification point 2]
-- [Evidence supporting exemption]
-
-What testing WAS performed instead:
-- [Alternative testing approach 1]
-- [Alternative testing approach 2]
-```
-
-**Attestation Authority**: [Agent name/role making this attestation]  
-**Reviewed By**: [FM/Governance Liaison if escalation required]  
-**Exemption Status**: [✅ APPROVED | ⚠️ PENDING REVIEW | ❌ REJECTED]
-
----
-
-### Path C: CST Uncertain
-
-**If uncertain whether CST is required, escalate:**
-
-**Uncertainty Description**:
-- [Describe why CST applicability is unclear]
-- [List components/integrations that may be affected]
-- [Questions that need answering]
-
-**Escalation Target**: [ForemanApp | Governance Liaison | CodexAdvisor]  
-**Escalation Status**: [⚠️ AWAITING GUIDANCE]
-
-**DO NOT PROCEED** with handover until CST applicability is clarified and appropriate path (A or B) is completed.
-
----
-
-## Gate Validation Results
-
-### Governance Gate (Tier-0)
-
-**Status**: [✅ PASSED | ❌ FAILED]  
-**Execution**: Local validation  
-**Command**: `bash governance-gate-local-validation.sh`
-
-**Results**:
-- [✅/❌] .architecture/: [PRESENT/MISSING]
-- [✅/❌] .qa/: [PRESENT/MISSING]
-- [✅/❌] governance/: [PRESENT/MISSING]
-- [✅/❌] BUILD_PHILOSOPHY.md: [PRESENT/MISSING]
-- [✅/❌] .agent: [PRESENT/MISSING]
-- [✅/❌] governance/alignment/GOVERNANCE_ALIGNMENT.md: [PRESENT/MISSING]
-- [✅/❌] Test debt check: [RESULT]
-
----
-
-### Test Execution Validation (MANDATORY)
-
-**Authority**: governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md  
-**Principle**: CI-Confirmatory-Not-Diagnostic
-
-**Status**: [✅ PASSED | ❌ FAILED]  
-**Local Execution**: [REQUIRED - Tests MUST be run locally before PR]
-
-**Test Suite Execution**:
-```bash
-# Example: Unit tests
-$ npm test
-# Expected: 100% pass rate, EXIT 0
-
-# EXAMPLE OUTPUT (replace with your actual output):
-# PASS  tests/api/users.test.ts
-#   User API Tests
-#     ✓ should create user (45ms)
-#     ✓ should fetch user by ID (23ms)
-#     ✓ should update user (34ms)
-#
-# Test Suites: 1 passed, 1 total
-# Tests:       3 passed, 3 total
-# Snapshots:   0 total
-# Time:        2.456s
-# Ran all test suites.
-
-[PASTE YOUR ACTUAL OUTPUT HERE - showing all tests passed, exit code 0]
-```
-
-**Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]  
-**Pass Rate**: [X/Y tests passed - MUST be 100%]  
-**Timestamp**: [ISO_8601_TIMESTAMP]
-
-**Linting/Code Quality**:
-```bash
-$ npm run lint
-# OR
-$ ruff check .
-# Expected: Zero errors, zero warnings, EXIT 0
-
-# EXAMPLE OUTPUT (replace with your actual output):
-# ✔ 0 problems (0 errors, 0 warnings)
-
-[PASTE YOUR ACTUAL OUTPUT HERE - showing zero errors/warnings, exit code 0]
-```
-
-**Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]
-
-**Deprecation Detection** (if applicable):
-```bash
-$ pre-commit run --all-files
-# Expected: Zero violations, EXIT 0
-
-[PASTE ACTUAL OUTPUT HERE]
-```
-
-**Exit Code**: [0 = SUCCESS | Non-zero = FAILURE]
-
----
-
-### Task-Specific Gate Validation
-
-**Status**: [✅ PASSED | ❌ FAILED]  
-**Execution**: [Execution method]  
-**Command**: [Command used for validation]
-
-**Results**:
-- [List task-specific validation results]
-- [One item per deliverable]
-- [Include file existence checks, syntax validation, content validation]
-
----
-
-### File Validation
-
-**Syntax Validation** (if applicable):
-```bash
-# Example commands for validation
-$ python3 -c "import json; json.load(open('[FILE.json]'))"
-✅ Valid JSON
-
-$ python3 -c "import yaml; yaml.safe_load(open('[FILE.yaml]'))"
-✅ Valid YAML
+**Artifact Options**: Builders MAY choose ONE of the following approaches:
+1. **Embed artifacts in this PREHANDOVER_PROOF** (use sections below)
+2. **Create separate artifact files** in `.agent-admin/` directory and provide cross-references below
+
+**Cross-Reference Format** (if using separate files):
+```markdown
+- **Governance Scan**: See `.agent-admin/scans/scan_YYYYMMDD_HHMMSS.md`
+- **Risk Assessment**: See `.agent-admin/risk-assessments/risk_NNN_YYYYMMDD.md`
+- **Change Record**: See `.agent-admin/changes/change_NNN_YYYYMMDD.md`
+- **Completion Summary**: See `.agent-admin/COMPLETION_SUMMARY.md`
 ```
 
 ---
 
-## Deliverables Checklist
+#### Artifact 1: Governance Scan
 
-[List ALL deliverables from issue/task with checkbox status]
+**Scan ID**: [scan_YYYYMMDD_HHMMSS]  
+**Timestamp**: [YYYY-MM-DD HH:MM:SS UTC]  
+**Agent**: [agent-name]  
+**Purpose**: [Brief description of pre-work governance scan purpose]
 
-### Issue Requirements
-- [ ] [Deliverable 1 from issue]
-- [ ] [Deliverable 2 from issue]
-- [ ] [Deliverable 3 from issue]
+**Repository Context**:
+- Current Repository: [owner/repo-name]
+- Repository Type: [governance source / application repo / etc.]
+- Branch: [branch-name]
+- Status: [✅/⚠️/❌ with brief explanation]
 
-### Governance Artifacts (MANDATORY)
-- [ ] Artifact 1: Governance Scan (embedded or separate file)
-- [ ] Artifact 2: Risk Assessment (embedded or separate file)
-- [ ] Artifact 3: Change Record (embedded or separate file)
-- [ ] Artifact 4: Completion Summary (embedded or separate file)
+**Governance Documents Discovered**:
+- [Key canonical documents relevant to this work]
+- [Binding governance policies and protocols]
+- [Authority references for this work unit]
 
-### CST Validation
-- [ ] CST applicability determined (Required/Not Required/Uncertain)
-- [ ] Path A: CST executed with 100% pass rate (if required)
-- [ ] Path B: CST exemption justified and attested (if not required)
-- [ ] Path C: CST uncertainty escalated and resolved (if uncertain)
+**Gap Analysis**:
+- [Identified gaps or conflicts in governance coverage]
+- [Required updates or clarifications]
 
-### Additional Deliverables
-- [ ] [Task-specific deliverable 1]
-- [ ] [Task-specific deliverable 2]
-
----
-
-## Ripple Validation
-
-**Ripple Scope**: [Describe what files/systems are affected by this change]
-
-1. ✅ [Ripple item 1]
-2. ✅ [Ripple item 2]
-3. ✅ [Ripple item 3]
-
-**Ripple Status**: [COMPLETE | INCOMPLETE]
+**Scan Conclusion**: [✅ Ready to proceed / ⚠️ Proceed with caution / ❌ Blockers identified]
 
 ---
 
-## Constitutional Compliance
+#### Artifact 2: Risk Assessment
 
-**[Relevant BL/Constitutional Rule]**: ✅ COMPLIANT  
-- [Description of compliance requirement]
-- [Evidence of compliance]
+**Risk Assessment ID**: [risk_NNN_YYYYMMDD]  
+**Date**: [YYYY-MM-DD]  
+**Agent**: [agent-name]  
+**Task**: [Brief task description]
 
-**[Additional Constitutional Requirements]**: ✅ MET  
-- [Additional requirements and compliance evidence]
+**Risk Categories Assessed**:
 
-**Layer-Down Mandate** (if applicable): ✅ MET  
-- [Evidence that layer-down requirements are satisfied]
+1. **[Risk Category 1]**
+   - **Risk**: [Description]
+   - **Likelihood**: [HIGH/MEDIUM/LOW/VERY LOW]
+   - **Impact**: [CATASTROPHIC/HIGH/MEDIUM/LOW]
+   - **Mitigation**: [Mitigation strategies]
+   - **Residual Risk**: [Assessment after mitigation]
+
+2. **[Risk Category 2]**
+   - [Same structure as above]
+
+[Add all relevant risk categories]
+
+**Overall Risk Level**: [CATASTROPHIC/HIGH/MEDIUM/LOW/MINIMAL]
+
+**Recommendation**: [PROCEED / PROCEED WITH CAUTION / HALT AND ESCALATE]
 
 ---
 
-## Zero Test Debt
+#### Artifact 3: Change Record
 
-**Current Status**: [✅ ZERO DEBT | ⚠️ DEBT PRESENT]  
-- [Description of test coverage status]
-- [Evidence of zero test debt or remediation plan]
+**Change ID**: [change_NNN_YYYYMMDD]  
+**Date**: [YYYY-MM-DD]  
+**Agent**: [agent-name]  
+**Task**: [Brief task description]
 
-**Future Enforcement**: [Description of how this change affects future test enforcement]
+**Change Summary**: [High-level summary of all changes applied]
+
+**Changes Applied**:
+
+1. **[File/Component 1]**
+   - **Sections Added**: [List new sections]
+   - **Sections Modified**: [List modified sections]
+   - **Lines Changed**: [Approximate line count]
+   - **Rationale**: [Why these changes were made]
+
+2. **[File/Component 2]**
+   - [Same structure as above]
+
+[Document all significant changes]
+
+**Validation Results**:
+- ✅ Pre-change validation complete
+- ✅ Post-change validation complete
+- ✅ No conflicts introduced
+- ✅ All requirements met
+
+**Compliance Matrix**: [Optional table showing requirement compliance]
 
 ---
 
-## Execution Evidence
+#### Artifact 4: Completion Summary
 
-### Command History
+**Task**: [Full task description]  
+**Agent**: [agent-name]  
+**Date**: [YYYY-MM-DD]  
+**Status**: [✅ COMPLETE / ⚠️ PARTIAL / ❌ INCOMPLETE]  
+**Exit Code**: [0 for success, non-zero for issues]
+
+**Task Requirements Checklist**:
+- [ ] [Requirement 1] - [✅/⚠️/❌ Status]
+- [ ] [Requirement 2] - [✅/⚠️/❌ Status]
+- [ ] [Requirement N] - [✅/⚠️/❌ Status]
+
+**Changes Summary**: [Brief overview of changes made]
+
+**Validation Summary**: [Summary of all validations performed]
+
+**Impact Analysis**:
+- **Immediate Impact**: [What changed immediately]
+- **Downstream Impact**: [What downstream systems/repos are affected]
+- **Risk Mitigation**: [How risks were addressed]
+
+**Artifacts Created**:
+- [List all artifacts created during this work unit]
+
+**Completion Status**: [✅ COMPLETE with detailed justification]
+
+---
+
+### CST Validation Attestation
+
+**Purpose**: Document Combined Subwave Testing (CST) validation when applicable.
+
+**Authority**: `governance/canon/COMBINED_TESTING_PATTERN.md`
+
+**CST Applicability Determination**:
+
+Complete the following checklist to determine if CST is required for this work unit:
+
+- [ ] **Multiple subwaves converge and must integrate** (e.g., UI + API)
+- [ ] **Cross-module dependencies reach integration readiness** (e.g., Frontend ↔ Backend)
+- [ ] **Architectural boundaries crossed** (e.g., Client ↔ Server, Service ↔ Database)
+- [ ] **Significant feature complexity requires mid-wave validation**
+- [ ] **Integration failure cost is high** (late detection would require extensive rework)
+
+**CST Decision**: [✅ CST REQUIRED / ⊘ CST NOT REQUIRED]
+
+---
+
+#### If CST Required: Validation Attestation
+
+**CST Checkpoint ID**: [CST-Wave-N-Subwave-X or similar identifier]  
+**CST Validator**: [Name/Role of person or agent who performed CST validation]  
+**Validation Date**: [YYYY-MM-DD HH:MM:SS UTC]  
+**CST Result**: [✅ PASS / ❌ FAIL / ⚠️ PARTIAL]
+
+**Integration Scenarios Tested**:
+1. [Scenario 1 description]
+   - **Test Method**: [How scenario was tested]
+   - **Result**: [✅ PASS / ❌ FAIL]
+   - **Evidence**: [Link to test output, logs, or detailed results]
+
+2. [Scenario 2 description]
+   - [Same structure]
+
+[Document all integration scenarios tested]
+
+**CST Acceptance Criteria Checklist**:
+- [ ] All identified integration points validated
+- [ ] Cross-module data flow verified
+- [ ] Architectural boundary interactions confirmed
+- [ ] Integration test results documented with evidence
+- [ ] All CST failures resolved before handover
+- [ ] Integration scenarios align with wave planning documents
+
+**CST Evidence Location**: [Path to detailed test results, logs, or validation artifacts]
+
+**Authority Reference**: `governance/canon/COMBINED_TESTING_PATTERN.md` v1.0.0, Section 4 (CST Requirements)
+
+**CST Validator Signature**: [Validator name and role]  
+**CST Approval**: ✅ CST validation complete, integration scenarios PASS, handover approved
+
+---
+
+#### If CST Not Required: Justification
+
+**CST Not Required Because**:
+
+Select all that apply:
+- [ ] ⊘ Subwaves are isolated and independent (no integration dependencies)
+- [ ] ⊘ No architectural boundaries crossed (single-module work)
+- [ ] ⊘ Integration risk is low (simple, well-understood patterns)
+- [ ] ⊘ Cumulative regression provides sufficient coverage (integration already validated)
+- [ ] ⊘ Documentation-only changes (no runtime integration)
+- [ ] ⊘ Configuration-only changes (no cross-module interaction)
+
+**Justification**: [2-3 sentences explaining why CST is not applicable to this work unit]
+
+**Governance-Only Work Indicator**: [If applicable: "This work unit modifies governance documentation only and does not create or modify application code, integration points, or runtime behavior."]
+
+**Authority Reference**: `governance/canon/COMBINED_TESTING_PATTERN.md` v1.0.0, Section 4.2 (CST Decision Framework)
+
+**Validator Confirmation**: [Validator name] confirms CST is not required per decision framework criteria above.
+```
+
+---
+
+## Completion Checklist
+
+Before submitting PR with PREHANDOVER_PROOF, verify:
+
+- [ ] **Artifacts Created** section complete with verification commands and output
+- [ ] **Execution Validation** section includes all commands with exit codes
+- [ ] **Test Execution Validation** section complete (if applicable) with all tests GREEN
+- [ ] **Preflight Gate Status** enumerates ALL gates triggered by PR changes
+- [ ] Each gate has validation method and evidence
+- [ ] **Zero-Warning Validation** section complete with:
+  - [ ] Pre-validation checklist confirming all changes committed
+  - [ ] All validation commands executed with output and exit codes = 0
+  - [ ] Zero-Warning Attestation completed
+  - [ ] Any iterations documented (issues found and fixed)
+  - [ ] Final attestation statement with timestamp
+- [ ] **Execution Timestamp** includes date, time, environment details
+- [ ] **Handover Guarantee** section complete with explicit guarantee statement
+- [ ] **Embedded Governance Artifacts** section complete (embedded OR cross-referenced)
+  - [ ] Governance Scan documented with repository context and gap analysis
+  - [ ] Risk Assessment documented with risk categories and mitigation strategies
+  - [ ] Change Record documented with detailed changes and validation results
+  - [ ] Completion Summary documented with requirements checklist and impact analysis
+- [ ] **CST Validation Attestation** section complete
+  - [ ] CST applicability determination completed with checklist
+  - [ ] If CST required: validation attestation complete with all scenarios tested
+  - [ ] If CST not required: justification documented with decision framework criteria
+- [ ] All exit codes are 0 (success) OR failures are explained and resolved
+- [ ] All applicable gates show ✅ PASS or ⊘ SKIP (no ❌ FAIL allowed at handover)
+- [ ] ZERO warnings in ANY validation output (mandatory per EXECUTION_BOOTSTRAP_PROTOCOL.md Section 5.1)
+
+---
+
+## Examples
+
+### Example 1: Directory Structure Creation
+
+```markdown
+## PREHANDOVER_PROOF
+
+### Artifacts Created
+
+**Requirement**: Create FPC mandatory directory structure per GOVERNANCE_LAYERDOWN_CONTRACT.md
+
+**Verification**:
+```
+$ tree -L 2 .github/ governance/
+.github/
+├── workflows
+└── agents
+
+governance/
+├── alignment
+├── evidence
+│   ├── initialization
+│   └── commissioning
+├── policies
+├── schemas
+└── memory
+
+5 directories, 0 files
+```
+
+**Status**: ✅ VERIFIED
+
+---
+
+### Execution Validation
+
+**Requirement**: Validate directory structure matches canonical requirements
+
+**Commands Executed**:
+```
+$ for dir in .github/workflows .github/agents governance/alignment governance/evidence/initialization governance/evidence/commissioning governance/policies governance/schemas governance/memory; do
+  if [ -d "$dir" ]; then
+    echo "✅ $dir: EXISTS"
+  else
+    echo "❌ $dir: MISSING"
+  fi
+done
+
+✅ .github/workflows: EXISTS
+✅ .github/agents: EXISTS
+✅ governance/alignment: EXISTS
+✅ governance/evidence/initialization: EXISTS
+✅ governance/evidence/commissioning: EXISTS
+✅ governance/policies: EXISTS
+✅ governance/schemas: EXISTS
+✅ governance/memory: EXISTS
+
+Exit code: 0
+```
+
+**Status**: ✅ ALL GREEN
+
+---
+
+### Preflight Gate Status
+
+**Gates Triggered by This PR** (changes to `.github/**` and `governance/**`):
+
+1. **Agent Governance Validation** — ✅ PASS
+   - Validation method: Simulated gate locally (no .agent contracts to validate yet)
+   - Evidence: Exit code 0 from validation script
+
+2. **Governance Scope-to-Diff Gate** — ✅ PASS
+   - Validation method: Manual check of scope declaration vs. file diff
+   - Evidence: Scope: "governance structure", Diff: only .github/ and governance/ modified
+
+3. **FM Effectiveness Gate** — ⊘ SKIP
+   - Validation method: Checked for architecture/BUILD_ACTIVE
+   - Evidence: File does not exist, gate not applicable
+
+**Summary**: 2 applicable gates GREEN, 1 gate SKIP
+
+**Gate Enumeration Method**: Reviewed .github/workflows/*.yml for on.pull_request.paths triggers matching [".github/**", "governance/**"]
+
+---
+
+### Execution Timestamp
+
+**Validation Performed**: 2026-01-11 14:30:00 UTC  
+**Environment**: Ubuntu 22.04.3 LTS, bash 5.1.16, tree 2.0.2  
+**Validator**: governance-repo-administrator (GitHub Copilot)
+
+---
+
+### Handover Guarantee
+
+**I guarantee**:
+- ✅ All 8 required directories exist and are accessible
+- ✅ Directory validation script executed successfully (exit code 0)
+- ✅ All 3 gates enumerated; 2 applicable gates validated and GREEN, 1 correctly SKIPPED
+- ✅ CI will confirm success (not discover failures)
+
+**If CI fails after this guarantee, it indicates**:
+- Incomplete gate enumeration (I missed a gate in .github/workflows/), OR
+- Environment difference (e.g., different tree version, different bash), OR
+- Governance defect (gate incorrectly triggered or validated)
+
+**Known Environment Differences**: None known
+
+**Root Cause Commitment**: If CI fails, I will perform RCA and document in incident report if systemic pattern detected.
+```
+
+---
+
+### Example 2: Workflow Installation
+
+```markdown
+## PREHANDOVER_PROOF
+
+### Artifacts Created
+
+**Requirement**: Install governance-gate.yml workflow
+
+**Verification**:
+```
+$ ls -la .github/workflows/governance-gate.yml
+-rw-r--r-- 1 user group 5895 Jan 11 14:15 .github/workflows/governance-gate.yml
+
+$ wc -l .github/workflows/governance-gate.yml
+147 .github/workflows/governance-gate.yml
+```
+
+**Status**: ✅ VERIFIED
+
+---
+
+### Execution Validation
+
+**Requirement**: Validate workflow YAML syntax and gate logic
+
+**Commands Executed**:
+```
+$ yamllint .github/workflows/governance-gate.yml
+✅ No errors found
+
+Exit code: 0
+
+$ yq eval '.on.pull_request.paths' .github/workflows/governance-gate.yml
+- ".github/**"
+- "governance/**"
+
+Exit code: 0
+```
+
+**Status**: ✅ ALL GREEN
+
+---
+
+### Preflight Gate Status
+
+**Gates Triggered by This PR** (changes to `.github/workflows/**`):
+
+1. **Agent Governance Validation** — ✅ PASS
+   - Validation method: Checked agent contract YAML structure validity
+   - Evidence: "Governance bindings validated"
+
+2. **Governance Scope-to-Diff Gate** — ✅ PASS
+   - Validation method: Scope declares "workflow installation", diff shows only .github/workflows/
+   - Evidence: Scope matches diff
+
+3. **governance-gate.yml** (the workflow being installed) — ⊘ SKIP
+   - Validation method: Cannot run on itself during installation
+   - Evidence: Will execute on subsequent PRs
+
+**Summary**: 2 applicable gates GREEN, 1 gate SKIP (self-reference)
+
+**Gate Enumeration Method**: Listed all .github/workflows/*.yml files and checked on.pull_request triggers
+
+---
+
+### Execution Timestamp
+
+**Validation Performed**: 2026-01-11 14:45:00 UTC  
+**Environment**: Ubuntu 22.04.3 LTS, yamllint 1.26.3, yq 4.30.8  
+**Validator**: governance-repo-administrator (GitHub Copilot)
+
+---
+
+### Handover Guarantee
+
+**I guarantee**:
+- ✅ Workflow file exists and is syntactically valid (yamllint passed)
+- ✅ Workflow triggers configured correctly (verified with yq)
+- ✅ All 3 gates enumerated; 2 applicable gates GREEN, 1 appropriately SKIPPED
+- ✅ CI will confirm success (not discover failures)
+
+**If CI fails after this guarantee, it indicates**:
+- yamllint version difference between local and CI, OR
+- Workflow syntax valid locally but invalid in GitHub Actions environment, OR
+- Governance defect in gate trigger configuration
+
+**Known Environment Differences**: Local yamllint 1.26.3, CI may use different version
+
+**Root Cause Commitment**: If CI fails, I will compare yamllint versions and workflow syntax between local and CI, then document in RCA.
+```
+
+---
+
+## Validation Script (Optional)
+
+You can use this script to automate parts of prehandover proof generation:
 
 ```bash
-# [Gate/validation command 1]
-[command with full path]
-# Result: [RESULT with exit code]
+#!/bin/bash
+# prehandover-proof-generator.sh
+# Helps generate PREHANDOVER_PROOF evidence
 
-# [Gate/validation command 2]
-[command with full path]
-# Result: [RESULT with exit code]
+set -e
 
-# [Additional validation commands as needed]
+echo "## PREHANDOVER_PROOF"
+echo ""
+echo "### Artifacts Created"
+echo ""
+echo "**Requirement**: [FILL IN]"
+echo ""
+echo '**Verification**:'
+echo '```'
+
+# List artifacts (customize this)
+if [ -d ".github/workflows" ]; then
+  echo "$ ls -la .github/workflows"
+  ls -la .github/workflows
+fi
+
+if [ -d "governance" ]; then
+  echo ""
+  echo "$ tree -L 2 governance/"
+  tree -L 2 governance/
+fi
+
+echo '```'
+echo ""
+echo "**Status**: ✅ VERIFIED"
+echo ""
+echo "---"
+echo ""
+echo "### Execution Validation"
+echo ""
+echo "**Requirement**: [FILL IN]"
+echo ""
+echo '**Commands Executed**:'
+echo '```'
+
+# Validate YAML files
+for file in .github/workflows/*.yml; do
+  [[ -f "$file" ]] || continue
+  echo "$ yamllint $file"
+  yamllint "$file"
+  EXIT_CODE=$?
+  echo "Exit code: $EXIT_CODE"
+  if [ $EXIT_CODE -ne 0 ]; then
+    echo "⚠️ Validation failed for $file"
+  fi
+  echo ""
+done
+
+echo '```'
+echo ""
+echo "**Status**: ✅ ALL GREEN"
+echo ""
+echo "---"
+echo ""
+echo "### Preflight Gate Status"
+echo ""
+echo "**Gates Triggered by This PR**:"
+echo ""
+echo "1. **[Gate Name]** — ✅ PASS | ⊘ SKIP | ❌ FAIL"
+echo "   - Validation method: [FILL IN]"
+echo "   - Evidence: [FILL IN]"
+echo ""
+echo "[Add all gates]"
+echo ""
+echo "**Summary**: [FILL IN]"
+echo ""
+echo "**Gate Enumeration Method**: [FILL IN]"
+echo ""
+echo "---"
+echo ""
+echo "### Execution Timestamp"
+echo ""
+echo "**Validation Performed**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")"
+echo "**Environment**: [Operating system, bash version - sanitize if needed]"
+echo "**Validator**: [FILL IN]"
+echo ""
+echo "<!-- Note: Avoid exposing sensitive system details in production environments. -->"
+echo "<!-- Consider using generic descriptions like 'Ubuntu 22.04, bash 5.x' instead of -->"
+echo "<!-- specific kernel versions or detailed system information. -->"
+echo ""
+echo "---"
+echo ""
+echo "### Handover Guarantee"
+echo ""
+echo "**I guarantee**:"
+echo "- ✅ All artifacts exist and are functional"
+echo "- ✅ All executions succeeded locally"
+echo "- ✅ All applicable gates validated in preflight"
+echo "- ✅ CI will confirm success (not discover failures)"
+echo ""
+echo "**If CI fails after this guarantee, it indicates**:"
+echo "- Incomplete preflight validation, OR"
+echo "- Environment difference between local and CI, OR"
+echo "- Governance defect"
+echo ""
+echo "**Known Environment Differences**: [FILL IN]"
+echo ""
+echo "**Root Cause Commitment**: If CI fails, I will perform RCA and document findings."
 ```
 
-### Exit Codes
+---
 
-All validations: **EXIT [CODE]** ([success/failure])
+## FAQ
+
+### Q: Do I need PREHANDOVER_PROOF for documentation-only changes?
+
+**A**: Recommended but not mandatory. If your change cannot fail in CI (pure markdown content update), PREHANDOVER_PROOF is optional. When uncertain, include it.
+
+### Q: What if I can't run CI gates locally?
+
+**A**: Use one of these methods:
+1. **Simulate the gate logic** (read the workflow YAML and manually check conditions)
+2. **Use preflight checklist** (see `governance/templates/PR_GATE_RELEASE_CHECKLIST_*.md`)
+3. **Enumerate gates and explain validation approach** (document why you believe each gate will pass)
+
+The goal is to demonstrate you evaluated gates **before handover**, not to perfectly replicate CI.
+
+### Q: What if I discover a gate failure during preflight?
+
+**A**: Fix it immediately and re-validate. Do NOT hand over with known gate failures. If the failure indicates a governance defect (gate misapplied, contradictory requirements), HALT and escalate to Governance Administrator.
+
+### Q: What if CI fails after I provided PREHANDOVER_PROOF?
+
+**A**: Perform root cause analysis:
+1. Did I miss enumerating a gate? (Incomplete preflight)
+2. Is there an environment difference? (Document for next time)
+3. Is there a governance defect? (Escalate)
+
+Document findings in incident report if pattern is systemic.
+
+### Q: Can I use screenshots instead of text output?
+
+**A**: Text output is strongly preferred (copy-paste from terminal). Screenshots are acceptable if terminal output is not available, but must be readable and include all relevant information (command, output, exit code, timestamp).
+
+### Q: Should I embed governance artifacts in PREHANDOVER_PROOF or create separate files?
+
+**A**: Either approach is acceptable:
+- **Embedded** (in PREHANDOVER_PROOF): Best for smaller work units, simple changes, or when artifacts are concise
+- **Separate files** (in `.agent-admin/`): Best for complex work units, large changes, or when artifacts need to be referenced independently
+
+If using separate files, provide clear cross-references in the Embedded Governance Artifacts section. Consistency within a repository is recommended.
+
+### Q: What if my work unit doesn't require all 4 governance artifacts?
+
+**A**: All 4 artifacts (scan, risk, change, completion) are required for governance compliance. However:
+- For **simple changes**, artifacts may be brief (1-2 paragraphs each)
+- For **documentation-only changes**, focus may shift (e.g., lower risk, minimal change complexity)
+- **Never skip artifacts** — brevity is acceptable, absence is not
+
+### Q: How do I know if CST validation is required for my work unit?
+
+**A**: Use the CST Decision Framework in the template:
+- **CST Required** if: Multiple subwaves integrate, architectural boundaries crossed, or integration failure cost is high
+- **CST Not Required** if: Isolated work, no architectural boundaries, or governance-only changes
+
+When uncertain, consult `governance/canon/COMBINED_TESTING_PATTERN.md` Section 4.2 or ask your Foreman.
+
+### Q: What if CST was identified in wave planning but I'm only doing a small subwave?
+
+**A**: CST validation may be deferred to a convergence checkpoint (not every subwave PR):
+- Document in **CST Not Required** section: "CST checkpoint planned for [future milestone]"
+- Reference wave planning documents showing CST checkpoint location
+- Include: "This subwave completes in isolation; CST validation occurs at [checkpoint]"
+
+CST is checkpoint-based, not every-PR-based.
 
 ---
 
-## Handover Authorization
+## Related Documents
 
-**All checks**: [✅ GREEN | ❌ RED]  
-**All gates**: [✅ PASSING | ❌ FAILING]  
-**Ripple**: [✅ COMPLETE | ❌ INCOMPLETE]  
-**Constitutional compliance**: [✅ VERIFIED | ❌ VIOLATIONS PRESENT]  
-**FM visibility**: [✅ PROVIDED | ⚠️ NOT APPLICABLE | ❌ MISSING]
-
-**Handover Status**: [✅ **AUTHORIZED** | ❌ **BLOCKED**]
-
-[If AUTHORIZED]: All required checks are green on latest commit. CI will confirm (not diagnose). This PREHANDOVER_PROOF demonstrates local validation success per PR Gate Precondition (BUILD_PHILOSOPHY.md).
-
-[If BLOCKED]: [Describe blocking issues and remediation required]
-
----
-
-**Generated**: [ISO_8601_TIMESTAMP]  
-**Authority**: [Agent Name/Role]  
-**Escalation**: [None required | Description of escalation if needed]
-
----
-
-## Instructions for Use
-
-### How to Use This Template
-
-1. **Copy this template** to the repository root with timestamp: `PREHANDOVER_PROOF_YYYY-MM-DDTHH-MM-SSZ.md` (uses hyphens for Windows compatibility)
-2. **Replace ALL bracketed placeholders** with actual values
-3. **Complete ALL four governance artifacts** (Governance Scan, Risk Assessment, Change Record, Completion Summary)
-   - Choose embedded OR separate file for each artifact
-   - If separate files, create them in `.agent-admin/` subdirectories
-   - Provide clear references to separate files if used
-4. **Determine CST applicability** and complete appropriate path:
-   - Path A: Execute CST and document results if required
-   - Path B: Justify and attest exemption if not required
-   - Path C: Escalate if uncertain (then complete A or B after clarification)
-5. **Execute validation commands** and capture actual output
-6. **Document ALL deliverables** from the issue/task
-7. **Verify ripple completeness** if governance changes affect multiple files
-8. **Confirm constitutional compliance** against relevant governance documents
-9. **Ensure handover criteria met** before marking AUTHORIZED
-10. **Commit this file with your PR** as evidence of local validation
-
-### When to Generate PREHANDOVER_PROOF
-
-- **MANDATORY**: For ALL governance changes (policies, learnings, agent contracts, gates)
-- **MANDATORY**: For ALL PR submissions where agent contract requires it
-- **MANDATORY**: When explicitly required by issue/task deliverables
-- **MANDATORY**: For changes affecting multiple system components (CST required)
-- **RECOMMENDED**: For significant feature work to demonstrate validation
-- **OPTIONAL**: For minor documentation-only changes (unless governance-related)
-
-### Governance Artifacts Guidance
-
-**Artifact 1: Governance Scan**
-- **When**: Always before starting work
-- **Purpose**: Identify applicable governance requirements
-- **Create**: Manual review of canonical + local governance
-- **Location**: Embedded in PREHANDOVER_PROOF OR `.agent-admin/scans/`
-- **Authority**: Agent Contract Administrator pattern (comprehensive scan)
-
-**Artifact 2: Risk Assessment**
-- **When**: Before making changes with potential ripple effects
-- **Purpose**: Identify and mitigate risks
-- **Create**: Impact analysis + mitigation strategies
-- **Location**: Embedded in PREHANDOVER_PROOF OR `.agent-admin/risk-assessments/`
-- **Authority**: Agent Contract Administrator pattern (risk assessment)
-
-**Artifact 3: Change Record**
-- **When**: During implementation
-- **Purpose**: Document what changed and why
-- **Create**: Track all modifications, decisions, alternatives
-- **Location**: Embedded in PREHANDOVER_PROOF OR `.agent-admin/changes/`
-- **Authority**: Traceability and audit requirements
-
-**Artifact 4: Completion Summary**
-- **When**: After all work completed, before handover
-- **Purpose**: Demonstrate delivery completeness
-- **Create**: Metrics, evidence, handover readiness assessment
-- **Location**: Embedded in PREHANDOVER_PROOF OR `.agent-admin/completion/`
-- **Authority**: Execution Bootstrap Protocol v2.0.0+
-
-**Embedded vs Separate Files**:
-- **Embed** if artifacts are concise (< 100 lines each)
-- **Separate files** if artifacts are extensive or reusable
-- **Always provide clear references** to separate files in PREHANDOVER_PROOF
-
-### CST Validation Guidance
-
-**When CST is REQUIRED**:
-- Changes affecting multiple system components
-- Integration between services/APIs
-- Cross-boundary data flow modifications
-- End-to-end workflow changes
-- Database + API + UI modifications
-
-**When CST is NOT REQUIRED**:
-- Documentation-only changes
-- Governance-only changes
-- Single-component unit tests sufficient
-- Infrastructure/tooling (no app logic)
-- Pure refactoring with no behavior change
-
-**When UNCERTAIN**:
-- Escalate to ForemanApp, Governance Liaison, or CodexAdvisor
-- Do NOT proceed until clarified
-- Document uncertainty and await guidance
-
-**CST Execution Requirements**:
-- Run locally before PR submission
-- Capture full output in PREHANDOVER_PROOF
-- 100% pass rate required
-- Document exit code, timestamp, pass rate
-- List all integration points validated
-
-**If Local CST Execution Not Possible**:
-- ESCALATE immediately to ForemanApp or CodexAdvisor
-- Document environment constraints preventing local CST
-- DO NOT proceed with handover until resolution
-- This violates CI-Confirmatory-Not-Diagnostic principle
-- Environment must be fixed to support local CST before work continues
-
-### Validation Requirements
-
-- **All gate checks MUST be GREEN** before handover authorization
-- **All four governance artifacts MUST be complete** (embedded or referenced)
-- **CST validation MUST be completed** (Path A, B, or C)
-- **Command output MUST be actual execution results**, not hypothetical
-- **Exit codes MUST be captured** and documented
-- **Ripple validation MUST be complete** for governance changes
-- **Constitutional compliance MUST be verified** against relevant bindings
-
-### Handover Authorization Criteria
-
-**AUTHORIZED** requires ALL of:
-- ✅ All Tier-0 governance gate checks passing
-- ✅ All four governance artifacts complete (Governance Scan, Risk Assessment, Change Record, Completion Summary)
-- ✅ CST validation complete (appropriate path: A, B, or C)
-- ✅ All task-specific validation checks passing
-- ✅ All deliverables completed and verified
-- ✅ Ripple validation complete (if applicable)
-- ✅ Constitutional compliance verified
-- ✅ Zero test debt (or debt properly documented and remediated)
-- ✅ FM visibility provided (if governance change affects FM)
-
-**BLOCKED** if ANY of:
-- ❌ Gate checks failing
-- ❌ Governance artifacts incomplete or missing
-- ❌ CST validation incomplete or uncertain
-- ❌ Deliverables incomplete
-- ❌ Ripple validation incomplete
-- ❌ Constitutional violations present
-- ❌ Test debt unresolved
-- ❌ Required FM visibility missing
-
-### Escalation Protocol
-
-If **BLOCKED** status persists after attempted remediation:
-1. **Document blocking condition** with full context
-2. **List remediation attempts** made
-3. **Escalate to appropriate authority**:
-   - Governance issues → Johan Ras
-   - Builder coordination → ForemanApp
-   - Technical blockers → Relevant builder or CodexAdvisor
-   - CST uncertainty → ForemanApp or CodexAdvisor
-4. **Mark status as ESCALATED** in PREHANDOVER_PROOF
-5. **WAIT for resolution** - do not proceed with handover
-
-### FAQ: Governance Artifacts
-
-**Q: Can I skip governance artifacts for small changes?**  
-A: No. All four artifacts are MANDATORY per template v2.0.0. For small changes, artifacts may be brief (embedded), but must still be present.
-
-**Examples of brief artifacts for small changes**:
-- Documentation fix: Governance Scan (10-20 lines listing applicable docs), Risk Assessment (5-10 lines noting low impact), Change Record (15-25 lines with file and reason), Completion Summary (20-30 lines with metrics)
-- Single file update: Each artifact 20-50 lines embedded in PREHANDOVER_PROOF
-- Configuration change: Similar to above, focus on what changed and why
-- Total embedded artifacts for small changes: typically 100-200 lines combined
-
-**Q: Should I embed artifacts or use separate files?**  
-A: Use embedded for concise artifacts (< 100 lines each). Use separate files in `.agent-admin/` for extensive artifacts. Always provide clear references.
-
-**Q: What if I don't have a Governance Scan?**  
-A: STOP. Governance Scan is mandatory BEFORE starting work. Review canonical governance (maturion-foreman-governance) and local governance, document findings.
-
-**Q: What if Risk Assessment shows high risks?**  
-A: Document mitigation strategies. If risks are unacceptable, ESCALATE to FM or Johan. Do not proceed with BLOCKED risks.
-
-**Q: Do governance-only changes need all artifacts?**  
-A: Yes. Governance changes require full artifact attestation to ensure constitutional compliance and auditability.
-
-### FAQ: CST Validation
-
-**Q: What is CST?**  
-A: Combined Systems Testing - integration testing across multiple components, services, or boundaries.
-
-**Q: How do I know if CST is required?**  
-A: If your change affects multiple components OR crosses system boundaries, CST is likely required. When uncertain, escalate.
-
-**Q: Can I skip CST for documentation changes?**  
-A: Yes, use Path B (Not Required) with appropriate justification and attestation.
-
-**Q: What if CST fails?**  
-A: FIX the failures locally, re-run CST until 100% pass rate, then update PREHANDOVER_PROOF. Do not handover with failing CST.
-
-**Q: What if I can't run CST locally?**  
-A: This violates CI-Confirmatory-Not-Diagnostic principle. ESCALATE to FM. Environment must support local CST execution.
-
-**Q: What if CST applicability is unclear?**  
-A: Use Path C (Uncertain), escalate to ForemanApp/CodexAdvisor, wait for guidance. Do not proceed until resolved.
-
-### FAQ: General
-
-**Q: Can I handover with warnings?**  
-A: No. Zero warning policy applies. All warnings must be resolved before handover.
-
-**Q: What if CI reveals issues not caught locally?**  
-A: This indicates incomplete local validation. STOP, investigate, fix locally, re-run all validations, update PREHANDOVER_PROOF.
-
-**Q: Can I update PREHANDOVER_PROOF after initial creation?**  
-A: Yes, if you make changes after initial validation, re-run all checks and update PREHANDOVER_PROOF before handover.
-
-**Q: What if I discover gaps in governance after starting work?**  
-A: ESCALATE to Governance Liaison. Governance gaps may require protocol updates before work can continue.
-
-
+- `governance/canon/EXECUTION_BOOTSTRAP_PROTOCOL.md` — Full protocol specification and governance artifacts requirements
+- `governance/canon/COMBINED_TESTING_PATTERN.md` — CST and CWT validation requirements
+- `governance/canon/AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md` — Agent contract authority and modification protocol
+- `governance/canon/CI_CONFIRMATORY_NOT_DIAGNOSTIC.md` — Preflight obligation foundation
+- `governance/canon/FPC_REPOSITORY_LAYERDOWN_GUIDE.md` — Integration with layer-down process
+- `governance/templates/PR_GATE_RELEASE_CHECKLIST_*.md` — Role-specific gate checklists
 
 ---
 
 **Status**: Active Template  
-**Version**: 2.0.0  
-**Last Updated**: 2026-01-13  
-**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL.md v2.0.0+, COMBINED_TESTING_PATTERN.md v1.0.0  
+**Version**: 2.1.0  
+**Last Updated**: 2026-01-26  
+**Authority**: EXECUTION_BOOTSTRAP_PROTOCOL.md v1.1.0+ (including Section 5.1), COMBINED_TESTING_PATTERN.md v1.0.0  
 **Owner**: Governance Administrator
+
+**Changelog**:
+- **v2.1.0** (2026-01-26): Added Zero-Warning Validation section with comprehensive attestation per EXECUTION_BOOTSTRAP_PROTOCOL.md v1.1.0 Section 5.1. Implements mandatory zero-warning enforcement, STOP_AND_FIX_DOCTRINE.md application, and complete validation evidence requirements. Authority: PR #1015, Issue #1020 ripple actions.
+- **v2.0.0** (2026-01-13): Added Embedded Governance Artifacts section and CST Validation Attestation section per Subwave 3.3 learnings
+- **v1.0.0** (2026-01-11): Initial template creation with core PREHANDOVER_PROOF sections
 
 ---
 
-## Changelog
-
-**Changelog**:
-- **v2.0.0** (2026-01-13): Added Embedded Governance Artifacts section and CST Validation Attestation section per Subwave 3.3 learnings
-- **v1.0.0** (2026-01-11): Initial template creation with core PREHANDOVER_PROOF sections
+*End of PREHANDOVER_PROOF Template*
