@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-04-17T11:50:27Z",
+  "issue_number": "189",
+  "issue_title": "[Layer-Down] Propagate Governance Changes - 2026-04-17 (56d92004)",
+  "trigger": "issue_labeled",
+  "agent_files_changed": false,
+  "action_taken": "AUTO_MERGE_PR"
+}
