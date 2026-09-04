@@ -1,176 +1,348 @@
-# Governance Liaison Agent Contract Requirements Checklist (governance-liaison-v2.agent.md)
+# GOVERNANCE LIAISON AGENT CONTRACT REQUIREMENTS CHECKLIST
 
-**Status**: Reference checklist for contract drafting  
-**Purpose**: Exhaustive, source-mapped requirements for a compliant Governance Liaison agent file in this repo.  
-**Primary Sources**: `governance/baselines/agent-files/governance-liaison.md`, `governance/canon/GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md`, `GOVERNANCE_LIAISON_MINIMUM_REQUIREMENTS_VALIDATION.md`, `governance/canon/*` (see citations).
-
----
-
-## Category 0 — Identity, Bindings & Scope
-- [ ] **Frontmatter**: `agent.id=governance-liaison`, `agent.class=liaison`; `governance.canon` points to `APGI-cmy/maturion-foreman-governance/governance/canon`; Tier-0 manifest loaded (`governance/baselines/agent-files/governance-liaison.md`).
-- [ ] **Mandatory bindings present**: Governance purpose/scope, Build Philosophy, zero-test-debt, execution bootstrap, ripple model, contract protection, agent recruitment/authority, merge-gate philosophy, agent test execution, ripple checklist (`AGENT_FILE_BINDING_REQUIREMENTS.md`, `GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Sections 2 & 5).
-- [ ] **Scope declaration**: Repo-scoped, write-access limits, restricted paths (.github/agents, Build Philosophy) captured (`governance/baselines/agent-files/governance-liaison.md`).
-
-## Category 1 — Appointment Preconditions & Authority Boundaries
-- [ ] **Structural appointment**: All five preconditions recorded (Tier-0 loaded, explicit scope, authorization trail, protocol reference, coupling rules active) (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Section 5; validation report Section 1).
-- [ ] **Authority chain**: FM (recruiting authority) → Governance Liaison; human authorization required; appointment revocable (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Sections 3.2, 6; `FOREMAN_AUTHORITY_AND_SUPERVISION_MODEL.md`).
-- [ ] **Explicit negatives**: NOT builder, NOT FM, NOT governance administrator, NOT enforcement agent; cannot self-modify own contract (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Section 3.3; `governance/baselines/agent-files/governance-liaison.md` locked sections).
-- [ ] **Authority model compliance**: CS2 agent file authority + contract protection protocols referenced for any contract edits (`CS2_AGENT_FILE_AUTHORITY_MODEL.md`, `AGENT_CONTRACT_PROTECTION_PROTOCOL.md`).
-
-## Category 2 — Governance Alignment & Layer-Down
-- [ ] **Self-alignment mandate**: Must verify local governance vs canonical and self-align drift before work; halt if own contract drifts (`governance/baselines/agent-files/governance-liaison.md` Pre-Job Self-Governance; `GOVERNANCE_VERSIONING_AND_SYNC_PROTOCOL.md`).
-- [ ] **Layer-down protocol**: Uses governance layerdown contract + ripple checklist for updates; respects repository seeding & enforcement role separation (`GOVERNANCE_LAYERDOWN_CONTRACT.md`, `GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md`, `REPOSITORY_SEEDING_AND_ENFORCEMENT_ROLE_SEPARATION.md`).
-- [ ] **Inventory updates**: Maintains `GOVERNANCE_ARTIFACT_INVENTORY.md` and governance version markers per sync protocol (`governance/baselines/agent-files/governance-liaison.md`, `GOVERNANCE_VERSIONING_AND_SYNC_PROTOCOL.md`).
-
-## Category 3 — Execution Discipline, Evidence & Tests
-- [ ] **Execution Bootstrap** applied to any executable/workflow changes; PREHANDOVER proof attached; CI confirmatory rule acknowledged (`EXECUTION_BOOTSTRAP_PROTOCOL.md`, `CI_CONFIRMATORY_NOT_DIAGNOSTIC.md`, `governance/templates/PREHANDOVER_PROOF_TEMPLATE.md`).
-- [ ] **Test enforcement**: Agent Test Execution Protocol binding present; zero-test-debt + stop-and-fix doctrine enforced for governance artifacts with execution semantics (`governance/runbooks/AGENT_TEST_EXECUTION_PROTOCOL.md`, `governance/policies/zero-test-debt-constitutional-rule.md`, `STOP_AND_FIX_DOCTRINE.md`).
-- [ ] **Audit trail**: Initialization or coupling actions documented with timestamps/authorizations (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Sections 4.1.1, 4.1.2).
-
-## Category 4 — Ripple, Drift & Sync
-- [ ] **Ripple awareness**: Non-local impact assumed; ripple detection + checklist protocols followed; cross-repo transport respected (`AGENT_RIPPLE_AWARENESS_OBLIGATION.md`, `GOVERNANCE_RIPPLE_MODEL.md`, `GOVERNANCE_RIPPLE_DETECTION_PROTOCOL.md`, `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md`).
-- [ ] **Sync discipline**: Governance versioning/sync protocol applied; drift flagged and cleared before proceeding (`GOVERNANCE_VERSIONING_AND_SYNC_PROTOCOL.md`, validation report Success Criterion 5).
-- [ ] **Alignment reporting**: Ripple inbox/archival + sync_state updates executed per consumer-mode governance instructions (merge gate interface expectations noted) (`governance/baselines/agent-files/governance-liaison.md`, merge gate interface expectations in repository instructions).
-
-## Category 5 — Escalation & Stop Rules
-- [ ] **STOP triggers**: Ambiguity, contract drift, missing authorization, inability to access canonical governance → halt and escalate to CS2/FM as appropriate (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Section 7; validation report Success Criteria 4 & 5).
-- [ ] **Escalation content**: Include scope, canon references, options, and await decision; follow cascading failure + warning blocker protocols for governance incidents (`CASCADING_FAILURE_CIRCUIT_BREAKER.md`, `WARNING_DISCOVERY_BLOCKER_PROTOCOL.md`).
-- [ ] **Authority boundaries**: Cannot approve merges; cannot bypass gates; must defer to FM/governance admin on constitutional changes (`governance/baselines/agent-files/governance-liaison.md`, `MERGE_GATE_PHILOSOPHY.md`).
-
-## Category 6 — Prohibitions & Guardrails
-- [ ] **No code-build tasks**: Prohibited from implementing code/tests/QA or orchestration; must not change Build Philosophy or Tier-0 artifacts (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Sections 3.3.1–3.3.4; `governance/baselines/agent-files/governance-liaison.md` constraints).
-- [ ] **No self-contract edits** beyond formatting; changes require CS2/governance administrator (`governance/baselines/agent-files/governance-liaison.md` LOCK-LIAISON-SELF-MOD-001).
-- [ ] **No cross-repo authority**: May not modify agent contracts or governance in other repos; repository seeding tasks only when authorized (`REPOSITORY_SEEDING_AND_ENFORCEMENT_ROLE_SEPARATION.md`, `AGENT_RECRUITMENT_AND_CONTRACT_AUTHORITY_MODEL.md`).
-
-## Category 7 — Outputs & Deliverables
-- [ ] **Initialization artifacts**: Directory scaffolding, governance version files, evidence logs, and PREHANDOVER proof when performing seeding/coupling (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Section 4.1.1).
-- [ ] **Alignment artifacts**: Updated inventories, sync state, ripple inbox/archives, and attestation of self-governance checks (`governance/baselines/agent-files/governance-liaison.md` Pre-Job Self-Governance).
-- [ ] **Traceability**: Authorization trail + timestamps for each action; scope/assignment documented per protocol (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Sections 4–6; validation report evidence lines 20–55).
-
-## Category 8 — Cross-Repository Layer-Down Protocol
-- [ ] **Layer-down initiation triggers**: Responds to breaking changes, new PUBLIC_API canon files, periodic sync, platform readiness validation, or explicit governance liaison requests; follows initiation protocol (`CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 6.1).
-- [ ] **Layer-down execution steps**: Reviews governance canon manifest for changes, identifies affected canon files, updates agent contracts with new version references, validates PR gates align with canon, tests changes in isolated branch, executes prehandover verification per Execution Bootstrap Protocol (`CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 6.2).
-- [ ] **SHA256 verification**: Validates file integrity using SHA256 hashes from `CANON_INVENTORY.json`; ensures canonical file versions match expected checksums before layer-down (`CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 6.3; `governance/CANON_INVENTORY.json`).
-- [ ] **Conflict resolution**: Escalates when local modifications conflict with canonical updates; documents deviations if intentional (rare cases); never silently overwrites governance changes (`CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Sections 6.2, 11).
-- [ ] **Layer-down evidence**: Produces version alignment confirmation, canon file consumption list, agent contract update diffs, PR gate validation evidence, test results, and MANDATORY PREHANDOVER_PROOF for executable artifacts (`CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 6.3; `EXECUTION_BOOTSTRAP_PROTOCOL.md`).
-- [ ] **Version synchronization**: Updates `GOVERNANCE_ALIGNMENT.md` with new canonical commit hash and version after successful layer-down completion (`CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Sections 4.2, 7.1).
-
-## Category 9 — Consumer Repository Registry Operations
-- [ ] **Registry binding**: Reads consumer repository configuration from canonical source `governance/CONSUMER_REPO_REGISTRY.json`; understands this repo's entry includes enabled status, ripple targets, and metadata (`CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Section 7; canonical registry location per governance repo structure).
-- [ ] **Ripple target verification**: Validates that ripple events originate from repositories listed in registry; verifies dispatch payloads match registry-defined sender expectations; rejects ripple from unlisted sources (`CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Sections 4, 7).
-- [ ] **Deterministic targeting**: Respects registry order for ripple processing; skips disabled entries; applies tag-based staged rollout rules if present in registry (`CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Section 7).
-- [ ] **Registry escalation protocol**: Escalates to CS2/governance administrator when registry inconsistencies detected, when circuit breaker trips after 3 failed ripple dispatches, or when ripple SLA violations occur (`CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Sections 6, 8).
-- [ ] **Ripple inbox management**: Records received ripple events to `.agent-admin/governance/ripple-log.json` and updates `.agent-admin/governance/sync_state.json` per consumer expectations protocol (`CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` Section 5).
-
-## Category 10 — Role-Specific Authority Boundaries
-- [ ] **No canon authoring**: Consumer repository role ONLY; prohibited from creating, modifying, or proposing canonical governance artifacts; all governance canon flows from governance repository to consumer repos via layer-down (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Section 3.3.3; `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 1; `governance/baselines/agent-files/governance-liaison.md` Repository Context).
-- [ ] **Sync and layer-down scope only**: Authority limited to receiving governance updates, maintaining version synchronization, updating local governance references, and executing layer-down protocol; no authority over application code, architecture, builds, or QA (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Sections 3.3.1–3.3.4; `REPOSITORY_SEEDING_AND_ENFORCEMENT_ROLE_SEPARATION.md` Section 3.1.3).
-- [ ] **Constitutional change escalation**: Must escalate to CS2 or governance administrator when layer-down includes constitutional changes (Build Philosophy, zero-test-debt, supreme authority documents); cannot approve or apply constitutional updates without explicit human authorization (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Section 7; `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` Section 8; Category 5 stop rules).
-- [ ] **Repository initialization authority**: When explicitly authorized, may perform one-time repository seeding and governance coupling; must follow structured appointment with scope definition and authorization trail (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Sections 3.2, 4, 5; `REPOSITORY_INITIALIZATION_AND_GOVERNANCE_SEEDING_PROTOCOL.md`).
-- [ ] **Self-governance boundaries**: May self-align own contract to resolve drift from canonical baseline, but must follow CS2 agent file authority model for substantive contract changes; cannot bypass contract protection locks (`GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` Section 3.3; `CS2_AGENT_FILE_AUTHORITY_MODEL.md`; `AGENT_CONTRACT_PROTECTION_PROTOCOL.md`; Category 6 prohibitions).
+**Status**: Canonical Governance Validation Checklist  
+**Version**: 1.0.0  
+**Authority**: CS2 (Johan Ras)  
+**Created**: 2026-02-12  
+**Last Updated**: 2026-02-12  
+**Purpose**: Machine-checkable checklist of MANDATORY elements for Governance Liaison (governance-repo-administrator) agent contract compliance with Living Agent System v6.2.0
 
 ---
 
-## Appendix A — Required Canonical Governance Artifacts
+## Executive Summary
 
-This appendix enumerates PUBLIC_API canonical governance artifacts that governance liaison agents MUST read, reference, and layer down per protocol. All artifacts are sourced from `APGI-cmy/maturion-foreman-governance` canonical repository and tracked in `governance/CANON_INVENTORY.json`.
+This document provides a **machine-checkable binding checklist** that defines the **MANDATORY elements** that MUST appear in the Governance Liaison agent contract for the agent to be considered **fully compliant** with Living Agent System v6.2.0.
 
-**Total PUBLIC_API Canons**: 102 (as of 2026-02-11)
+**Critical Principle**: A Governance Liaison contract is INCOMPLETE and the agent is OUT OF GOVERNANCE if ANY required element is missing or non-compliant.
 
-### Core Identity & Purpose
-- `GOVERNANCE_PURPOSE_AND_SCOPE.md` — Supreme authority; defines governance as canonical memory and agent roles
-- `BUILD_PHILOSOPHY.md` — Constitutional principles for one-time build correctness
-
-### Agent Contract & Recruitment
-- `AGENT_RECRUITMENT.md` — Agent legitimacy and recruitment process
-- `AGENT_RECRUITMENT_AND_CONTRACT_AUTHORITY_MODEL.md` — Authority model for agent appointments
-- `AGENT_CONTRACT_MANAGEMENT_PROTOCOL.md` — Single-writer pattern for agent contracts
-- `AGENT_CONTRACT_PROTECTION_PROTOCOL.md` — Locked section protection mechanisms
-- `AGENT_FILE_BINDING_REQUIREMENTS.md` — Mandatory governance bindings for agent files
-- `AGENT_ONBOARDING_QUICKSTART.md` — Agent onboarding process
-- `CS2_AGENT_FILE_AUTHORITY_MODEL.md` — CS2 authority over agent file modifications
-
-### Cross-Repository Layer-Down & Ripple
-- `CROSS_REPOSITORY_LAYER_DOWN_PROTOCOL.md` — Explicit controlled governance propagation protocol
-- `CROSS_REPO_RIPPLE_TRANSPORT_PROTOCOL.md` — Mandatory ripple transport and registry targeting
-- `GOVERNANCE_RIPPLE_MODEL.md` — Ripple signaling mechanism
-- `GOVERNANCE_RIPPLE_DETECTION_PROTOCOL.md` — Ripple detection requirements
-- `GOVERNANCE_RIPPLE_CHECKLIST_PROTOCOL.md` — Step-by-step ripple execution checklist
-- `AGENT_RIPPLE_AWARENESS_OBLIGATION.md` — Ripple awareness obligations for all agents
-- `CROSS_REPOSITORY_RIPPLE_AWARENESS_MODEL.md` — Cross-repo ripple coordination model
-
-### Governance Liaison Role Definition
-- `GOVERNANCE_LIAISON_MINIMUM_APPOINTMENT_REQUIREMENTS.md` — Structural appointment requirements
-- `GOVERNANCE_LIAISON_ROLE_SURVEY.md` — Role derivation from canonical sources
-- `GOVERNANCE_LIAISON_MINIMUM_REQUIREMENTS_VALIDATION.md` — Validation methodology for appointments
-- `GOVERNANCE_LIAISON_TRAINING_PROTOCOL.md` — Training and competency requirements
-- `REPOSITORY_SEEDING_AND_ENFORCEMENT_ROLE_SEPARATION.md` — Liaison vs enforcement vs builder boundaries
-
-### Version Synchronization & Alignment
-- `GOVERNANCE_VERSIONING_AND_SYNC_PROTOCOL.md` — Version semantics and sync process
-- `GOVERNANCE_LAYERDOWN_CONTRACT.md` — Base layer-down requirements
-- `AGENT_CANONICAL_CONTEXT_SYNCHRONISATION_PROTOCOL.md` — Context synchronization for agents
-- `GOVERNANCE_ALIGNMENT_MONITORING_PROTOCOL.md` — Alignment tracking and monitoring
-
-### Execution, Testing & Evidence
-- `EXECUTION_BOOTSTRAP_PROTOCOL.md` — 7-step prehandover verification protocol
-- `PREHANDOVER_PROOF_TEMPLATE.md` — Mandatory evidence template for executable changes
-- `CI_CONFIRMATORY_NOT_DIAGNOSTIC.md` — CI-confirmatory doctrine
-- `AGENT_TEST_EXECUTION_PROTOCOL.md` — Test execution requirements
-- `ZERO_TEST_DEBT_CONSTITUTIONAL_RULE.md` — Zero-test-debt prohibition
-- `STOP_AND_FIX_DOCTRINE.md` — Immediate remediation for warnings/failures
-
-### Gate Protocols & Merge Requirements
-- `MERGE_GATE_PHILOSOPHY.md` — Constitutional merge gate principles
-- `AGENT_CLASS_SPECIFIC_GATE_PROTOCOLS.md` — Per-agent-class gate requirements
-- `AGENT_ROLE_GATE_APPLICABILITY.md` — Which gates apply to which roles
-- `PR_GATE_EVALUATION_AND_ROLE_PROTOCOL.md` — Gate evaluation procedures
-- `FM_MERGE_GATE_MANAGEMENT_PROTOCOL.md` — FM authority over gates
-- `BUILDER_FIRST_PR_MERGE_MODEL.md` — First PR merge requirements for builders
-
-### Authority Models & Supervision
-- `FOREMAN_AUTHORITY_AND_SUPERVISION_MODEL.md` — FM as sole recruiting authority
-- `PLATFORM_AUTHORITY_BOUNDARY_AND_DELEGATION_MODEL.md` — Platform authority boundaries
-- `SELF_ALIGNMENT_AUTHORITY_MODEL.md` — Self-alignment permissions and constraints
-- `COGNITIVE_HYGIENE_AUTHORITY_MODEL.md` — Cognitive hygiene governance
-
-### Repository Initialization & Structure
-- `REPOSITORY_INITIALIZATION_AND_GOVERNANCE_SEEDING_PROTOCOL.md` — Repo seeding process
-- `FPC_REPOSITORY_LAYERDOWN_GUIDE.md` — Single entry point for layer-down execution
-- `GOVERNANCE_CANON_MANIFEST.md` — Canonical file inventory with layer-down status
-
-### Escalation & Compliance
-- `CASCADING_FAILURE_CIRCUIT_BREAKER.md` — Cascading failure prevention
-- `WARNING_DISCOVERY_BLOCKER_PROTOCOL.md` — Warning escalation requirements
-- `MANDATORY_ENHANCEMENT_CAPTURE_DOCTRINE.md` — Enhancement capture obligations
-- `GOVERNANCE_COMPLETENESS_MODEL.md` — Governance coverage requirements
-- `AUDIT_READINESS_MODEL.md` — Audit trail and evidence standards
-
-### Architecture & Build Requirements
-- `ARCHITECTURE_COMPLETENESS_REQUIREMENTS.md` — Frozen architecture validation
-- `BUILD_PHILOSOPHY.md` — One-time build correctness principles
-- `BUILD_TREE_EXECUTION_MODEL.md` — Build execution model
-- `BUILD_NODE_INSPECTION_MODEL.md` — Build node validation
-- `BUILDER_CONTRACT_BINDING_CHECKLIST.md` — Builder agent contract requirements
-
-### Specialized Protocols
-- `FOREMAN_MEMORY_PROTOCOL.md` — FM persistent memory model
-- `FOREMAN_WAVE_PLANNING_AND_ISSUE_ARTIFACT_GENERATION_PROTOCOL.md` — Wave planning procedures
-- `FM_RUNTIME_ENFORCEMENT_AND_AWARENESS_MODEL.md` — Runtime governance enforcement
-- `ACTIVATION_STATE_MODEL.md` — System activation states
-- `RIPPLE_INTELLIGENCE_LAYER.md` — Ripple intelligence and correlation
-
-**Artifact Version Tracking**: All artifact versions, effective dates, SHA256 checksums, and layer-down status (`PUBLIC_API`, `INTERNAL`, `OPTIONAL`) are maintained in `governance/CANON_INVENTORY.json` (version 1.0.0, 135 total canons, last updated 2026-02-11).
-
-**Usage Notes**:
-- Governance liaison MUST verify artifact checksums against `CANON_INVENTORY.json` before layer-down
-- Only PUBLIC_API artifacts may be consumed by consumer repositories
-- INTERNAL artifacts are off-limits per constitutional prohibition
-- OPTIONAL artifacts may be referenced if repository opts in
-- Version mismatches trigger drift detection and mandatory alignment
-
-**Registry Location**: `governance/CONSUMER_REPO_REGISTRY.json` in canonical governance repository (referenced but not layered down to consumers; read-only access for verification).
+This checklist implements:
+- Living Agent System v6.2.0 (all 56 requirements)
+- Governance repository administration
+- Ripple enforcement and tracking
+- Inventory integrity maintenance
+- Gate stewardship
+- 30,000 Character Limit Enforcement
 
 ---
 
-**Usage**: Any unchecked item blocks `governance-liaison-v2.agent.md`. Cite the referenced source directly in the contract section that satisfies the requirement. If canonical inputs are missing or degraded, halt and escalate per Category 5.
+## Usage Instructions
+
+### For Contract Authors
+
+When creating or updating the Governance Liaison contract:
+1. Verify ALL checklist items are present and compliant
+2. Mark items as ✅ (present) or ❌ (missing)
+3. Contract is VALID only if ALL required items are ✅
+4. Character count MUST be < 30,000 (GitHub UI selectability)
+
+### For Validation Tooling
+
+Automated validators MUST:
+1. Parse agent contract file (.github/agents/governance-repo-administrator-v2.agent.md)
+2. Verify each checklist item
+3. Validate character count < 30,000
+4. Return VALID only if 100% compliance achieved
+5. Block merge if validation fails
+
+---
+
+## SECTION 1: MANDATORY COMPONENTS
+
+### 1.1 YAML Frontmatter
+
+- **Requirement**: MANDATORY
+- **Validation**: Valid YAML with ALL required fields
+- **Required Fields**:
+  - `id: governance-repo-administrator`
+  - `description: [mission statement]`
+  - `agent.id: governance-repo-administrator`
+  - `agent.class: administrator`
+  - `agent.version: 6.2.0`
+  - `agent.contract_version: [version]`
+  - `governance.protocol: LIVING_AGENT_SYSTEM`
+  - `governance.canon_inventory: governance/CANON_INVENTORY.json`
+  - `governance.expected_artifacts: [list]`
+  - `governance.degraded_on_placeholder_hashes: true`
+  - `governance.degraded_action: escalate_and_block_merge`
+  - `merge_gate_interface.required_checks: [list of 3 checks]`
+  - `scope.repository: [repo name]`
+  - `scope.read_access: ["**/*"]`
+  - `scope.write_access: [list including governance/**]`
+  - `scope.escalation_required: [list including governance/canon/**]`
+  - `capabilities.governance_ops: [list]`
+  - `capabilities.evidence: [list]`
+  - `capabilities.security: [list]`
+  - `capabilities.validation: [list]`
+  - `execution_identity.name: "Maturion Bot"`
+  - `execution_identity.secret: "[secret-name]"` (e.g., "MATURION_BOT_TOKEN")
+  - `execution_identity.never_push_main: true`
+  - `execution_identity.write_via_pr: true`
+  - `prohibitions: [list]`
+  - `metadata.canonical_home: [repo]`
+  - `metadata.this_copy: canonical`
+  - `metadata.authority: CS2`
+  - `metadata.last_updated: YYYY-MM-DD`
+- **Severity if Missing**: BLOCKER - Cannot parse agent configuration
+
+### 1.2 Mission Statement
+
+- **Requirement**: MANDATORY
+- **Validation**: Clear mission statement defining governance administration role
+- **Required Elements**:
+  - Canonical governance repository operation
+  - Inventory integrity maintenance
+  - Ripple stewardship
+  - Merge gate enforcement
+  - Evidence-first operations
+- **Severity if Missing**: HIGH - Agent purpose unclear
+
+### 1.3 Wake-Up Protocol
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains wake-up protocol
+- **Required Elements**:
+  - Script reference: `.github/scripts/wake-up-protocol.sh` or embedded protocol
+  - Load last 5 memories
+  - Governance state validation
+  - Environment health check
+  - CANON_INVENTORY validation
+  - Degraded-mode escalation on placeholder/truncated PUBLIC_API hashes
+  - Working contract generation
+- **Severity if Missing**: BLOCKER - Agent cannot initialize
+
+### 1.4 Session Memory Protocol
+
+- **Requirement**: MANDATORY
+- **Validation**: Complete session memory protocol with v6.2.0
+- **Required Elements**:
+  - Session memory file creation template
+  - Memory rotation protocol (≤5 sessions)
+  - Evidence capture protocol
+  - Escalation creation in `.agent-workspace/governance-repo-administrator/escalation-inbox/`
+  - Session closure script reference
+- **Severity if Missing**: HIGH - Cannot track agent history
+
+### 1.5 Core Protocols Section
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains core operational protocols
+- **Required Elements**:
+  - Wake-up protocol with REQ-AS-005 reference
+  - Session closure protocol with REQ-EO-005, REQ-ER-003/004 references
+  - Execution identity with REQ-SS-001/003 references
+  - Branch protection requirement for three Merge Gate Interface contexts (REQ-MGI-004)
+- **Severity if Missing**: BLOCKER - Cannot operate correctly
+
+### 1.6 Operating Boundaries & Escalations
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains escalation rules
+- **Required Elements**:
+  - CS2 approval requirements for constitutional canon changes (REQ-CM-003, REQ-CM-005)
+  - Degraded alignment handling (REQ-SS-004)
+  - Structured escalation creation (REQ-AG-002/004, REQ-AS-003)
+  - Authority boundary conflict escalation
+- **Severity if Missing**: HIGH - Cannot escalate properly
+
+### 1.7 Requirement Mappings (All 56)
+
+- **Requirement**: MANDATORY
+- **Validation**: All 56 requirements explicitly mapped with line references
+- **Required Mappings**:
+  - REQ-CM-001..005: Canon Management
+  - REQ-ER-001..005: Evidence & Records
+  - REQ-RA-001..006: Ripple & Alignment
+  - REQ-GC-001..005: Gate Compliance
+  - REQ-AS-001..005: Authority & Self-Alignment
+  - REQ-EO-001..006: Execution & Operations
+  - REQ-MGI-001..005: Merge Gate Interface
+  - REQ-CR-001..005: Coordination & Reporting
+  - REQ-SS-001..005: Security & Safety
+  - REQ-AG-001..004: Ambiguities & Gaps
+- **Severity if Missing**: BLOCKER - Cannot verify compliance
+
+---
+
+## SECTION 2: GOVERNANCE LIAISON SPECIFIC REQUIREMENTS
+
+### 2.1 CANON_INVENTORY Maintenance (REQ-CM-001, REQ-CM-002)
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains CANON_INVENTORY maintenance protocol
+- **Required Elements**:
+  - Full sha256 hash maintenance
+  - Provenance recording (effective_date, version)
+  - Placeholder hash detection and escalation
+  - Inventory synchronization protocol
+- **Severity if Missing**: BLOCKER - Cannot maintain governance inventory
+
+### 2.2 Ripple Stewardship (REQ-RA-001..006, REQ-CR-002..003)
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains ripple execution and tracking protocol
+- **Required Elements**:
+  - Constitutional canon change detection
+  - Ripple dispatch to consumer repositories
+  - Ripple log creation and tracking
+  - Bidirectional ripple flow logging
+  - CONSUMER_REPO_REGISTRY maintenance
+  - Cross-repo impact analysis
+- **Severity if Missing**: BLOCKER - Cannot propagate governance changes
+
+### 2.3 Merge Gate Interface Stewardship (REQ-GC-001..005, REQ-MGI-001..005)
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains merge gate workflow maintenance protocol
+- **Required Elements**:
+  - Workflow maintenance (named "Merge Gate Interface")
+  - GATE_REQUIREMENTS_INDEX maintenance
+  - Pull request classification (deterministic)
+  - Three required contexts enforcement
+  - Verdict gate evidence validation
+  - Alignment gate hash comparison
+  - Stop-and-fix gate RCA enforcement
+  - Fail-fast, evidence-first messaging
+- **Severity if Missing**: BLOCKER - Cannot enforce merge gates
+
+### 2.4 Protected File Enforcement (REQ-SS-002, REQ-CM-005)
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains protected file detection and approval enforcement
+- **Required Elements**:
+  - Constitutional canon protection
+  - Agent contract protection (.github/agents/**)
+  - Protected file list in escalation_required
+  - CS2 approval requirement for protected file changes
+- **Severity if Missing**: HIGH - Cannot protect governance artifacts
+
+### 2.5 Evidence Preservation (REQ-ER-001..005)
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains evidence preservation protocol
+- **Required Elements**:
+  - Immutable evidence artifacts
+  - Date/Author inclusion in evidence
+  - Structured session memories
+  - Memory rotation (≤5 active sessions)
+  - Audit trail via PR-only writes
+  - No evidence mutation in-place
+- **Severity if Missing**: HIGH - Cannot maintain audit trail
+
+---
+
+## SECTION 3: CAPABILITIES
+
+### 3.1 Governance Operations Capabilities
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains governance_ops capabilities
+- **Required Capabilities**:
+  - Maintain CANON_INVENTORY with full hashes and provenance
+  - Steward ripple execution and tracking
+  - Maintain merge gate interface workflows
+  - Maintain GATE_REQUIREMENTS_INDEX
+- **Severity if Missing**: HIGH - Cannot perform governance operations
+
+### 3.2 Evidence Capabilities
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains evidence capabilities
+- **Required Capabilities**:
+  - Preserve immutable evidence
+  - Session memory rotation
+  - Audit trail via PR-only writes
+- **Severity if Missing**: HIGH - Cannot maintain evidence
+
+### 3.3 Security Capabilities
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains security capabilities
+- **Required Capabilities**:
+  - Enforce protected-file approvals
+  - Degraded-mode escalation
+  - Token rotation adherence
+- **Severity if Missing**: HIGH - Cannot enforce security
+
+### 3.4 Validation Capabilities
+
+- **Requirement**: MANDATORY
+- **Validation**: Contains validation capabilities
+- **Required Capabilities**:
+  - Syntax/cross-reference/inventory validation
+  - Script testing with dry-run
+  - Gap analysis execution
+  - Ambiguity escalation
+- **Severity if Missing**: HIGH - Cannot validate governance
+
+---
+
+## SECTION 4: PROHIBITIONS
+
+### 4.1 Core Prohibitions
+
+- **Requirement**: MANDATORY
+- **Validation**: All core prohibitions listed
+- **Required Prohibitions**:
+  - No canon semantic changes without CS2 approval and ripple
+  - No bypass of merge gate interface
+  - No bypass of protected file detection
+  - No governance interpretation beyond authority; escalate ambiguities
+  - No skipping wake-up or session closure protocols
+  - No evidence mutation in-place; create new artifacts
+  - No edits to this agent contract except via CS2-approved issue
+- **Severity if Missing**: BLOCKER - Agent may violate governance
+
+---
+
+## SECTION 5: VALIDATION REQUIREMENTS
+
+### 5.1 File Size Validation
+
+- **Requirement**: MANDATORY (BLOCKING)
+- **Validation**: Character count MUST be < 30,000
+- **Enforcement**: Pre-PR creation validation
+- **Test Command**: `wc -m < .github/agents/governance-repo-administrator-v2.agent.md`
+- **Severity if Exceeded**: BLOCKER - Violates GitHub UI selectability
+
+### 5.2 Version Consistency
+
+- **Requirement**: MANDATORY
+- **Validation**: All version references MUST be v6.2.0
+- **Check Locations**:
+  - YAML frontmatter: `agent.version: 6.2.0`
+  - Session memory template: `Living Agent System v6.2.0`
+  - Mission header: `Living Agent System v6.2.0`
+- **Severity if Inconsistent**: HIGH - Version regression detected
+
+### 5.3 CANON_INVENTORY Alignment
+
+- **Requirement**: MANDATORY
+- **Validation**: References correct CANON_INVENTORY path
+- **Required Path**: `governance/CANON_INVENTORY.json`
+- **Degraded Mode**: Escalate and block merge on placeholder/truncated PUBLIC_API hashes
+- **Severity if Missing**: BLOCKER - Cannot validate governance alignment
+
+---
+
+## VALIDATION SUMMARY
+
+**Total Required Items**: 56 requirements + Governance-specific capabilities + Prohibitions
+
+**Compliance Threshold**: 100% (ALL items MUST be ✅)
+
+**Character Limit**: < 30,000 characters (BLOCKING)
+
+**Version Requirement**: Living Agent System v6.2.0
+
+**CS2 Authorization**: REQUIRED for contract modifications
+
+---
+
+## Authority
+
+**Living Agent System**: v6.2.0  
+**Checklist Version**: 1.0.0  
+**Authority**: CS2 (Johan Ras)  
+**Canonical Home**: APGI-cmy/maturion-foreman-governance  
+**Last Updated**: 2026-02-12  
+**Review Frequency**: Quarterly
