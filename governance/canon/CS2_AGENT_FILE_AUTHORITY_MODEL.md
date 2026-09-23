@@ -1,7 +1,8 @@
 # CS2 AGENT FILE AUTHORITY MODEL
 
-**Version**: 2.0.0  
+**Version**: 2.0.1
 **Date**: 2026-01-21  
+**Amended**: 2026-09-22 — active-CS2 successor contract creation and activation clarified
 **Status**: Active  
 **Type**: Constitutional Governance Rule  
 **Authority**: Supreme - Canonical  
@@ -28,6 +29,41 @@ CS2 (Johan Ras in bootstrap mode, Maturion in production) retains **supreme auth
 7. **Auditability**: All modifications traceable through authority hierarchy
 
 **Historical Context**: v1.0.0 (2026-01-20) established CS2 exclusive authority, eliminating agent-contract-administrator intermediary. v2.0.0 (2026-01-21) introduces granular delegation while maintaining CS2 supremacy and constitutional protections.
+
+---
+
+## CS2-Issue Authorization Requirement
+
+This section defines a universal requirement that applies to all authority levels (0-4) described in the granular authority hierarchy below.
+
+**MANDATORY**: All modifications to any `.agent` contract file MUST be explicitly authorized via a CS2-approved GitHub issue.
+
+**Universal Application**:
+- Applies to ALL agents, automation, workflows, and human operators
+- Applies to ALL authority levels (0-4), including CS2
+- No exceptions based on agent class, repository, or urgency
+
+**Requirements**:
+1. **Pre-Authorization**: GitHub issue must exist and be CS2-approved BEFORE any `.agent` file modification
+2. **Explicit Scope**: Issue must explicitly state which files and what changes are authorized
+3. **Traceability**: All commits and PRs must reference the authorizing issue number
+4. **Auditability**: Issue serves as permanent audit record of authorization
+
+**CS2 Role**:
+- CS2 creates or approves the authorizing issue
+- For CS2's own modifications, CS2 both creates and approves the issue (maintaining traceability)
+- Issue provides the authorization context and rationale
+
+**Rationale**:
+- **Governance Integrity**: Agent contracts are constitutional; require centralized control
+- **Traceability**: Every change traceable to explicit authorization
+- **Prevention**: Blocks unauthorized modifications (accidental or malicious)
+- **Accountability**: Clear record of who authorized what and when
+
+**Enforcement**:
+- All `.agent` files include prohibition statement referencing this requirement
+- PRs modifying `.agent` files must reference CS2-approved issue
+- CI/CD should validate issue authorization exists
 
 ---
 
@@ -63,7 +99,9 @@ Level 4: Builder Agents (No modification authority)
 
 **Rationale**: CS2 is ultimate authority and must retain ability to intervene at any level for constitutional enforcement, emergency fixes, or strategic changes.
 
-**Implementation Authority**: Direct file modification, no escalation required.
+**Implementation Authority**: Direct file modification via CS2-approved issue authorization.
+
+**CS2-Issue Authorization**: All modifications, even by CS2, MUST be authorized via a GitHub issue for traceability and auditability. CS2 creates and approves the authorizing issue.
 
 ---
 
@@ -594,6 +632,10 @@ This model **works with**:
 ---
 
 ## Version History
+
+**Version 2.0.1** (2026-09-22)
+- Active-CS2 successor contracts remain CS2-authorised agent-contract work and require CodexAdvisor creation, independent IAA review, and human CS2 approval before activation.
+- Authority derives from `ACTIVE_CS2_AUTOMATED_WORKFLOW_GOVERNANCE.md`; this change does not activate a successor or alter any existing delegation.
 
 **Version 2.0.0** (2026-01-21)  
 - **MAJOR UPDATE**: Introduces granular 5-level authority hierarchy
